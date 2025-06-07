@@ -1,4 +1,4 @@
-<!-- index.html z biała kolorystyka v1-->
+<!-- index.HTML update kolorystki i obrazki v2 -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -13,14 +13,13 @@
     <!-- Dołączony plik ze wspólnymi stylami i animacjami -->
     <link rel="stylesheet" href="common-styles.css">
     <style>
-        /* Dostosowane style, aby pasowały do nowej kolorystyki i tła */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC; /* Jasne tło z common-styles */
-            color: #1E293B; /* Ciemny tekst z common-styles */
+            background-color: #F8FAFC;
+            color: #1E293B;
         }
 
-        /* Sekcja Hero z obrazem w tle */
+        /* --- Sekcja Hero --- */
         .hero-section {
             position: relative;
             background-image: url('assets/images/main/main_hero_background.png');
@@ -35,7 +34,6 @@
             margin: 1rem;
         }
 
-        /* Półprzezroczysta nakładka dla lepszej czytelności tekstu */
         .hero-section::before {
             content: '';
             position: absolute;
@@ -47,7 +45,6 @@
             z-index: 1;
         }
 
-        /* Upewnienie się, że treść jest nad nakładką */
         .hero-content {
             position: relative;
             z-index: 2;
@@ -58,54 +55,105 @@
         .main-title {
             font-size: 3rem;
             font-weight: 700;
-            color: #f9fafb; /* Biały kolor dla kontrastu */
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Cień dla czytelności */
+            color: #f9fafb;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
             margin-bottom: 1rem;
         }
         .subtitle {
             font-size: 1.25rem;
-            color: #d1d5db; /* Jasnoszary tekst */
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Cień dla czytelności */
+            color: #d1d5db;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
             margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
+
+        /* --- Główny kontener strony --- */
         .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 2rem 1rem;
+            width: 100%;
+            padding: 1rem 0;
         }
+        
+        /* --- NOWA SEKCJA Z TŁEM DLA KART USŁUG --- */
+        .services-background-container {
+            position: relative;
+            width: calc(100% - 2rem);
+            margin: 2rem 1rem;
+            padding: 4rem 1rem;
+            background-image: url('assets/images/main/main_rob_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efekt paralaksy */
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        /* Nakładka przyciemniająca na tło dla lepszego kontrastu */
+        .services-background-container::before {
+             content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
         .card-container {
+            position: relative;
+            z-index: 2; /* Karty muszą być nad nakładką */
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
             justify-content: center;
             width: 100%;
-            max-width: 1200px; /* Zwiększona szerokość dla lepszego układu */
-            margin-top: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+        
+        /* --- ZMODYFIKOWANE KARTY USŁUG (EFEKT SZKŁA) --- */
         .service-card {
-            background-color: #ffffff; /* Białe tło kart */
+            /* Efekt "Glassmorphism" */
+            background-color: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            
+            color: #f9fafb; /* Jasny tekst na ciemnym tle */
             border-radius: 0.75rem;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
             max-width: 420px;
-            border: 1px solid #E2E8F0; /* Jasne obramowanie */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
         }
+
+        .service-card h2.card-main-title {
+            color: #ffffff;
+            font-size: 1.75rem;
+        }
+        .service-card h3.card-subtitle, .service-card p {
+            color: #d1d5db;
+        }
+        .service-card p {
+            flex-grow: 1;
+        }
+        
         .service-card-icon-container {
             height: 100px;
             width: 100px;
@@ -119,7 +167,7 @@
             max-width: 100%;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid var(--primary-accent-color); /* Użycie koloru akcentu */
+            border: 3px solid var(--primary-accent-color);
         }
         
         .ai-services-container {
@@ -141,48 +189,23 @@
         .ai-service-item .service-card-icon-container {
             height: 80px;
             width: 80px;
-            margin-bottom: 0.75rem;
-        }
-         .ai-service-item img.card-logo {
-            border: 2px solid var(--primary-accent-color);
-        }
-
-
-        .service-card h2.card-main-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1E293B; /* Ciemny tekst */
-            margin-bottom: 0.25rem;
-        }
-        .service-card h3.card-subtitle {
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: #475569; /* Ciemniejszy szary */
-            margin-bottom: 1rem;
-            min-height: 2.25rem;
-        }
-        .service-card p {
-            color: #475569; /* Ciemniejszy szary */
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
         }
         
         .service-card a.button-link {
             display: inline-block;
-            background-color: var(--primary-accent-color); /* Użycie koloru akcentu */
-            color: #ffffff; /* Biały tekst na przycisku */
+            background-color: var(--primary-accent-color);
+            color: #1E293B; /* Ciemny tekst dla lepszego kontrastu na jasnym przycisku */
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 600;
             text-decoration: none;
-            transition: background-color 0.3s ease;
-            width: auto; /* Automatyczna szerokość */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: auto;
             max-width: 220px;
         }
         .service-card a.button-link:hover {
-            background-color: var(--primary-accent-hover-color); /* Ciemniejszy akcent po najechaniu */
+            background-color: var(--primary-accent-hover-color);
+            transform: scale(1.05);
         }
 
         @media (min-width: 768px) {
@@ -203,49 +226,46 @@
             </div>
         </div>
         
-        <div class="card-container">
-            <!-- Karta AI Solutions z animacją -->
-            <div class="service-card animate-on-scroll aos-fade-in-up">
-                <h2 class="card-main-title">AI Solutions</h2>
-                <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
-                
-                <div class="ai-services-container">
-                    <div class="ai-service-item">
-                        <div class="service-card-icon-container">
-                            <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
+        <!-- Sekcja z kartami usług na tle grafiki -->
+        <div class="services-background-container">
+             <div class="card-container">
+                <!-- Karta AI Solutions z animacją -->
+                <div class="service-card animate-on-scroll aos-fade-in-up">
+                    <h2 class="card-main-title">AI Solutions</h2>
+                    <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
+                    
+                    <div class="ai-services-container">
+                        <div class="ai-service-item">
+                            <div class="service-card-icon-container">
+                                <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
+                            </div>
+                            <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Strony WWW, poznaj ofertę</a>
                         </div>
-                        <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Strony WWW, poznaj ofertę</a>
-                    </div>
-                    <div class="ai-service-item">
-                        <div class="service-card-icon-container">
-                            <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
+                        <div class="ai-service-item">
+                            <div class="service-card-icon-container">
+                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
+                            </div>
+                            <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="button-link">Aplikacje webowe</a>
                         </div>
-                        <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="button-link">Aplikacje webowe</a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Karta Robotics Solution z animacją -->
-            <div class="service-card animate-on-scroll aos-fade-in-up aos-delay-200ms">
-                <h2 class="card-main-title">Robotics Solution</h2>
-                <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
-                <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
-                <div class="service-card-icon-container">
-                    <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
+                <!-- Karta Robotics Solution z animacją -->
+                <div class="service-card animate-on-scroll aos-fade-in-up aos-delay-200ms">
+                    <h2 class="card-main-title">Robotics Solution</h2>
+                    <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
+                    <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
+                    <div class="service-card-icon-container">
+                        <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
+                    </div>
+                    <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Dowiedz się więcej</a>
                 </div>
-                <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Dowiedz się więcej</a>
             </div>
         </div>
-        
-        <!-- Grafika przeniesiona za sekcje kart -->
-        <div class="w-full max-w-5xl mx-auto my-12 animate-on-scroll aos-zoom-in">
-             <img src="assets/images/main/main_rob_pic.png" alt="Robot przemysłowy na linii produkcyjnej samochodów" class="rounded-lg shadow-2xl">
-        </div>
-
     </div>
 
     <!-- NOWA STOPKA Z SZABLONU -->
-    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white w-full mt-12">
+    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white w-full mt-auto">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center">
                 <a href="https://michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block mb-4 transition-transform hover:scale-105">
@@ -263,7 +283,6 @@
     
     <!-- Skrypt do animacji i dynamicznego roku w stopce -->
     <script>
-        // Skrypt do animacji pojawiania się elementów przy przewijaniu
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -272,20 +291,19 @@
                     }
                 });
             }, {
-                threshold: 0.1 // Element jest widoczny w 10%
+                threshold: 0.1
             });
 
             const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
             elementsToAnimate.forEach(el => {
                 observer.observe(el);
             });
-        });
 
-        // Skrypt do dynamicznego wstawiania aktualnego roku w stopce
-        const yearSpan = document.getElementById('currentYear');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
     </script>
 
 </body>
