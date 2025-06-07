@@ -1,4 +1,4 @@
-<!-- index.html v5 7 czerwca 2025 9:42 PM  -->
+<!-- index.HTML v4 hero update 20250607h2205 -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -37,6 +37,7 @@
             padding: 4rem 1rem;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* Efekt paralaksy */
             border-radius: 0.75rem;
             overflow: hidden;
             display: flex;
@@ -44,15 +45,12 @@
             justify-content: center;
         }
         
-        /* POPRAWKA: Efekt paralaksy (fixed) tylko dla Hero */
         .hero-bg {
              background-image: url('assets/images/main/main_hero_background.png');
-             background-attachment: fixed;
         }
 
         .services-bg {
             background-image: url('assets/images/main/main_rob_pic.png');
-            /* Domyślne przewijanie tła (scroll) */
         }
 
         /* Nakładka przyciemniająca na tło dla lepszego kontrastu */
@@ -205,7 +203,7 @@
 
     <div class="content-wrapper">
         
-        <!-- SEKCJA HERO Z EFEKTEM PARALAKSY -->
+        <!-- ZUNIFIKOWANA SEKCJA HERO -->
         <div class="background-container hero-bg animate-on-scroll aos-fade-in">
              <div class="hero-card glass-effect">
                 <h1 class="main-title">Michał Rąpała</h1>
@@ -213,7 +211,7 @@
             </div>
         </div>
         
-        <!-- SEKCJA USŁUG (STANDARDOWE TŁO) -->
+        <!-- ZUNIFIKOWANA SEKCJA USŁUG -->
         <div class="background-container services-bg">
              <div class="card-container">
                 <!-- Karta AI Solutions -->
@@ -225,11 +223,11 @@
                             <div class="service-card-icon-container">
                                 <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
                             </div>
-                            <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Strony WWW, poznaj ofertę</a>
+                            <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Strony WWW</a>
                         </div>
                         <div class="ai-service-item">
                             <div class="service-card-icon-container">
-                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https.placehold.co/80x80/ffffff/1E293B?text=App';">
+                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                             </div>
                             <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="button-link">Aplikacje webowe</a>
                         </div>
@@ -242,7 +240,7 @@
                     <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
                     <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
                     <div class="service-card-icon-container">
-                        <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https.placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
+                        <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
                     </div>
                     <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Dowiedz się więcej</a>
                 </div>
