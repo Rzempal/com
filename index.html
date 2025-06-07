@@ -1,102 +1,292 @@
-<!--  index.html z Tłem Graficznym -->
+<!-- index.html z biała kolorystyka v1-->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="pageTitleIndex">Rąpała AI - Rozwiązania dla Przemysłu i Biznesu</title>
+    <title>michalrapala.com Rozwiązania AI dla Przemysłu i Biznesu</title>
     <link rel="icon" type="image/png" href="assets/images/global/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Dołączony plik ze wspólnymi stylami i animacjami -->
     <link rel="stylesheet" href="common-styles.css">
+    <style>
+        /* Dostosowane style, aby pasowały do nowej kolorystyki i tła */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* Jasne tło z common-styles */
+            color: #1E293B; /* Ciemny tekst z common-styles */
+        }
+
+        /* Sekcja Hero z obrazem w tle */
+        .hero-section {
+            position: relative;
+            background-image: url('assets/images/main/main_hero_background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 6rem 1rem;
+            text-align: center;
+            color: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin: 1rem;
+        }
+
+        /* Półprzezroczysta nakładka dla lepszej czytelności tekstu */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        /* Upewnienie się, że treść jest nad nakładką */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #f9fafb; /* Biały kolor dla kontrastu */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Cień dla czytelności */
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: #d1d5db; /* Jasnoszary tekst */
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Cień dla czytelności */
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px; /* Zwiększona szerokość dla lepszego układu */
+            margin-top: 3rem;
+        }
+        .service-card {
+            background-color: #ffffff; /* Białe tło kart */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid #E2E8F0; /* Jasne obramowanie */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        .service-card-icon-container {
+            height: 100px;
+            width: 100px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .service-card img.card-logo {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--primary-accent-color); /* Użycie koloru akcentu */
+        }
+        
+        .ai-services-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .ai-service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex-basis: 45%;
+        }
+        .ai-service-item .service-card-icon-container {
+            height: 80px;
+            width: 80px;
+            margin-bottom: 0.75rem;
+        }
+         .ai-service-item img.card-logo {
+            border: 2px solid var(--primary-accent-color);
+        }
+
+
+        .service-card h2.card-main-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1E293B; /* Ciemny tekst */
+            margin-bottom: 0.25rem;
+        }
+        .service-card h3.card-subtitle {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #475569; /* Ciemniejszy szary */
+            margin-bottom: 1rem;
+            min-height: 2.25rem;
+        }
+        .service-card p {
+            color: #475569; /* Ciemniejszy szary */
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .service-card a.button-link {
+            display: inline-block;
+            background-color: var(--primary-accent-color); /* Użycie koloru akcentu */
+            color: #ffffff; /* Biały tekst na przycisku */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            width: auto; /* Automatyczna szerokość */
+            max-width: 220px;
+        }
+        .service-card a.button-link:hover {
+            background-color: var(--primary-accent-hover-color); /* Ciemniejszy akcent po najechaniu */
+        }
+
+        @media (min-width: 768px) {
+            .service-card {
+                width: calc(50% - 1rem);
+            }
+        }
+    </style>
 </head>
-<body data-page-name="Index" class="bg-slate-50">
+<body>
 
-    <div id="navbar-placeholder"></div>
-
-    <!-- Główna zawartość strony -->
-    <main>
-        <!-- NOWA SEKCJA HERO Z TŁEM GRAFICZNYM -->
-        <section class="relative text-center py-20 md:py-32 overflow-hidden">
-            <!-- Tło graficzne i overlay -->
-            <div class="absolute inset-0 z-0">
-                <img src="assets/images/main/main_hero_background.png" alt="Tło AI i robotyki" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-slate-900/50"></div> <!-- Przyciemniający overlay -->
+    <div class="content-wrapper">
+        <!-- Sekcja Hero z tłem -->
+        <div class="hero-section animate-on-scroll aos-fade-in">
+            <div class="hero-content">
+                <h1 class="main-title">Michał Rąpała</h1>
+                <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
-            
-            <!-- Treść sekcji Hero -->
-            <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 animate-on-scroll aos-fade-in-down" data-lang-key="heroMainText">
-                    Michał Rąpała
-                </h1>
-                <p class="max-w-2xl mx-auto text-lg text-slate-200 mb-12 animate-on-scroll aos-fade-in-up aos-delay-100ms">
-                    Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:
+        </div>
+        
+        <div class="card-container">
+            <!-- Karta AI Solutions z animacją -->
+            <div class="service-card animate-on-scroll aos-fade-in-up">
+                <h2 class="card-main-title">AI Solutions</h2>
+                <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
+                
+                <div class="ai-services-container">
+                    <div class="ai-service-item">
+                        <div class="service-card-icon-container">
+                            <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
+                        </div>
+                        <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Strony WWW, poznaj ofertę</a>
+                    </div>
+                    <div class="ai-service-item">
+                        <div class="service-card-icon-container">
+                            <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
+                        </div>
+                        <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="button-link">Aplikacje webowe</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Karta Robotics Solution z animacją -->
+            <div class="service-card animate-on-scroll aos-fade-in-up aos-delay-200ms">
+                <h2 class="card-main-title">Robotics Solution</h2>
+                <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
+                <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
+                <div class="service-card-icon-container">
+                    <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
+                </div>
+                <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Dowiedz się więcej</a>
+            </div>
+        </div>
+        
+        <!-- Grafika przeniesiona za sekcje kart -->
+        <div class="w-full max-w-5xl mx-auto my-12 animate-on-scroll aos-zoom-in">
+             <img src="assets/images/main/main_rob_pic.png" alt="Robot przemysłowy na linii produkcyjnej samochodów" class="rounded-lg shadow-2xl">
+        </div>
+
+    </div>
+
+    <!-- NOWA STOPKA Z SZABLONU -->
+    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white w-full mt-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center">
+                <a href="https://michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block mb-4 transition-transform hover:scale-105">
+                    <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
+                </a>
+                <p class="text-sm">
+                    &copy; <span id="currentYear"></span> Michał Rąpała AI Solutions. Wszelkie prawa zastrzeżone.
+                </p>
+                <p class="text-xs mt-1">
+                    Strona stworzona z pasją i wsparciem AI.
                 </p>
             </div>
-        </section>
+        </div>
+    </footer>
+    
+    <!-- Skrypt do animacji i dynamicznego roku w stopce -->
+    <script>
+        // Skrypt do animacji pojawiania się elementów przy przewijaniu
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Element jest widoczny w 10%
+            });
 
-        <!-- Sekcja z kartami usług -->
-        <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="flex flex-wrap gap-8 justify-center w-full max-w-5xl mx-auto">
-                
-                <!-- Karta AI Solutions (bez zmian tła) -->
-                <div class="flex flex-col items-center bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-transform hover:-translate-y-1 border border-slate-200 w-full md:w-[calc(50%-1rem)] animate-on-scroll aos-fade-in-left aos-delay-200ms">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-4">AI Solutions</h2>
-                    <p class="text-slate-500 mb-6 flex-grow text-center">
-                        Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!
-                    </p>
-                    
-                    <div class="flex justify-around items-start gap-4 w-full mt-4 mb-4">
-                        <div class="flex flex-col items-center text-center basis-[45%]">
-                            <div class="h-20 w-20 mb-3 flex items-center justify-center">
-                                <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="max-h-full max-w-full object-cover rounded-full border-2 border-primary-accent" onerror="this.onerror=null;this.src='https://placehold.co/80x80/E0F2FE/0EA5E9?text=WWW';">
-                            </div>
-                            <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block bg-primary-accent text-white py-2 px-4 rounded-md font-semibold no-underline transition-colors hover:bg-primary-accent-hover text-sm w-full max-w-[180px]">
-                                Strony WWW, poznaj ofertę
-                            </a>
-                        </div>
-                        <div class="flex flex-col items-center text-center basis-[45%]">
-                            <div class="h-20 w-20 mb-3 flex items-center justify-center">
-                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="max-h-full max-w-full object-cover rounded-full border-2 border-primary-accent" onerror="this.onerror=null;this.src='https://placehold.co/80x80/E0F2FE/0EA5E9?text=App';">
-                            </div>
-                            <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="inline-block bg-primary-accent text-white py-2 px-4 rounded-md font-semibold no-underline transition-colors hover:bg-primary-accent-hover text-sm w-full max-w-[180px]">
-                                Aplikacje webowe
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+        });
 
-                <!-- KARTA ROBOTICS Z NOWYM TŁEM GRAFICZNYM -->
-                <div class="relative flex flex-col items-center p-8 rounded-lg shadow-lg hover:shadow-xl transition-transform hover:-translate-y-1 w-full md:w-[calc(50%-1rem)] animate-on-scroll aos-fade-in-right aos-delay-300ms overflow-hidden">
-                    <!-- Tło graficzne i overlay dla karty -->
-                    <div class="absolute inset-0 z-0">
-                        <img src="assets/images/main/main_hero_rob_background.png" alt="Tło z linią produkcyjną robotyki" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-slate-800/60"></div> <!-- Przyciemniający overlay -->
-                    </div>
-                    
-                    <!-- Treść karty (nad tłem) -->
-                    <div class="relative z-10 flex flex-col items-center text-center h-full">
-                        <h2 class="text-2xl font-bold text-white mb-2">Robotics Solution</h2>
-                        <h3 class="text-xl font-medium text-slate-300 mb-4 min-h-[2.25rem]">Symulacja i Programowanie Robotów Offline</h3>
-                        <p class="text-slate-300 mb-6 flex-grow">
-                            Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).
-                        </p>
-                        <div class="h-24 w-24 mb-6 flex items-center justify-center">
-                            <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="max-h-full max-w-full object-cover rounded-full border-2 border-sky-400" onerror="this.onerror=null;this.src='https://placehold.co/100x100/1E293B/94A3B8?text=Robotyka';">
-                        </div>
-                        <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block bg-sky-500 text-white py-2 px-5 rounded-md font-semibold no-underline transition-colors hover:bg-sky-600 text-sm w-full mt-auto" style="max-width: 200px;">
-                            Dowiedz się więcej
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="footer-placeholder"></div>
-    <script src="common-scripts.js"></script>
+        // Skrypt do dynamicznego wstawiania aktualnego roku w stopce
+        const yearSpan = document.getElementById('currentYear');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    </script>
 
 </body>
 </html>
