@@ -1,4 +1,4 @@
-<!-- index.HTML update kolorystki i obrazki v2 -->
+<!-- index.HTML hero update 20250607h1857 -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -19,56 +19,6 @@
             color: #1E293B;
         }
 
-        /* --- Sekcja Hero --- */
-        .hero-section {
-            position: relative;
-            background-image: url('assets/images/main/main_hero_background.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 6rem 1rem;
-            text-align: center;
-            color: white;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            margin: 1rem;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .main-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #f9fafb;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-            margin-bottom: 1rem;
-        }
-        .subtitle {
-            font-size: 1.25rem;
-            color: #d1d5db;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         /* --- Główny kontener strony --- */
         .content-wrapper {
             display: flex;
@@ -78,24 +28,34 @@
             width: 100%;
             padding: 1rem 0;
         }
-        
-        /* --- NOWA SEKCJA Z TŁEM DLA KART USŁUG --- */
-        .services-background-container {
+
+        /* --- STYL KONTENERA Z TŁEM (DLA HERO I USŁUG) --- */
+        .background-container {
             position: relative;
             width: calc(100% - 2rem);
-            margin: 2rem 1rem;
+            margin: 1rem;
             padding: 4rem 1rem;
-            background-image: url('assets/images/main/main_rob_pic.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* Efekt paralaksy */
             border-radius: 0.75rem;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
+        .hero-bg {
+             background-image: url('assets/images/main/main_hero_background.png');
+        }
+
+        .services-bg {
+            background-image: url('assets/images/main/main_rob_pic.png');
+        }
+
         /* Nakładka przyciemniająca na tło dla lepszego kontrastu */
-        .services-background-container::before {
-             content: '';
+        .background-container::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
@@ -105,9 +65,46 @@
             z-index: 1;
         }
 
+        /* --- REUŻYWALNY STYL "GLASSMORPHISM" --- */
+        .glass-effect {
+            position: relative;
+            z-index: 2;
+            background-color: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f9fafb;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* --- KARTA HERO --- */
+        .hero-card {
+            max-width: 800px;
+            padding: 3rem 2rem;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* --- KARTY USŁUG --- */
         .card-container {
             position: relative;
-            z-index: 2; /* Karty muszą być nad nakładką */
+            z-index: 2;
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
@@ -117,27 +114,14 @@
             margin: 0 auto;
         }
         
-        /* --- ZMODYFIKOWANE KARTY USŁUG (EFEKT SZKŁA) --- */
         .service-card {
-            /* Efekt "Glassmorphism" */
-            background-color: rgba(255, 255, 255, 0.15); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            
-            color: #f9fafb; /* Jasny tekst na ciemnym tle */
-            border-radius: 0.75rem;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 100%;
             max-width: 420px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
+        
         .service-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
@@ -194,7 +178,7 @@
         .service-card a.button-link {
             display: inline-block;
             background-color: var(--primary-accent-color);
-            color: #1E293B; /* Ciemny tekst dla lepszego kontrastu na jasnym przycisku */
+            color: #1E293B;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 600;
@@ -218,22 +202,22 @@
 <body>
 
     <div class="content-wrapper">
-        <!-- Sekcja Hero z tłem -->
-        <div class="hero-section animate-on-scroll aos-fade-in">
-            <div class="hero-content">
+        
+        <!-- ZUNIFIKOWANA SEKCJA HERO -->
+        <div class="background-container hero-bg animate-on-scroll aos-fade-in">
+             <div class="hero-card glass-effect">
                 <h1 class="main-title">Michał Rąpała</h1>
                 <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
         </div>
         
-        <!-- Sekcja z kartami usług na tle grafiki -->
-        <div class="services-background-container">
+        <!-- ZUNIFIKOWANA SEKCJA USŁUG -->
+        <div class="background-container services-bg">
              <div class="card-container">
-                <!-- Karta AI Solutions z animacją -->
-                <div class="service-card animate-on-scroll aos-fade-in-up">
+                <!-- Karta AI Solutions -->
+                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
                     <h2 class="card-main-title">AI Solutions</h2>
                     <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
-                    
                     <div class="ai-services-container">
                         <div class="ai-service-item">
                             <div class="service-card-icon-container">
@@ -250,8 +234,8 @@
                     </div>
                 </div>
 
-                <!-- Karta Robotics Solution z animacją -->
-                <div class="service-card animate-on-scroll aos-fade-in-up aos-delay-200ms">
+                <!-- Karta Robotics Solution -->
+                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up aos-delay-200ms">
                     <h2 class="card-main-title">Robotics Solution</h2>
                     <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
                     <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
@@ -264,7 +248,7 @@
         </div>
     </div>
 
-    <!-- NOWA STOPKA Z SZABLONU -->
+    <!-- STOPKA -->
     <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white w-full mt-auto">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center">
@@ -281,7 +265,7 @@
         </div>
     </footer>
     
-    <!-- Skrypt do animacji i dynamicznego roku w stopce -->
+    <!-- SKRYPTY -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
