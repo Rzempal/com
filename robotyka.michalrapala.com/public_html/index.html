@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotyka - Michał Rąpała AI - Solutions</title>
+    <link rel="icon" type="image/png" href="https://michalrapala.com/assets/images/global/favicon_rob.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="common-styles.css">
+
+    <style>
+        html {
+             scroll-behavior: smooth;
+        }
+        .header-background {
+            height: auto; 
+            min-height: 300px; 
+            padding-top: 2rem; 
+            padding-bottom: 2rem; 
+            background-color: #E0F5F7;
+            border-radius: 0.75rem; 
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('https://michalrapala.com/assets/images/robotyka/header_robotyka_light.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .header-background::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3); 
+            z-index: 1;
+            border-radius: 0.75rem; 
+        }
+        .header-inner-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            gap: 1.5rem; 
+        }
+
+        .header-inner-content p.hero-main-text {
+            color: white;
+            font-size: 1.1rem; 
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) { 
+            .header-inner-content p.hero-main-text {
+                font-size: 1.25rem; 
+            }
+        }
+        
+        .cta-button {
+            background-color: var(--primary-accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            border: 2px solid var(--primary-accent-color);
+        }
+        .cta-button:hover {
+            background-color: var(--primary-accent-hover-color);
+            border-color: var(--primary-accent-hover-color);
+        }
+
+        .main-container {
+             background-color: #FFFFFF;
+             box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+             border-radius: 0.75rem; 
+             margin-top: -2.5rem; 
+             position: relative;
+             z-index: 10;
+             border: 1px solid #E2E8F0; 
+        }
+
+        h2 .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1E293B; 
+        }
+        h2 i {
+            color: var(--primary-accent-color); 
+        }
+        h2 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #E2E8F0; 
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 120px; height: 120px;
+            border-radius: 50%; object-fit: cover; object-position: center top;
+            border: 4px solid #FFFFFF; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+        }
+        .about-me-header {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 1rem; margin-bottom: 1.5rem; padding: 1rem;
+            background-color: #F8FAFC; 
+            border-radius: 0.75rem; 
+            border: 1px solid #E2E8F0; 
+        }
+        .about-me-text { text-align: center; }
+        #pdf-name { color: #0F172A; } 
+        #pdf-title { color: var(--primary-accent-color); } 
+
+        .main-container p, .main-container li {
+            color: #334155; 
+            line-height: 1.7; 
+            margin-bottom: 1rem; 
+        }
+         .main-container p:last-child {
+            margin-bottom: 0; 
+        }
+
+        footer {
+            border-top: 1px solid #E2E8F0; 
+            color: #475569; 
+            padding: 1rem;
+            text-align: center;
+            background-color: #F8FAFC; 
+        }
+        .footer-logo-link {
+            display: inline-block;
+            margin-top: 0;
+        }
+        .footer-logo {
+            max-width: 150px;
+            height: auto;
+            border-radius: 0.5rem; 
+            border: 2px solid var(--primary-accent-color); 
+            transition: opacity 0.3s ease; 
+        }
+        .footer-logo:hover {
+            opacity: 0.8; 
+        }
+
+        @media (min-width: 768px) {
+            .about-me-header { flex-direction: row; text-align: left; align-items: center; }
+            .profile-img { width: 150px; height: 150px; margin-right: 1.5rem; }
+            .about-me-text { text-align: left; }
+        }
+    </style>
+</head>
+<body data-page-name="Index">
+
+    <div id="navbar-placeholder"></div>
+
+    <header class="container mx-auto p-4 md:px-10 mt-12 mb-12">
+        <div class="header-background animate-on-scroll aos-fade-in aos-duration-900ms">
+             <div class="header-inner-content">
+                 <p class="hero-main-text font-semibold animate-on-scroll aos-fade-in-up aos-delay-200ms" data-lang-key="heroMainText">Jestem inżynierem robotyki z doświadczeniem w projektach automotive. Specjalizuję się w symulacjach w Process Simulate i programowaniu robotów. Szukam prostych, skutecznych rozwiązań – także z pomocą AI.</p>
+                 <a href="doswiadczenie.html" class="cta-button animate-on-scroll aos-fade-in-up aos-delay-400ms" data-lang-key="heroCtaButtonIndex">Sprawdź moje doświadczenie</a>
+             </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
+        <main class="main-container animate-on-scroll aos-fade-in-up">
+             <div class="p-4 md:p-10">
+                 <div class="grid grid-cols-1">
+                     <div class="space-y-4">
+                         <section id="about-me">
+                             <h2 class="animate-on-scroll aos-fade-in-right">
+                                 <span class="flex items-center"><i class="fas fa-user mr-3"></i><span class="section-title" data-lang-key="aboutMeTitle">O mnie</span></span>
+                             </h2>
+                             <div id="about-me-content" class="pt-4">
+                                 <div class="about-me-header animate-on-scroll aos-fade-in-up">
+                                     <img id="profile-img-for-pdf" src="https://michalrapala.com/assets/images/robotyka/profilowe.jpg" alt="Zdjęcie profilowe Michała Rąpały" class="profile-img animate-on-scroll aos-zoom-in aos-delay-200ms">
+                                     <div class="about-me-text animate-on-scroll aos-fade-in-left aos-delay-300ms">
+                                         <h1 id="pdf-name" class="text-3xl md:text-4xl font-bold mb-1">Michał Rąpała</h1>
+                                         <p id="pdf-title" data-lang-key="jobTitle" class="text-xl md:text-2xl font-semibold">Robot Simulation Engineer</p>
+                                     </div>
+                                 </div>
+
+                                 <p data-lang-key="aboutMeTextNew1" class="leading-relaxed text-justify mt-4 animate-on-scroll aos-fade-in-up"></p>
+
+                                 <div class="my-6 flex justify-center animate-on-scroll aos-zoom-in">
+                                     <img src="https://michalrapala.com/assets/images/robotyka/laptop.png" alt="Logo Robotyka - Michał Rąpała" class="rounded-lg shadow-md max-w-xs w-full">
+                                 </div>
+
+                                 <p data-lang-key="aboutMeTextNew2" class="leading-relaxed text-justify animate-on-scroll aos-fade-in-up"></p>
+
+                                 <div class="my-6 flex justify-center animate-on-scroll aos-zoom-in">
+                                     <img src="https://michalrapala.com/assets/images/robotyka/programowanie_online.jpg" alt="Programowanie robotów online" class="rounded-lg shadow-md max-w-md w-full">
+                                 </div>
+                                 
+                                 <p data-lang-key="aboutMeTextNew3" class="leading-relaxed text-justify animate-on-scroll aos-fade-in-up aos-delay-100ms"></p>
+                                 <p data-lang-key="aboutMeTextNew4" class="leading-relaxed text-justify animate-on-scroll aos-fade-in-up aos-delay-200ms"></p>
+                             </div>
+                         </section>
+                     </div>
+                 </div>
+             </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="common-scripts.js" defer></script>
+
+</body>
+</html>

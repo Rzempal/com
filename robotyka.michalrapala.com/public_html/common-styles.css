@@ -1,0 +1,203 @@
+/* common-styles.css */
+
+:root {
+    --primary-accent-color: #48D2E7;
+    --primary-accent-hover-color: #34c2d9; 
+}
+
+.text-primary-accent { color: var(--primary-accent-color); }
+.bg-primary-accent { background-color: var(--primary-accent-color); }
+.border-primary-accent { border-color: var(--primary-accent-color); }
+.hover\:text-primary-accent-hover:hover { color: var(--primary-accent-hover-color); }
+.hover\:bg-primary-accent-hover:hover { background-color: var(--primary-accent-hover-color); }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F8FAFC; 
+    color: #1E293B; 
+    padding-top: 4rem; 
+}
+
+a {
+    color: var(--primary-accent-color); 
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--primary-accent-hover-color); 
+}
+
+.navbar-custom-bg {
+    background-color: rgba(255, 255, 255, 0.8); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #E2E8F0; 
+}
+
+.nav-link-active {
+    color: var(--primary-accent-color) !important;
+    font-weight: 600 !important;
+}
+
+#main-navbar .nav-link {
+    color: #334155; 
+}
+#main-navbar .nav-link:hover {
+    background-color: #F1F5F9; 
+    color: var(--primary-accent-color); 
+}
+
+#language-switcher-desktop button,
+#language-switcher-mobile button {
+    background-color: transparent;
+    color: #475569; 
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.375rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 0.25rem;
+    cursor: pointer;
+    border: 1px solid #E2E8F0; 
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+#language-switcher-desktop button:hover,
+#language-switcher-mobile button:hover {
+    background-color: #F1F5F9; 
+    color: #1E293B; 
+    border-color: #CBD5E1; 
+}
+
+#language-switcher-desktop button.active,
+#language-switcher-mobile button.active {
+    background-color: var(--primary-accent-color);
+    color: white; 
+    border-color: var(--primary-accent-color);
+    font-weight: 600;
+}
+
+#hamburger-button {
+    background-color: transparent; 
+    color: #334155; 
+}
+#hamburger-button:hover {
+    background-color: #F1F5F9; 
+    color: var(--primary-accent-color);
+}
+
+#mobile-menu {
+    background-color: white; 
+    border-top: 1px solid #E2E8F0; 
+}
+#mobile-menu a {
+    color: #334155; 
+}
+#mobile-menu a:hover {
+    background-color: #F1F5F9; 
+    color: var(--primary-accent-color);
+}
+#mobile-menu .border-t { 
+    border-color: #E2E8F0; 
+}
+
+/* ZAKTUALIZOWANE STYLE STOPKI */
+footer {
+    border-top: 1px solid #E2E8F0; /* Jasnoszara linia oddzielająca */
+    padding: 1rem; /* ZMNIEJSZONY PADDING (np. 16px góra/dół, domyślny dla L/R z kontenera) */
+    background-color: #F8FAFC; /* Jasne tło stopki, takie jak body */
+    /* Klasy flex justify-center items-center są w footer-template.html */
+}
+
+.footer-logo-link {
+    display: inline-block; 
+    /* margin-top: 0.5rem; Można usunąć lub zmniejszyć, jeśli stopka ma być bardziej zwarta */
+    margin-top: 0; /* Usunięcie marginesu dla bardziej zwartej stopki */
+}
+
+.footer-logo {
+    max-width: 150px; /* Maksymalna szerokość logo, można dostosować np. na 120px */
+    height: auto;
+    border-radius: 0.5rem; /* Zaokrąglenie rogów obrazka, jeśli sam nie jest zaokrąglony */
+    border: 2px solid var(--primary-accent-color); /* Obramowanie w kolorze akcentu */
+    transition: opacity 0.3s ease;
+    display: block; /* Aby marginesy auto działały poprawnie, jeśli link nie byłby flex item */
+}
+.footer-logo:hover {
+    opacity: 0.8;
+}
+
+/* --- POCZĄTEK STYLI DLA ANIMACJI PRZY PRZEWIJANIU --- */
+.animate-on-scroll {
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 0.6s; /* Domyślny czas trwania animacji */
+    transition-timing-function: ease-out; /* Domyślna funkcja przejścia */
+}
+
+/* Efekt pojawiania się (fade-in) */
+.aos-fade-in {
+    transform: translateY(0); /* Brak przesunięcia dla samego fade-in */
+}
+.aos-fade-in.is-visible {
+    opacity: 1;
+}
+
+/* Efekt wjeżdżania od dołu (fade-in-up) */
+.aos-fade-in-up {
+    transform: translateY(30px); /* Początkowe przesunięcie w dół */
+}
+.aos-fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efekt wjeżdżania od góry (fade-in-down) */
+.aos-fade-in-down {
+    transform: translateY(-30px); /* Początkowe przesunięcie w górę */
+}
+.aos-fade-in-down.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efekt wjeżdżania od lewej (fade-in-left) */
+.aos-fade-in-left {
+    transform: translateX(-30px); /* Początkowe przesunięcie w lewo */
+}
+.aos-fade-in-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Efekt wjeżdżania od prawej (fade-in-right) */
+.aos-fade-in-right {
+    transform: translateX(30px); /* Początkowe przesunięcie w prawo */
+}
+.aos-fade-in-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Efekt powiększania (zoom-in) */
+.aos-zoom-in {
+    transform: scale(0.9);
+}
+.aos-zoom-in.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Możliwość dodania opóźnień za pomocą klas */
+.aos-delay-100ms { transition-delay: 0.1s !important; }
+.aos-delay-200ms { transition-delay: 0.2s !important; }
+.aos-delay-300ms { transition-delay: 0.3s !important; }
+.aos-delay-400ms { transition-delay: 0.4s !important; }
+.aos-delay-500ms { transition-delay: 0.5s !important; }
+
+/* Możliwość zmiany czasu trwania animacji */
+.aos-duration-300ms { transition-duration: 0.3s !important; }
+.aos-duration-600ms { transition-duration: 0.6s !important; } /* Domyślny */
+.aos-duration-900ms { transition-duration: 0.9s !important; }
+.aos-duration-1200ms { transition-duration: 1.2s !important; }
+
+/* --- KONIEC STYLI DLA ANIMACJI PRZY PRZEWIJANIU --- */
