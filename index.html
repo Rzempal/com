@@ -1,4 +1,4 @@
-<!-- index.HTML v4 hero update 20250607h2205 -->
+<!-- index.html szare tlo i linki w tym samym oknie-->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -15,7 +15,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC;
+            background-color: #f3f4f6; 
             color: #1E293B;
         }
 
@@ -29,12 +29,15 @@
             padding: 1rem 0;
         }
 
-        /* --- STYL KONTENERA Z TŁEM (DLA HERO I USŁUG) --- */
-        .background-container {
+        /* --- KONTENERY Z TŁEM --- */
+        
+        /* Kontener dla Hero z efektem paralaksy */
+        .hero-container {
             position: relative;
             width: calc(100% - 2rem);
             margin: 1rem;
             padding: 4rem 1rem;
+            background-image: url('assets/images/main/main_hero_background.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* Efekt paralaksy */
@@ -44,23 +47,30 @@
             align-items: center;
             justify-content: center;
         }
-        
-        .hero-bg {
-             background-image: url('assets/images/main/main_hero_background.png');
-        }
 
-        .services-bg {
+        /* Kontener dla usług ze standardowym tłem */
+        .services-container {
+            position: relative;
+            width: calc(100% - 2rem);
+            margin: 1rem;
+            padding: 4rem 1rem;
             background-image: url('assets/images/main/main_rob_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Standardowe przewijanie */
+            border-radius: 0.75rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Nakładka przyciemniająca na tło dla lepszego kontrastu */
-        .background-container::before {
+        /* Wspólna nakładka przyciemniająca dla obu kontenerów */
+        .hero-container::before,
+        .services-container::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0, 0, 0, 0.3);
             z-index: 1;
         }
@@ -68,11 +78,11 @@
         /* --- REUŻYWALNY STYL "GLASSMORPHISM" --- */
         .glass-effect {
             position: relative;
-            z-index: 2;
-            background-color: rgba(255, 255, 255, 0.15); 
+            z-index: 2; 
+            background-color: rgba(30, 41, 59, 0.4); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #f9fafb;
             border-radius: 0.75rem;
             padding: 2rem;
@@ -192,7 +202,7 @@
             transform: scale(1.05);
         }
 
-        @media (min-width: 768px) {
+        @media (min-w-width: 768px) {
             .service-card {
                 width: calc(50% - 1rem);
             }
@@ -203,16 +213,16 @@
 
     <div class="content-wrapper">
         
-        <!-- ZUNIFIKOWANA SEKCJA HERO -->
-        <div class="background-container hero-bg animate-on-scroll aos-fade-in">
+        <!-- SEKCJA HERO Z EFEKTEM PARALAKSY -->
+        <div class="hero-container animate-on-scroll aos-fade-in">
              <div class="hero-card glass-effect">
                 <h1 class="main-title">Michał Rąpała</h1>
                 <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
         </div>
         
-        <!-- ZUNIFIKOWANA SEKCJA USŁUG -->
-        <div class="background-container services-bg">
+        <!-- SEKCJA USŁUG (STANDARDOWE TŁO) -->
+        <div class="services-container">
              <div class="card-container">
                 <!-- Karta AI Solutions -->
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
@@ -223,13 +233,15 @@
                             <div class="service-card-icon-container">
                                 <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
                             </div>
-                            <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Strony WWW</a>
+                            <!-- ZMIANA: Usunięto target="_blank" -->
+                            <a href="https://strony.michalrapala.com" class="button-link">Strony WWW, poznaj ofertę</a>
                         </div>
                         <div class="ai-service-item">
                             <div class="service-card-icon-container">
                                 <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                             </div>
-                            <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="button-link">Aplikacje webowe</a>
+                            <!-- ZMIANA: Usunięto target="_blank" -->
+                            <a href="https://michalrapala.app" class="button-link">Aplikacje webowe</a>
                         </div>
                     </div>
                 </div>
@@ -242,17 +254,19 @@
                     <div class="service-card-icon-container">
                         <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
                     </div>
-                    <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="button-link">Dowiedz się więcej</a>
+                    <!-- ZMIANA: Usunięto target="_blank" -->
+                    <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- STOPKA -->
-    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white w-full mt-auto">
+    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full mt-auto">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center">
-                <a href="https://michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block mb-4 transition-transform hover:scale-105">
+                 <!-- ZMIANA: Usunięto target="_blank" -->
+                <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
                     <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
                 </a>
                 <p class="text-sm">
