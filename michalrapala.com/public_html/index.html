@@ -1,4 +1,4 @@
-<!-- index.html szare tlo i linki w tym samym oknie-->
+<!-- index.html jasnoszare tlo oraz efekt paralaksy 8 czerwca 2025 5:37 PM  -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -31,7 +31,7 @@
 
         /* --- KONTENERY Z TŁEM --- */
         
-        /* Kontener dla Hero z efektem paralaksy */
+        /* Kontener dla Hero ze standardowym tłem */
         .hero-container {
             position: relative;
             width: calc(100% - 2rem);
@@ -40,7 +40,8 @@
             background-image: url('assets/images/main/main_hero_background.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Efekt paralaksy */
+            /* ZMIANA: Standardowe przewijanie */
+            background-attachment: scroll; 
             border-radius: 0.75rem;
             overflow: hidden;
             display: flex;
@@ -48,7 +49,7 @@
             justify-content: center;
         }
 
-        /* Kontener dla usług ze standardowym tłem */
+        /* Kontener dla usług z efektem paralaksy */
         .services-container {
             position: relative;
             width: calc(100% - 2rem);
@@ -57,7 +58,8 @@
             background-image: url('assets/images/main/main_rob_pic.png');
             background-size: cover;
             background-position: center;
-            background-attachment: scroll; /* Standardowe przewijanie */
+             /* ZMIANA: Efekt paralaksy jest TERAZ TUTAJ */
+            background-attachment: fixed;
             border-radius: 0.75rem;
             overflow: hidden;
             display: flex;
@@ -202,7 +204,7 @@
             transform: scale(1.05);
         }
 
-        @media (min-w-width: 768px) {
+        @media (min-width: 768px) {
             .service-card {
                 width: calc(50% - 1rem);
             }
@@ -213,7 +215,7 @@
 
     <div class="content-wrapper">
         
-        <!-- SEKCJA HERO Z EFEKTEM PARALAKSY -->
+        <!-- SEKCJA HERO (STANDARDOWE TŁO) -->
         <div class="hero-container animate-on-scroll aos-fade-in">
              <div class="hero-card glass-effect">
                 <h1 class="main-title">Michał Rąpała</h1>
@@ -221,7 +223,7 @@
             </div>
         </div>
         
-        <!-- SEKCJA USŁUG (STANDARDOWE TŁO) -->
+        <!-- SEKCJA USŁUG Z EFEKTEM PARALAKSY -->
         <div class="services-container">
              <div class="card-container">
                 <!-- Karta AI Solutions -->
@@ -233,15 +235,13 @@
                             <div class="service-card-icon-container">
                                 <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
                             </div>
-                            <!-- ZMIANA: Usunięto target="_blank" -->
-                            <a href="https://strony.michalrapala.com" class="button-link">Strony WWW, poznaj ofertę</a>
+                            <a href="https://strony.michalrapala.com" class="button-link">Strony WWW</a>
                         </div>
                         <div class="ai-service-item">
                             <div class="service-card-icon-container">
                                 <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                             </div>
-                            <!-- ZMIANA: Usunięto target="_blank" -->
-                            <a href="https://michalrapala.app" class="button-link">Aplikacje webowe</a>
+                            <a href="https://michalrapala.app" class="button-link">Aplikacje</a>
                         </div>
                     </div>
                 </div>
@@ -254,7 +254,6 @@
                     <div class="service-card-icon-container">
                         <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
                     </div>
-                    <!-- ZMIANA: Usunięto target="_blank" -->
                     <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
                 </div>
             </div>
@@ -265,7 +264,6 @@
     <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full mt-auto">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center">
-                 <!-- ZMIANA: Usunięto target="_blank" -->
                 <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
                     <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
                 </a>
