@@ -1,4 +1,4 @@
-<!-- index.html - wspolna paralaksa v2 20250609_h0521-->
+<!-- index.html - wspolna paralaksa v3 20250609_h0525-->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -39,17 +39,26 @@
             width: calc(100% - 2rem);
             margin-bottom: 2rem; /* Odstęp między kontenerami */
             padding: 4rem 1rem;
-            /* ZMIANA: To samo tło i efekt paralaksy dla OBU kontenerów */
             background-image: url('assets/images/main/main_hero_background.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; 
             border-radius: 0.75rem;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
+        /* POPRAWKA: Świadome ustawienie różnych zachowań tła */
+        .hero-container {
+            background-attachment: scroll; /* Tło przewija się normalnie */
+        }
+        
+        .services-container {
+            background-image: url('assets/images/main/main_rob_pic.png'); /* Można wrócić do jednego tła lub zostawić inne */
+            background-attachment: fixed;  /* Tło jest "zamrożone" - EFEKT PARALAKSY */
+        }
+
 
         /* Wspólna nakładka przyciemniająca dla obu kontenerów */
         .hero-container::before,
