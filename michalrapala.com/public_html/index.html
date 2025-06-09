@@ -1,4 +1,4 @@
-<!-- index.html - wspolna paralaksa 20250609_h0516-->
+<!-- index.html - wspolna paralaksa v2 20250609_h0521-->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -30,22 +30,30 @@
             padding-bottom: 1rem;
         }
 
-        /* --- NOWY, WSPÓLNY KONTENER Z TŁEM PARALAKSY --- */
-        .shared-parallax-container {
+        /* --- KONTENERY Z TŁEM --- */
+        
+        /* Kontener dla Hero */
+        .hero-container,
+        .services-container {
             position: relative;
             width: calc(100% - 2rem);
-            margin: 0 1rem;
+            margin-bottom: 2rem; /* Odstęp między kontenerami */
             padding: 4rem 1rem;
-            background-image: url('assets/images/main/main_hero_background.png'); /* <-- WSPÓLNE TŁO */
+            /* ZMIANA: To samo tło i efekt paralaksy dla OBU kontenerów */
+            background-image: url('assets/images/main/main_hero_background.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* <-- WSPÓLNY EFEKT PARALAKSY */
+            background-attachment: fixed; 
             border-radius: 0.75rem;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        /* Nakładka przyciemniająca dla wspólnego tła */
-        .shared-parallax-container::before {
+
+        /* Wspólna nakładka przyciemniająca dla obu kontenerów */
+        .hero-container::before,
+        .services-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -53,22 +61,10 @@
             z-index: 1;
         }
 
-        /* --- Wrapper dla treści, aby zachować odstęp --- */
-        .section-wrapper {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        /* Odstęp między sekcją Hero a sekcją Usług */
-        .hero-wrapper {
-            margin-bottom: 2rem;
-        }
-
         /* --- REUŻYWALNY STYL "GLASSMORPHISM" --- */
         .glass-effect {
+            position: relative;
+            z-index: 2; 
             background-color: rgba(30, 41, 59, 0.4); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -205,54 +201,49 @@
 
     <div class="content-wrapper">
         
-        <!-- WSPÓLNY KONTENER Z TŁEM PARALAKSY -->
-        <div class="shared-parallax-container">
-
-            <!-- Sekcja Hero -->
-            <div class="section-wrapper hero-wrapper animate-on-scroll aos-fade-in">
-                 <div class="hero-card glass-effect">
-                    <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Michał+Rąpała';">
-                    <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
-                </div>
+        <!-- Sekcja Hero -->
+        <div class="hero-container animate-on-scroll aos-fade-in">
+             <div class="hero-card glass-effect">
+                <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Michał+Rąpała';">
+                <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
-            
-            <!-- Sekcja Usług -->
-            <div class="section-wrapper services-wrapper">
-                 <div class="card-container">
-                    <!-- Karta AI Solutions -->
-                    <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
-                        <h2 class="card-main-title">AI Solutions</h2>
-                        <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
-                        <div class="ai-services-container">
-                            <div class="ai-service-item">
-                                <div class="service-card-icon-container">
-                                    <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
-                                </div>
-                                <a href="https://strony.michalrapala.com" class="button-link">Strony WWW, poznaj ofertę</a>
+        </div>
+        
+        <!-- Sekcja Usług -->
+        <div class="services-container">
+             <div class="card-container">
+                <!-- Karta AI Solutions -->
+                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
+                    <h2 class="card-main-title">AI Solutions</h2>
+                    <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
+                    <div class="ai-services-container">
+                        <div class="ai-service-item">
+                            <div class="service-card-icon-container">
+                                <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
                             </div>
-                            <div class="ai-service-item">
-                                <div class="service-card-icon-container">
-                                    <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
-                                </div>
-                                <a href="https://michalrapala.app" class="button-link">Aplikacje webowe</a>
+                            <a href="https://strony.michalrapala.com" class="button-link">Strony WWW, poznaj ofertę</a>
+                        </div>
+                        <div class="ai-service-item">
+                            <div class="service-card-icon-container">
+                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                             </div>
+                            <a href="https://michalrapala.app" class="button-link">Aplikacje webowe</a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Karta Robotics Solution -->
-                    <div class="service-card glass-effect animate-on-scroll aos-fade-in-up aos-delay-200ms">
-                        <h2 class="card-main-title">Robotics Solution</h2>
-                        <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
-                        <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
-                        <div class="service-card-icon-container">
-                            <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
-                        </div>
-                        <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
+                <!-- Karta Robotics Solution -->
+                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up aos-delay-200ms">
+                    <h2 class="card-main-title">Robotics Solution</h2>
+                    <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
+                    <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
+                    <div class="service-card-icon-container">
+                        <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
                     </div>
+                    <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
                 </div>
             </div>
-
-        </div> <!-- Koniec .shared-parallax-container -->
+        </div>
 
     </div> <!-- Koniec .content-wrapper -->
 
