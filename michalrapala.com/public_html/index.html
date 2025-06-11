@@ -1,302 +1,129 @@
-<!-- index.html - wspolna paralaksa v3 20250609_h0525-->
+<!-- index.html (Jasny Motyw) -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>michalrapala.com Rozwiązania AI dla Przemysłu i Biznesu</title>
+    <title data-lang-key="pageTitleIndex">Rąpała AI - Rozwiązania dla Przemysłu i Biznesu</title>
     <link rel="icon" type="image/png" href="assets/images/global/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Dołączony plik ze wspólnymi stylami i animacjami -->
     <link rel="stylesheet" href="common-styles.css">
     <style>
+        /* Dodatkowy styl, aby treść nie chowała się pod nową, stałą belką */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; 
-            color: #1E293B;
-        }
-
-        /* --- Główny kontener strony --- */
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
-        /* --- KONTENERY Z TŁEM --- */
-        
-        /* Kontener dla Hero */
-        .hero-container,
-        .services-container {
-            position: relative;
-            width: calc(100% - 2rem);
-            margin-bottom: 2rem; /* Odstęp między kontenerami */
-            padding: 4rem 1rem;
-            background-image: url('assets/images/main/main_hero_background.png');
-            background-size: cover;
-            background-position: center;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* POPRAWKA: Świadome ustawienie różnych zachowań tła */
-        .hero-container {
-            background-attachment: scroll; /* Tło przewija się normalnie */
-        }
-        
-        .services-container {
-            background-image: url('assets/images/main/main_rob_pic.png'); /* Można wrócić do jednego tła lub zostawić inne */
-            background-attachment: fixed;  /* Tło jest "zamrożone" - EFEKT PARALAKSY */
-        }
-
-
-        /* Wspólna nakładka przyciemniająca dla obu kontenerów */
-        .hero-container::before,
-        .services-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.3);
-            z-index: 1;
-        }
-
-        /* --- REUŻYWALNY STYL "GLASSMORPHISM" --- */
-        .glass-effect {
-            position: relative;
-            z-index: 2; 
-            background-color: rgba(30, 41, 59, 0.4); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #f9fafb;
-            border-radius: 0.75rem;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        /* --- KARTA HERO --- */
-        .hero-card {
-            max-width: 800px;
-            padding: 3rem 2rem;
-        }
-        
-        .portfolio-logo {
-            max-width: 380px;
-            width: 100%;
-            height: auto;
-            border: 4px solid #22d3ee;
-            border-radius: 0.75rem;
-            margin: 0 auto 1.5rem auto;
-            box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
-            background-color: rgba(30, 41, 59, 0.5);
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: #d1d5db;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* --- KARTY USŁUG --- */
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            width: 100%;
-            max-width: 1200px;
-        }
-        
-        .service-card {
-            width: 100%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        .service-card h2.card-main-title {
-            color: #ffffff;
-            font-size: 1.75rem;
-        }
-        .service-card h3.card-subtitle, .service-card p {
-            color: #d1d5db;
-        }
-        .service-card p {
-            flex-grow: 1;
-        }
-        
-        .service-card-icon-container {
-            height: 100px;
-            width: 100px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .service-card img.card-logo {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--primary-accent-color);
-        }
-        
-        .ai-services-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            gap: 1rem;
-            width: 100%;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-        .ai-service-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex-basis: 45%;
-        }
-        .ai-service-item .service-card-icon-container {
-            height: 80px;
-            width: 80px;
-        }
-        
-        .service-card a.button-link {
-            display: inline-block;
-            background-color: var(--primary-accent-color);
-            color: #1E293B;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: auto;
-            max-width: 220px;
-        }
-        .service-card a.button-link:hover {
-            background-color: var(--primary-accent-hover-color);
-            transform: scale(1.05);
-        }
-
-        @media (min-width: 768px) {
-            .service-card {
-                width: calc(50% - 1rem);
-            }
+            padding-top: 3.5rem; /* Wysokość nowej belki */
         }
     </style>
 </head>
-<body>
+<body data-page-name="Index" class="bg-slate-50">
 
-    <div class="content-wrapper">
-        
-        <!-- Sekcja Hero -->
-        <div class="hero-container animate-on-scroll aos-fade-in">
-             <div class="hero-card glass-effect">
-                <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Michał+Rąpała';">
-                <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
-            </div>
-        </div>
-        
-        <!-- Sekcja Usług -->
-        <div class="services-container">
-             <div class="card-container">
-                <!-- Karta AI Solutions -->
-                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
-                    <h2 class="card-main-title">AI Solutions</h2>
-                    <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
-                    <div class="ai-services-container">
-                        <div class="ai-service-item">
-                            <div class="service-card-icon-container">
-                                <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
-                            </div>
-                            <a href="https://strony.michalrapala.com" class="button-link">Strony WWW, poznaj ofertę</a>
-                        </div>
-                        <div class="ai-service-item">
-                            <div class="service-card-icon-container">
-                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
-                            </div>
-                            <a href="https://michalrapala.app" class="button-link">Aplikacje webowe</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Karta Robotics Solution -->
-                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up aos-delay-200ms">
-                    <h2 class="card-main-title">Robotics Solution</h2>
-                    <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
-                    <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
-                    <div class="service-card-icon-container">
-                        <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
-                    </div>
-                    <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
-                </div>
-            </div>
-        </div>
-
-    </div> <!-- Koniec .content-wrapper -->
-
-    <!-- STOPKA -->
-    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col items-center">
-                <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
-                    <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
+    <!-- NOWA GÓRNA BELKA INFORMACYJNA -->
+    <div class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-slate-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-14 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="mailto:kontakt@michalrapala.com" class="flex items-center gap-2 text-sm text-slate-600 hover:text-primary-accent transition-colors">
+                    <!-- Ikona koperty SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    <span class="hidden sm:inline">kontakt@michalrapala.com</span>
                 </a>
-                <p class="text-sm">
-                    &copy; <span id="currentYear"></span> Michał Rąpała AI Solutions. Wszelkie prawa zastrzeżone.
-                </p>
-                <p class="text-xs mt-1">
-                    Strona stworzona z pasją i wsparciem AI.
-                </p>
+                <a href="https://www.linkedin.com/in/michał-rąpała-64355345" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-primary-accent transition-colors">
+                     <!-- Ikona LinkedIn SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-slate-700">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span>Otwarty na nowe projekty</span>
             </div>
         </div>
-    </footer>
+    </div>
     
-    <!-- SKRYPTY -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
+    <!-- Placeholder dla przyszłej głównej nawigacji -->
+    <div id="navbar-placeholder"></div>
 
-            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-            elementsToAnimate.forEach(el => {
-                observer.observe(el);
-            });
+    <main>
+        <!-- SEKCJA HERO Z JASNYM TŁEM -->
+        <section class="relative text-center py-20 md:py-32 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="assets/images/main/main_hero_background.png" alt="Tło AI i robotyki" class="w-full h-full object-cover">
+                <!-- ZMIANA: Jasny overlay -->
+                <div class="absolute inset-0 bg-white/70"></div>
+            </div>
+            
+            <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- ZMIANA: Ciemny tekst -->
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 animate-on-scroll aos-fade-in-down">
+                    Michał Rąpała
+                </h1>
+                <p class="max-w-2xl mx-auto text-lg text-slate-700 mb-12 animate-on-scroll aos-fade-in-up aos-delay-100ms">
+                    Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:
+                </p>
+            </div>
+        </section>
 
-            const yearSpan = document.getElementById('currentYear');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
-        });
-    </script>
+        <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="flex flex-wrap gap-8 justify-center w-full max-w-5xl mx-auto">
+                
+                <div class="flex flex-col items-center bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-transform hover:-translate-y-1 border border-slate-200 w-full md:w-[calc(50%-1rem)] animate-on-scroll aos-fade-in-left aos-delay-200ms">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">AI Solutions</h2>
+                    <p class="text-slate-500 mb-6 flex-grow text-center">
+                        Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!
+                    </p>
+                    <div class="flex justify-around items-start gap-4 w-full mt-4 mb-4">
+                        <div class="flex flex-col items-center text-center basis-[45%]">
+                            <div class="h-20 w-20 mb-3 flex items-center justify-center">
+                                <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="max-h-full max-w-full object-cover rounded-full border-2 border-primary-accent" onerror="this.onerror=null;this.src='https://placehold.co/80x80/E0F2FE/0EA5E9?text=WWW';">
+                            </div>
+                            <a href="https://strony.michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block bg-primary-accent text-white py-2 px-4 rounded-md font-semibold no-underline transition-colors hover:bg-primary-accent-hover text-sm w-full max-w-[180px]">
+                                Strony WWW, poznaj ofertę
+                            </a>
+                        </div>
+                        <div class="flex flex-col items-center text-center basis-[45%]">
+                            <div class="h-20 w-20 mb-3 flex items-center justify-center">
+                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="max-h-full max-w-full object-cover rounded-full border-2 border-primary-accent" onerror="this.onerror=null;this.src='https://placehold.co/80x80/E0F2FE/0EA5E9?text=App';">
+                            </div>
+                            <a href="https://michalrapala.app" target="_blank" rel="noopener noreferrer" class="inline-block bg-primary-accent text-white py-2 px-4 rounded-md font-semibold no-underline transition-colors hover:bg-primary-accent-hover text-sm w-full max-w-[180px]">
+                                Aplikacje webowe
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTA ROBOTICS Z JASNYM TŁEM -->
+                <div class="relative flex flex-col items-center p-8 rounded-lg shadow-lg hover:shadow-xl transition-transform hover:-translate-y-1 w-full md:w-[calc(50%-1rem)] animate-on-scroll aos-fade-in-right aos-delay-300ms overflow-hidden">
+                    <div class="absolute inset-0 z-0">
+                        <img src="assets/images/main/main_hero_rob_background.png" alt="Tło z linią produkcyjną robotyki" class="w-full h-full object-cover">
+                        <!-- ZMIANA: Jasny overlay -->
+                        <div class="absolute inset-0 bg-white/75 backdrop-blur-sm"></div>
+                    </div>
+                    
+                    <div class="relative z-10 flex flex-col items-center text-center h-full">
+                        <!-- ZMIANA: Ciemny tekst -->
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Robotics Solution</h2>
+                        <h3 class="text-xl font-medium text-slate-600 mb-4 min-h-[2.25rem]">Symulacja i Programowanie Robotów Offline</h3>
+                        <p class="text-slate-700 mb-6 flex-grow">
+                            Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).
+                        </p>
+                        <div class="h-24 w-24 mb-6 flex items-center justify-center">
+                            <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="max-h-full max-w-full object-cover rounded-full border-2 border-primary-accent" onerror="this.onerror=null;this.src='https://placehold.co/100x100/1E293B/94A3B8?text=Robotyka';">
+                        </div>
+                        <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="inline-block bg-primary-accent text-white py-2 px-5 rounded-md font-semibold no-underline transition-colors hover:bg-primary-accent-hover text-sm w-full mt-auto" style="max-width: 200px;">
+                            Dowiedz się więcej
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="common-scripts.js"></script>
 
 </body>
 </html>
