@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porównywarka Arkuszy Excel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; 
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .file-input-label {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            background-color: #16a34a; /* Green-600 */
+            color: white;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+        .file-input-label:hover {
+            background-color: #15803d; /* Green-700 */
+        }
+        input[type="file"] {
+            display: none; 
+        }
+        .btn-compare {
+            background-color: #16a34a; /* Green-600 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .btn-compare:hover {
+            background-color: #15803d; /* Green-700 */
+        }
+        .btn-compare:disabled {
+            background-color: #9ca3af; /* Gray-400 for disabled */
+            cursor: not-allowed;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; 
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top; 
+        }
+        th {
+            background-color: #f9fafb; 
+            font-weight: 600;
+            position: sticky; 
+            top: 0;
+            z-index: 10;
+        }
+        .diff-highlight td { 
+            background-color: #fef3c7; /* Lighter yellow for differences, was fef9c3 */
+        }
+        .diff-row:nth-child(even) {
+             background-color: #f8f8f8; 
+        }
+        .diff-row:nth-child(odd) {
+             background-color: #ffffff;
+        }
+        .error-message {
+            color: #ef4444; 
+            background-color: #fee2e2; 
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #fca5a5; 
+            margin-top: 1rem;
+        }
+        .info-message { /* Used for success and general info */
+            color: #047857; /* Green-700 */
+            background-color: #d1fae5; /* Green-100 */
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #6ee7b7; /* Green-300 */
+            margin-top: 1rem;
+        }
+        .results-container {
+            max-height: 60vh; 
+            overflow-y: auto;
+        }
+        /* Focus ring color for inputs */
+        input[type="text"]:focus {
+            border-color: #16a34a; /* Green-600 */
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3); /* Green-600 with opacity */
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            .grid-cols-2 {
+                grid-template-columns: 1fr; 
+            }
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.875rem; 
+            }
+            .file-input-label, .btn-compare {
+                font-size: 0.875rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="mb-8">
+            <div class="flex justify-start mb-4">
+                 <a href="index.html" class="text-green-600 hover:text-green-800 transition-colors duration-150 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                    Powrót do strony głównej
+                </a>
+            </div>
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-green-700">Porównywarka Arkuszy Excel</h1>
+                <p class="text-gray-600 mt-2">Wgraj dwa pliki Excel (.xlsx, .xls, .csv), podaj nazwy arkuszy (opcjonalnie) i porównaj ich zawartość.</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">Plik 1 (Oryginalny)</h2>
+                <label for="file1" class="file-input-label">
+                    Wybierz Plik 1
+                </label>
+                <input type="file" id="file1" accept=".xlsx, .xls, .csv">
+                <span id="fileName1" class="text-sm text-gray-500 mt-1 block">Nie wybrano pliku</span>
+                <input type="text" id="sheetName1" placeholder="Nazwa arkusza 1 (domyślnie pierwszy)" class="mt-2 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">Plik 2 (Zmieniony)</h2>
+                <label for="file2" class="file-input-label">
+                    Wybierz Plik 2
+                </label>
+                <input type="file" id="file2" accept=".xlsx, .xls, .csv">
+                <span id="fileName2" class="text-sm text-gray-500 mt-1 block">Nie wybrano pliku</span>
+                <input type="text" id="sheetName2" placeholder="Nazwa arkusza 2 (domyślnie pierwszy)" class="mt-2 p-2 border border-gray-300 rounded-md w-full">
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <button id="compareBtn" class="btn-compare" disabled>Porównaj Arkusze</button>
+        </div>
+
+        <div id="messageArea" class="mb-6"></div>
+
+        <div id="resultsSection" class="hidden">
+            <h3 class="text-2xl font-semibold text-gray-700 mb-4">Wyniki Porównania</h3>
+            <div class="results-container">
+                <table id="diffTable" class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Lokalizacja</th>
+                            <th>Wartość w Pliku 1 (Arkusz: <span id="resultSheetName1"></span>)</th>
+                            <th>Wartość w Pliku 2 (Arkusz: <span id="resultSheetName2"></span>)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="diffTableBody">
+                        </tbody>
+                </table>
+            </div>
+            <p id="noDiffMessage" class="info-message hidden mt-4">Nie znaleziono żadnych różnic między arkuszami.</p>
+        </div>
+    </div>
+
+    <script>
+        // Elementy DOM
+        const fileInput1 = document.getElementById('file1');
+        const fileInput2 = document.getElementById('file2');
+        const fileNameDisplay1 = document.getElementById('fileName1');
+        const fileNameDisplay2 = document.getElementById('fileName2');
+        const sheetNameInput1 = document.getElementById('sheetName1');
+        const sheetNameInput2 = document.getElementById('sheetName2');
+        const compareBtn = document.getElementById('compareBtn');
+        const diffTableBody = document.getElementById('diffTableBody');
+        const messageArea = document.getElementById('messageArea');
+        const resultsSection = document.getElementById('resultsSection');
+        const noDiffMessage = document.getElementById('noDiffMessage');
+        const resultSheetName1Display = document.getElementById('resultSheetName1');
+        const resultSheetName2Display = document.getElementById('resultSheetName2');
+
+        // Funkcja aktualizująca stan przycisku "Porównaj"
+        function updateCompareButtonState() {
+            if (fileInput1.files.length > 0 && fileInput2.files.length > 0) {
+                compareBtn.disabled = false;
+            } else {
+                compareBtn.disabled = true;
+            }
+        }
+        
+        fileInput1.addEventListener('change', () => {
+            fileNameDisplay1.textContent = fileInput1.files.length > 0 ? fileInput1.files[0].name : 'Nie wybrano pliku';
+            updateCompareButtonState();
+        });
+
+        fileInput2.addEventListener('change', () => {
+            fileNameDisplay2.textContent = fileInput2.files.length > 0 ? fileInput2.files[0].name : 'Nie wybrano pliku';
+            updateCompareButtonState();
+        });
+
+        function showMessage(message, type = 'error') {
+            messageArea.innerHTML = ''; 
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            messageDiv.className = type === 'error' ? 'error-message' : 'info-message';
+            messageArea.appendChild(messageDiv);
+        }
+
+        function parseExcelFile(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    reject(new Error("Nie wybrano pliku."));
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = new Uint8Array(event.target.result);
+                        const workbook = XLSX.read(data, { type: 'array', cellDates: true }); 
+                        resolve(workbook);
+                    } catch (e) {
+                        reject(new Error(`Błąd podczas parsowania pliku ${file.name}: ${e.message}`));
+                    }
+                };
+                reader.onerror = () => {
+                    reject(new Error(`Błąd odczytu pliku ${file.name}: ${reader.error}`));
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        compareBtn.addEventListener('click', async () => {
+            diffTableBody.innerHTML = '';
+            messageArea.innerHTML = '';
+            noDiffMessage.classList.add('hidden');
+            resultsSection.classList.add('hidden'); 
+
+            const file1 = fileInput1.files[0];
+            const file2 = fileInput2.files[0];
+
+            if (!file1 || !file2) {
+                showMessage("Proszę wybrać oba pliki Excel do porównania.", "error");
+                return;
+            }
+
+            compareBtn.disabled = true;
+            compareBtn.textContent = 'Przetwarzanie...';
+
+            try {
+                const workbook1 = await parseExcelFile(file1);
+                const workbook2 = await parseExcelFile(file2);
+
+                let sheetName1 = sheetNameInput1.value.trim() || workbook1.SheetNames[0];
+                resultSheetName1Display.textContent = sheetName1;
+
+                let sheetName2 = sheetNameInput2.value.trim() || workbook2.SheetNames[0];
+                resultSheetName2Display.textContent = sheetName2;
+
+                const sheet1 = workbook1.Sheets[sheetName1];
+                const sheet2 = workbook2.Sheets[sheetName2];
+
+                if (!sheet1) throw new Error(`Nie znaleziono arkusza "${sheetName1}" w pliku ${file1.name}. Dostępne: ${workbook1.SheetNames.join(', ')}`);
+                if (!sheet2) throw new Error(`Nie znaleziono arkusza "${sheetName2}" w pliku ${file2.name}. Dostępne: ${workbook2.SheetNames.join(', ')}`);
+
+                const aoa1 = XLSX.utils.sheet_to_json(sheet1, { header: 1, defval: '', raw: false });
+                const aoa2 = XLSX.utils.sheet_to_json(sheet2, { header: 1, defval: '', raw: false });
+                
+                let differencesFound = false;
+                resultsSection.classList.remove('hidden'); 
+
+                const maxRows = Math.max(aoa1.length, aoa2.length);
+                let maxCols = 0;
+                for (let i = 0; i < maxRows; i++) {
+                    maxCols = Math.max(maxCols, (aoa1[i] ? aoa1[i].length : 0), (aoa2[i] ? aoa2[i].length : 0));
+                }
+                
+                for (let r = 0; r < maxRows; r++) {
+                    for (let c = 0; c < maxCols; c++) {
+                        const val1 = (aoa1[r] && aoa1[r][c] !== undefined && aoa1[r][c] !== null) ? String(aoa1[r][c]) : "";
+                        const val2 = (aoa2[r] && aoa2[r][c] !== undefined && aoa2[r][c] !== null) ? String(aoa2[r][c]) : "";
+
+                        if (val1 !== val2) {
+                            if (!differencesFound) {
+                                differencesFound = true; 
+                            }
+                            const row = diffTableBody.insertRow();
+                            row.classList.add('diff-row'); 
+
+                            const cellLocation = XLSX.utils.encode_cell({ r: r, c: c });
+                            row.insertCell().textContent = cellLocation;
+                            
+                            const cellVal1 = row.insertCell();
+                            cellVal1.textContent = val1;
+                            
+                            const cellVal2 = row.insertCell();
+                            cellVal2.textContent = val2;
+
+                            cellVal1.classList.add('diff-highlight');
+                            cellVal2.classList.add('diff-highlight');
+                        }
+                    }
+                }
+
+                if (differencesFound) {
+                    showMessage(`Znaleziono różnice między arkuszami "${sheetName1}" i "${sheetName2}".`, "info");
+                    noDiffMessage.classList.add('hidden');
+                } else {
+                    showMessage(`Arkusze "${sheetName1}" i "${sheetName2}" są identyczne.`, "info");
+                    noDiffMessage.classList.remove('hidden');
+                }
+
+            } catch (error) {
+                console.error("Błąd podczas porównywania:", error);
+                showMessage(`Wystąpił błąd: ${error.message}`, "error");
+                resultsSection.classList.add('hidden');
+            } finally {
+                compareBtn.disabled = false;
+                compareBtn.textContent = 'Porównaj Arkusze';
+                updateCompareButtonState(); 
+            }
+        });
+        
+        updateCompareButtonState();
+    </script>
+</body>
+</html>

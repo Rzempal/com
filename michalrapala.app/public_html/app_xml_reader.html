@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analizator XML z Process Simulate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Dodatkowe style dla lepszego wyglądu tabeli */
+    th, td {
+      min-width: 150px; /* Minimalna szerokość kolumn */
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #e5e7eb; /* Jasnoszare tło dla nagłówków (gray-200) */
+    }
+    tr:nth-child(even) {
+      background-color: #f9fafb; /* Jaśniejsze tło dla parzystych wierszy (gray-50) */
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col items-center p-4 md:p-8">
+  <div class="w-full max-w-5xl">
+    <header class="mb-8 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-700">Analizator Stacji z Pliku XML</h1>
+      <p class="text-gray-600">Wygenerowany z Process Simulate</p>
+    </header>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="fileInput" class="block mb-2 font-semibold text-gray-700">Wybierz plik XML:</label>
+          <input type="file" id="fileInput" accept=".xml" class="mb-4 w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+        <div>
+          <label for="passwordInput" class="block mb-2 font-semibold text-gray-700">Hasło dostępu:</label>
+          <input type="password" id="passwordInput" class="mb-4 w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
+        </div>
+      </div>
+      <button id="analyzeBtn" class="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+        Przeanalizuj
+      </button>
+      <div id="status" class="mt-4 text-sm text-red-600 font-medium"></div>
+    </div>
+
+    <div id="resultsSection" class="bg-white p-6 rounded-xl shadow-lg hidden">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-700">Wyniki Analizy dla Stacji: <span id="stationName" class="text-blue-600"></span></h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <th class="py-3 px-4 border border-gray-300">Robot</th>
+              <th class="py-3 px-4 border border-gray-300">Application Tools</th>
+              <th class="py-3 px-4 border border-gray-300">Components</th>
+              <th class="py-3 px-4 border border-gray-300">Grippers</th> {/* Nowa kolumna */}
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody" class="text-gray-700 text-sm">
+            {/* Wiersze tabeli będą dodawane tutaj przez JavaScript */}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const statusDiv = document.getElementById("status");
+    const resultsSection = document.getElementById("resultsSection");
+    const stationNameSpan = document.getElementById("stationName");
+    const resultsTableBody = document.getElementById("resultsTableBody");
+
+    analyzeBtn.addEventListener("click", () => {
+      const file = fileInput.files[0];
+      const password = passwordInput.value;
+
+      if (!file) {
+        statusDiv.textContent = "Proszę wybrać plik XML.";
+        return;
+      }
+      if (!password) {
+        statusDiv.textContent = "Proszę wprowadzić hasło.";
+        return;
+      }
+
+      statusDiv.textContent = "Przetwarzanie...";
+      resultsSection.classList.add("hidden"); // Ukryj poprzednie wyniki
+      resultsTableBody.innerHTML = ""; // Wyczyść tabelę
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("password", password);
+
+      // Upewnij się, że URL jest poprawny - bez /api/xml_resources, jeśli PassengerBaseURI jest ustawiony
+      // lub z /api/xml_resources/analyze, jeśli serwer Flask nasłuchuje na tej pełnej ścieżce
+      // Dla konfiguracji z PassengerBaseURI "/api/xml_resources", endpoint w Flasku to "/analyze"
+      // a pełny URL żądania z frontendu to "/api/xml_resources/analyze"
+      fetch("/api/xml_resources/analyze", { // Ten URL powinien pasować do konfiguracji serwera
+        method: "POST",
+        body: formData,
+      })
+      .then(response => {
+        if (!response.ok) {
+          // Jeśli odpowiedź HTTP nie jest OK (np. 400, 403, 500), spróbuj odczytać JSON z błędem
+          return response.json().then(errData => {
+            throw new Error(errData.error || `Błąd serwera: ${response.status}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.error) {
+          statusDiv.textContent = "Błąd: " + data.error;
+          resultsSection.classList.add("hidden");
+        } else {
+          statusDiv.textContent = "";
+          stationNameSpan.textContent = data.station || "Nieznana";
+          if (data.robots && data.robots.length > 0) {
+            showResults(data.robots);
+            resultsSection.classList.remove("hidden");
+          } else {
+            statusDiv.textContent = "Nie znaleziono robotów dla tej stacji.";
+            resultsSection.classList.add("hidden");
+          }
+        }
+      })
+      .catch(error => {
+        console.error("Błąd:", error);
+        statusDiv.textContent = "Wystąpił błąd: " + error.message;
+        resultsSection.classList.add("hidden");
+      });
+    });
+
+    function showResults(robots) {
+      robots.forEach(robot => {
+        const row = resultsTableBody.insertRow();
+
+        const robotCell = row.insertCell();
+        robotCell.className = "py-3 px-4 border border-gray-300 font-mono";
+        robotCell.textContent = robot.robot;
+
+        const toolsCell = row.insertCell();
+        toolsCell.className = "py-3 px-4 border border-gray-300";
+        toolsCell.textContent = Array.isArray(robot.application_tools) ? robot.application_tools.join(", ") : "Brak danych";
+
+        const componentsCell = row.insertCell();
+        componentsCell.className = "py-3 px-4 border border-gray-300";
+        componentsCell.textContent = Array.isArray(robot.components) ? robot.components.join(", ") : "Brak danych";
+
+        const grippersCell = row.insertCell(); // Nowa komórka dla chwytaków
+        grippersCell.className = "py-3 px-4 border border-gray-300";
+        grippersCell.textContent = Array.isArray(robot.grippers) ? robot.grippers.join(", ") : "Brak danych";
+      });
+    }
+  </script>
+</body>
+</html>
+```
+
+**Wyjaśnienie zmian w `app_xml_reader.html`:**
+
+1.  **Dodano kolumnę "Grippers"** w nagłówku tabeli (`<thead>`).
+2.  W funkcji `showResults`:
+    * Dodano tworzenie nowej komórki (`grippersCell`) dla każdego robota.
+    * Wypełniono ją danymi z `robot.grippers`, podobnie jak dla narzędzi i komponentów.
+3.  Drobne poprawki stylistyczne dla lepszej czytelności tabeli i formularza.
+4.  Ulepszona obsługa błędów w `fetch`, aby lepiej wyświetlać komunikaty o błędach z serwera.
+
+**Co dalej?**
+
+1.  **Zaktualizuj plik `backend_server.py`** na serwerze, używając powyższej poprawionej wersji (ID: `backend_server_py_v3`).
+2.  **Zaktualizuj plik `app_xml_reader.html`** (lub `index.html`, jeśli to on zawiera kod frontendu aplikacji) na serwerze, używając powyższej poprawionej wersji (ID: `app_xml_reader_html_v2`).
+3.  **Zrestartuj aplikację** na serwerze (np. przez `touch passenger_wsgi.py` lub przez panel hostingowy).
+4.  **Przetestuj** aplikację, używając pliku `03_UB22210.xml`. Sprawdź, czy:
+    * Poprawnie identyfikowane są tylko roboty (np. `UB22210IR01`, `UB22210IR02` itd.).
+    * Poprawnie wyświetlane są `ApplicationTools`, `Components` oraz nowa kolumna `Grippers` dla każdego robota.
+    * Nazwa stacji jest poprawnie wyświetlana.
+5.  **Sprawdź logi serwera**, aby upewnić się, że nie ma nowych błędów.
+
+Jeśli po tych zmianach nadal będą występować problemy lub jeśli wyniki nie będą zgodne z oczekiwaniami, prześlij mi proszę nowe logi serwera oraz zrzut ekranu z wynikami, a będziemy kontynuować debugowan
