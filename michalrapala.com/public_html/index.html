@@ -1,4 +1,4 @@
-<!-- index.html - Gemini change 1 20250612_h0532 -->
+<!-- index.html v2 Wprowadzenie dynamicznego ładowania stopki 12 czerwca 2025 5:27 PM  -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -18,26 +18,20 @@
             background-color: #f3f4f6; 
             color: #1E293B;
         }
-
-        /* --- Główny kontener strony --- */
         .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding-top: 3rem; /* ZMIANA: Dodano padding, by treść nie chowała się pod belką */
+            padding-top: 3rem; 
             padding-bottom: 1rem;
         }
-
-        /* --- KONTENERY Z TŁEM --- */
-        
-        /* Kontener dla Hero */
         .hero-container,
         .services-container {
             position: relative;
             width: calc(100% - 2rem);
-            margin-bottom: 2rem; /* Odstęp między kontenerami */
+            margin-bottom: 2rem;
             padding: 4rem 1rem;
             background-image: url('assets/images/main/main_hero_background.png');
             background-size: cover;
@@ -48,30 +42,21 @@
             align-items: center;
             justify-content: center;
         }
-
-        /* POPRAWKA: Świadome ustawienie różnych zachowań tła */
         .hero-container {
-            background-attachment: scroll; /* Tło przewija się normalnie */
+            background-attachment: scroll;
         }
-        
         .services-container {
-            background-image: url('assets/images/main/main_rob_pic.png'); /* Można wrócić do jednego tła lub zostawić inne */
-            background-attachment: fixed;  /* Tło jest "zamrożone" - EFEKT PARALAKSY */
+            background-image: url('assets/images/main/main_rob_pic.png');
+            background-attachment: fixed; 
         }
-
-
-        /* Wspólna nakładka przyciemniająca dla obu kontenerów */
         .hero-container::before,
         .services-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            /* ZMIANA: Ciemna nakładka zmieniona na jasną */
             background-color: rgba(255, 255, 255, 0.4);
             z-index: 1;
         }
-
-        /* --- REUŻYWALNY STYL "GLASSMORPHISM" --- */
         .glass-effect {
             position: relative;
             z-index: 2; 
@@ -86,13 +71,10 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        /* --- KARTA HERO --- */
         .hero-card {
             max-width: 800px;
             padding: 3rem 2rem;
         }
-        
         .portfolio-logo {
             max-width: 380px;
             width: 100%;
@@ -103,7 +85,6 @@
             box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
             background-color: rgba(30, 41, 59, 0.5);
         }
-
         .subtitle {
             font-size: 1.25rem;
             color: #d1d5db;
@@ -111,8 +92,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
-        /* --- KARTY USŁUG --- */
         .card-container {
             display: flex;
             flex-wrap: wrap;
@@ -121,7 +100,6 @@
             width: 100%;
             max-width: 1200px;
         }
-        
         .service-card {
             width: 100%;
             max-width: 420px;
@@ -129,12 +107,10 @@
             flex-direction: column;
             align-items: center;
         }
-        
         .service-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
         }
-
         .service-card h2.card-main-title {
             color: #ffffff;
             font-size: 1.75rem;
@@ -145,7 +121,6 @@
         .service-card p {
             flex-grow: 1;
         }
-        
         .service-card-icon-container {
             height: 100px;
             width: 100px;
@@ -161,7 +136,6 @@
             border-radius: 50%;
             border: 3px solid var(--primary-accent-color);
         }
-        
         .ai-services-container {
             display: flex;
             justify-content: space-around;
@@ -182,7 +156,6 @@
             height: 80px;
             width: 80px;
         }
-        
         .service-card a.button-link {
             display: inline-block;
             background-color: var(--primary-accent-color);
@@ -199,14 +172,11 @@
             background-color: var(--primary-accent-hover-color);
             transform: scale(1.05);
         }
-
         @media (min-width: 768px) {
             .service-card {
                 width: calc(50% - 1rem);
             }
         }
-
-        /* --- DODANO: Górna Belka Informacyjna --- */
         .top-info-bar {
             position: fixed;
             top: 0;
@@ -332,22 +302,12 @@
             </div>
         </div>
 
-    </div> <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col items-center">
-                <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
-                    <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
-                </a>
-                <p class="text-sm">
-                    &copy; <span id="currentYear"></span> Michał Rąpała AI Solutions. Wszelkie prawa zastrzeżone.
-                </p>
-                <p class="text-xs mt-1">
-                    Strona stworzona z pasją i wsparciem AI.
-                </p>
-            </div>
-        </div>
-    </footer>
+    </div>
+
+    <!-- ZMIANA: Usunięto stałą stopkę, dodano kontener do dynamicznego ładowania -->
+    <div id="footer-container"></div>
     
+    <!-- SKRYPTY -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
@@ -365,9 +325,34 @@
                 observer.observe(el);
             });
 
-            const yearSpan = document.getElementById('currentYear');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
+            // ZMIANA: Dodano logikę do dynamicznego ładowania stopki
+            const footerContainer = document.getElementById('footer-container');
+            if (footerContainer) {
+                fetch('footer-template.html')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        footerContainer.innerHTML = html;
+                        // Inicjalizacja skryptu roku po załadowaniu
+                        const yearSpan = document.getElementById('currentYear');
+                        if (yearSpan) {
+                            yearSpan.textContent = new Date().getFullYear();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Błąd ładowania stopki:', error);
+                        footerContainer.innerHTML = '<p class="text-center text-red-500">Nie udało się załadować stopki.</p>';
+                    });
+            } else {
+                 // Ten kod do obsługi roku jest na wypadek, gdyby stopka była statyczna
+                const yearSpan = document.getElementById('currentYear');
+                if (yearSpan) {
+                    yearSpan.textContent = new Date().getFullYear();
+                }
             }
         });
     </script>
