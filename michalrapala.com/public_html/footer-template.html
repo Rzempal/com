@@ -1,5 +1,5 @@
-<!-- footer-template.html.html obramowanie cyan 12 czerwca 2025 5:15 PM --> 
-<footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white">
+<!-- footer-template.html v1 Utworzenie szablonu stopki dla strony głównej 12 czerwca 2025 5:28 PM -->
+<footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col items-center">
             <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
@@ -14,14 +14,3 @@
         </div>
     </div>
 </footer>
-<script>
-    // Mały skrypt do dynamicznego wstawiania aktualnego roku w stopce
-    // Ten skrypt będzie działał tylko jeśli ten plik jest ładowany dynamicznie
-    // lub jeśli jest częścią strony, która ma już ten element
-    document.addEventListener('DOMContentLoaded', () => {
-        const yearSpan = document.getElementById('currentYear');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    });
-</script>
