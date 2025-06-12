@@ -1,4 +1,4 @@
-<!-- index.html - wspolna paralaksa v3 20250609_h0525-->
+<!-- index.html - Gemini change 1 20250612_h0532 -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Dołączony plik ze wspólnymi stylami i animacjami -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="common-styles.css">
     <style>
         body {
@@ -26,7 +26,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding-top: 1rem;
+            padding-top: 3rem; /* ZMIANA: Dodano padding, by treść nie chowała się pod belką */
             padding-bottom: 1rem;
         }
 
@@ -66,7 +66,8 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.3);
+            /* ZMIANA: Ciemna nakładka zmieniona na jasną */
+            background-color: rgba(255, 255, 255, 0.4);
             z-index: 1;
         }
 
@@ -204,13 +205,93 @@
                 width: calc(50% - 1rem);
             }
         }
+
+        /* --- DODANO: Górna Belka Informacyjna --- */
+        .top-info-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            padding: 0.5rem 1rem;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+        }
+        .top-info-bar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 0.8rem;
+            color: #334155;
+        }
+        .top-info-bar-content a {
+            color: #334155;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .top-info-bar-content a:hover {
+            color: #48D2E7; /* var(--primary-accent-color) */
+        }
+        .top-info-bar-contact {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .top-info-bar-status {
+            display: flex;
+            align-items: center;
+        }
+        .top-info-bar-status .status-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #34d399; /* Zielony */
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+        }
+        @media (max-width: 640px) {
+            .top-info-bar-content {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <div class="top-info-bar">
+        <div class="top-info-bar-content">
+            <div class="top-info-bar-contact">
+                <a href="mailto:kontakt@michalrapala.com">
+                    <i class="fas fa-envelope fa-fw mr-2"></i>
+                    <span>kontakt@michalrapala.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin fa-fw mr-2"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+            <div class="top-info-bar-status">
+                <div class="status-indicator"></div>
+                <span>Otwarty na nowe projekty</span>
+            </div>
+        </div>
+    </div>
+
     <div class="content-wrapper">
         
-        <!-- Sekcja Hero -->
         <div class="hero-container animate-on-scroll aos-fade-in">
              <div class="hero-card glass-effect">
                 <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Michał+Rąpała';">
@@ -218,10 +299,8 @@
             </div>
         </div>
         
-        <!-- Sekcja Usług -->
         <div class="services-container">
              <div class="card-container">
-                <!-- Karta AI Solutions -->
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
                     <h2 class="card-main-title">AI Solutions</h2>
                     <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
@@ -241,7 +320,6 @@
                     </div>
                 </div>
 
-                <!-- Karta Robotics Solution -->
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up aos-delay-200ms">
                     <h2 class="card-main-title">Robotics Solution</h2>
                     <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
@@ -254,10 +332,7 @@
             </div>
         </div>
 
-    </div> <!-- Koniec .content-wrapper -->
-
-    <!-- STOPKA -->
-    <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full">
+    </div> <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-gray-100 w-full">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center">
                 <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
@@ -273,7 +348,6 @@
         </div>
     </footer>
     
-    <!-- SKRYPTY -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
