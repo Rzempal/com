@@ -1,4 +1,4 @@
-<!-- index.html v4 poprawiono nazwy podstron -->
+<!-- index.html v5 dodano aplikację Dystrybucja 20250613_h1540-->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -193,7 +193,7 @@
         <p class="header-subtitle">Moje Aplikacje Webowe</p>
         <div class="app-counts">
             <!-- AKTUALIZACJA LICZNIKA APLIKACJI -->
-            <span class="count-label">Aplikacje w Rozwoju:</span> <span class="count-value-dev">3</span>
+            <span class="count-label">Aplikacje w Rozwoju:</span> <span class="count-value-dev">4</span>
             <span class="mx-2 text-gray-600">|</span>
             <span class="count-label">Aplikacje Finalne:</span> <span class="count-value-final">0</span>
         </div>
@@ -204,7 +204,28 @@
             <h2 class="section-title">Dostępne Aplikacje:</h2>
             <div class="grid grid-cols-1 md:grid-cols-1 gap-8">
 
-                <!-- NOWA SEKCJA APLIKACJI: WALTER-KUKA MATRIX TOOL -->
+                <!-- SEKCJA APLIKACJI: Dystrybucja -->
+                <div class="app-card">
+                    <div class="flex items-center mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="app-icon text-purple-400">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12.75h16.5m-16.5-9h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                        </svg>
+                        <h3>Dystrybucja</h3>
+                    </div>
+                    <p>
+                        Wsteczna analiza złożeń karoserii na podstawie PDF. Aplikacja „Dystrybucja” umożliwia identyfikację najniższego wspólnego złożenia dla zadanych części na podstawie struktury z Assy-Sequence. Wczytaj plik PDF, podaj identyfikatory komponentów – system automatycznie przeanalizuje hierarchię i wskaże pierwsze wspólne złożenie.
+                    </p>
+                    <div class="app-buttons-container">
+                        <a href="dystrybucja.html" class="app-button beta-button">
+                            Testuj Beta
+                        </a>
+                        <a href="#" class="app-button disabled" aria-disabled="true" onclick="return false;">
+                            Finalna: Wkrótce
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SEKCJA APLIKACJI: WALTER-KUKA MATRIX TOOL -->
                 <div class="app-card">
                     <div class="flex items-center mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="app-icon text-amber-400">
@@ -219,10 +240,7 @@
                         <a href="walter_kuka_matrix.html" class="app-button beta-button">
                             Testuj Beta
                         </a>
-                        <a href="#"
-                           class="app-button disabled"
-                           aria-disabled="true"
-                           onclick="return false;">
+                        <a href="#" class="app-button disabled" aria-disabled="true" onclick="return false;">
                             Finalna: Wkrótce
                         </a>
                     </div>
@@ -244,10 +262,7 @@
                         <a href="xml_resources.html" class="app-button beta-button">
                             Testuj Beta
                         </a>
-                        <a href="#"
-                           class="app-button disabled"
-                           aria-disabled="true"
-                           onclick="return false;">
+                        <a href="#" class="app-button disabled" aria-disabled="true" onclick="return false;">
                             Finalna: Wkrótce
                         </a>
                     </div>
@@ -257,7 +272,7 @@
                 <div class="app-card">
                     <div class="flex items-center mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="app-icon text-green-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-1.621-.871a3 3 0 0 1-.879-2.122v-1.007M15.375 13.5H8.625m6.75 0V3.375c0-.621-.504-1.125-1.125-1.125h-4.5c-.621 0-1.125.504-1.125 1.125v10.125m6.75 0h.625a1.125 1.125 0 0 0 1.125-1.125V6.75a1.125 1.125 0 0 0-1.125-1.125H9.375a1.125 1.125 0 0 0-1.125 1.125V12.375c0 .621.504 1.125 1.125 1.125h.625m6.75 0h3.853c.346 0 .692-.069 1.003-.203a2.625 2.625 0 0 0 1.616-1.616c.134-.311.203-.657.203-1.003V6.75c0-.346-.069-.692-.203-1.003a2.625 2.625 0 0 0-1.616-1.616c-.311-.134-.657-.203-1.003-.203H15.375M8.625 13.5H4.772c-.346 0-.692-.069-1.003-.203a2.625 2.625 0 0 1-1.616-1.616c-.134-.311-.203-.657-.203-1.003V6.75c0-.346.069-.692-.203-1.003a2.625 2.625 0 0 1 1.616-1.616c.311-.134.657-.203 1.003-.203H8.625m0 0V3.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v10.125m0 0" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-1.621-.871a3 3 0 0 1-.879-2.122v-1.007M15.375 13.5H8.625m6.75 0V3.375c0-.621-.504-1.125-1.125-1.125h-4.5c-.621 0-1.125.504-1.125-1.125v10.125m6.75 0h.625a1.125 1.125 0 0 0 1.125-1.125V6.75a1.125 1.125 0 0 0-1.125-1.125H9.375a1.125 1.125 0 0 0-1.125 1.125V12.375c0 .621.504 1.125 1.125 1.125h.625m6.75 0h3.853c.346 0 .692-.069 1.003-.203a2.625 2.625 0 0 0 1.616-1.616c.134-.311.203-.657.203-1.003V6.75c0-.346-.069-.692-.203-1.003a2.625 2.625 0 0 0-1.616-1.616c-.311-.134-.657-.203-1.003-.203H15.375M8.625 13.5H4.772c-.346 0-.692-.069-1.003-.203a2.625 2.625 0 0 1-1.616-1.616c-.134-.311-.203-.657-.203-1.003V6.75c0-.346.069-.692-.203-1.003a2.625 2.625 0 0 1 1.616-1.616c.311-.134.657-.203 1.003-.203H8.625m0 0V3.375c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125-1.125v10.125m0 0" />
                         </svg>
                         <h3>Porównywarka Arkuszy Excel</h3>
                     </div>
@@ -269,10 +284,7 @@
                         <a href="porownywarka_excel.html" class="app-button beta-button">
                            Testuj Beta
                         </a>
-                        <a href="#"
-                           class="app-button disabled"
-                           aria-disabled="true"
-                           onclick="return false;">
+                        <a href="#" class="app-button disabled" aria-disabled="true" onclick="return false;">
                            Finalna: Wkrótce
                         </a>
                     </div>
