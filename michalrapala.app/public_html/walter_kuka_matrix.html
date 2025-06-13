@@ -1,0 +1,169 @@
+<!-- walter_kuka_matrix.html v2 (z linkiem do instrukcji) -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WALTER-KUKA Matrix Tool</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #003366;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        input[type="password"], input[type="file"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .btn {
+            background-color: #005A9C;
+            color: white;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #003366;
+        }
+        .btn:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+        }
+        #status {
+            margin-top: 1.5rem;
+            font-weight: 500;
+            min-height: 24px;
+        }
+        .status-error {
+            color: #d93025;
+        }
+        .status-success {
+            color: #1e8e3e;
+        }
+        /* --- NOWY STYL DLA LINKU DO INSTRUKCJI --- */
+        .manual-link {
+            display: block;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #555;
+            text-decoration: none;
+        }
+        .manual-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WALTER-KUKA Matrix Tool</h1>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="robotFile">Plik Excel ("Arkusz 1"):</label>
+                <input type="file" id="robotFile" name="robotFile" accept=".xlsx, .xls" required>
+            </div>
+            <button type="submit" id="submitBtn" class="btn">Przetwórz Plik</button>
+        </form>
+        <div id="status"></div>
+
+        <!-- --- NOWY LINK DO POBRANIA INSTRUKCJI --- -->
+        <a href="instrukcja_walter_kuka_matrix.pdf" class="manual-link" download>
+            Pobierz instrukcję obsługi (PDF)
+        </a>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusDiv = document.getElementById('status');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Przetwarzanie...';
+            statusDiv.textContent = '';
+            statusDiv.className = '';
+
+            const formData = new FormData();
+            formData.append('password', document.getElementById('password').value);
+            formData.append('robotFile', document.getElementById('robotFile').files[0]);
+
+            try {
+                const response = await fetch('/api/walter_kuka_matrix/process', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `Błąd serwera: ${response.status}`);
+                }
+
+                statusDiv.textContent = 'Sukces! Pobieranie pliku...';
+                statusDiv.classList.add('status-success');
+
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = downloadUrl;
+                
+                const originalFilename = document.getElementById('robotFile').files[0].name;
+                const newFilename = originalFilename.replace(/(\.xlsx?)$/, '_processed$1');
+                a.download = newFilename;
+                
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(downloadUrl);
+                a.remove();
+
+            } catch (error) {
+                statusDiv.textContent = `Błąd: ${error.message}`;
+                statusDiv.classList.add('status-error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Przetwórz Plik';
+            }
+        });
+    </script>
+</body>
+</html>
