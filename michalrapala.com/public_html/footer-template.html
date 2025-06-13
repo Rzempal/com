@@ -1,10 +1,10 @@
-<!-- footer-template.html link w tym samym oknie -->
+<!-- footer-template.html v2 Ujednolicono kolor obramowania logo 12 czerwca 2025 5:41 PM  -->
 <footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col items-center">
-            <!-- ZMIANA: Usunięto target="_blank" i powiązane atrybuty -->
             <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
-                <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
+                <!-- ZMIANA: Zmieniono kolor obramowania na turkusowy #48D2E7 -->
+                <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#48D2E7]/50 hover:border-[#48D2E7] transition-colors">
             </a>
             <p class="text-sm">
                 &copy; <span id="currentYear"></span> Michał Rąpała AI Solutions. Wszelkie prawa zastrzeżone.
@@ -16,9 +16,6 @@
     </div>
 </footer>
 <script>
-    // Mały skrypt do dynamicznego wstawiania aktualnego roku w stopce
-    // Ten skrypt będzie działał tylko jeśli ten plik jest ładowany dynamicznie
-    // lub jeśli jest częścią strony, która ma już ten element
     document.addEventListener('DOMContentLoaded', () => {
         const yearSpan = document.getElementById('currentYear');
         if (yearSpan) {
