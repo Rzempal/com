@@ -1,4 +1,4 @@
-<!-- index.html v4.009 Przeniesiono sekcję hero do kontenera usług -->
+<!-- index.html v4.010 Uproszczono strukturę do jednego kontenera z efektem paralaksy -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -27,27 +27,27 @@
             padding-bottom: 1rem;
         }
         
-        .services-container {
+        .main-container {
             position: relative;
             width: calc(100% - 2rem);
             margin-bottom: 2rem;
             padding: 4rem 1rem;
-            background-image: url('assets/images/main/main_hero_background.png');
+            background-image: url('assets/images/main/main_rob_pic.png'); /* Tło z paralaksą */
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* EFEKT PARALAKSY */
             border-radius: 0.75rem;
             overflow: hidden;
             display: flex;
-            /* ZMIANA: Ułożenie w kolumnie */
             flex-direction: column; 
             align-items: center;
             justify-content: center;
         }
-        .services-container::before {
+        .main-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(30, 41, 59, 0.6); /* Przyciemnione tło dla lepszego kontrastu */
+            background-color: rgba(30, 41, 59, 0.6);
             z-index: 1;
         }
         .glass-effect {
@@ -65,12 +65,11 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        /* ZMIANA: hero-card jest teraz w services-container */
         .hero-card {
             max-width: 800px;
             width: 100%;
             padding: 2rem;
-            margin-bottom: 3rem; /* Odstęp od kart poniżej */
+            margin-bottom: 3rem; 
         }
         .portfolio-logo {
             max-width: 380px;
@@ -233,8 +232,7 @@
 
     <div class="content-wrapper">
         
-        <div class="services-container">
-             <!-- ZMIANA: Sekcja Hero przeniesiona tutaj -->
+        <div class="main-container">
              <div class="hero-card glass-effect animate-on-scroll aos-fade-in">
                 <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Portfolio';" style="border: none;">
                 <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
@@ -245,7 +243,7 @@
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
                     <h2 class="card-main-title">Robotics Solution</h2>
                     <div class="service-card-icon-container">
-                        <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
+                        <img src="assets/images/global/logo_robotyka.png" alt="Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
                     </div>
                     <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
                     <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
@@ -255,7 +253,7 @@
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.1s;">
                     <h2 class="card-main-title">Aplikacje Webowe</h2>
                     <div class="service-card-icon-container">
-                        <img src="assets/images/global/logo_app.png" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
+                        <img src="assets/images/global/logo_app.png" alt="Aplikacje" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                     </div>
                     <p>Tworzę dedykowane aplikacje, które automatyzują procesy i ułatwiają pracę. Od kalkulatorów i systemów rezerwacji po narzędzia do analizy danych – dostarczam rozwiązania dopasowane do Twoich potrzeb.</p>
                     <a href="https://michalrapala.app" class="button-link">Zobacz aplikacje</a>
@@ -265,7 +263,7 @@
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.2s;">
                     <h2 class="card-main-title">Strony WWW</h2>
                     <div class="service-card-icon-container">
-                        <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
+                        <img src="assets/images/global/logo_web_ai.png" alt="Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
                     </div>
                     <p>Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji, aby przyciągnąć i zatrzymać klientów.</p>
                     <a href="https://strony.michalrapala.com" class="button-link">Poznaj ofertę</a>
