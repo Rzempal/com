@@ -1,11 +1,10 @@
-<!-- index.html v3 favicon change 20250615_h1007  -->
+<!-- index.html v4.006 Poprawiono dynamiczne ładowanie stopki przez użycie pełnej ścieżki URL -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>michalrapala.com Rozwiązania AI dla Przemysłu i Biznesu</title>
-    <!--link rel="icon" type="image/png" href="assets/images/global/favicon.png"-->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,7 +97,7 @@
             gap: 2rem;
             justify-content: center;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
         }
         .service-card {
             width: 100%;
@@ -114,12 +113,12 @@
         .service-card h2.card-main-title {
             color: #ffffff;
             font-size: 1.75rem;
-        }
-        .service-card h3.card-subtitle, .service-card p {
-            color: #d1d5db;
+            margin-bottom: 0.75rem;
         }
         .service-card p {
+            color: #d1d5db;
             flex-grow: 1;
+            margin-bottom: 1.5rem;
         }
         .service-card-icon-container {
             height: 100px;
@@ -136,26 +135,6 @@
             border-radius: 50%;
             border: 3px solid var(--primary-accent-color);
         }
-        .ai-services-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            gap: 1rem;
-            width: 100%;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-        .ai-service-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex-basis: 45%;
-        }
-        .ai-service-item .service-card-icon-container {
-            height: 80px;
-            width: 80px;
-        }
         .service-card a.button-link {
             display: inline-block;
             background-color: var(--primary-accent-color);
@@ -167,15 +146,11 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             width: auto;
             max-width: 220px;
+            margin-top: auto;
         }
         .service-card a.button-link:hover {
             background-color: var(--primary-accent-hover-color);
             transform: scale(1.05);
-        }
-        @media (min-width: 768px) {
-            .service-card {
-                width: calc(50% - 1rem);
-            }
         }
         .top-info-bar {
             position: fixed;
@@ -264,50 +239,52 @@
         
         <div class="hero-container animate-on-scroll aos-fade-in">
              <div class="hero-card glass-effect">
-                <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Michał+Rąpała';">
+                <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Portfolio';">
                 <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
         </div>
         
         <div class="services-container">
              <div class="card-container">
+                
+                <!-- Karta 1: Robotics Solution -->
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
-                    <h2 class="card-main-title">AI Solutions</h2>
-                    <p>Wykorzystuję narzędzia AI, aby tworzyć praktyczne rozwiązania i skutecznie wspierać codzienne zadania, dzięki czemu nowoczesne strony WWW i aplikacje webowe masz teraz w zasięgu ręki!</p>
-                    <div class="ai-services-container">
-                        <div class="ai-service-item">
-                            <div class="service-card-icon-container">
-                                <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
-                            </div>
-                            <a href="https://strony.michalrapala.com" class="button-link">Strony WWW, poznaj ofertę</a>
-                        </div>
-                        <div class="ai-service-item">
-                            <div class="service-card-icon-container">
-                                <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
-                            </div>
-                            <a href="https://michalrapala.app" class="button-link">Aplikacje webowe</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up aos-delay-200ms">
                     <h2 class="card-main-title">Robotics Solution</h2>
-                    <h3 class="card-subtitle">Symulacja i Programowanie Robotów Offline</h3>
-                    <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
                     <div class="service-card-icon-container">
                         <img src="assets/images/global/logo_robotyka.jpg" alt="Logo Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
                     </div>
+                    <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
                     <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
                 </div>
+
+                <!-- Karta 2: Aplikacje Webowe -->
+                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.1s;">
+                    <h2 class="card-main-title">Aplikacje Webowe</h2>
+                    <div class="service-card-icon-container">
+                        <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
+                    </div>
+                    <p>Tworzę dedykowane aplikacje, które automatyzują procesy i ułatwiają pracę. Od kalkulatorów i systemów rezerwacji po narzędzia do analizy danych – dostarczam rozwiązania dopasowane do Twoich potrzeb.</p>
+                    <a href="https://michalrapala.app" class="button-link">Zobacz aplikacje</a>
+                </div>
+
+                <!-- Karta 3: Strony WWW -->
+                <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.2s;">
+                    <h2 class="card-main-title">Strony WWW</h2>
+                    <div class="service-card-icon-container">
+                        <img src="assets/images/global/logo_web_ai.png" alt="Logo Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
+                    </div>
+                    <p>Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji, aby przyciągnąć i zatrzymać klientów.</p>
+                    <a href="https://strony.michalrapala.com" class="button-link">Poznaj ofertę</a>
+                </div>
+
             </div>
         </div>
 
     </div>
 
-    <!-- ZMIANA: Usunięto stałą stopkę, dodano kontener do dynamicznego ładowania -->
+    <!-- Kontener na dynamicznie ładowaną stopkę -->
     <div id="footer-container"></div>
     
-    <!-- SKRYPTY -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
@@ -325,10 +302,12 @@
                 observer.observe(el);
             });
 
-            // ZMIANA: Dodano logikę do dynamicznego ładowania stopki
+            // Dynamiczne ładowanie stopki z poprawioną ścieżką
             const footerContainer = document.getElementById('footer-container');
             if (footerContainer) {
-                fetch('footer-template.html')
+                // Poprawka: Tworzymy pełny URL do zasobu
+                const footerUrl = new URL('footer-template.html', window.location.href).href;
+                fetch(footerUrl)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -337,7 +316,6 @@
                     })
                     .then(html => {
                         footerContainer.innerHTML = html;
-                        // Inicjalizacja skryptu roku po załadowaniu
                         const yearSpan = document.getElementById('currentYear');
                         if (yearSpan) {
                             yearSpan.textContent = new Date().getFullYear();
@@ -347,12 +325,6 @@
                         console.error('Błąd ładowania stopki:', error);
                         footerContainer.innerHTML = '<p class="text-center text-red-500">Nie udało się załadować stopki.</p>';
                     });
-            } else {
-                 // Ten kod do obsługi roku jest na wypadek, gdyby stopka była statyczna
-                const yearSpan = document.getElementById('currentYear');
-                if (yearSpan) {
-                    yearSpan.textContent = new Date().getFullYear();
-                }
             }
         });
     </script>
