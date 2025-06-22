@@ -1,4 +1,4 @@
-<!-- index.html v4.008 Usunięto obramowania z wszystkich grafik logo -->
+<!-- index.html v4.009 Przeniesiono sekcję hero do kontenera usług -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -26,7 +26,7 @@
             padding-top: 3rem; 
             padding-bottom: 1rem;
         }
-        .hero-container,
+        
         .services-container {
             position: relative;
             width: calc(100% - 2rem);
@@ -38,22 +38,16 @@
             border-radius: 0.75rem;
             overflow: hidden;
             display: flex;
+            /* ZMIANA: Ułożenie w kolumnie */
+            flex-direction: column; 
             align-items: center;
             justify-content: center;
         }
-        .hero-container {
-            background-attachment: scroll;
-        }
-        .services-container {
-            background-image: url('assets/images/main/main_rob_pic.png');
-            background-attachment: fixed; 
-        }
-        .hero-container::before,
         .services-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(30, 41, 59, 0.6); /* Przyciemnione tło dla lepszego kontrastu */
             z-index: 1;
         }
         .glass-effect {
@@ -70,9 +64,13 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
+        /* ZMIANA: hero-card jest teraz w services-container */
         .hero-card {
             max-width: 800px;
-            padding: 3rem 2rem;
+            width: 100%;
+            padding: 2rem;
+            margin-bottom: 3rem; /* Odstęp od kart poniżej */
         }
         .portfolio-logo {
             max-width: 380px;
@@ -132,7 +130,6 @@
             max-width: 100%;
             object-fit: cover;
             border-radius: 0.75rem; 
-            /* ZMIANA: usunięto border */
         }
         .service-card a.button-link {
             display: inline-block;
@@ -236,17 +233,14 @@
 
     <div class="content-wrapper">
         
-        <div class="hero-container animate-on-scroll aos-fade-in">
-             <div class="hero-card glass-effect">
-                <!-- ZMIANA: usunięto border z portfolio-logo, ale cień i tło pozostały dla efektu -->
+        <div class="services-container">
+             <!-- ZMIANA: Sekcja Hero przeniesiona tutaj -->
+             <div class="hero-card glass-effect animate-on-scroll aos-fade-in">
                 <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Portfolio';" style="border: none;">
                 <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
-        </div>
-        
-        <div class="services-container">
+            
              <div class="card-container">
-                
                 <!-- Karta 1: Robotics Solution -->
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
                     <h2 class="card-main-title">Robotics Solution</h2>
