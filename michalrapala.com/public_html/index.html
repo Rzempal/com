@@ -1,4 +1,4 @@
-<!-- index.html v4.006 Poprawiono dynamiczne ładowanie stopki przez użycie pełnej ścieżki URL -->
+<!-- index.html v4.007 Ujednolicono kształt ramek logo i poprawiono ścieżkę do obrazu -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -132,7 +132,7 @@
             max-height: 100%;
             max-width: 100%;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 0.75rem; /* ZMIANA: z 50% na 0.75rem */
             border: 3px solid var(--primary-accent-color);
         }
         .service-card a.button-link {
@@ -261,7 +261,8 @@
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.1s;">
                     <h2 class="card-main-title">Aplikacje Webowe</h2>
                     <div class="service-card-icon-container">
-                        <img src="assets/images/global/logo_app.jpeg" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
+                        <!-- ZMIANA: Poprawiono rozszerzenie z .jpeg na .png -->
+                        <img src="assets/images/global/logo_app.png" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                     </div>
                     <p>Tworzę dedykowane aplikacje, które automatyzują procesy i ułatwiają pracę. Od kalkulatorów i systemów rezerwacji po narzędzia do analizy danych – dostarczam rozwiązania dopasowane do Twoich potrzeb.</p>
                     <a href="https://michalrapala.app" class="button-link">Zobacz aplikacje</a>
@@ -305,7 +306,6 @@
             // Dynamiczne ładowanie stopki z poprawioną ścieżką
             const footerContainer = document.getElementById('footer-container');
             if (footerContainer) {
-                // Poprawka: Tworzymy pełny URL do zasobu
                 const footerUrl = new URL('footer-template.html', window.location.href).href;
                 fetch(footerUrl)
                     .then(response => {
