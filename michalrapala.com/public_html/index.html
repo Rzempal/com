@@ -1,4 +1,4 @@
-<!-- index.html v4.007 Ujednolicono kształt ramek logo i poprawiono ścieżkę do obrazu -->
+<!-- index.html v4.008 Usunięto obramowania z wszystkich grafik logo -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -78,7 +78,6 @@
             max-width: 380px;
             width: 100%;
             height: auto;
-            border: 4px solid #22d3ee;
             border-radius: 0.75rem;
             margin: 0 auto 1.5rem auto;
             box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
@@ -132,8 +131,8 @@
             max-height: 100%;
             max-width: 100%;
             object-fit: cover;
-            border-radius: 0.75rem; /* ZMIANA: z 50% na 0.75rem */
-            border: 3px solid var(--primary-accent-color);
+            border-radius: 0.75rem; 
+            /* ZMIANA: usunięto border */
         }
         .service-card a.button-link {
             display: inline-block;
@@ -239,7 +238,8 @@
         
         <div class="hero-container animate-on-scroll aos-fade-in">
              <div class="hero-card glass-effect">
-                <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Portfolio';">
+                <!-- ZMIANA: usunięto border z portfolio-logo, ale cień i tło pozostały dla efektu -->
+                <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="portfolio-logo" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Portfolio';" style="border: none;">
                 <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
             </div>
         </div>
@@ -261,7 +261,6 @@
                 <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.1s;">
                     <h2 class="card-main-title">Aplikacje Webowe</h2>
                     <div class="service-card-icon-container">
-                        <!-- ZMIANA: Poprawiono rozszerzenie z .jpeg na .png -->
                         <img src="assets/images/global/logo_app.png" alt="Logo Aplikacje Webowe" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
                     </div>
                     <p>Tworzę dedykowane aplikacje, które automatyzują procesy i ułatwiają pracę. Od kalkulatorów i systemów rezerwacji po narzędzia do analizy danych – dostarczam rozwiązania dopasowane do Twoich potrzeb.</p>
