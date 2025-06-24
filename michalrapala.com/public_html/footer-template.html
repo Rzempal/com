@@ -1,25 +1,30 @@
-<!-- footer-template.html v6 drobne zmiany  -->
-<footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white">
+<!-- footer-template.html v3 Poprawiono układ na poziomy (tekst obok logo) -->
+<footer class="border-t border-slate-200 text-slate-600 py-6 bg-white">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col items-center">
-            <p class="text-xs mt-1">
-                Strona stworzona z pasją i wsparciem AI.
-            </p>
-            <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
-                <!-- ZMIANA: Zmieniono kolor obramowania na turkusowy #48D2E7 -->
-                <img src="https://michalrapala.com/assets/images/global/logo_wykonanie.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded transition-colors">
+        <!-- ZMIANA: Użycie flexbox do ułożenia elementów w rzędzie -->
+        <div class="flex justify-center items-center gap-4">
+            
+            <!-- Logo jako osobny element -->
+            <a href="https://michalrapala.com" class="inline-block transition-transform hover:scale-105" target="_blank" rel="noopener noreferrer">
+                <img src="https://michalrapala.com/assets/images/global/logo_wykonanie.png" alt="michalrapala.com" class="h-auto w-20">
             </a>
-            <p class="text-sm">
-                &copy; <span id="currentYear"></span> 
-            </p>
+
+            <!-- Kontener na tekst -->
+            <div class="text-left text-sm">
+                <p class="font-semibold">
+                    &copy; <span id="currentYear"></span> Michał Rąpała AI Solutions.
+                </p>
+                <p class="text-xs mt-1 text-slate-500">
+                    Stworzone z pasją i wsparciem AI.
+                </p>
+            </div>
         </div>
     </div>
 </footer>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const yearSpan = document.getElementById('currentYear');
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    });
+    // Ten skrypt jest teraz częścią szablonu i nie trzeba go dodawać osobno
+    const yearSpanInFooter = document.getElementById('currentYear');
+    if (yearSpanInFooter) {
+        yearSpanInFooter.textContent = new Date().getFullYear();
+    }
 </script>
