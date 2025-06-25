@@ -1,4 +1,4 @@
-<!-- index.html v4.012 class="card-logo" from portfolio-logo -->
+<!-- index.html v4.013 update stopki-->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -294,29 +294,30 @@
                 observer.observe(el);
             });
 
-            // Dynamiczne ładowanie stopki z poprawioną ścieżką
-            const footerContainer = document.getElementById('footer-container');
-            if (footerContainer) {
-                const footerUrl = new URL('footer-template.html', window.location.href).href;
-                fetch(footerUrl)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.text();
-                    })
-                    .then(html => {
-                        footerContainer.innerHTML = html;
-                        const yearSpan = document.getElementById('currentYear');
-                        if (yearSpan) {
-                            yearSpan.textContent = new Date().getFullYear();
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Błąd ładowania stopki:', error);
-                        footerContainer.innerHTML = '<p class="text-center text-red-500">Nie udało się załadować stopki.</p>';
-                    });
-            }
+            // Dynamiczne ładowanie stopki z poprawioną ścieżka
+    <div id="footer-placeholder"></div>
+
+    <!-- ZMIANA: Skrypt najpierw ładuje HTML, a potem osobny plik JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('footer-template.html')
+                .then(response => {
+                    if (response.ok) return response.text();
+                    throw new Error('Nie udało się załadować szablonu stopki.');
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    
+                    // Po wstawieniu HTML-a do DOM, dynamicznie tworzymy
+                    // i dodajemy tag <script> z naszym kodem.
+                    const script = document.createElement('script');
+                    script.src = 'footer-script.js';
+                    document.body.appendChild(script);
+                })
+                .catch(error => {
+                    console.error('Błąd ładowania stopki:', error);
+                    document.getElementById('footer-placeholder').innerHTML = '<p class="text-center p-4">&copy; Michał Rąpała</p>';
+                });
         });
     </script>
 
