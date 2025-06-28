@@ -1,3 +1,4 @@
+<!-- doswiadczenie.html v3 - dynamicznie ładowana stopka -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -284,7 +285,32 @@
         </main>
     </div>
 
+        <!-- Kontener na dynamicznie ładowaną stopkę -->
     <div id="footer-placeholder"></div>
+
+    <!-- ZMIANA: Skrypt najpierw ładuje HTML, a potem osobny plik JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('footer-template.html')
+                .then(response => {
+                    if (response.ok) return response.text();
+                    throw new Error('Nie udało się załadować szablonu stopki.');
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    
+                    // Po wstawieniu HTML-a do DOM, dynamicznie tworzymy
+                    // i dodajemy tag <script> z naszym kodem.
+                    const script = document.createElement('script');
+                    script.src = 'footer-script.js';
+                    document.body.appendChild(script);
+                })
+                .catch(error => {
+                    console.error('Błąd ładowania stopki:', error);
+                    document.getElementById('footer-placeholder').innerHTML = '<p class="text-center p-4">&copy; Michał Rąpała</p>';
+                });
+        });
+    </script>
 
     <script src="common-scripts.js" defer></script>
 
