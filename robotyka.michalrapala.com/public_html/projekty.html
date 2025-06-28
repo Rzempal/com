@@ -1,4 +1,4 @@
-<!-- projekty.html z poprawioną animacją mobilną -->
+<!-- projekty.html v3 - dynamicznie ładowana stopka -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -206,7 +206,32 @@
 </head>
 <body data-page-name="Projekty">
 
-    <div id="navbar-placeholder"></div>
+       <!-- Kontener na dynamicznie ładowaną stopkę -->
+    <div id="footer-placeholder"></div>
+
+    <!-- ZMIANA: Skrypt najpierw ładuje HTML, a potem osobny plik JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('footer-template.html')
+                .then(response => {
+                    if (response.ok) return response.text();
+                    throw new Error('Nie udało się załadować szablonu stopki.');
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    
+                    // Po wstawieniu HTML-a do DOM, dynamicznie tworzymy
+                    // i dodajemy tag <script> z naszym kodem.
+                    const script = document.createElement('script');
+                    script.src = 'footer-script.js';
+                    document.body.appendChild(script);
+                })
+                .catch(error => {
+                    console.error('Błąd ładowania stopki:', error);
+                    document.getElementById('footer-placeholder').innerHTML = '<p class="text-center p-4">&copy; Michał Rąpała</p>';
+                });
+        });
+    </script>
 
     <header class="container mx-auto p-4 md:px-10 mt-12 mb-12">
         <div class="header-background animate-on-scroll aos-fade-in aos-duration-900ms">
