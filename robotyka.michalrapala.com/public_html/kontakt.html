@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotyka - Michał Rąpała - Kontakt</title>
+    <link rel="icon" type="image/png" href="https://michalrapala.com/assets/images/global/favicon_rob.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="common-styles.css">
+
+    <style>
+        html {
+             scroll-behavior: smooth;
+        }
+        /* body, a, footer, etc. są stylizowane w common-styles.css */
+
+        .main-container {
+             background-color: #FFFFFF; 
+             box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+             border-radius: 0.75rem;
+             margin-top: 2rem; 
+             position: relative;
+             z-index: 10;
+             border: 1px solid #E2E8F0; 
+        }
+        
+        h2 .section-title { 
+            font-size: 1.75rem; 
+            font-weight: 700; 
+            color: #1E293B; 
+        }
+        h2 i {
+            color: var(--primary-accent-color); 
+        }
+        h2 { 
+            margin-bottom: 1.5rem; 
+            padding-bottom: 0.75rem; 
+            border-bottom: 1px solid #E2E8F0; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .card { 
+            background-color: #FFFFFF; 
+            border-radius: 0.75rem; 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #E2E8F0; 
+        }
+        #contact-content a {
+            color: #334155; 
+            transition: color 0.3s ease;
+        }
+        #contact-content a:hover {
+            color: var(--primary-accent-color); 
+        }
+        #contact-content a i { 
+            color: var(--primary-accent-color);
+        }
+    </style>
+</head>
+<body data-page-name="Kontakt">
+
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
+        <main class="main-container">
+             <div class="p-4 md:p-10">
+                <section id="contact">
+                    <h2>
+                        <span class="flex items-center"><i class="fas fa-address-book mr-3"></i><span class="section-title" data-lang-key="contactTitle">Kontakt</span></span>
+                    </h2>
+                    <div id="contact-content" class="card pt-4">
+                         <div class="space-y-4">
+                             <a href="https://linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg">
+                                 <i class="fab fa-linkedin w-6 mr-3 text-xl"></i> LinkedIn
+                             </a>
+                             <a href="mailto:robotyka@michalrapala.com" class="flex items-center text-lg">
+                                 <i class="fas fa-envelope w-6 mr-3 text-xl"></i>
+                                 <span data-lang-key="contactEmailText">robotyka@michalrapala.com</span>
+                             </a>
+                         </div>
+                    </div>
+                </section>
+             </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="common-scripts.js" defer></script>
+
+</body>
+</html>

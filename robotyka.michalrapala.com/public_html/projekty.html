@@ -1,0 +1,441 @@
+<!-- projekty.html z poprawioną animacją mobilną -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotyka - Michał Rąpała - Projekty</title>
+    <link rel="icon" type="image/png" href="https://michalrapala.com/assets/images/global/favicon_rob.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="common-styles.css">
+
+    <style>
+        html {
+             scroll-behavior: smooth;
+        }
+        .header-background {
+            height: auto; 
+            min-height: 300px; 
+            padding-top: 2rem; 
+            padding-bottom: 2rem; 
+            background-color: #E0F5F7; 
+            border-radius: 0.75rem; 
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('https://michalrapala.com/assets/images/robotyka/header_robotyka_light.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .header-background::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3); 
+            z-index: 1;
+            border-radius: 0.75rem; 
+        }
+        .header-inner-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            gap: 1.5rem; 
+        }
+        .header-inner-content p.hero-text {
+            color: white; 
+            font-size: 1.1rem; 
+            line-height: 1.6;
+        }
+        @media (min-width: 768px) { 
+            .header-inner-content p.hero-text {
+                font-size: 1.25rem; 
+            }
+        }
+        
+        .cta-button {
+            background-color: var(--primary-accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            border: 2px solid var(--primary-accent-color);
+        }
+        .cta-button:hover {
+            background-color: var(--primary-accent-hover-color);
+            border-color: var(--primary-accent-hover-color);
+        }
+
+        .main-container { /* Usunięto stąd animację */
+             background-color: #FFFFFF; 
+             box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+             border-radius: 0.75rem;
+             margin-top: -2.5rem; 
+             position: relative;
+             z-index: 10;
+             border: 1px solid #E2E8F0; 
+        }
+        
+        h2 .section-title { 
+            font-size: 1.75rem; 
+            font-weight: 700; 
+            color: #1E293B; 
+        }
+        h2 i { 
+            color: var(--primary-accent-color); 
+        }
+        h2 { 
+            margin-bottom: 1.5rem; 
+            padding-bottom: 0.75rem; 
+            border-bottom: 1px solid #E2E8F0; 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .project-card { 
+            background-color: #FFFFFF; 
+            border-radius: 0.75rem; 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); 
+            border: 1px solid #E2E8F0; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .project-card:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04); 
+        }
+        .project-card.hidden-by-filter { display: none; }
+
+        .project-card h4 {
+            color: #0F172A; 
+            font-size: 1.125rem; 
+            font-weight: 600; 
+            margin-bottom: 0.25rem; 
+        }
+        .project-card .project-date-company {
+            font-size: 0.75rem; 
+            color: #64748B; 
+            margin-bottom: 0.75rem; 
+        }
+        .project-card .project-detail {
+            margin-bottom: 0.5rem; 
+        }
+        .project-card .project-detail-label {
+            font-weight: 500; 
+            color: #334155; 
+        }
+        .project-card .project-detail-value {
+            color: #475569; 
+            font-size: 0.875rem; 
+        }
+        
+        .project-tags-container {
+            margin-top: auto; 
+            padding-top: 0.75rem; 
+            border-top: 1px solid #F1F5F9; 
+        }
+        .project-tags-container .tag { 
+            background-color: #E2E8F0; 
+            color: #334155; 
+            border-color: #CBD5E1; 
+            padding: 0.25rem 0.75rem; 
+            font-size: 0.75rem; 
+            border-radius: 9999px;
+            margin-right: 0.25rem; 
+            margin-bottom: 0.25rem; 
+            display: inline-block;
+        }
+        
+        #project-filters {
+            /* Styl dla głównego kontenera filtrów */
+        }
+        .filter-group {
+            margin-bottom: 1.5rem; 
+        }
+        .filter-group-label {
+            display: block; 
+            font-weight: 600; 
+            color: #1E293B; 
+            margin-bottom: 0.75rem; 
+            padding-bottom: 0.5rem; 
+            border-bottom: 1px solid #E2E8F0; 
+        }
+        .filter-tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem; 
+        }
+
+        .filter-tag { 
+            background-color: #F1F5F9; 
+            color: #475569; 
+            padding: 0.5rem 1rem; 
+            border-radius: 9999px; 
+            font-size: 0.85rem; 
+            font-weight: 500; 
+            cursor: pointer; 
+            border: 1px solid #E2E8F0; 
+            display: inline-block; 
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; 
+        }
+        .filter-tag:hover { 
+            background-color: #E2E8F0; 
+            color: #1E293B; 
+            border-color: #CBD5E1; 
+        }
+        .filter-tag.active { 
+            background-color: var(--primary-accent-color); 
+            color: white; 
+            border-color: var(--primary-accent-color); 
+            font-weight: 600; 
+        }
+    </style>
+</head>
+<body data-page-name="Projekty">
+
+    <div id="navbar-placeholder"></div>
+
+    <header class="container mx-auto p-4 md:px-10 mt-12 mb-12">
+        <div class="header-background animate-on-scroll aos-fade-in aos-duration-900ms">
+             <div class="header-inner-content">
+                 <p class="hero-text font-semibold animate-on-scroll aos-fade-in-up aos-delay-200ms" data-lang-key="heroProjectsText"></p>
+                 <a href="kontakt.html" class="cta-button animate-on-scroll aos-fade-in-up aos-delay-400ms" data-lang-key="heroCtaButtonContact"></a>
+             </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
+        <main class="main-container"> 
+             <div class="p-4 md:p-10">
+                <section id="projects">
+                    <h2 class="animate-on-scroll aos-fade-in-right">
+                        <span class="flex items-center"><i class="fas fa-tasks mr-3"></i><span class="section-title" data-lang-key="projectsTitle">Projekty</span></span>
+                    </h2>
+                    <div id="projects-content" class="pt-4">
+                        <div id="project-filters" class="animate-on-scroll aos-fade-in-up"> 
+                            <div class="filter-group">
+                                <div class="filter-tags-wrapper" id="filter-group-all">
+                                    {/* Przycisk "Wszystkie" */}
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <span class="filter-group-label" data-lang-key="filterGroupPosition"></span>
+                                <div class="filter-tags-wrapper" id="filter-group-position-tags">
+                                    {/* Tagi stanowisk */}
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <span class="filter-group-label" data-lang-key="filterGroupStandardSoftware"></span>
+                                <div class="filter-tags-wrapper" id="filter-group-standard-software-tags">
+                                    {/* Tagi standardów i oprogramowania */}
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <span class="filter-group-label" data-lang-key="filterGroupRobotsTechnology"></span>
+                                <div class="filter-tags-wrapper" id="filter-group-robots-technology-tags">
+                                    {/* Tagi robotów i technologii */}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="project-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                            {/* Karty generowane przez JavaScript */}
+                        </div>
+                    </div>
+                </section>
+             </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="common-scripts.js" defer></script>
+    <script>
+        function renderProjectCards(currentLang) {
+            const grid = document.getElementById('project-cards-grid');
+            if (!grid) return;
+            grid.innerHTML = ''; 
+
+            if (typeof translations === 'undefined' || typeof projectData === 'undefined') {
+                console.error("Translations or projectData not found for rendering cards.");
+                return;
+            }
+
+            projectData.forEach((project, index) => {
+                const card = document.createElement('div');
+                card.classList.add('project-card', 'animate-on-scroll', 'aos-fade-in-up');
+                // Dodano kaskadowe opóźnienie dla kart
+                card.style.transitionDelay = `${index * 50}ms`; 
+                card.dataset.tags = project.tags.join(' ');
+
+                const getText = (keyOrObject) => {
+                    if (typeof keyOrObject === 'string' && translations[keyOrObject] && translations[keyOrObject][currentLang]) {
+                        return translations[keyOrObject][currentLang];
+                    } else if (typeof keyOrObject === 'string' && translations[keyOrObject] && translations[keyOrObject]['pl']) { 
+                        return translations[keyOrObject]['pl'];
+                    }
+                     else if (typeof keyOrObject === 'object' && keyOrObject !== null && keyOrObject[currentLang]) {
+                        return keyOrObject[currentLang];
+                    } else if (typeof keyOrObject === 'object' && keyOrObject !== null && keyOrObject['pl']) { 
+                        return keyOrObject['pl'];
+                    }
+                    if (typeof keyOrObject === 'string') return keyOrObject.replace(/_/g, ' ');
+                    return 'N/A';
+                };
+                
+                card.innerHTML = `
+                    <h4 data-lang-key="${project.nameKey}">${getText(project.nameKey)}</h4>
+                    <p class="project-date-company">${getText(project.dateCompanyKey)}</p>
+                    
+                    <div class="project-detail">
+                        <span class="project-detail-label" data-lang-key="projectCardPositionLabel">${getText('projectCardPositionLabel')}</span>
+                        <span class="project-detail-value">${getText(project.positionKey)}</span>
+                    </div>
+                    
+                    <div class="project-detail">
+                        <span class="project-detail-label" data-lang-key="projectCardStandardSoftwareLabel">${getText('projectCardStandardSoftwareLabel')}</span>
+                        <span class="project-detail-value">${getText(project.standardSoftwareKey)}</span>
+                    </div>
+                    
+                    <div class="project-detail">
+                        <span class="project-detail-label" data-lang-key="projectCardRobotsTechnologyLabel">${getText('projectCardRobotsTechnologyLabel')}</span>
+                        <span class="project-detail-value">${getText(project.robotsTechnologyKey)}</span>
+                    </div>
+
+                    <div class="project-tags-container">
+                        ${project.tags.map(tag => `<span class="tag">${tag.replace(/_/g, ' ')}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            if (typeof initializeAnimateOnScroll === 'function') {
+                initializeAnimateOnScroll();
+            }
+        }
+
+        function initializeProjectFiltersLocal(currentLang) {
+            const mainFiltersContainer = document.getElementById('project-filters'); 
+            if (!mainFiltersContainer) {
+                console.error("Błąd: Główny kontener filtrów #project-filters nie został znaleziony.");
+                return;
+            }
+
+            const filtersContainerAll = document.getElementById('filter-group-all');
+            const filtersGroupPositionEl = document.getElementById('filter-group-position-tags');
+            const filtersGroupStdSwEl = document.getElementById('filter-group-standard-software-tags');
+            const filtersGroupRobTechEl = document.getElementById('filter-group-robots-technology-tags');
+
+            if (!filtersContainerAll || !filtersGroupPositionEl || !filtersGroupStdSwEl || !filtersGroupRobTechEl) {
+                console.error("Błąd: Nie znaleziono jednego lub więcej kontenerów grup tagów (np. filter-group-all).");
+                return;
+            }
+
+            filtersContainerAll.innerHTML = '';
+            filtersGroupPositionEl.innerHTML = '';
+            filtersGroupStdSwEl.innerHTML = '';
+            filtersGroupRobTechEl.innerHTML = '';
+
+            if (typeof projectData === 'undefined' || typeof translations === 'undefined') {
+                console.error("Błąd: projectData lub translations nie są zdefiniowane w initializeProjectFiltersLocal.");
+                return;
+            }
+            
+            const positionKeywords = ["Simulation_Leader", "Simulation_Engineer", "Online_Robot_Programming", "Line_Leader", "Offline_Robot_Programming", "Online_Support"];
+            const standardSoftwareKeywords = ["Magna", "Process_Simulate", "BMW_v7", "BMW_v8", "KUKA_Work_Visual", "VW", "OPEL_Legacy", "JLR", "Robcad", "Volvo", "Delmia_V5", "Daimler", "Ineos", "BMW_Standard", "N/A"];
+            const robotsTechnologyKeywords = ["KUKA_Robots", "ABB_Robots", "Fanuc_Robots", "Spot_Welding", "Stud_Welding", "Adhesive", "FDS", "Riveting", "Screwing", "Alu", "Steel", "Glass_Industry"];
+
+            let allUniqueTags = new Set();
+            projectData.forEach(project => {
+                project.tags.forEach(tag => allUniqueTags.add(tag));
+            });
+
+            const createFilterButton = (tag, container) => {
+                const button = document.createElement('span');
+                button.textContent = tag.replace(/_/g, ' '); 
+                button.classList.add('filter-tag');
+                button.dataset.filter = tag; 
+                container.appendChild(button);
+                return button;
+            };
+
+            const allButton = createFilterButton('all', filtersContainerAll);
+            allButton.dataset.langKey = 'filterAll';
+            allButton.textContent = (translations.filterAll && translations.filterAll[currentLang]) ? translations.filterAll[currentLang] : "Wszystkie";
+            allButton.classList.add('active');
+
+            const categorizedTags = {
+                position: new Set(),
+                standardSoftware: new Set(),
+                robotsTechnology: new Set()
+            };
+
+            allUniqueTags.forEach(tag => {
+                if (positionKeywords.includes(tag)) {
+                    categorizedTags.position.add(tag);
+                } else if (standardSoftwareKeywords.includes(tag)) {
+                    categorizedTags.standardSoftware.add(tag);
+                } else if (robotsTechnologyKeywords.includes(tag)) {
+                    categorizedTags.robotsTechnology.add(tag);
+                }
+            });
+            
+            Array.from(categorizedTags.position).sort().forEach(tag => createFilterButton(tag, filtersGroupPositionEl));
+            Array.from(categorizedTags.standardSoftware).sort().forEach(tag => createFilterButton(tag, filtersGroupStdSwEl));
+            Array.from(categorizedTags.robotsTechnology).sort().forEach(tag => createFilterButton(tag, filtersGroupRobTechEl));
+            
+            const setGroupLabel = (key, defaultText) => {
+                const elem = document.querySelector(`.filter-group-label[data-lang-key="${key}"]`);
+                if (elem) {
+                    elem.textContent = (translations[key] && translations[key][currentLang]) ? translations[key][currentLang] : defaultText;
+                }
+            };
+            setGroupLabel('filterGroupPosition', "Stanowisko");
+            setGroupLabel('filterGroupStandardSoftware', "Standard i Oprogramowanie");
+            setGroupLabel('filterGroupRobotsTechnology', "Roboty i Technologie");
+
+            const allFilterButtonsContainers = [filtersContainerAll, filtersGroupPositionEl, filtersGroupStdSwEl, filtersGroupRobTechEl];
+
+            if (!mainFiltersContainer.dataset.listenerAttached) { 
+                mainFiltersContainer.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('filter-tag')) {
+                        const filterValue = event.target.dataset.filter;
+                        
+                        allFilterButtonsContainers.forEach(cont => {
+                            cont.querySelectorAll('.filter-tag').forEach(btn => btn.classList.remove('active'));
+                        });
+                        event.target.classList.add('active');
+                        
+                        const projectCardsElements = document.querySelectorAll('.project-card');
+                        projectCardsElements.forEach(card => {
+                            const cardTags = card.dataset.tags.split(' ');
+                            const tagExists = cardTags.includes(filterValue);
+                            if (filterValue === 'all' || tagExists) {
+                                card.classList.remove('hidden-by-filter');
+                                setTimeout(() => card.classList.add('is-visible'), 50); 
+                            } else {
+                                card.classList.remove('is-visible');
+                                card.classList.add('hidden-by-filter');
+                            }
+                        });
+                    }
+                });
+                mainFiltersContainer.dataset.listenerAttached = 'true';
+            }
+        }
+    </script>
+
+</body>
+</html>
