@@ -1,4 +1,4 @@
-# michalrapala.com - strona główna
-* ├── robotyka.michalrapala.com
-* ├── strony.michalrapala.com
-* └── michalrapala.app niezależna
+# michalrapala.com
+├── robotyka.michalrapala.com
+├── strony.michalrapala.com
+└── michalrapala.app niezależna
