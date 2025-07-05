@@ -1,3 +1,16 @@
+# michalrapala.com
+
+Strona główna oraz system subdomen prezentujący ofertę usług z obszaru automatyzacji, symulacji procesów przemysłowych i rozwoju aplikacji webowych. Każdy z obszarów posiada dedykowaną sekcję lub subdomenę.
+
+---
+
+## 🌐 Struktura domen (z linkami)
+
+- [michalrapala.com](https://michalrapala.com)
+  - [robotyka.michalrapala.com](https://robotyka.michalrapala.com)
+  - [strony.michalrapala.com](https://strony.michalrapala.com)
+  - [michalrapala.app](https://michalrapala.app)
+
 ---
 
 ## 🔧 michalrapala.com – Strona Główna
