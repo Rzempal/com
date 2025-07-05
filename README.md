@@ -4,7 +4,7 @@ Strona główna oraz system subdomen prezentujący ofertę usług z obszaru auto
 
 ---
 
-## 🌐 Struktura domen (z linkami)
+## 🌐 Struktura domen
 
 - [michalrapala.com](https://michalrapala.com)
   - [robotyka.michalrapala.com](https://robotyka.michalrapala.com)
