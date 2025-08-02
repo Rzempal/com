@@ -1,0 +1,19 @@
+# robots.txt dla QR Genesis
+# Plik do umieszczenia w katalogu głównym strony
+
+User-agent: *
+Allow: /
+
+# Pozwól na indeksowanie wszystkich stron
+Disallow: 
+
+# Opcjonalnie - zablokuj dostęp do katalogów systemowych (jeśli istnieją)
+# Disallow: /admin/
+# Disallow: /config/
+# Disallow: /logs/
+
+# Sitemap (dostosuj do swojej domeny)
+Sitemap: https://twoja-domena.pl/sitemap.xml
+
+# Crawl-delay (opcjonalne - ogranicza częstotliwość skanowania)
+# Crawl-delay: 1
