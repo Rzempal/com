@@ -1,4 +1,4 @@
-<!-- hub.html v0.005 – Gate-Aligned Neural Mesh + Enhanced Flash Lines -->
+<!-- hub.html v0.006 – Card Sheet System + Gate-Aligned Neural Mesh + Flash Lines -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -149,57 +149,55 @@
             </div>
         </section>
 
-        <!-- Cards Container -->
-        <section class="hub-cards-section" id="hubCardsSection">
-
-            <!-- Card 1: Robotyka -->
-            <article class="hub-card" id="hub-card-robotyka" data-card="robotyka">
-                <div class="hub-card-image">
-                    <img src="assets/images/global/logo_robotyka.png" alt="Robotyka"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka';" />
-                </div>
-                <div class="hub-card-content">
-                    <h2 class="hub-card-title">Robotyka</h2>
-                    <p class="hub-card-description">
-                        Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
-                    </p>
-                    <a href="https://robotyka.michalrapala.com" class="hub-card-link">Dowiedz się więcej</a>
-                </div>
-            </article>
-
-            <!-- Card 2: Aplikacje Webowe -->
-            <article class="hub-card" id="hub-card-aplikacje" data-card="aplikacje">
-                <div class="hub-card-image">
-                    <img src="assets/images/global/logo_app.png" alt="Aplikacje Webowe"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje';" />
-                </div>
-                <div class="hub-card-content">
-                    <h2 class="hub-card-title">Aplikacje Webowe</h2>
-                    <p class="hub-card-description">
-                        Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
-                    </p>
-                    <a href="https://michalrapala.app" class="hub-card-link">Zobacz aplikacje</a>
-                </div>
-            </article>
-
-            <!-- Card 3: Strony WWW -->
-            <article class="hub-card" id="hub-card-www" data-card="www">
-                <div class="hub-card-image">
-                    <img src="assets/images/global/logo_web_ai.png" alt="Strony WWW"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW';" />
-                </div>
-                <div class="hub-card-content">
-                    <h2 class="hub-card-title">Strony WWW</h2>
-                    <p class="hub-card-description">
-                        Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
-                    </p>
-                    <a href="https://strony.michalrapala.com" class="hub-card-link">Poznaj ofertę</a>
-                </div>
-            </article>
-
-        </section>
-
     </div>
+
+    <!-- ========== CARD BACKDROP ========== -->
+    <div id="card-backdrop" class="card-backdrop" hidden></div>
+
+    <!-- ========== CARD SHEET (single reusable container) ========== -->
+    <aside id="card-sheet" class="card-sheet" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+        <header class="card-topbar">
+            <div class="card-grabber" aria-hidden="true"></div>
+            <h2 id="card-title" class="card-title"></h2>
+            <button class="card-close" aria-label="Zamknij" title="Zamknij (Esc)">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <div class="card-media">
+            <img id="card-logo" class="card-logo-img" alt="" />
+        </div>
+
+        <div id="card-content" class="card-content"></div>
+    </aside>
+
+    <!-- ========== HIDDEN TEMPLATES (card content) ========== -->
+    <template id="template-robotyka">
+        <div class="card-body">
+            <p class="card-lead">
+                Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+            </p>
+            <a href="https://robotyka.michalrapala.com" class="card-cta">Dowiedz się więcej</a>
+        </div>
+    </template>
+
+    <template id="template-aplikacje">
+        <div class="card-body">
+            <p class="card-lead">
+                Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
+            </p>
+            <a href="https://michalrapala.app" class="card-cta">Zobacz aplikacje</a>
+        </div>
+    </template>
+
+    <template id="template-www">
+        <div class="card-body">
+            <p class="card-lead">
+                Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
+            </p>
+            <a href="https://strony.michalrapala.com" class="card-cta">Poznaj ofertę</a>
+        </div>
+    </template>
 
     <!-- ========== SCRIPTS ========== -->
     <script defer src="main-script.js"></script>

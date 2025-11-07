@@ -1,4 +1,4 @@
-/* common-styles.css v0.003 – Self-Hosted Fonts + Przycisk Widoczny */
+/* common-styles.css v0.004 – Card Sheet System + Self-Hosted Fonts */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -567,5 +567,258 @@ button {
         left: 0.75rem;
         font-size: 1.25rem;
         padding: 0.4rem;
+    }
+}
+
+/* ========== CARD SHEET SYSTEM ========== */
+
+/* Body state when card is open */
+body.card-open {
+    overflow: hidden;
+    padding-right: var(--scrollbar-width, 0);
+}
+
+/* Backdrop */
+.card-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 240ms ease-out, backdrop-filter 240ms ease-out;
+    pointer-events: none;
+}
+
+.card-backdrop:not([hidden]) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Card Sheet - Base */
+.card-sheet {
+    position: fixed;
+    background: var(--surface);
+    color: var(--fg);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.card-sheet:not([hidden]) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Card Topbar */
+.card-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Card Grabber (mobile only) */
+.card-grabber {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--muted);
+    opacity: 0.4;
+    border-radius: 10px;
+    cursor: grab;
+    transition: opacity 0.2s ease;
+}
+
+.card-grabber:active {
+    cursor: grabbing;
+}
+
+.card-sheet.is-dragging .card-grabber {
+    opacity: 0.7;
+}
+
+/* Card Title */
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin: 0;
+    letter-spacing: -0.01em;
+    flex: 1;
+    padding-top: 1rem;
+}
+
+/* Card Close Button */
+.card-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    color: var(--accent);
+    font-size: 1.5rem;
+    border: 1px solid rgba(72, 210, 231, 0.3);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.card-close:hover {
+    background: rgba(72, 210, 231, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(72, 210, 231, 0.3);
+}
+
+.card-close:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Card Media */
+.card-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    flex-shrink: 0;
+}
+
+.card-logo-img {
+    max-width: 100%;
+    max-height: 200px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 16px;
+}
+
+/* Card Content */
+.card-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 1.5rem 1.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.card-body {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.card-lead {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+}
+
+.card-cta {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: var(--surface);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.card-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(72, 210, 231, 0.3);
+}
+
+.card-cta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+/* ========== MOBILE: Bottom Sheet (<1025px) ========== */
+@media (max-width: 1024px) {
+    .card-sheet {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 24px 24px 0 0;
+        max-height: 92vh;
+        max-height: calc(92vh - env(safe-area-inset-top));
+        transform: translateY(100%);
+    }
+
+    .card-sheet.is-open {
+        transform: translateY(0);
+    }
+
+    .card-grabber {
+        display: block;
+    }
+
+    .card-logo-img {
+        max-height: 200px;
+    }
+
+    /* Snap states */
+    .card-sheet.is-snapped-min {
+        transform: translateY(calc(100% - 96px));
+    }
+
+    .card-sheet.is-snapped-mid {
+        transform: translateY(40vh);
+    }
+
+    .card-sheet.is-snapped-max {
+        transform: translateY(8vh);
+    }
+}
+
+/* ========== DESKTOP: Right Sheet (≥1025px) ========== */
+@media (min-width: 1025px) {
+    .card-backdrop {
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.28), transparent);
+    }
+
+    .card-sheet {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: clamp(440px, 40vw, 560px);
+        border-radius: 28px 0 0 28px;
+        transform: translateX(100%);
+    }
+
+    .card-sheet.is-open {
+        transform: translateX(0);
+    }
+
+    .card-grabber {
+        display: none;
+    }
+
+    .card-title {
+        padding-top: 0;
+    }
+
+    .card-logo-img {
+        max-height: 280px;
     }
 }
