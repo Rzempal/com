@@ -1,0 +1,152 @@
+<!-- hub.html v0.002 – Neural Mesh Sphere + Pills + Responsive Cards -->
+
+<!-- ========== TOP BAR (FIXED) ========== -->
+<div class="hub-top-bar" id="hubTopBar">
+    <button class="back-button" id="backButton" aria-label="Wróć do Gate">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    
+    <div class="hub-title">
+        <span>Michał Rąpała</span>
+    </div>
+    
+    <div class="hub-contact">
+        <a href="mailto:kontakt@michalrapala.com" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    </div>
+</div>
+
+<!-- ========== HUB CONTAINER ========== -->
+<div class="hub-wrapper">
+    
+    <!-- Neural Mesh Sphere + Pills -->
+    <section class="hub-mesh-section" id="hubMeshSection">
+        <svg class="hub-mesh" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+                <radialGradient id="hubMeshGradient" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" style="stop-color: #48D2E7; stop-opacity: 0.4" />
+                    <stop offset="100%" style="stop-color: #0f172a; stop-opacity: 0.8" />
+                </radialGradient>
+                <filter id="hubGlow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <!-- Central Sphere -->
+            <circle cx="200" cy="200" r="120" fill="url(#hubMeshGradient)" opacity="0.6" filter="url(#hubGlow)" class="hub-sphere"/>
+            
+            <!-- Hexagon Pattern -->
+            <g class="hub-hexagons" opacity="0.5">
+                <!-- Top row -->
+                <polygon points="200,100 230,115 230,145 200,160 170,145 170,115" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.6"/>
+                <polygon points="260,130 290,145 290,175 260,190 230,175 230,145" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.4"/>
+                <polygon points="140,130 170,145 170,175 140,190 110,175 110,145" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.4"/>
+                
+                <!-- Middle row -->
+                <polygon points="200,170 230,185 230,215 200,230 170,215 170,185" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.7"/>
+                <polygon points="260,200 290,215 290,245 260,260 230,245 230,215" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.5"/>
+                <polygon points="140,200 170,215 170,245 140,260 110,245 110,215" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.5"/>
+                
+                <!-- Bottom row -->
+                <polygon points="200,240 230,255 230,285 200,300 170,285 170,255" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.6"/>
+                <polygon points="260,270 290,285 290,315 260,330 230,315 230,285" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.4"/>
+                <polygon points="140,270 170,285 170,315 140,330 110,315 110,285" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.4"/>
+            </g>
+            
+            <!-- Connection lines -->
+            <g class="hub-connections" stroke="#48D2E7" stroke-width="1" opacity="0.3">
+                <line x1="200" y1="100" x2="230" y2="130" />
+                <line x1="200" y1="100" x2="170" y2="130" />
+                <line x1="230" y1="130" x2="260" y2="160" />
+                <line x1="170" y1="130" x2="140" y2="160" />
+                <line x1="200" y1="300" x2="230" y2="270" />
+                <line x1="200" y1="300" x2="170" y2="270" />
+                <line x1="260" y1="260" x2="290" y2="290" />
+                <line x1="140" y1="260" x2="110" y2="290" />
+            </g>
+            
+            <!-- Center dot -->
+            <circle cx="200" cy="200" r="4" fill="#48D2E7" filter="url(#hubGlow)" opacity="0.8"/>
+        </svg>
+        
+        <!-- Pills Container -->
+        <div class="hub-pills-container">
+            <!-- Pill 1: Robotyka (Top-Left) -->
+            <button class="hub-pill hub-pill-1" data-card="robotyka" aria-label="Robotyka">
+                <span class="pill-glow"></span>
+                <span class="pill-text">Robotyka</span>
+            </button>
+            
+            <!-- Pill 2: Aplikacje (Top-Right) -->
+            <button class="hub-pill hub-pill-2" data-card="aplikacje" aria-label="Aplikacje Webowe">
+                <span class="pill-glow"></span>
+                <span class="pill-text">Aplikacje Webowe</span>
+            </button>
+            
+            <!-- Pill 3: Strony (Bottom) -->
+            <button class="hub-pill hub-pill-3" data-card="www" aria-label="Strony WWW">
+                <span class="pill-glow"></span>
+                <span class="pill-text">Strony WWW</span>
+            </button>
+        </div>
+    </section>
+    
+    <!-- Cards Container -->
+    <section class="hub-cards-section" id="hubCardsSection">
+        
+        <!-- Card 1: Robotyka -->
+        <article class="hub-card" id="hub-card-robotyka" data-card="robotyka">
+            <div class="hub-card-image">
+                <img src="assets/images/global/logo_robotyka.png" alt="Robotyka" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka';" />
+            </div>
+            <div class="hub-card-content">
+                <h2 class="hub-card-title">Robotyka</h2>
+                <p class="hub-card-description">
+                    Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+                </p>
+                <a href="https://robotyka.michalrapala.com" class="hub-card-link">Dowiedz się więcej</a>
+            </div>
+        </article>
+        
+        <!-- Card 2: Aplikacje Webowe -->
+        <article class="hub-card" id="hub-card-aplikacje" data-card="aplikacje">
+            <div class="hub-card-image">
+                <img src="assets/images/global/logo_app.png" alt="Aplikacje Webowe" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje';" />
+            </div>
+            <div class="hub-card-content">
+                <h2 class="hub-card-title">Aplikacje Webowe</h2>
+                <p class="hub-card-description">
+                    Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
+                </p>
+                <a href="https://michalrapala.app" class="hub-card-link">Zobacz aplikacje</a>
+            </div>
+        </article>
+        
+        <!-- Card 3: Strony WWW -->
+        <article class="hub-card" id="hub-card-www" data-card="www">
+            <div class="hub-card-image">
+                <img src="assets/images/global/logo_web_ai.png" alt="Strony WWW" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW';" />
+            </div>
+            <div class="hub-card-content">
+                <h2 class="hub-card-title">Strony WWW</h2>
+                <p class="hub-card-description">
+                    Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
+                </p>
+                <a href="https://strony.michalrapala.com" class="hub-card-link">Poznaj ofertę</a>
+            </div>
+        </article>
+        
+    </section>
+    
+</div>

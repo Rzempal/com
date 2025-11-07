@@ -1,506 +1,94 @@
-<!-- index.html v4.017 with intro video feature -->
+<!-- index.html v0.005 – Gate Screen z AJAX Hub Loader -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>michalrapala.com Rozwiązania AI dla Przemysłu i Biznesu</title>
+    
+    <!-- ========== PRELOAD: Self-Hosted Fonty ========== -->
+    <link rel="preload" href="/assets/fonts/manrope-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- ========== TAILWIND CSS ========== -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- ========== GSAP – NORMALNIE ZAŁADOWANY ========== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- ========== STYLESHEETS ========== -->
+    <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="common-styles.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; 
-            color: #1E293B;
-        }
-        
-        /* Intro Video Styles */
-        .intro-video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 1s ease-out;
-        }
-        
-        .intro-video-container.fade-out {
-            opacity: 0;
-        }
-        
-        .intro-video-container.hidden {
-            display: none;
-        }
-        
-        .intro-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background-color: #000;
-        }
-        
-        /* Mobile optimization - center video instead of stretching */
-        @media (max-width: 768px) {
-            .intro-video {
-                object-fit: contain;
-                object-position: center;
-            }
-        }
-        
-        /* Hide main content initially if intro should play */
-        .main-content.intro-loading {
-            visibility: hidden;
-        }
-        
-        .main-content {
-            visibility: visible;
-            transition: visibility 0s;
-        }
-        
-        /* Existing styles remain unchanged */
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding-top: 1rem; 
-            padding-bottom: 1rem;
-        }
-        
-        .main-container {
-            position: relative;
-            width: calc(100% - 2rem);
-            margin-bottom: 2rem;
-            padding: 4rem 1rem;
-            background-image: url('assets/images/main/main_rob_pic.png'); /* Tło z paralaksą */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* EFEKT PARALAKSY */
-            border-radius: 0.75rem;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column; 
-            align-items: center;
-            justify-content: center;
-        }
-        .main-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(30, 41, 59, 0.6);
-            z-index: 1;
-        }
-        .glass-effect {
-            position: relative;
-            z-index: 2; 
-            background-color: rgba(30, 41, 59, 0.4); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #f9fafb;
-            border-radius: 0.75rem;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .hero-card {
-            max-width: 800px;
-            width: 100%;
-            padding: 2rem;
-            margin-bottom: 3rem; 
-        }
-        .portfolio-logo {
-            max-width: 380px;
-            width: 100%;
-            height: auto;
-            border-radius: 0.75rem;
-            margin: 0 auto 1.5rem auto;
-            box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
-            background-color: rgba(30, 41, 59, 0.5);
-        }
-        
-        /* Make portfolio logo clickable */
-        .portfolio-logo-clickable {
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .portfolio-logo-clickable:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 25px rgba(34, 211, 238, 0.35);
-        }
-        .subtitle {
-            font-size: 1.25rem;
-            color: #d1d5db;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            width: 100%;
-            max-width: 1400px;
-        }
-        .service-card {
-            width: 100%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
-        }
-        .service-card h2.card-main-title {
-            color: #ffffff;
-            font-size: 1.75rem;
-            margin-bottom: 0.75rem;
-        }
-        .service-card p {
-            color: #d1d5db;
-            flex-grow: 1;
-            margin-bottom: 1.5rem;
-        }
-        .service-card-icon-container {
-            height: 100px;
-            width: 100px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .service-card img.card-logo {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: cover;
-            border-radius: 0.75rem; 
-        }
-        .service-card a.button-link {
-            display: inline-block;
-            background-color: var(--primary-accent-color);
-            color: #1E293B;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: auto;
-            max-width: 220px;
-            margin-top: auto;
-        }
-        .service-card a.button-link:hover {
-            background-color: var(--primary-accent-hover-color);
-            transform: scale(1.05);
-        }
-        .top-info-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            padding: 0.5rem 1rem;
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
-        }
-        .top-info-bar-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            font-size: 0.8rem;
-            color: #334155;
-        }
-        .top-info-bar-content a {
-            color: #334155;
-            transition: color 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-        }
-        .top-info-bar-content a:hover {
-            color: #48D2E7; /* var(--primary-accent-color) */
-        }
-        .top-info-bar-contact {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        .top-info-bar-status {
-            display: flex;
-            align-items: center;
-        }
-        .top-info-bar-status .status-indicator {
-            width: 8px;
-            height: 8px;
-            background-color: #34d399; /* Zielony */
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
-        }
-        @media (max-width: 640px) {
-            .top-info-bar-content {
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="main-animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Intro Video Container - Only shows on first visit -->
-    <div id="introVideoContainer" class="intro-video-container hidden">
-        <video 
-            id="introVideo" 
-            class="intro-video" 
-            muted 
-            autoplay 
-            preload="metadata"
-            playsinline
-            webkit-playsinline>
-            <source src="assets/movies/AI_intro.mp4" type="video/mp4">
-            <!-- Fallback for unsupported video -->
-            <p>Your browser does not support the video element.</p>
-        </video>
-    </div>
-
-    <!-- Main Content - All existing content wrapped -->
-    <div id="mainContent" class="main-content">
-        <div class="top-info-bar">
-            <div class="top-info-bar-content">
-                <div class="top-info-bar-contact">
-                    <a href="mailto:kontakt@michalrapala.com">
-                        <i class="fas fa-envelope fa-fw mr-2"></i>
-                        <span>kontakt@michalrapala.com</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-linkedin fa-fw mr-2"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                </div>
-                <div class="top-info-bar-status">
-                    <div class="status-indicator"></div>
-                    <span>Otwarty na nowe projekty</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-wrapper">
-            
-            <div class="main-container">
-                 <div class="hero-card glass-effect animate-on-scroll aos-fade-in">
-                    <img src="assets/images/global/logo_portfolio.png" alt="Logo Portfolio - Michał Rąpała" class="card-logo portfolio-logo-clickable" onerror="this.onerror=null;this.src='https://placehold.co/380x120/1e293b/ffffff?text=Portfolio';" style="border: none;" title="Kliknij, aby obejrzeć intro ponownie">
-                    <p class="subtitle">Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:</p>
-                </div>
+    <!-- ========== GATE: Ekran Wejściowy ========== -->
+    <section id="gate" class="gate" aria-label="Wejście do strony">
+        <div class="gate__container">
+            <!-- SVG Neural Mesh Tło -->
+            <svg class="gate__mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                    <linearGradient id="meshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color: #48D2E7; stop-opacity: 0.3" />
+                        <stop offset="100%" style="stop-color: #22d3ee; stop-opacity: 0.1" />
+                    </linearGradient>
+                </defs>
                 
-                 <div class="card-container">
-                    <!-- Karta 1: Robotics Solution -->
-                    <div class="service-card glass-effect animate-on-scroll aos-fade-in-up">
-                        <h2 class="card-main-title">Robotyka</h2>
-                        <div class="service-card-icon-container">
-                            <img src="assets/images/global/logo_robotyka.png" alt="Robotyka" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ffffff/1E293B?text=Robotyka';">
-                        </div>
-                        <p>Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB).</p>
-                        <a href="https://robotyka.michalrapala.com" class="button-link">Dowiedz się więcej</a>
-                    </div>
-
-                    <!-- Karta 2: Aplikacje Webowe -->
-                    <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.1s;">
-                        <h2 class="card-main-title">Aplikacje Webowe</h2>
-                        <div class="service-card-icon-container">
-                            <img src="assets/images/global/logo_app.png" alt="Aplikacje" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=App';">
-                        </div>
-                        <p>Automatyzuję to, czego nie warto robić ręcznie.
-                        Inżynierskie webappki zaprojektowane do określonych
-                        zadań. #vibecoding</p>
-                        <a href="https://michalrapala.app" class="button-link">Zobacz aplikacje</a>
-                    </div>
-
-                    <!-- Karta 3: Strony WWW -->
-                    <div class="service-card glass-effect animate-on-scroll aos-fade-in-up" style="transition-delay: 0.2s;">
-                        <h2 class="card-main-title">Strony WWW</h2>
-                        <div class="service-card-icon-container">
-                            <img src="assets/images/global/logo_web_ai.png" alt="Strony WWW" class="card-logo" onerror="this.onerror=null;this.src='https://placehold.co/80x80/ffffff/1E293B?text=WWW';">
-                        </div>
-                        <p>Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji, aby przyciągnąć i zatrzymać klientów.</p>
-                        <a href="https://strony.michalrapala.com" class="button-link">Poznaj ofertę</a>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Kontener na dynamicznie ładowaną stopkę -->
-        <div id="footer-container"></div>
-    </div>
-
-    <script>
-        // Intro Video Logic
-        (function() {
-            const INTRO_SHOWN_KEY = 'introVideoShown';
-            const introContainer = document.getElementById('introVideoContainer');
-            const introVideo = document.getElementById('introVideo');
-            const mainContent = document.getElementById('mainContent');
-            
-            // Check if intro was already shown
-            const introShown = localStorage.getItem(INTRO_SHOWN_KEY);
-            
-            function showMainContent() {
-                // Fade out video container
-                introContainer.classList.add('fade-out');
-                
-                // After fade transition, hide video and show main content
-                setTimeout(() => {
-                    introContainer.classList.add('hidden');
-                    mainContent.classList.remove('intro-loading');
+                <!-- Krawędzie (paths) -->
+                <g class="gate__mesh-lines" stroke="url(#meshGradient)" stroke-width="1.5" fill="none" opacity="0.4">
+                    <path class="mesh-edge" d="M 150 150 L 450 200 L 750 150 L 900 300" data-index="0" />
+                    <path class="mesh-edge" d="M 100 400 L 350 380 L 650 420 L 950 400" data-index="1" />
+                    <path class="mesh-edge" d="M 200 650 L 400 600 L 700 680 L 850 650" data-index="2" />
+                    <path class="mesh-edge" d="M 50 850 L 300 800 L 600 850 L 900 820" data-index="3" />
                     
-                    // Mark intro as shown (only for automatic first-time play)
-                    if (!localStorage.getItem(INTRO_SHOWN_KEY)) {
-                        localStorage.setItem(INTRO_SHOWN_KEY, 'true');
-                    }
-                }, 1000); // Match the CSS transition duration
-            }
-            
-            function handleVideoEnd() {
-                showMainContent();
-            }
-            
-            function handleVideoError() {
-                console.warn('Intro video failed to load, showing main content');
-                showMainContent();
-            }
-            
-            function playIntroVideo() {
-                console.log('Starting intro video...');
+                    <path class="mesh-edge" d="M 150 150 L 300 400 L 450 650" data-index="4" />
+                    <path class="mesh-edge" d="M 750 150 L 650 420 L 700 680" data-index="5" />
+                    <path class="mesh-edge" d="M 900 300 L 850 650 L 900 820" data-index="6" />
+                    <path class="mesh-edge" d="M 100 400 L 200 650 L 50 850" data-index="7" />
+                </g>
                 
-                // Reset video state
-                introVideo.currentTime = 0;
-                introContainer.classList.remove('fade-out', 'hidden');
-                mainContent.classList.add('intro-loading');
-                
-                // Play video
-                introVideo.play().then(() => {
-                    console.log('Video started playing');
-                }).catch(error => {
-                    console.warn('Video playback failed:', error);
-                    showMainContent();
-                });
-            }
+                <!-- Węzły (circles) -->
+                <g class="gate__mesh-nodes" fill="none" stroke="#48D2E7" stroke-width="2">
+                    <circle class="mesh-node" cx="150" cy="150" r="6" data-node="0" />
+                    <circle class="mesh-node" cx="450" cy="200" r="6" data-node="1" />
+                    <circle class="mesh-node" cx="750" cy="150" r="6" data-node="2" />
+                    <circle class="mesh-node" cx="900" cy="300" r="6" data-node="3" />
+                    <circle class="mesh-node" cx="350" cy="380" r="6" data-node="4" />
+                    <circle class="mesh-node" cx="650" cy="420" r="6" data-node="5" />
+                    <circle class="mesh-node" cx="100" cy="400" r="6" data-node="6" />
+                    <circle class="mesh-node" cx="950" cy="400" r="6" data-node="7" />
+                    <circle class="mesh-node" cx="200" cy="650" r="6" data-node="8" />
+                    <circle class="mesh-node" cx="400" cy="600" r="6" data-node="9" />
+                    <circle class="mesh-node" cx="700" cy="680" r="6" data-node="10" />
+                    <circle class="mesh-node" cx="850" cy="650" r="6" data-node="11" />
+                    <circle class="mesh-node" cx="300" cy="800" r="6" data-node="12" />
+                    <circle class="mesh-node" cx="600" cy="850" r="6" data-node="13" />
+                    <circle class="mesh-node" cx="900" cy="820" r="6" data-node="14" />
+                </g>
+            </svg>
             
-            // Expose playIntroVideo globally for logo click
-            window.playIntroVideo = playIntroVideo;
-            
-            // Set up video event listeners (globally, always active)
-            introVideo.addEventListener('ended', handleVideoEnd);
-            introVideo.addEventListener('error', handleVideoError);
-            
-            // If intro hasn't been shown, play it automatically
-            if (!introShown) {
-                console.log('First visit - showing intro automatically');
-                playIntroVideo();
-                
-                // Fallback: if video doesn't start within 3 seconds, show main content
-                setTimeout(() => {
-                    if (!introVideo.currentTime || introVideo.currentTime === 0) {
-                        console.warn('Video not playing after 3 seconds, showing main content');
-                        showMainContent();
-                    }
-                }, 3000);
-            } else {
-                // Intro already shown, ensure main content is visible
-                console.log('Returning visit - skipping intro');
-                mainContent.classList.remove('intro-loading');
-                introContainer.classList.add('hidden');
-            }
-        })();
+            <!-- Treść Gate -->
+            <div class="gate__content">
+                <h1 class="gate__title" data-reveal>michalrapala.com</h1>
+                <p class="gate__subtitle" data-reveal>
+                    Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:
+                </p>
+                <button class="gate__enter" aria-label="Wejdź na stronę">
+                    <span>Wejdź</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
 
-        // Existing JavaScript - unchanged
-        document.addEventListener('DOMContentLoaded', () => {
-            // Logo click functionality for intro video
-            const portfolioLogo = document.querySelector('.portfolio-logo-clickable');
-            console.log('Portfolio logo found:', portfolioLogo);
-            
-            if (portfolioLogo) {
-                portfolioLogo.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log('Logo clicked!');
-                    if (window.playIntroVideo) {
-                        window.playIntroVideo();
-                    } else {
-                        console.error('playIntroVideo function not found');
-                    }
-                });
-                console.log('Click listener added to logo');
-            } else {
-                console.error('Portfolio logo not found');
-            }
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
+    <!-- ========== HUB CONTAINER (AJAX) ========== -->
+    <div id="hubContainer" style="display: none;"></div>
 
-            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-            elementsToAnimate.forEach(el => {
-                observer.observe(el);
-            });
-
-            // Dynamiczne ładowanie stopki z poprawioną ścieżką
-            const footerContainer = document.getElementById('footer-container');
-            if (footerContainer) {
-                const footerUrl = new URL('footer-template.html', window.location.href).href;
-                fetch(footerUrl)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.text();
-                    })
-                    .then(html => {
-                        footerContainer.innerHTML = html;
-                        const yearSpan = document.getElementById('currentYear');
-                        if (yearSpan) {
-                            yearSpan.textContent = new Date().getFullYear();
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Błąd ładowania stopki:', error);
-                        footerContainer.innerHTML = '<p class="text-center text-red-500">Nie udało się załadować stopki.</p>';
-                    });
-            }
-        });
-    </script>
+    <!-- ========== SCRIPTS ========== -->
+    <script defer src="main-script.js"></script>
 
 </body>
 </html>

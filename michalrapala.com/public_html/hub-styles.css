@@ -1,0 +1,428 @@
+/* hub-styles.css v0.001 – Neural Mesh + Pills + Responsive Cards */
+
+/* ========== HUB TOP BAR (FIXED) ========== */
+.hub-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    color: var(--accent);
+    font-size: 1.25rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(72, 210, 231, 0.3);
+}
+
+.back-button:hover {
+    background: rgba(72, 210, 231, 0.1);
+    border-color: var(--accent);
+    transform: translateX(-2px);
+}
+
+.back-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.hub-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--fg);
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+}
+
+.hub-contact {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.hub-contact a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    color: var(--accent);
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(72, 210, 231, 0.3);
+}
+
+.hub-contact a:hover {
+    background: rgba(72, 210, 231, 0.1);
+    border-color: var(--accent);
+}
+
+.hub-contact a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ========== HUB WRAPPER ========== */
+.hub-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg);
+    padding-top: 4rem;
+}
+
+/* ========== HUB MESH SECTION (Pills + Sphere) ========== */
+.hub-mesh-section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    min-height: 60vh;
+}
+
+.hub-mesh {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 1;
+}
+
+.hub-sphere {
+    animation: rotateSphere 20s linear infinite;
+}
+
+@keyframes rotateSphere {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hub-hexagons {
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* ========== HUB PILLS ========== */
+.hub-pills-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 2rem;
+}
+
+.hub-pill {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
+    border: 1.5px solid var(--accent);
+    border-radius: 50px;
+    color: var(--fg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.hub-pill:hover {
+    background: linear-gradient(135deg, rgba(72, 210, 231, 0.25), rgba(52, 194, 217, 0.15));
+    border-color: #48D2E7;
+}
+
+.hub-pill:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+/* Pill Positions */
+.hub-pill-1 {
+    top: 15%;
+    left: 10%;
+    animation: floatPill1 6s ease-in-out infinite;
+}
+
+.hub-pill-2 {
+    top: 15%;
+    right: 10%;
+    animation: floatPill2 6s ease-in-out infinite;
+}
+
+.hub-pill-3 {
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: floatPill3 6s ease-in-out infinite;
+}
+
+@keyframes floatPill1 {
+    0%, 100% { transform: translateY(0px) translateX(0); }
+    50% { transform: translateY(-8px) translateX(0); }
+}
+
+@keyframes floatPill2 {
+    0%, 100% { transform: translateY(0px) translateX(0); }
+    50% { transform: translateY(-8px) translateX(0); }
+}
+
+@keyframes floatPill3 {
+    0%, 100% { transform: translateX(-50%) translateY(0px); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+.pill-text {
+    position: relative;
+    z-index: 2;
+}
+
+.pill-glow {
+    position: absolute;
+    inset: -4px;
+    background: radial-gradient(circle, rgba(72, 210, 231, 0.3), transparent);
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.hub-pill:hover .pill-glow {
+    opacity: 1;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(72, 210, 231, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(72, 210, 231, 0.6); }
+}
+
+/* ========== HUB CARDS SECTION ========== */
+.hub-cards-section {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.hub-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hub-card.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hub-card-image {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(72, 210, 231, 0.3);
+}
+
+.hub-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hub-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hub-card-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+}
+
+.hub-card-description {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
+}
+
+.hub-card-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: var(--surface);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: fit-content;
+    font-family: var(--font-body);
+}
+
+.hub-card-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(72, 210, 231, 0.3);
+}
+
+.hub-card-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+/* ========== RESPONSIVE: MOBILE (<768px) ========== */
+@media (max-width: 767px) {
+    .hub-mesh-section {
+        min-height: 50vh;
+        padding: 1rem;
+    }
+    
+    .hub-mesh {
+        max-width: 250px;
+    }
+    
+    .hub-card {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    
+    /* Mobile: Cards slide up from bottom */
+    .hub-card {
+        transform: translateY(100%);
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+    }
+    
+    .hub-card.active {
+        transform: translateY(0);
+    }
+    
+    .hub-card-title {
+        font-size: 1.5rem;
+    }
+    
+    .hub-card-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* ========== RESPONSIVE: DESKTOP (>768px) ========== */
+@media (min-width: 768px) {
+    .hub-wrapper {
+        flex-direction: row;
+    }
+    
+    .hub-mesh-section {
+        flex: 1;
+        min-height: 100%;
+        padding: 2rem;
+        border-right: 1px solid rgba(72, 210, 231, 0.2);
+    }
+    
+    .hub-mesh {
+        max-width: 350px;
+    }
+    
+    .hub-cards-section {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hub-card {
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 600px;
+    }
+    
+    /* Desktop: Cards slide in from right */
+    .hub-card {
+        transform: translateX(100%);
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+    }
+    
+    .hub-card.active {
+        transform: translateX(0);
+    }
+    
+    .hub-card-image {
+        flex: 0 0 250px;
+        height: 200px;
+        margin: 0;
+    }
+    
+    .hub-card-content {
+        flex: 1;
+    }
+    
+    .hub-card-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+    .hub-sphere,
+    .hub-hexagons,
+    .hub-pill,
+    .pill-glow {
+        animation: none !important;
+    }
+    
+    .hub-pill,
+    .hub-card {
+        transition: none !important;
+    }
+}

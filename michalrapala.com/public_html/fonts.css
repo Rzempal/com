@@ -1,0 +1,30 @@
+/* fonts.css v0.001 – Self-Hosted Fonts Setup */
+
+/* ========== FONT FACE DECLARATIONS ========== */
+
+/* Manrope 700 (Bold) – Headers */
+@font-face {
+    font-family: 'Manrope';
+    src: url('/assets/fonts/manrope-700.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Inter 400 (Regular) – Body Text */
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Inter 600 (Semibold) – Buttons, Emphasis */
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
