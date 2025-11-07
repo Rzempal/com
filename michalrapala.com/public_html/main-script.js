@@ -1,4 +1,4 @@
-// main-script.js v0.008 – Multi-Page Navigation + Pills Pinned to Neurons + Flash Lines
+// main-script.js v0.009 – Multi-Page Navigation + Enhanced Flash Lines (1.2s)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -224,10 +224,10 @@ function flashPillLine(cardId) {
   // Add flash animation
   lineEl.classList.add('flash');
 
-  // Remove class after animation completes
+  // Remove class after animation completes (1.2s to match CSS animation)
   setTimeout(() => {
     lineEl.classList.remove('flash');
-  }, 800);
+  }, 1200);
 
   console.log(`⚡ Flashing line for: ${cardId}`);
 }

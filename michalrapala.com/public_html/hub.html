@@ -1,4 +1,4 @@
-<!-- hub.html v0.004 – Full HTML with Gate Neural Mesh + Pills Pinned to Neurons -->
+<!-- hub.html v0.005 – Gate-Aligned Neural Mesh + Enhanced Flash Lines -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -67,6 +67,16 @@
                             <feMergeNode in="SourceGraphic"/>
                         </feMerge>
                     </filter>
+
+                    <!-- Filter for STRONG Glow (Flash Lines) -->
+                    <filter id="hubGlowStrong">
+                        <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
                 </defs>
 
                 <!-- Krawędzie (paths) – regular mesh -->
@@ -85,13 +95,13 @@
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
                 <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="2.5" fill="none" opacity="0">
                     <!-- Line to Pill 1 (Robotyka - node 2: 750, 150) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 750 150" filter="url(#hubGlow)" />
+                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 750 150" filter="url(#hubGlowStrong)" />
 
                     <!-- Line to Pill 2 (Aplikacje - node 5: 650, 420) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420" filter="url(#hubGlow)" />
+                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420" filter="url(#hubGlowStrong)" />
 
                     <!-- Line to Pill 3 (WWW - node 13: 600, 850) -->
-                    <path id="pill-line-www" class="pill-line" d="M 500 500 L 600 850" filter="url(#hubGlow)" />
+                    <path id="pill-line-www" class="pill-line" d="M 500 500 L 600 850" filter="url(#hubGlowStrong)" />
                 </g>
 
                 <!-- Węzły (circles) -->
