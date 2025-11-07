@@ -1,4 +1,4 @@
-/* hub-styles.css v0.002 – Gate Neural Mesh + Pills Pinned to Neurons + Flash Lines */
+/* hub-styles.css v0.003 – Gate-Aligned Mesh + Visible Nodes/Edges + Enhanced Flash */
 
 /* ========== HUB TOP BAR (FIXED) ========== */
 .hub-top-bar {
@@ -103,7 +103,7 @@
     align-items: center;
     justify-content: center;
     padding: 0;
-    min-height: 60vh;
+    min-height: 100vh;
     overflow: hidden;
 }
 
@@ -116,6 +116,18 @@
     opacity: 0.5;
     pointer-events: none;
     z-index: 1;
+}
+
+/* Ensure mesh nodes and edges are visible and animated (inherit from main-animations.css) */
+.hub-mesh .mesh-node {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 8px rgba(72, 210, 231, 0.3));
+}
+
+.hub-mesh .mesh-edge {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    opacity: 0.6;
 }
 
 /* Center Neuron Animation */
@@ -134,13 +146,13 @@
     }
 }
 
-/* Pill Connection Lines - Flash Animation */
+/* Pill Connection Lines - Flash Animation (ENHANCED) */
 .pill-line {
     transition: opacity 0.3s ease;
 }
 
 .pill-line.flash {
-    animation: lineFlash 0.8s ease-out;
+    animation: lineFlash 1.2s ease-out;
 }
 
 @keyframes lineFlash {
@@ -148,9 +160,13 @@
         opacity: 0;
         stroke-width: 2.5;
     }
-    30% {
+    20% {
+        opacity: 0.9;
+        stroke-width: 5;
+    }
+    40% {
         opacity: 1;
-        stroke-width: 4;
+        stroke-width: 6;
     }
     100% {
         opacity: 0;
