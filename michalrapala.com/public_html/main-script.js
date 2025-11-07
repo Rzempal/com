@@ -1,4 +1,4 @@
-// main-script.js v0.007 – Multi-Page Navigation (index.html ↔ hub.html) + GSAP Animations
+// main-script.js v0.008 – Multi-Page Navigation + Pills Pinned to Neurons + Flash Lines
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -185,21 +185,51 @@ function initPills() {
 // ========== SHOW CARD ==========
 function showCard(cardId, previousCard) {
   const cardEl = document.getElementById(`hub-card-${cardId}`);
-  
+
   if (!cardEl) {
     console.error(`❌ Card ${cardId} not found`);
     return;
   }
-  
+
+  // Flash connection line
+  flashPillLine(cardId);
+
   // Close previous card
   if (previousCard && previousCard !== cardEl) {
     closeCard(previousCard);
   }
-  
+
   // Open new card
   openCard(cardEl);
-  
+
   console.log(`📍 Showing card: ${cardId}`);
+}
+
+// ========== FLASH PILL LINE ==========
+function flashPillLine(cardId) {
+  const lineId = `pill-line-${cardId}`;
+  const lineEl = document.getElementById(lineId);
+
+  if (!lineEl) {
+    console.warn(`⚠️ Line ${lineId} not found`);
+    return;
+  }
+
+  // Remove any existing flash animation
+  lineEl.classList.remove('flash');
+
+  // Trigger reflow to restart animation
+  void lineEl.offsetWidth;
+
+  // Add flash animation
+  lineEl.classList.add('flash');
+
+  // Remove class after animation completes
+  setTimeout(() => {
+    lineEl.classList.remove('flash');
+  }, 800);
+
+  console.log(`⚡ Flashing line for: ${cardId}`);
 }
 
 // ========== OPEN CARD ==========
