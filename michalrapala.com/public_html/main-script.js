@@ -1,4 +1,4 @@
-// main-script.js v0.006 – Direct Navigation (index.html → hub.html) + Fade Animations
+// main-script.js v0.007 – Multi-Page Navigation (index.html ↔ hub.html) + GSAP Animations
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
