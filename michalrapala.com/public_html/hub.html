@@ -51,7 +51,7 @@
 
         <!-- Neural Mesh Background (same as Gate) + Pills -->
         <section class="hub-mesh-section" id="hubMeshSection">
-            <!-- SVG Neural Mesh Background (Gate Style) -->
+            <!-- SVG Circuit Board Background -->
             <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
                 <defs>
                     <linearGradient id="hubMeshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -79,52 +79,60 @@
                     </filter>
                 </defs>
 
-                <!-- Krawędzie (paths) – regular mesh -->
-                <g class="hub-mesh-lines" stroke="url(#hubMeshGradient)" stroke-width="1.5" fill="none" opacity="0.4">
-                    <path class="mesh-edge" d="M 150 150 L 450 200 L 750 150 L 900 300" data-index="0" />
-                    <path class="mesh-edge" d="M 100 400 L 350 380 L 650 420 L 950 400" data-index="1" />
-                    <path class="mesh-edge" d="M 200 650 L 400 600 L 700 680 L 850 650" data-index="2" />
-                    <path class="mesh-edge" d="M 50 850 L 300 800 L 600 850 L 900 820" data-index="3" />
+                <!-- Circuit Board Traces (PCB paths) -->
+                <g class="circuit-traces" stroke="url(#hubMeshGradient)" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round">
+                    <!-- Horizontal traces -->
+                    <path class="circuit-trace" d="M 50 150 L 300 150 L 350 200 L 650 200" data-index="0" />
+                    <path class="circuit-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1" />
+                    <path class="circuit-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2" />
+                    <path class="circuit-trace" d="M 50 700 L 350 700 L 400 750 L 750 750" data-index="3" />
 
-                    <path class="mesh-edge" d="M 150 150 L 300 400 L 450 650" data-index="4" />
-                    <path class="mesh-edge" d="M 750 150 L 650 420 L 700 680" data-index="5" />
-                    <path class="mesh-edge" d="M 900 300 L 850 650 L 900 820" data-index="6" />
-                    <path class="mesh-edge" d="M 100 400 L 200 650 L 50 850" data-index="7" />
+                    <!-- Vertical traces -->
+                    <path class="circuit-trace" d="M 200 50 L 200 400 L 250 450 L 250 850" data-index="4" />
+                    <path class="circuit-trace" d="M 500 100 L 500 450 L 550 500 L 550 900" data-index="5" />
+                    <path class="circuit-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6" />
+
+                    <!-- Curved/angled traces -->
+                    <path class="circuit-trace" d="M 100 100 Q 300 100 400 250 T 600 400" data-index="7" />
+                    <path class="circuit-trace" d="M 800 200 Q 700 300 650 450 T 500 650" data-index="8" />
+                    <path class="circuit-trace" d="M 300 800 Q 500 750 700 700 T 900 600" data-index="9" />
+                </g>
+
+                <!-- Connection Pads (vias/pads at intersections) -->
+                <g class="circuit-pads" fill="#48D2E7" stroke="#48D2E7" stroke-width="1.5" opacity="0.7">
+                    <!-- Pads at key positions -->
+                    <circle class="circuit-pad" cx="150" cy="150" r="8" data-pad="0" />
+                    <circle class="circuit-pad" cx="300" cy="150" r="6" data-pad="1" />
+                    <circle class="circuit-pad" cx="650" cy="200" r="8" data-pad="2" />
+                    <circle class="circuit-pad" cx="400" cy="300" r="6" data-pad="3" />
+                    <circle class="circuit-pad" cx="850" cy="350" r="8" data-pad="4" />
+                    <circle class="circuit-pad" cx="500" cy="500" r="10" data-pad="5" />
+                    <circle class="circuit-pad" cx="200" cy="450" r="6" data-pad="6" />
+                    <circle class="circuit-pad" cx="750" cy="350" r="8" data-pad="7" />
+                    <circle class="circuit-pad" cx="250" cy="750" r="6" data-pad="8" />
+                    <circle class="circuit-pad" cx="600" cy="850" r="8" data-pad="9" />
+
+                    <!-- Pills connection points (matching pill positions) -->
+                    <circle class="circuit-pad pill-pad" cx="750" cy="150" r="10" data-pad="pill-1" />
+                    <circle class="circuit-pad pill-pad" cx="650" cy="420" r="10" data-pad="pill-2" />
+                    <circle class="circuit-pad pill-pad" cx="600" cy="850" r="10" data-pad="pill-3" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
-                <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="2.5" fill="none" opacity="0">
-                    <!-- Line to Pill 1 (Robotyka - node 2: 750, 150) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 750 150" filter="url(#hubGlowStrong)" />
+                <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="3.5" fill="none" opacity="0" stroke-linecap="round">
+                    <!-- Line to Pill 1 (Robotyka - 750, 150) -->
+                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 650 350 L 750 150" filter="url(#hubGlowStrong)" />
 
-                    <!-- Line to Pill 2 (Aplikacje - node 5: 650, 420) -->
+                    <!-- Line to Pill 2 (Aplikacje - 650, 420) -->
                     <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420" filter="url(#hubGlowStrong)" />
 
-                    <!-- Line to Pill 3 (WWW - node 13: 600, 850) -->
-                    <path id="pill-line-www" class="pill-line" d="M 500 500 L 600 850" filter="url(#hubGlowStrong)" />
+                    <!-- Line to Pill 3 (WWW - 600, 850) -->
+                    <path id="pill-line-www" class="pill-line" d="M 500 500 L 550 650 L 600 850" filter="url(#hubGlowStrong)" />
                 </g>
 
-                <!-- Węzły (circles) -->
-                <g class="hub-mesh-nodes" fill="none" stroke="#48D2E7" stroke-width="2">
-                    <circle class="mesh-node" cx="150" cy="150" r="6" data-node="0" />
-                    <circle class="mesh-node" cx="450" cy="200" r="6" data-node="1" />
-                    <circle class="mesh-node" cx="750" cy="150" r="6" data-node="2" />
-                    <circle class="mesh-node" cx="900" cy="300" r="6" data-node="3" />
-                    <circle class="mesh-node" cx="350" cy="380" r="6" data-node="4" />
-                    <circle class="mesh-node" cx="650" cy="420" r="6" data-node="5" />
-                    <circle class="mesh-node" cx="100" cy="400" r="6" data-node="6" />
-                    <circle class="mesh-node" cx="950" cy="400" r="6" data-node="7" />
-                    <circle class="mesh-node" cx="200" cy="650" r="6" data-node="8" />
-                    <circle class="mesh-node" cx="400" cy="600" r="6" data-node="9" />
-                    <circle class="mesh-node" cx="700" cy="680" r="6" data-node="10" />
-                    <circle class="mesh-node" cx="850" cy="650" r="6" data-node="11" />
-                    <circle class="mesh-node" cx="300" cy="800" r="6" data-node="12" />
-                    <circle class="mesh-node" cx="600" cy="850" r="6" data-node="13" />
-                    <circle class="mesh-node" cx="900" cy="820" r="6" data-node="14" />
-                </g>
-
-                <!-- Center Neuron -->
-                <circle cx="500" cy="500" r="8" fill="#48D2E7" stroke="#48D2E7" stroke-width="2" filter="url(#hubGlow)" opacity="0.8" class="center-neuron"/>
+                <!-- Central Pad (main junction) -->
+                <circle cx="500" cy="500" r="12" fill="#48D2E7" stroke="#48D2E7" stroke-width="2" filter="url(#hubGlow)" opacity="0.9" class="center-pad"/>
+                <circle cx="500" cy="500" r="18" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.5" class="center-pad-ring"/>
             </svg>
 
             <!-- Pills Container -->

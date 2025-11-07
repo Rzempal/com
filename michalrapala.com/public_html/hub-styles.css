@@ -118,32 +118,14 @@
     z-index: 1;
 }
 
-/* Ensure mesh nodes and edges are visible and animated (inherit from main-animations.css) */
-.hub-mesh .mesh-node {
+/* Ensure circuit pads and traces are visible and animated (inherit from main-animations.css) */
+.hub-mesh .circuit-pad {
     opacity: 0.7;
     filter: drop-shadow(0 0 8px rgba(72, 210, 231, 0.3));
 }
 
-.hub-mesh .mesh-edge {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    opacity: 0.6;
-}
-
-/* Center Neuron Animation */
-.center-neuron {
-    animation: centerPulse 3s ease-in-out infinite;
-}
-
-@keyframes centerPulse {
-    0%, 100% {
-        r: 8px;
-        opacity: 0.8;
-    }
-    50% {
-        r: 10px;
-        opacity: 1;
-    }
+.hub-mesh .circuit-trace {
+    opacity: 0.5;
 }
 
 /* Pill Connection Lines - Flash Animation (ENHANCED) */
@@ -459,7 +441,10 @@
 
 /* ========== REDUCED MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
-    .center-neuron,
+    .center-pad,
+    .center-pad-ring,
+    .circuit-pad,
+    .circuit-trace,
     .hub-pill,
     .pill-glow,
     .pill-line {
