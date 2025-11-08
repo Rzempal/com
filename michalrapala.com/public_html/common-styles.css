@@ -614,6 +614,20 @@ body.card-open {
     will-change: transform, opacity;
 }
 
+/* Notch w prawym górnym rogu dla przycisku zamknięcia */
+.card-sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background: var(--bg);
+    border-radius: 0 0 0 35px;
+    pointer-events: none;
+    z-index: -1;
+}
+
 .card-sheet:not([hidden]) {
     opacity: 1;
     pointer-events: auto;
@@ -623,14 +637,13 @@ body.card-open {
 .card-topbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
+    padding-right: 4rem;
     position: relative;
     flex-shrink: 0;
 }
 
-/* Card Grabber (mobile only) */
+/* Card Grabber (mobile only - visual hint) */
 .card-grabber {
     position: absolute;
     top: 10px;
@@ -641,16 +654,30 @@ body.card-open {
     background: var(--muted);
     opacity: 0.4;
     border-radius: 10px;
-    cursor: grab;
+    pointer-events: none;
     transition: opacity 0.2s ease;
-}
-
-.card-grabber:active {
-    cursor: grabbing;
 }
 
 .card-sheet.is-dragging .card-grabber {
     opacity: 0.7;
+}
+
+/* Mobile: entire sheet is draggable */
+@media (max-width: 1024px) {
+    .card-sheet {
+        cursor: grab;
+    }
+
+    .card-sheet.is-dragging {
+        cursor: grabbing;
+    }
+
+    /* Reset cursor for interactive elements */
+    .card-sheet .card-close,
+    .card-sheet a,
+    .card-sheet button {
+        cursor: pointer;
+    }
 }
 
 /* Card Title */
@@ -667,19 +694,24 @@ body.card-open {
 
 /* Card Close Button */
 .card-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: transparent;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: rgba(30, 41, 59, 0.95);
     color: var(--accent);
     font-size: 1.5rem;
     border: 1px solid rgba(72, 210, 231, 0.3);
-    border-radius: 0.5rem;
+    border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
 }
 
 .card-close:hover {
@@ -707,7 +739,6 @@ body.card-open {
     max-height: 200px;
     height: auto;
     object-fit: contain;
-    border-radius: 16px;
 }
 
 /* Card Content */
@@ -759,10 +790,14 @@ body.card-open {
         bottom: 0;
         left: 0;
         right: 0;
-        border-radius: 24px 24px 0 0;
+        border-radius: 32px 32px 0 0;
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
         transform: translateY(100%);
+    }
+
+    .card-sheet::before {
+        border-radius: 0 0 0 40px;
     }
 
     .card-sheet.is-open {
@@ -802,8 +837,12 @@ body.card-open {
         right: 0;
         bottom: 0;
         width: clamp(440px, 40vw, 560px);
-        border-radius: 28px 0 0 28px;
+        border-radius: 36px 0 0 20px;
         transform: translateX(100%);
+    }
+
+    .card-sheet::before {
+        border-radius: 0 0 0 36px;
     }
 
     .card-sheet.is-open {

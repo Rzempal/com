@@ -187,10 +187,12 @@ function showCard(cardId, previousCard) {
   // Flash connection line
   flashPillLine(cardId);
 
-  // Open card sheet (replaces old inline cards)
-  openCard(cardId);
+  // Wait for flash animation to complete before opening card (300ms delay)
+  setTimeout(() => {
+    openCard(cardId);
+  }, 300);
 
-  console.log(`📍 Showing card: ${cardId}`);
+  console.log(`📍 Showing card: ${cardId} (delayed open)`);
 }
 
 // ========== FLASH PILL LINE ==========
@@ -540,15 +542,17 @@ function trapFocus(container) {
 function enableDrag(sheet) {
   if (isDesktop()) return;
 
-  const grabber = sheet.querySelector('.card-grabber');
-  const topbar = sheet.querySelector('.card-topbar');
-  if (!grabber && !topbar) return;
-
   let startY = 0;
   let currentY = 0;
   let isDragging = false;
 
   const handleStart = (e) => {
+    // Don't start drag if clicking close button or links
+    const target = e.target;
+    if (target.closest('.card-close') || target.closest('a') || target.closest('button:not(.card-close)')) {
+      return;
+    }
+
     startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
     isDragging = true;
     sheet.classList.add('is-dragging');
@@ -609,15 +613,9 @@ function enableDrag(sheet) {
     currentY = 0;
   };
 
-  // Add listeners
-  if (grabber) {
-    grabber.addEventListener('mousedown', handleStart);
-    grabber.addEventListener('touchstart', handleStart, { passive: true });
-  }
-  if (topbar) {
-    topbar.addEventListener('mousedown', handleStart);
-    topbar.addEventListener('touchstart', handleStart, { passive: true });
-  }
+  // Add listeners to entire sheet (mobile only)
+  sheet.addEventListener('mousedown', handleStart);
+  sheet.addEventListener('touchstart', handleStart, { passive: true });
 
   document.addEventListener('mousemove', handleMove);
   document.addEventListener('touchmove', handleMove, { passive: true });
@@ -625,23 +623,19 @@ function enableDrag(sheet) {
   document.addEventListener('touchend', handleEnd);
 
   // Store for cleanup
-  dragState = { handleStart, handleMove, handleEnd, grabber, topbar };
+  dragState = { handleStart, handleMove, handleEnd, sheet };
 
-  console.log('✅ Drag enabled');
+  console.log('✅ Drag enabled (entire card draggable)');
 }
 
 function disableDrag() {
   if (!dragState) return;
 
-  const { handleStart, handleMove, handleEnd, grabber, topbar } = dragState;
+  const { handleStart, handleMove, handleEnd, sheet } = dragState;
 
-  if (grabber) {
-    grabber.removeEventListener('mousedown', handleStart);
-    grabber.removeEventListener('touchstart', handleStart);
-  }
-  if (topbar) {
-    topbar.removeEventListener('mousedown', handleStart);
-    topbar.removeEventListener('touchstart', handleStart);
+  if (sheet) {
+    sheet.removeEventListener('mousedown', handleStart);
+    sheet.removeEventListener('touchstart', handleStart);
   }
 
   document.removeEventListener('mousemove', handleMove);
