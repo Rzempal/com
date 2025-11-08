@@ -1,4 +1,4 @@
-// main-script.js v0.015 – Enhanced flash lines + delayed card opening (800ms)
+// main-script.js v0.016 – Electric current effect (2s) + slower card animation (0.6s)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -254,10 +254,10 @@ function flashPillLine(cardId) {
   // Add flash animation
   lineEl.classList.add('flash');
 
-  // Remove class after animation completes (1.5s to match CSS animation)
+  // Remove class after animation completes (2s to match CSS animation)
   setTimeout(() => {
     lineEl.classList.remove('flash');
-  }, 1500);
+  }, 2000);
 
   console.log(`⚡ Flashing line for: ${cardId}`);
 }
@@ -423,7 +423,7 @@ function openCard(id) {
   // Animation with GSAP
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.42;
+    const duration = 0.6;
     const ease = 'power3.out';
 
     if (isDesktop()) {

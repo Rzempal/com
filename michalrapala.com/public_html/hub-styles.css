@@ -243,35 +243,54 @@ body {
     opacity: 0.5;
 }
 
-/* Pill Connection Lines - Flash Animation (ENHANCED) */
+/* Pill Connection Lines - Flash Animation (ENHANCED - Electric Current Effect) */
 .pill-line {
     transition: opacity 0.3s ease;
 }
 
 .pill-line.flash {
-    animation: lineFlash 1.5s ease-out;
+    animation: electricCurrent 2s ease-out;
 }
 
-@keyframes lineFlash {
+@keyframes electricCurrent {
     0% {
         opacity: 0;
-        stroke-width: 3;
+        stroke-width: 2;
+        stroke: #48D2E7;
     }
-    15% {
-        opacity: 1;
-        stroke-width: 8;
+    10% {
+        opacity: 0.6;
+        stroke-width: 6;
+        stroke: #48D2E7;
     }
-    30% {
+    20% {
         opacity: 1;
-        stroke-width: 10;
+        stroke-width: 12;
+        stroke: #6EE7FF;
+        filter: drop-shadow(0 0 20px #48D2E7) drop-shadow(0 0 40px #48D2E7);
+    }
+    35% {
+        opacity: 1;
+        stroke-width: 14;
+        stroke: #FFFFFF;
+        filter: drop-shadow(0 0 30px #48D2E7) drop-shadow(0 0 50px #48D2E7);
     }
     50% {
-        opacity: 0.9;
+        opacity: 0.95;
+        stroke-width: 12;
+        stroke: #6EE7FF;
+        filter: drop-shadow(0 0 25px #48D2E7) drop-shadow(0 0 45px #48D2E7);
+    }
+    70% {
+        opacity: 0.8;
         stroke-width: 8;
+        stroke: #48D2E7;
+        filter: drop-shadow(0 0 15px #48D2E7);
     }
     100% {
         opacity: 0;
-        stroke-width: 3;
+        stroke-width: 2;
+        stroke: #48D2E7;
     }
 }
 
