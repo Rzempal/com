@@ -1,4 +1,4 @@
-/* common-styles.css v0.007 – Logo + video modal styles */
+/* common-styles.css v0.008 – Centered logo + video modal */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -166,10 +166,11 @@ button {
 }
 
 .gate__logo {
+    display: block;
     max-width: 400px;
     width: 100%;
     height: auto;
-    margin-bottom: 1.5rem;
+    margin: 0 auto 1.5rem;
     opacity: 0;
     transform: translateY(20px);
     cursor: pointer;
