@@ -1,4 +1,4 @@
-/* hub-styles.css v0.005 – Fixed Top Info Bar Responsive Breakpoints */
+/* hub-styles.css v0.006 – Fixed viewport heights + removed scrollbar */
 
 /* ========== TOP INFO BAR (FIXED) ========== */
 .top-info-bar {
@@ -201,26 +201,20 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    height: 100svh;
     background-color: var(--bg);
-    padding-top: 3.5rem;
-}
-
-@media (max-width: 768px) {
-    .hub-wrapper {
-        padding-top: 5rem;
-    }
+    overflow: hidden;
 }
 
 /* ========== HUB MESH SECTION (Pills + Neural Mesh Background) ========== */
 .hub-mesh-section {
     position: relative;
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    min-height: 100vh;
     overflow: hidden;
 }
 
@@ -470,7 +464,7 @@
 /* ========== RESPONSIVE: MOBILE (<768px) ========== */
 @media (max-width: 767px) {
     .hub-mesh-section {
-        min-height: 50vh;
+        height: 100%;
         padding: 0;
     }
 

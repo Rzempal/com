@@ -1,4 +1,4 @@
-/* common-styles.css v0.005 – Removed conflicting top-info-bar styles */
+/* common-styles.css v0.006 – Synchronized Gate viewport height */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -116,7 +116,7 @@ button {
 .gate {
     position: relative;
     width: 100%;
-    min-height: 100svh;
+    height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
