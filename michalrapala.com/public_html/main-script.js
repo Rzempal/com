@@ -1,4 +1,4 @@
-// main-script.js v0.014 – Hub 2s fade-in + staggered pills animation
+// main-script.js v0.015 – Enhanced flash lines + delayed card opening (800ms)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -227,10 +227,10 @@ function showCard(cardId, previousCard) {
   // Flash connection line
   flashPillLine(cardId);
 
-  // Wait for flash animation to complete before opening card (300ms delay)
+  // Wait for flash animation peak before opening card (800ms delay)
   setTimeout(() => {
     openCard(cardId);
-  }, 300);
+  }, 800);
 
   console.log(`📍 Showing card: ${cardId} (delayed open)`);
 }
@@ -254,10 +254,10 @@ function flashPillLine(cardId) {
   // Add flash animation
   lineEl.classList.add('flash');
 
-  // Remove class after animation completes (1.2s to match CSS animation)
+  // Remove class after animation completes (1.5s to match CSS animation)
   setTimeout(() => {
     lineEl.classList.remove('flash');
-  }, 1200);
+  }, 1500);
 
   console.log(`⚡ Flashing line for: ${cardId}`);
 }

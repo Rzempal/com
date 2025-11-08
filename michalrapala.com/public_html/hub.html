@@ -1,4 +1,4 @@
-<!-- hub.html v0.010 – 2s fade-in + staggered pills + centered back button -->
+<!-- hub.html v0.011 – Repositioned pills + enhanced flash lines -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -118,18 +118,18 @@
                     <circle class="circuit-pad" cx="600" cy="850" r="8" data-pad="9" />
 
                     <!-- Pills connection points (matching pill positions) -->
-                    <circle class="circuit-pad pill-pad" cx="750" cy="150" r="10" data-pad="pill-1" />
-                    <circle class="circuit-pad pill-pad" cx="650" cy="420" r="10" data-pad="pill-2" />
+                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="10" data-pad="pill-1" />
+                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="10" data-pad="pill-2" />
                     <circle class="circuit-pad pill-pad" cx="600" cy="850" r="10" data-pad="pill-3" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
-                <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="3.5" fill="none" opacity="0" stroke-linecap="round">
-                    <!-- Line to Pill 1 (Robotyka - 750, 150) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 650 350 L 750 150" filter="url(#glowStrong)" />
+                <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="4" fill="none" opacity="0" stroke-linecap="round">
+                    <!-- Line to Pill 1 (Robotyka - 500, 500 - central, no line needed) -->
+                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 500 500" filter="url(#glowStrong)" />
 
-                    <!-- Line to Pill 2 (Aplikacje - 650, 420) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420" filter="url(#glowStrong)" />
+                    <!-- Line to Pill 2 (Aplikacje - 850, 350) -->
+                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420 L 850 350" filter="url(#glowStrong)" />
 
                     <!-- Line to Pill 3 (WWW - 600, 850) -->
                     <path id="pill-line-www" class="pill-line" d="M 500 500 L 550 650 L 600 850" filter="url(#glowStrong)" />

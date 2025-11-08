@@ -1,4 +1,4 @@
-/* hub-styles.css v0.008 – Centered back button + staggered pills */
+/* hub-styles.css v0.009 – Repositioned pills + enhanced flash animation */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -249,25 +249,29 @@ body {
 }
 
 .pill-line.flash {
-    animation: lineFlash 1.2s ease-out;
+    animation: lineFlash 1.5s ease-out;
 }
 
 @keyframes lineFlash {
     0% {
         opacity: 0;
-        stroke-width: 2.5;
+        stroke-width: 3;
     }
-    20% {
-        opacity: 0.9;
-        stroke-width: 5;
-    }
-    40% {
+    15% {
         opacity: 1;
-        stroke-width: 6;
+        stroke-width: 8;
+    }
+    30% {
+        opacity: 1;
+        stroke-width: 10;
+    }
+    50% {
+        opacity: 0.9;
+        stroke-width: 8;
     }
     100% {
         opacity: 0;
-        stroke-width: 2.5;
+        stroke-width: 3;
     }
 }
 
@@ -315,21 +319,21 @@ body {
 }
 
 /* Pill Positions - Pinned to Neurons */
-/* Pill 1: Robotyka - Node 2 (750, 150) = 75% left, 15% top */
+/* Pill 1: Robotyka - Central Node (500, 500) = 50% left, 50% top */
 .hub-pill-1 {
-    left: 75%;
-    top: 15%;
+    left: 50%;
+    top: 50%;
     animation: floatPill1 6s ease-in-out infinite;
 }
 
-/* Pill 2: Aplikacje - Node 5 (650, 420) = 65% left, 42% top */
+/* Pill 2: Aplikacje - Top-Right Node (850, 350) = 85% left, 35% top */
 .hub-pill-2 {
-    left: 65%;
-    top: 42%;
+    left: 85%;
+    top: 35%;
     animation: floatPill2 6s ease-in-out infinite;
 }
 
-/* Pill 3: Strony WWW - Node 13 (600, 850) = 60% left, 85% top */
+/* Pill 3: Strony WWW - Bottom Node (600, 850) = 60% left, 85% top */
 .hub-pill-3 {
     left: 60%;
     top: 85%;
