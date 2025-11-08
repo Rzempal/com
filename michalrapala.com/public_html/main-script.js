@@ -1,4 +1,4 @@
-// main-script.js v0.010 – Multi-Page Navigation + Card Sheets + Flash Lines
+// main-script.js v0.011 – Subtle Fade Transitions (no translateY movement)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -44,12 +44,12 @@ function navigateToHub() {
   
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
-    // Fallback bez GSAP
+    // Fallback bez GSAP - subtle fade only
     body.style.opacity = '0';
-    body.style.transition = 'opacity 0.8s ease-in';
+    body.style.transition = 'opacity 0.6s ease-in';
     setTimeout(() => {
       window.location.href = 'hub.html';
-    }, 800);
+    }, 600);
     return;
   }
   
@@ -65,20 +65,19 @@ function navigateToHub() {
       },
     });
   } else {
-    // Full animation
+    // Full animation - subtle fade only
     const gsap = window.gsap;
     const timeline = gsap.timeline();
-    
+
     timeline.to(body, {
       opacity: 0,
-      y: -50,
-      duration: 0.8,
+      duration: 0.6,
       ease: 'power2.in',
     }, 0);
-    
+
     timeline.call(() => {
       window.location.href = 'hub.html';
-    }, null, 0.6);
+    }, null, 0.4);
   }
 }
 
@@ -115,11 +114,12 @@ function navigateToGate() {
   
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
+    // Fallback bez GSAP - subtle fade only
     body.style.opacity = '0';
-    body.style.transition = 'opacity 0.8s ease-in';
+    body.style.transition = 'opacity 0.6s ease-in';
     setTimeout(() => {
       window.location.href = 'index.html';
-    }, 800);
+    }, 600);
     return;
   }
   
@@ -136,17 +136,16 @@ function navigateToGate() {
   } else {
     const gsap = window.gsap;
     const timeline = gsap.timeline();
-    
+
     timeline.to(body, {
       opacity: 0,
-      y: 50,
-      duration: 0.8,
+      duration: 0.6,
       ease: 'power2.in',
     }, 0);
-    
+
     timeline.call(() => {
       window.location.href = 'index.html';
-    }, null, 0.6);
+    }, null, 0.4);
   }
 }
 
