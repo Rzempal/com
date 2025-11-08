@@ -1,4 +1,4 @@
-<!-- hub.html v0.011 – Repositioned pills + enhanced flash lines -->
+<!-- hub.html v0.012 – Flash lines follow circuit board traces -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -125,13 +125,13 @@
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
                 <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="4" fill="none" opacity="0" stroke-linecap="round">
-                    <!-- Line to Pill 1 (Robotyka - 500, 500 - central, no line needed) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 500 500" filter="url(#glowStrong)" />
+                    <!-- Line to Pill 1 (Robotyka - 500, 500 - horizontal trace through center) -->
+                    <path id="pill-line-robotyka" class="pill-line" d="M 150 500 L 500 500" filter="url(#glowStrong)" />
 
-                    <!-- Line to Pill 2 (Aplikacje - 850, 350) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420 L 850 350" filter="url(#glowStrong)" />
+                    <!-- Line to Pill 2 (Aplikacje - 850, 350 - horizontal trace to top-right) -->
+                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 500 350 L 850 350" filter="url(#glowStrong)" />
 
-                    <!-- Line to Pill 3 (WWW - 600, 850) -->
+                    <!-- Line to Pill 3 (WWW - 600, 850 - vertical trace to bottom) -->
                     <path id="pill-line-www" class="pill-line" d="M 500 500 L 550 650 L 600 850" filter="url(#glowStrong)" />
                 </g>
 
