@@ -26,25 +26,30 @@
 </head>
 <body>
 
-    <!-- ========== TOP BAR (FIXED) ========== -->
-    <div class="hub-top-bar" id="hubTopBar">
-        <button class="back-button" id="backButton" aria-label="Wróć do Gate">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-
-        <div class="hub-title">
-            <span>Michał Rąpała</span>
-        </div>
-
-        <div class="hub-contact">
-            <a href="mailto:kontakt@michalrapala.com" aria-label="Email">
-                <i class="fas fa-envelope"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <i class="fab fa-linkedin"></i>
-            </a>
+    <!-- ========== TOP INFO BAR (FIXED) ========== -->
+    <div class="top-info-bar">
+        <div class="top-info-bar-content">
+            <div class="top-info-bar-contact">
+                <a href="mailto:kontakt@michalrapala.com">
+                    <i class="fas fa-envelope fa-fw mr-2"></i>
+                    <span>kontakt@michalrapala.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin fa-fw mr-2"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+            <div class="top-info-bar-status">
+                <div class="status-indicator"></div>
+                <span>Otwarty na nowe projekty</span>
+            </div>
         </div>
     </div>
+
+    <!-- ========== BACK BUTTON ========== -->
+    <button class="hub-back-button" id="backButton" aria-label="Wróć do Gate">
+        <i class="fas fa-arrow-left"></i>
+    </button>
 
     <!-- ========== HUB CONTAINER ========== -->
     <div class="hub-wrapper">
