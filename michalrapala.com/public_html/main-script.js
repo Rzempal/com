@@ -1,4 +1,4 @@
-// main-script.js v0.013 – Logo click video modal + extended fade transitions
+// main-script.js v0.014 – Hub 2s fade-in + staggered pills animation
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -265,11 +265,20 @@ function flashPillLine(cardId) {
 // ========== HUB FADE IN ==========
 function fadeInHub() {
   const body = document.body;
+  const pills = document.querySelectorAll('.hub-pill');
 
   if (!window.gsap) {
     // Fallback bez GSAP
     body.style.opacity = '1';
-    body.style.transition = 'opacity 1.5s ease-out';
+    body.style.transition = 'opacity 2s ease-out';
+
+    // Pills stagger fallback
+    pills.forEach((pill, index) => {
+      setTimeout(() => {
+        pill.style.opacity = '1';
+        pill.style.transform = 'translate(-50%, -50%)';
+      }, 2000 + (index * 200));
+    });
     return;
   }
 
@@ -281,17 +290,34 @@ function fadeInHub() {
       duration: 0.6,
       ease: 'power2.out',
     });
-  } else {
-    // Full animation - extended fade in (1.5s)
-    const gsap = window.gsap;
-    gsap.to(body, {
+    gsap.to(pills, {
       opacity: 1,
-      duration: 1.5,
-      ease: 'power2.out',
+      duration: 0.3,
+      stagger: 0.1,
     });
+  } else {
+    // Full animation - extended fade in (2s) + staggered pills
+    const gsap = window.gsap;
+    const timeline = gsap.timeline();
+
+    // Body fade in
+    timeline.to(body, {
+      opacity: 1,
+      duration: 2,
+      ease: 'power2.out',
+    }, 0);
+
+    // Pills stagger animation (start after 1.5s)
+    timeline.to(pills, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: 'back.out(1.7)',
+    }, 1.5);
   }
 
-  console.log('✅ Hub fade in started');
+  console.log('✅ Hub fade in started (2s)');
 }
 
 // ========== PAGE DETECTION & INITIALIZATION ==========
