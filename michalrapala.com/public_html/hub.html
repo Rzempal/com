@@ -1,4 +1,4 @@
-<!-- hub.html v0.006 – Card Sheet System + Gate-Aligned Neural Mesh + Flash Lines -->
+<!-- hub.html v0.007 – Unified SVG + preserveAspectRatio none for consistent backgrounds -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -57,15 +57,15 @@
         <!-- Neural Mesh Background (same as Gate) + Pills -->
         <section class="hub-mesh-section" id="hubMeshSection">
             <!-- SVG Circuit Board Background -->
-            <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
-                    <linearGradient id="hubMeshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="meshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style="stop-color: #48D2E7; stop-opacity: 0.3" />
                         <stop offset="100%" style="stop-color: #22d3ee; stop-opacity: 0.1" />
                     </linearGradient>
 
                     <!-- Filter for Glow -->
-                    <filter id="hubGlow">
+                    <filter id="glow">
                         <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                         <feMerge>
                             <feMergeNode in="coloredBlur"/>
@@ -74,7 +74,7 @@
                     </filter>
 
                     <!-- Filter for STRONG Glow (Flash Lines) -->
-                    <filter id="hubGlowStrong">
+                    <filter id="glowStrong">
                         <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
                         <feMerge>
                             <feMergeNode in="coloredBlur"/>
@@ -85,7 +85,7 @@
                 </defs>
 
                 <!-- Circuit Board Traces (PCB paths) -->
-                <g class="circuit-traces" stroke="url(#hubMeshGradient)" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round">
+                <g class="circuit-traces" stroke="url(#meshGradient)" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round">
                     <!-- Horizontal traces -->
                     <path class="circuit-trace" d="M 50 150 L 300 150 L 350 200 L 650 200" data-index="0" />
                     <path class="circuit-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1" />
@@ -126,17 +126,17 @@
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
                 <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="3.5" fill="none" opacity="0" stroke-linecap="round">
                     <!-- Line to Pill 1 (Robotyka - 750, 150) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 650 350 L 750 150" filter="url(#hubGlowStrong)" />
+                    <path id="pill-line-robotyka" class="pill-line" d="M 500 500 L 650 350 L 750 150" filter="url(#glowStrong)" />
 
                     <!-- Line to Pill 2 (Aplikacje - 650, 420) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420" filter="url(#hubGlowStrong)" />
+                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 650 420" filter="url(#glowStrong)" />
 
                     <!-- Line to Pill 3 (WWW - 600, 850) -->
-                    <path id="pill-line-www" class="pill-line" d="M 500 500 L 550 650 L 600 850" filter="url(#hubGlowStrong)" />
+                    <path id="pill-line-www" class="pill-line" d="M 500 500 L 550 650 L 600 850" filter="url(#glowStrong)" />
                 </g>
 
                 <!-- Central Pad (main junction) -->
-                <circle cx="500" cy="500" r="12" fill="#48D2E7" stroke="#48D2E7" stroke-width="2" filter="url(#hubGlow)" opacity="0.9" class="center-pad"/>
+                <circle cx="500" cy="500" r="12" fill="#48D2E7" stroke="#48D2E7" stroke-width="2" filter="url(#glow)" opacity="0.9" class="center-pad"/>
                 <circle cx="500" cy="500" r="18" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.5" class="center-pad-ring"/>
             </svg>
 
