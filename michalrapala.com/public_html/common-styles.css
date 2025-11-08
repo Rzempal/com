@@ -173,13 +173,11 @@ button {
     opacity: 0;
     transform: translateY(20px);
     cursor: pointer;
-    transition: all 0.3s ease;
-    filter: drop-shadow(0 4px 12px rgba(72, 210, 231, 0.3));
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .gate__logo:hover {
-    transform: translateY(20px) scale(1.05);
-    filter: drop-shadow(0 8px 20px rgba(72, 210, 231, 0.5));
+    opacity: 0.9;
 }
 
 .gate__subtitle {
