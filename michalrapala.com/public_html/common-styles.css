@@ -1,4 +1,4 @@
-/* common-styles.css v0.004 – Card Sheet System + Self-Hosted Fonts */
+/* common-styles.css v0.005 – Removed conflicting top-info-bar styles */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -292,83 +292,6 @@ button {
     }
 }
 
-/* ========== TOP INFO BAR ========== */
-.top-info-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 40;
-    padding: 0.75rem 1rem;
-    background-color: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-}
-
-.top-info-bar-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-size: 0.875rem;
-    color: var(--muted);
-    font-family: var(--font-body);
-    font-weight: 400;
-}
-
-.top-info-bar-content a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--muted);
-    transition: color 0.3s ease;
-    font-weight: 500;
-}
-
-.top-info-bar-content a:hover {
-    color: var(--accent);
-}
-
-.top-info-bar-contact {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.top-info-bar-status {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.status-indicator {
-    width: 8px;
-    height: 8px;
-    background-color: #34d399;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
-}
-
-@media (max-width: 640px) {
-    .top-info-bar-content {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
-    }
-    
-    .top-info-bar-contact {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-}
 
 /* ========== CARDS: Accordion ========== */
 .cards {

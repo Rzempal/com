@@ -1,4 +1,4 @@
-/* hub-styles.css v0.004 – Top Info Bar + Status Indicator */
+/* hub-styles.css v0.005 – Fixed Top Info Bar Responsive Breakpoints */
 
 /* ========== TOP INFO BAR (FIXED) ========== */
 .top-info-bar {
@@ -112,8 +112,53 @@
     outline-offset: 2px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive - Średnie ekrany (600px-900px): tekst przy email, ikona LinkedIn */
+@media (max-width: 900px) and (min-width: 600px) {
+    .top-info-bar {
+        padding: 0.6rem 1.25rem;
+        padding-left: 3.75rem;
+    }
+
+    .top-info-bar-content {
+        gap: 1.25rem;
+    }
+
+    .top-info-bar-contact {
+        gap: 1rem;
+    }
+
+    /* Email: pokazuj tekst */
+    .top-info-bar-contact a:first-child {
+        font-size: 0.85rem;
+    }
+
+    /* LinkedIn: tylko ikona */
+    .top-info-bar-contact a:last-child {
+        width: 2.25rem;
+        height: 2.25rem;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .top-info-bar-contact a:last-child span {
+        display: none;
+    }
+
+    .top-info-bar-status span {
+        font-size: 0.85rem;
+    }
+
+    .hub-back-button {
+        top: 0.7rem;
+        left: 0.7rem;
+        width: 2.6rem;
+        height: 2.6rem;
+        font-size: 1.15rem;
+    }
+}
+
+/* Responsive - Małe ekrany (<600px): tylko ikony */
+@media (max-width: 599px) {
     .top-info-bar {
         padding: 0.5rem 1rem;
         padding-left: 3.5rem;
