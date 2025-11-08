@@ -624,8 +624,8 @@ body.card-open {
     display: flex;
     align-items: center;
     padding: 0.5rem 1.5rem 1rem;
-    padding-top: 3rem;
-    padding-right: 4.5rem;
+    padding-top: 3.5rem;
+    padding-right: 1.5rem;
     position: relative;
     flex-shrink: 0;
 }
@@ -633,8 +633,8 @@ body.card-open {
 /* Card Grabber (mobile only - visual hint) */
 .card-grabber {
     position: absolute;
-    top: 20px;
-    left: 35%;
+    top: 28px;
+    left: 30%;
     transform: translateX(-50%);
     width: 50px;
     height: 4px;
@@ -682,8 +682,8 @@ body.card-open {
 /* Card Close Button */
 .card-close {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 0.75rem;
+    right: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -780,14 +780,16 @@ body.card-open {
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
         transform: translateY(100%);
-        /* Diagonal cut: top-left higher, top-right at edge */
+        /* Notch shape: pozioma prawa (wyżej) -> diagonal cut -> pozioma lewa (niżej) */
         clip-path: polygon(
-            0 50px,      /* top-left (50px from top) */
-            100% 0,      /* top-right (at edge) */
-            100% 100%,   /* bottom-right */
-            0 100%       /* bottom-left */
+            100% 0,               /* P1: prawy górny skrajny (wyżej) */
+            calc(100% - 80px) 0,  /* P2: prawy górny - miejsce na close button (wyżej) */
+            20% 50px,             /* P3: lewy górny po diagonal cut (niżej) */
+            0 50px,               /* P4: lewy górny skrajny (niżej) */
+            0 100%,               /* P5: lewy dolny */
+            100% 100%             /* P6: prawy dolny */
         );
-        border-radius: 0 0 0 0;
+        border-radius: 0 0 0 16px;
     }
 
     .card-sheet.is-open {
@@ -828,12 +830,14 @@ body.card-open {
         bottom: 0;
         width: clamp(440px, 40vw, 560px);
         transform: translateX(100%);
-        /* Diagonal cut: top-left higher, top-right at edge */
+        /* Notch shape: pozioma prawa (wyżej) -> diagonal cut -> pozioma lewa (niżej) */
         clip-path: polygon(
-            0 60px,      /* top-left (60px from top) */
-            100% 0,      /* top-right (at edge) */
-            100% 100%,   /* bottom-right */
-            0 100%       /* bottom-left */
+            100% 0,               /* P1: prawy górny skrajny (wyżej) */
+            calc(100% - 90px) 0,  /* P2: prawy górny - miejsce na close button (wyżej) */
+            20% 60px,             /* P3: lewy górny po diagonal cut (niżej) */
+            0 60px,               /* P4: lewy górny skrajny (niżej) */
+            0 100%,               /* P5: lewy dolny */
+            100% 100%             /* P6: prawy dolny */
         );
         border-radius: 0 0 0 24px;
     }
