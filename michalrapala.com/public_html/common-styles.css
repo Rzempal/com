@@ -607,25 +607,11 @@ body.card-open {
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
-}
-
-/* Notch w prawym górnym rogu dla przycisku zamknięcia */
-.card-sheet::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 70px;
-    height: 70px;
-    background: var(--bg);
-    border-radius: 0 0 0 35px;
-    pointer-events: none;
-    z-index: -1;
 }
 
 .card-sheet:not([hidden]) {
@@ -637,8 +623,9 @@ body.card-open {
 .card-topbar {
     display: flex;
     align-items: center;
-    padding: 1rem 1.5rem;
-    padding-right: 4rem;
+    padding: 0.5rem 1.5rem 1rem;
+    padding-top: 3rem;
+    padding-right: 4.5rem;
     position: relative;
     flex-shrink: 0;
 }
@@ -646,13 +633,13 @@ body.card-open {
 /* Card Grabber (mobile only - visual hint) */
 .card-grabber {
     position: absolute;
-    top: 10px;
-    left: 50%;
+    top: 20px;
+    left: 35%;
     transform: translateX(-50%);
-    width: 40px;
+    width: 50px;
     height: 4px;
     background: var(--muted);
-    opacity: 0.4;
+    opacity: 0.5;
     border-radius: 10px;
     pointer-events: none;
     transition: opacity 0.2s ease;
@@ -695,8 +682,8 @@ body.card-open {
 /* Card Close Button */
 .card-close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
+    right: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -746,7 +733,7 @@ body.card-open {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 1.5rem 2rem;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -790,14 +777,17 @@ body.card-open {
         bottom: 0;
         left: 0;
         right: 0;
-        border-radius: 32px 32px 0 0;
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
         transform: translateY(100%);
-    }
-
-    .card-sheet::before {
-        border-radius: 0 0 0 40px;
+        /* Diagonal cut: top-left higher, top-right at edge */
+        clip-path: polygon(
+            0 50px,      /* top-left (50px from top) */
+            100% 0,      /* top-right (at edge) */
+            100% 100%,   /* bottom-right */
+            0 100%       /* bottom-left */
+        );
+        border-radius: 0 0 0 0;
     }
 
     .card-sheet.is-open {
@@ -837,12 +827,15 @@ body.card-open {
         right: 0;
         bottom: 0;
         width: clamp(440px, 40vw, 560px);
-        border-radius: 36px 0 0 20px;
         transform: translateX(100%);
-    }
-
-    .card-sheet::before {
-        border-radius: 0 0 0 36px;
+        /* Diagonal cut: top-left higher, top-right at edge */
+        clip-path: polygon(
+            0 60px,      /* top-left (60px from top) */
+            100% 0,      /* top-right (at edge) */
+            100% 100%,   /* bottom-right */
+            0 100%       /* bottom-left */
+        );
+        border-radius: 0 0 0 24px;
     }
 
     .card-sheet.is-open {
