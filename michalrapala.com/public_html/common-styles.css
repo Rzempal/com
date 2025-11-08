@@ -780,14 +780,14 @@ body.card-open {
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
         transform: translateY(100%);
-        /* Notch shape: pozioma prawa (wyżej) -> diagonal cut -> pozioma lewa (niżej) */
+        /* Notch shape: A=80px (notch), B=80px (diagonal), C=reszta */
         clip-path: polygon(
-            100% 0,               /* P1: prawy górny skrajny (wyżej) */
-            calc(100% - 80px) 0,  /* P2: prawy górny - miejsce na close button (wyżej) */
-            20% 50px,             /* P3: lewy górny po diagonal cut (niżej) */
-            0 50px,               /* P4: lewy górny skrajny (niżej) */
-            0 100%,               /* P5: lewy dolny */
-            100% 100%             /* P6: prawy dolny */
+            100% 0,                      /* P1: prawy górny skrajny (wyżej) */
+            calc(100% - 80px) 0,         /* P2: A=80px (notch) */
+            calc(100% - 160px) 50px,     /* P3: B=80px (diagonal) */
+            0 50px,                      /* P4: C=reszta */
+            0 100%,                      /* P5: lewy dolny */
+            100% 100%                    /* P6: prawy dolny */
         );
         border-radius: 0 0 0 16px;
     }
@@ -830,14 +830,14 @@ body.card-open {
         bottom: 0;
         width: clamp(440px, 40vw, 560px);
         transform: translateX(100%);
-        /* Notch shape: pozioma prawa (wyżej) -> diagonal cut -> pozioma lewa (niżej) */
+        /* Notch shape: A=90px (notch), B=90px (diagonal), C=reszta */
         clip-path: polygon(
-            100% 0,               /* P1: prawy górny skrajny (wyżej) */
-            calc(100% - 90px) 0,  /* P2: prawy górny - miejsce na close button (wyżej) */
-            20% 60px,             /* P3: lewy górny po diagonal cut (niżej) */
-            0 60px,               /* P4: lewy górny skrajny (niżej) */
-            0 100%,               /* P5: lewy dolny */
-            100% 100%             /* P6: prawy dolny */
+            100% 0,                      /* P1: prawy górny skrajny (wyżej) */
+            calc(100% - 90px) 0,         /* P2: A=90px (notch) */
+            calc(100% - 180px) 60px,     /* P3: B=90px (diagonal) */
+            0 60px,                      /* P4: C=reszta */
+            0 100%,                      /* P5: lewy dolny */
+            100% 100%                    /* P6: prawy dolny */
         );
         border-radius: 0 0 0 24px;
     }
