@@ -1,4 +1,4 @@
-// main-script.js v0.016 – Electric current effect (2s) + slower card animation (0.6s)
+// main-script.js v0.017 – Electric current with GSAP (fixes SVG animation)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -245,21 +245,73 @@ function flashPillLine(cardId) {
     return;
   }
 
-  // Remove any existing flash animation
-  lineEl.classList.remove('flash');
+  if (!window.gsap) {
+    console.warn('⚠️ GSAP not loaded, skipping flash animation');
+    return;
+  }
 
-  // Trigger reflow to restart animation
-  void lineEl.offsetWidth;
+  const gsap = window.gsap;
 
-  // Add flash animation
-  lineEl.classList.add('flash');
+  // Kill any existing animations on this line
+  gsap.killTweensOf(lineEl);
 
-  // Remove class after animation completes (2s to match CSS animation)
-  setTimeout(() => {
-    lineEl.classList.remove('flash');
-  }, 2000);
+  // Create electric current effect with GSAP timeline
+  const timeline = gsap.timeline();
 
-  console.log(`⚡ Flashing line for: ${cardId}`);
+  // Start: fade in with cyan
+  timeline.to(lineEl, {
+    attr: { 'stroke-width': 6, stroke: '#48D2E7' },
+    opacity: 0.6,
+    duration: 0.2,
+    ease: 'power2.in',
+  }, 0);
+
+  // Build up: bright cyan with glow
+  timeline.to(lineEl, {
+    attr: { 'stroke-width': 12, stroke: '#6EE7FF' },
+    opacity: 1,
+    filter: 'drop-shadow(0 0 20px #48D2E7) drop-shadow(0 0 40px #48D2E7)',
+    duration: 0.2,
+    ease: 'power2.out',
+  }, 0.2);
+
+  // Peak: white flash with maximum glow
+  timeline.to(lineEl, {
+    attr: { 'stroke-width': 14, stroke: '#FFFFFF' },
+    opacity: 1,
+    filter: 'drop-shadow(0 0 30px #48D2E7) drop-shadow(0 0 50px #48D2E7)',
+    duration: 0.3,
+    ease: 'power1.inOut',
+  }, 0.4);
+
+  // Sustain: bright cyan
+  timeline.to(lineEl, {
+    attr: { 'stroke-width': 12, stroke: '#6EE7FF' },
+    opacity: 0.95,
+    filter: 'drop-shadow(0 0 25px #48D2E7) drop-shadow(0 0 45px #48D2E7)',
+    duration: 0.3,
+    ease: 'none',
+  }, 0.7);
+
+  // Fade down: dimmer cyan
+  timeline.to(lineEl, {
+    attr: { 'stroke-width': 8, stroke: '#48D2E7' },
+    opacity: 0.8,
+    filter: 'drop-shadow(0 0 15px #48D2E7)',
+    duration: 0.4,
+    ease: 'power2.in',
+  }, 1.0);
+
+  // Fade out: return to invisible
+  timeline.to(lineEl, {
+    attr: { 'stroke-width': 6, stroke: '#48D2E7' },
+    opacity: 0,
+    filter: 'none',
+    duration: 0.6,
+    ease: 'power2.in',
+  }, 1.4);
+
+  console.log(`⚡ Electric current flash for: ${cardId}`);
 }
 
 // ========== HUB FADE IN ==========
