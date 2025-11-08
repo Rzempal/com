@@ -1,4 +1,4 @@
-// main-script.js v0.017 – Electric current with GSAP (fixes SVG animation)
+// main-script.js v0.018 – Reduced stroke-width for smoother electric effect
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -260,7 +260,7 @@ function flashPillLine(cardId) {
 
   // Start: fade in with cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '8', stroke: '#48D2E7' },
+    attr: { 'stroke-width': '3', stroke: '#48D2E7' },
     opacity: 0.6,
     duration: 0.2,
     ease: 'power2.in',
@@ -268,7 +268,7 @@ function flashPillLine(cardId) {
 
   // Build up: bright cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '16', stroke: '#6EE7FF' },
+    attr: { 'stroke-width': '6', stroke: '#6EE7FF' },
     opacity: 1,
     duration: 0.2,
     ease: 'power2.out',
@@ -276,7 +276,7 @@ function flashPillLine(cardId) {
 
   // Peak: white flash
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '20', stroke: '#FFFFFF' },
+    attr: { 'stroke-width': '8', stroke: '#FFFFFF' },
     opacity: 1,
     duration: 0.3,
     ease: 'power1.inOut',
@@ -284,7 +284,7 @@ function flashPillLine(cardId) {
 
   // Sustain: bright cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '16', stroke: '#6EE7FF' },
+    attr: { 'stroke-width': '6', stroke: '#6EE7FF' },
     opacity: 0.95,
     duration: 0.3,
     ease: 'none',
@@ -292,7 +292,7 @@ function flashPillLine(cardId) {
 
   // Fade down: dimmer cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '10', stroke: '#48D2E7' },
+    attr: { 'stroke-width': '4', stroke: '#48D2E7' },
     opacity: 0.7,
     duration: 0.4,
     ease: 'power2.in',
@@ -300,7 +300,7 @@ function flashPillLine(cardId) {
 
   // Fade out: return to invisible
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '6', stroke: '#48D2E7' },
+    attr: { 'stroke-width': '2', stroke: '#48D2E7' },
     opacity: 0,
     duration: 0.6,
     ease: 'power2.in',
