@@ -1,4 +1,4 @@
-// main-script.js v0.012 – Extended fade transitions (1.5s) with Hub fade in
+// main-script.js v0.013 – Logo click video modal + extended fade transitions
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -14,14 +14,21 @@ function prefersReducedMotion() {
 // ========== GATE: INICJALIZACJA ==========
 function initGate() {
   const enterBtn = document.querySelector('.gate__enter');
-  
+  const gateLogo = document.getElementById('gateLogo');
+
   if (!enterBtn) {
     console.error('❌ Gate enter button not found');
     return;
   }
-  
+
   enterBtn.addEventListener('click', () => navigateToHub());
-  
+
+  // Logo click - open video modal
+  if (gateLogo) {
+    gateLogo.addEventListener('click', () => openVideoModal());
+    gateLogo.style.cursor = 'pointer';
+  }
+
   // Keyboard support
   document.addEventListener('keydown', (e) => {
     if (!isNavigating && (e.key === 'Enter' || e.code === 'Space')) {
@@ -29,8 +36,42 @@ function initGate() {
       navigateToHub();
     }
   });
-  
+
   console.log('✅ Gate initialized');
+}
+
+// ========== VIDEO MODAL ==========
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('introVideo');
+  const closeBtn = document.querySelector('.video-modal-close');
+  const backdrop = document.querySelector('.video-modal-backdrop');
+
+  if (!modal || !video) return;
+
+  modal.hidden = false;
+  video.play();
+
+  // Close handlers
+  const closeModal = () => {
+    video.pause();
+    video.currentTime = 0;
+    modal.hidden = true;
+  };
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  // ESC key
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  document.addEventListener('keydown', escHandler);
+
+  console.log('🎬 Video modal opened');
 }
 
 // ========== NAVIGATE TO HUB ==========
