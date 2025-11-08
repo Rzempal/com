@@ -1,4 +1,4 @@
-// main-script.js v0.018 – Reduced stroke-width for smoother electric effect
+// main-script.js v0.019 – Electric current flow with stroke-dashoffset animation
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -255,58 +255,92 @@ function flashPillLine(cardId) {
   // Kill any existing animations on this line
   gsap.killTweensOf(lineEl);
 
-  // Create electric current effect with GSAP timeline
+  // Get the total length of the path for dash animation
+  const pathLength = lineEl.getTotalLength();
+
+  // Set up initial dash state (fully hidden)
+  gsap.set(lineEl, {
+    attr: {
+      'stroke-dasharray': pathLength,
+      'stroke-dashoffset': pathLength,
+      'stroke-width': '2',
+      stroke: '#48D2E7'
+    },
+    opacity: 0
+  });
+
+  // Create electric current flow effect with GSAP timeline
   const timeline = gsap.timeline();
 
-  // Start: fade in with cyan
+  // Phase 1: Current starts flowing - reveal the path with cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '3', stroke: '#48D2E7' },
-    opacity: 0.6,
-    duration: 0.2,
+    attr: {
+      'stroke-dashoffset': pathLength * 0.6,
+      'stroke-width': '4',
+      stroke: '#48D2E7'
+    },
+    opacity: 0.7,
+    duration: 0.3,
     ease: 'power2.in',
   }, 0);
 
-  // Build up: bright cyan
+  // Phase 2: Current accelerates - bright cyan pulse
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '6', stroke: '#6EE7FF' },
+    attr: {
+      'stroke-dashoffset': pathLength * 0.2,
+      'stroke-width': '6',
+      stroke: '#6EE7FF'
+    },
     opacity: 1,
-    duration: 0.2,
-    ease: 'power2.out',
-  }, 0.2);
-
-  // Peak: white flash
-  timeline.to(lineEl, {
-    attr: { 'stroke-width': '8', stroke: '#FFFFFF' },
-    opacity: 1,
-    duration: 0.3,
+    duration: 0.25,
     ease: 'power1.inOut',
-  }, 0.4);
+  }, 0.3);
 
-  // Sustain: bright cyan
+  // Phase 3: Peak current - white flash, fully revealed
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '6', stroke: '#6EE7FF' },
-    opacity: 0.95,
+    attr: {
+      'stroke-dashoffset': 0,
+      'stroke-width': '7',
+      stroke: '#FFFFFF'
+    },
+    opacity: 1,
+    duration: 0.25,
+    ease: 'power2.out',
+  }, 0.55);
+
+  // Phase 4: Sustain - bright cyan, visible line
+  timeline.to(lineEl, {
+    attr: {
+      'stroke-width': '5',
+      stroke: '#6EE7FF'
+    },
+    opacity: 0.9,
     duration: 0.3,
     ease: 'none',
-  }, 0.7);
+  }, 0.8);
 
-  // Fade down: dimmer cyan
+  // Phase 5: Fade - dimmer cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '4', stroke: '#48D2E7' },
-    opacity: 0.7,
+    attr: {
+      'stroke-width': '3',
+      stroke: '#48D2E7'
+    },
+    opacity: 0.6,
     duration: 0.4,
     ease: 'power2.in',
-  }, 1.0);
+  }, 1.1);
 
-  // Fade out: return to invisible
+  // Phase 6: Fade out - disappear
   timeline.to(lineEl, {
-    attr: { 'stroke-width': '2', stroke: '#48D2E7' },
+    attr: {
+      'stroke-width': '2',
+    },
     opacity: 0,
-    duration: 0.6,
+    duration: 0.5,
     ease: 'power2.in',
-  }, 1.4);
+  }, 1.5);
 
-  console.log(`⚡ Electric current flash for: ${cardId}`);
+  console.log(`⚡ Electric current flow for: ${cardId} (path length: ${pathLength})`);
 }
 
 // ========== HUB FADE IN ==========
