@@ -260,53 +260,48 @@ function flashPillLine(cardId) {
 
   // Start: fade in with cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': 6, stroke: '#48D2E7' },
+    attr: { 'stroke-width': '8', stroke: '#48D2E7' },
     opacity: 0.6,
     duration: 0.2,
     ease: 'power2.in',
   }, 0);
 
-  // Build up: bright cyan with glow
+  // Build up: bright cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': 12, stroke: '#6EE7FF' },
+    attr: { 'stroke-width': '16', stroke: '#6EE7FF' },
     opacity: 1,
-    filter: 'drop-shadow(0 0 20px #48D2E7) drop-shadow(0 0 40px #48D2E7)',
     duration: 0.2,
     ease: 'power2.out',
   }, 0.2);
 
-  // Peak: white flash with maximum glow
+  // Peak: white flash
   timeline.to(lineEl, {
-    attr: { 'stroke-width': 14, stroke: '#FFFFFF' },
+    attr: { 'stroke-width': '20', stroke: '#FFFFFF' },
     opacity: 1,
-    filter: 'drop-shadow(0 0 30px #48D2E7) drop-shadow(0 0 50px #48D2E7)',
     duration: 0.3,
     ease: 'power1.inOut',
   }, 0.4);
 
   // Sustain: bright cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': 12, stroke: '#6EE7FF' },
+    attr: { 'stroke-width': '16', stroke: '#6EE7FF' },
     opacity: 0.95,
-    filter: 'drop-shadow(0 0 25px #48D2E7) drop-shadow(0 0 45px #48D2E7)',
     duration: 0.3,
     ease: 'none',
   }, 0.7);
 
   // Fade down: dimmer cyan
   timeline.to(lineEl, {
-    attr: { 'stroke-width': 8, stroke: '#48D2E7' },
-    opacity: 0.8,
-    filter: 'drop-shadow(0 0 15px #48D2E7)',
+    attr: { 'stroke-width': '10', stroke: '#48D2E7' },
+    opacity: 0.7,
     duration: 0.4,
     ease: 'power2.in',
   }, 1.0);
 
   // Fade out: return to invisible
   timeline.to(lineEl, {
-    attr: { 'stroke-width': 6, stroke: '#48D2E7' },
+    attr: { 'stroke-width': '6', stroke: '#48D2E7' },
     opacity: 0,
-    filter: 'none',
     duration: 0.6,
     ease: 'power2.in',
   }, 1.4);
