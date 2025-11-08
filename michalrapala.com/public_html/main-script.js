@@ -1,4 +1,4 @@
-// main-script.js v0.011 – Subtle Fade Transitions (no translateY movement)
+// main-script.js v0.012 – Extended fade transitions (1.5s) with Hub fade in
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -44,40 +44,40 @@ function navigateToHub() {
   
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
-    // Fallback bez GSAP - subtle fade only
+    // Fallback bez GSAP - extended fade
     body.style.opacity = '0';
-    body.style.transition = 'opacity 0.6s ease-in';
+    body.style.transition = 'opacity 1.5s ease-in';
     setTimeout(() => {
       window.location.href = 'hub.html';
-    }, 600);
+    }, 1500);
     return;
   }
-  
+
   if (prefersReducedMotion()) {
-    // Reduced motion: tylko fade
+    // Reduced motion: fade with reduced duration
     const gsap = window.gsap;
     gsap.to(body, {
       opacity: 0,
-      duration: 0.4,
+      duration: 0.6,
       ease: 'power2.in',
       onComplete: () => {
         window.location.href = 'hub.html';
       },
     });
   } else {
-    // Full animation - subtle fade only
+    // Full animation - extended fade (1.5s)
     const gsap = window.gsap;
     const timeline = gsap.timeline();
 
     timeline.to(body, {
       opacity: 0,
-      duration: 0.6,
+      duration: 1.5,
       ease: 'power2.in',
     }, 0);
 
     timeline.call(() => {
       window.location.href = 'hub.html';
-    }, null, 0.4);
+    }, null, 1.2);
   }
 }
 
@@ -114,20 +114,20 @@ function navigateToGate() {
   
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
-    // Fallback bez GSAP - subtle fade only
+    // Fallback bez GSAP - extended fade
     body.style.opacity = '0';
-    body.style.transition = 'opacity 0.6s ease-in';
+    body.style.transition = 'opacity 1.5s ease-in';
     setTimeout(() => {
       window.location.href = 'index.html';
-    }, 600);
+    }, 1500);
     return;
   }
-  
+
   if (prefersReducedMotion()) {
     const gsap = window.gsap;
     gsap.to(body, {
       opacity: 0,
-      duration: 0.4,
+      duration: 0.6,
       ease: 'power2.in',
       onComplete: () => {
         window.location.href = 'index.html';
@@ -139,13 +139,13 @@ function navigateToGate() {
 
     timeline.to(body, {
       opacity: 0,
-      duration: 0.6,
+      duration: 1.5,
       ease: 'power2.in',
     }, 0);
 
     timeline.call(() => {
       window.location.href = 'index.html';
-    }, null, 0.4);
+    }, null, 1.2);
   }
 }
 
@@ -221,36 +221,69 @@ function flashPillLine(cardId) {
   console.log(`⚡ Flashing line for: ${cardId}`);
 }
 
+// ========== HUB FADE IN ==========
+function fadeInHub() {
+  const body = document.body;
+
+  if (!window.gsap) {
+    // Fallback bez GSAP
+    body.style.opacity = '1';
+    body.style.transition = 'opacity 1.5s ease-out';
+    return;
+  }
+
+  if (prefersReducedMotion()) {
+    // Reduced motion
+    const gsap = window.gsap;
+    gsap.to(body, {
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power2.out',
+    });
+  } else {
+    // Full animation - extended fade in (1.5s)
+    const gsap = window.gsap;
+    gsap.to(body, {
+      opacity: 1,
+      duration: 1.5,
+      ease: 'power2.out',
+    });
+  }
+
+  console.log('✅ Hub fade in started');
+}
+
 // ========== PAGE DETECTION & INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Initializing michalrapala.com...');
-  
+
   // Check environment
   if (prefersReducedMotion()) {
     console.log('⚠️ Reduced motion preference detected');
   }
-  
+
   if (window.gsap) {
     console.log('✅ GSAP loaded successfully');
   } else {
     console.warn('⚠️ GSAP not found - animations will use fallback');
   }
-  
+
   // Detect current page
   const isGatePage = document.querySelector('.gate') !== null;
   const isHubPage = document.querySelector('.hub-mesh-section') !== null;
-  
+
   if (isGatePage) {
     console.log('📍 On Gate page (index.html)');
     initGate();
   }
-  
+
   if (isHubPage) {
     console.log('📍 On Hub page (hub.html)');
+    fadeInHub();
     initBackButton();
     initPills();
   }
-  
+
   console.log('✅ Initialization complete');
 
   // Check for deep link (hash in URL)

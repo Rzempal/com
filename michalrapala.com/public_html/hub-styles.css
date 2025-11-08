@@ -1,4 +1,9 @@
-/* hub-styles.css v0.006 – Fixed viewport heights + removed scrollbar */
+/* hub-styles.css v0.007 – Hub page fade in animation */
+
+/* ========== HUB BODY INITIAL STATE ========== */
+body {
+    opacity: 0;
+}
 
 /* ========== TOP INFO BAR (FIXED) ========== */
 .top-info-bar {
