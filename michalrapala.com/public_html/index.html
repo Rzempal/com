@@ -1,4 +1,4 @@
-<!-- index.html v0.009 – Extended fade out transition (1.5s) -->
+<!-- index.html v0.010 – Logo + video modal + updated text -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -114,9 +114,10 @@
             
             <!-- Treść Gate -->
             <div class="gate__content">
-                <h1 class="gate__title" data-reveal>michalrapala.com</h1>
+                <img src="assets/images/global/logo.png" alt="michalrapala.com" class="gate__logo" id="gateLogo" data-reveal />
                 <p class="gate__subtitle" data-reveal>
-                    Witaj na mojej stronie! Specjalizuję się w innowacyjnych rozwiązaniach dla przemysłu oraz efektywnych narzędziach dla biznesu online. Wybierz obszar, który Cię interesuje:
+                    Witaj na mojej stronie.<br>
+                    Projektuję automatyzację dla przemysłu oraz strony internetowe dla firm i specjalistów
                 </p>
                 <button class="gate__enter" aria-label="Wejdź na stronę">
                     <span>Wejdź</span>
@@ -125,6 +126,20 @@
             </div>
         </div>
     </section>
+
+    <!-- ========== VIDEO MODAL ========== -->
+    <div id="videoModal" class="video-modal" hidden>
+        <div class="video-modal-backdrop"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" aria-label="Zamknij video">
+                <i class="fas fa-times"></i>
+            </button>
+            <video id="introVideo" class="video-player" controls>
+                <source src="assets/movies/AI_intro.mp4" type="video/mp4">
+                Twoja przeglądarka nie wspiera odtwarzania wideo.
+            </video>
+        </div>
+    </div>
 
     <!-- ========== SCRIPTS ========== -->
     <script defer src="main-script.js"></script>

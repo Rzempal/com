@@ -1,4 +1,4 @@
-// main-script.js v0.012 – Extended fade transitions (1.5s) with Hub fade in
+// main-script.js v0.014 – Hub 2s fade-in + staggered pills animation
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -14,14 +14,21 @@ function prefersReducedMotion() {
 // ========== GATE: INICJALIZACJA ==========
 function initGate() {
   const enterBtn = document.querySelector('.gate__enter');
-  
+  const gateLogo = document.getElementById('gateLogo');
+
   if (!enterBtn) {
     console.error('❌ Gate enter button not found');
     return;
   }
-  
+
   enterBtn.addEventListener('click', () => navigateToHub());
-  
+
+  // Logo click - open video modal
+  if (gateLogo) {
+    gateLogo.addEventListener('click', () => openVideoModal());
+    gateLogo.style.cursor = 'pointer';
+  }
+
   // Keyboard support
   document.addEventListener('keydown', (e) => {
     if (!isNavigating && (e.key === 'Enter' || e.code === 'Space')) {
@@ -29,8 +36,42 @@ function initGate() {
       navigateToHub();
     }
   });
-  
+
   console.log('✅ Gate initialized');
+}
+
+// ========== VIDEO MODAL ==========
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('introVideo');
+  const closeBtn = document.querySelector('.video-modal-close');
+  const backdrop = document.querySelector('.video-modal-backdrop');
+
+  if (!modal || !video) return;
+
+  modal.hidden = false;
+  video.play();
+
+  // Close handlers
+  const closeModal = () => {
+    video.pause();
+    video.currentTime = 0;
+    modal.hidden = true;
+  };
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+
+  // ESC key
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  document.addEventListener('keydown', escHandler);
+
+  console.log('🎬 Video modal opened');
 }
 
 // ========== NAVIGATE TO HUB ==========
@@ -224,11 +265,20 @@ function flashPillLine(cardId) {
 // ========== HUB FADE IN ==========
 function fadeInHub() {
   const body = document.body;
+  const pills = document.querySelectorAll('.hub-pill');
 
   if (!window.gsap) {
     // Fallback bez GSAP
     body.style.opacity = '1';
-    body.style.transition = 'opacity 1.5s ease-out';
+    body.style.transition = 'opacity 2s ease-out';
+
+    // Pills stagger fallback
+    pills.forEach((pill, index) => {
+      setTimeout(() => {
+        pill.style.opacity = '1';
+        pill.style.transform = 'translate(-50%, -50%)';
+      }, 2000 + (index * 200));
+    });
     return;
   }
 
@@ -240,17 +290,34 @@ function fadeInHub() {
       duration: 0.6,
       ease: 'power2.out',
     });
-  } else {
-    // Full animation - extended fade in (1.5s)
-    const gsap = window.gsap;
-    gsap.to(body, {
+    gsap.to(pills, {
       opacity: 1,
-      duration: 1.5,
-      ease: 'power2.out',
+      duration: 0.3,
+      stagger: 0.1,
     });
+  } else {
+    // Full animation - extended fade in (2s) + staggered pills
+    const gsap = window.gsap;
+    const timeline = gsap.timeline();
+
+    // Body fade in
+    timeline.to(body, {
+      opacity: 1,
+      duration: 2,
+      ease: 'power2.out',
+    }, 0);
+
+    // Pills stagger animation (start after 1.5s)
+    timeline.to(pills, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: 'back.out(1.7)',
+    }, 1.5);
   }
 
-  console.log('✅ Hub fade in started');
+  console.log('✅ Hub fade in started (2s)');
 }
 
 // ========== PAGE DETECTION & INITIALIZATION ==========
