@@ -1,4 +1,4 @@
-// main-script.js v0.019 – Electric current flow with stroke-dashoffset animation
+// main-script.js v0.020 – Dual flash lines for Robotyka (converging from both sides)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -237,16 +237,29 @@ function showCard(cardId, previousCard) {
 
 // ========== FLASH PILL LINE ==========
 function flashPillLine(cardId) {
-  const lineId = `pill-line-${cardId}`;
+  if (!window.gsap) {
+    console.warn('⚠️ GSAP not loaded, skipping flash animation');
+    return;
+  }
+
+  // Special case: Robotyka has TWO lines (left and right converging)
+  if (cardId === 'robotyka') {
+    animateLine('pill-line-robotyka-left');
+    animateLine('pill-line-robotyka-right');
+    console.log(`⚡ Electric current flow for: ${cardId} (dual lines)`);
+  } else {
+    const lineId = `pill-line-${cardId}`;
+    animateLine(lineId);
+    console.log(`⚡ Electric current flow for: ${cardId}`);
+  }
+}
+
+// ========== ANIMATE SINGLE LINE ==========
+function animateLine(lineId) {
   const lineEl = document.getElementById(lineId);
 
   if (!lineEl) {
     console.warn(`⚠️ Line ${lineId} not found`);
-    return;
-  }
-
-  if (!window.gsap) {
-    console.warn('⚠️ GSAP not loaded, skipping flash animation');
     return;
   }
 
@@ -339,8 +352,6 @@ function flashPillLine(cardId) {
     duration: 0.5,
     ease: 'power2.in',
   }, 1.5);
-
-  console.log(`⚡ Electric current flow for: ${cardId} (path length: ${pathLength})`);
 }
 
 // ========== HUB FADE IN ==========
