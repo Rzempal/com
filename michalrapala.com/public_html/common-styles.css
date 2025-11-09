@@ -194,24 +194,33 @@ button {
 .gate__enter {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    position: relative;
     gap: 0.75rem;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: var(--surface);
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
+    color: var(--fg);
+    border: 1.5px solid var(--accent);
     border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
     font-family: var(--font-body);
-    box-shadow: 0 8px 24px rgba(72, 210, 231, 0.3);
     opacity: 1;
     transform: translateY(0);
     transition: all 0.3s ease;
-    letter-spacing: 0.5px;
+    white-space: nowrap;
+    animation: floatEnterButton 6s ease-in-out infinite;
 }
 
 .gate__enter:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 12px 32px rgba(72, 210, 231, 0.5);
+    background: linear-gradient(135deg, rgba(72, 210, 231, 0.25), rgba(52, 194, 217, 0.15));
+    border-color: #48D2E7;
+    box-shadow: 0 0 20px rgba(72, 210, 231, 0.4);
+}
+
+.gate__enter:hover .pill-glow {
+    opacity: 1;
+    animation: glow 2s ease-in-out infinite;
 }
 
 .gate__enter:focus-visible {
@@ -219,8 +228,36 @@ button {
     outline-offset: 4px;
 }
 
+@keyframes floatEnterButton {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Pill-style elements (text and glow) */
+.pill-text {
+    position: relative;
+    z-index: 2;
+}
+
+.pill-glow {
+    position: absolute;
+    inset: -4px;
+    background: radial-gradient(circle, rgba(72, 210, 231, 0.3), transparent);
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(72, 210, 231, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(72, 210, 231, 0.6); }
+}
+
 .gate__enter i {
     font-size: 0.9em;
+    position: relative;
+    z-index: 2;
 }
 
 /* ========== HUB: Rozcestnik ========== */
