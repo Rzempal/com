@@ -796,6 +796,7 @@ body.card-open {
 .card-body {
     max-width: 600px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .card-lead {
@@ -803,6 +804,7 @@ body.card-open {
     line-height: 1.8;
     color: var(--muted);
     margin-bottom: 1.5rem;
+    text-align: left;
 }
 
 .card-cta {
