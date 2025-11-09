@@ -79,8 +79,9 @@ Modernizacja strony głównej michalrapala.com z systemem nawigacji Gate → Hub
 
 **Trasy flash lines:**
 - **Robotyka**: Dwie linie zbiegające się w centrum
-  - Lewa: z lewej krawędzi (100, 750) → centrum (500, 500)
-  - Prawa: z prawego górnego rogu (900, 250) → centrum (500, 500)
+  - wymaga dostosowania cel:
+    - Lewa: z lewej krawędzi (100, 750) → centrum (500, 500)
+    - Prawa: z prawego górnego rogu (900, 250) → centrum (500, 500)
 - **Aplikacje**: z lewego dolnego rogu → prawy górny (follows circuit trace 1)
 - **WWW**: z góry na dół (follows vertical trace 5)
 
@@ -399,16 +400,6 @@ window.addEventListener('resize', positionPills);
 - PL/EN toggle
 - i18n dla wszystkich tekstów
 - URL-based lang detection
-
-#### 4.3 Search functionality
-- Quick search w Hub
-- Filter pills by keyword
-- Command palette (Cmd+K)
-
-#### 4.4 Analytics integration
-- Track pill clicks
-- Monitor flash animation performance
-- Heatmap dla user interactions
 
 ---
 
