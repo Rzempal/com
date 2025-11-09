@@ -263,6 +263,8 @@ function animateLine(lineId) {
     return;
   }
 
+  console.log(`🔧 Animating line: ${lineId}`);
+
   const gsap = window.gsap;
 
   // Kill any existing animations on this line
@@ -270,6 +272,8 @@ function animateLine(lineId) {
 
   // Get the total length of the path for dash animation
   const pathLength = lineEl.getTotalLength();
+
+  console.log(`📏 Path length for ${lineId}: ${pathLength}`);
 
   // Set up initial dash state (fully hidden)
   gsap.set(lineEl, {
@@ -283,7 +287,10 @@ function animateLine(lineId) {
   });
 
   // Create electric current flow effect with GSAP timeline
-  const timeline = gsap.timeline();
+  const timeline = gsap.timeline({
+    onStart: () => console.log(`▶️ Animation started for ${lineId}`),
+    onComplete: () => console.log(`✅ Animation completed for ${lineId}`)
+  });
 
   // Phase 1: Current starts flowing - reveal the path with cyan
   timeline.to(lineEl, {
