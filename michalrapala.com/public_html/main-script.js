@@ -480,7 +480,7 @@ const cardData = {
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje',
   },
   www: {
-    title: 'Strony WWW',
+    title: 'Twoja strona → online',
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
   },
