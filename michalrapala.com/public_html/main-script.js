@@ -475,7 +475,7 @@ const cardData = {
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
   },
   aplikacje: {
-    title: 'Aplikacje Webowe',
+    title: 'Aplikacje webowe',
     logo: 'assets/images/global/logo_app.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje',
   },
