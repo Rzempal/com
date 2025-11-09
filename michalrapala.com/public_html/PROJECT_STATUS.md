@@ -431,6 +431,228 @@ window.addEventListener('resize', positionPills);
 
 ---
 
+### Priorytet 6: Zabezpieczenie kodu źródłowego
+
+#### 6.1 Podstawowe zabezpieczenia
+
+**Disable right-click context menu:**
+```javascript
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  return false;
+});
+```
+
+**Disable keyboard shortcuts:**
+```javascript
+document.addEventListener('keydown', (e) => {
+  // Ctrl+U (view source)
+  if (e.ctrlKey && e.key === 'u') {
+    e.preventDefault();
+    return false;
+  }
+
+  // Ctrl+Shift+I (DevTools)
+  if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+    e.preventDefault();
+    return false;
+  }
+
+  // F12 (DevTools)
+  if (e.key === 'F12') {
+    e.preventDefault();
+    return false;
+  }
+
+  // Ctrl+Shift+C (Inspect element)
+  if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+    e.preventDefault();
+    return false;
+  }
+});
+```
+
+**Disable text selection (opcjonalne):**
+```css
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow selection dla input fields */
+input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+```
+
+#### 6.2 Code obfuscation
+
+**JavaScript obfuscation:**
+- **javascript-obfuscator** - Utrudnia czytanie kodu JS
+- **webpack-obfuscator** - Integracja z build process
+- **terser** - Minification + mangling
+
+**Przykład konfiguracji:**
+```javascript
+// webpack.config.js
+const JavaScriptObfuscator = require('webpack-obfuscator');
+
+module.exports = {
+  plugins: [
+    new JavaScriptObfuscator({
+      rotateStringArray: true,
+      stringArray: true,
+      stringArrayThreshold: 0.75
+    })
+  ]
+};
+```
+
+**CSS minification:**
+- Remove comments
+- Shorten class names
+- Compress whitespace
+
+#### 6.3 Anti-debugging techniques
+
+**DevTools detection:**
+```javascript
+// Detect DevTools by measuring console.log execution time
+(function() {
+  let devtools = false;
+  const threshold = 100;
+
+  setInterval(function() {
+    const start = performance.now();
+    debugger; // Will pause if DevTools open
+    const end = performance.now();
+
+    if (end - start > threshold) {
+      devtools = true;
+      // Redirect or show warning
+      window.location.href = '/';
+    }
+  }, 1000);
+})();
+```
+
+**Console clearing:**
+```javascript
+setInterval(() => {
+  console.clear();
+}, 100);
+```
+
+#### 6.4 Content protection
+
+**Watermarking:**
+- Embed invisible metadata w SVG
+- Canvas fingerprinting
+- Timestamp w komentarzach
+
+**Screenshot detection:**
+```javascript
+// Detect screenshot attempts (limited browser support)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    console.log('Possible screenshot attempt');
+  }
+});
+```
+
+#### 6.5 Server-side measures
+
+**Headers:**
+```
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'
+```
+
+**.htaccess protection:**
+```apache
+# Prevent access to source files
+<FilesMatch "\.(md|json|log)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes
+```
+
+**Rate limiting:**
+- Limit requests per IP
+- Prevent scraping/crawling
+- cloudflare-turnstile CAPTCHA
+
+#### 6.6 Realistic expectations
+
+**⚠️ UWAGA:** Żadne zabezpieczenia client-side nie są w 100% skuteczne!
+
+**Ograniczenia:**
+- Kod JavaScript jest zawsze dostępny w przeglądarce
+- DevTools można otworzyć przez inne metody
+- View Source można obejść przez curl/wget
+- Profesjonalny developer obejdzie wszystkie zabezpieczenia
+
+**Zalecane podejście:**
+1. ✅ Podstawowe utrudnienia (disable right-click, F12)
+2. ✅ Code obfuscation dla komercyjnych projektów
+3. ✅ Legal protection (copyright notices, licencja)
+4. ❌ Nie inwestować przesadnie w client-side protection
+5. ✅ Skupić się na unique value proposition zamiast ukrywania kodu
+
+**Legal protection:**
+```html
+<!-- Copyright notice w footer -->
+<footer>
+  © 2025 Michał Rapała. All rights reserved.
+  Unauthorized copying or distribution is prohibited.
+</footer>
+```
+
+```javascript
+// Console warning
+console.log(`
+%c⚠️ WARNING ⚠️
+%cThis website and its source code are protected by copyright.
+Unauthorized copying, modification, or distribution is prohibited.
+
+© 2025 Michał Rapała. All rights reserved.
+`,
+'color: red; font-size: 20px; font-weight: bold;',
+'color: yellow; font-size: 14px;'
+);
+```
+
+#### 6.7 Rekomendacje dla michalrapala.com
+
+**Minimalne (zalecane):**
+- ✅ Disable right-click
+- ✅ Disable F12, Ctrl+U, Ctrl+Shift+I
+- ✅ Copyright notice w console
+- ✅ Legal footer
+
+**Średnie (opcjonalne):**
+- JavaScript obfuscation dla main-script.js
+- CSS minification
+- Watermarking w SVG comments
+
+**Maksymalne (overkill):**
+- DevTools detection + redirect
+- Console clearing
+- Anti-debugging techniques
+
+**Wniosek:** Skupić się na tworzeniu wartości zamiast ukrywania kodu. Unikalność projektu (animacje, design, UX) jest ważniejsza niż zabezpieczenia kodu.
+
+---
+
 ## 🛠️ Rekomendowane narzędzia dla dalszego rozwoju
 
 ### Testing
@@ -475,11 +697,11 @@ window.addEventListener('resize', positionPills);
 ## 📝 Changelog - Recent commits
 
 **Latest:**
-1. `2c0af75` - Switch to Montserrat local fonts from Inter/Manrope
-2. `bcb4290` - Remove text from back button, keep only arrow icon
-3. `25e3ec4` - Add font documentation (FONTS.md)
-4. `7fb84b1` - Update pill labels and card titles
-5. `2e08afa` - Update WWW card title and link to twoja-strona.online
+1. `d880e31` - Add comprehensive project status documentation
+2. `2c0af75` - Switch to Montserrat local fonts from Inter/Manrope
+3. `bcb4290` - Remove text from back button, keep only arrow icon
+4. `25e3ec4` - Add font documentation (FONTS.md)
+5. `7fb84b1` - Update pill labels and card titles
 
 **Zobacz pełną historię:** `git log --oneline`
 
