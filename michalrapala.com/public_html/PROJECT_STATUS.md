@@ -67,7 +67,7 @@ Modernizacja strony głównej michalrapala.com z systemem nawigacji Gate → Hub
 - Gradient background: `rgba(72, 210, 231, 0.15)` → `rgba(52, 194, 217, 0.1)`
 - Border: 1.5px solid cyan
 - Border-radius: 50px
-- Font: Montserrat 600, 0.9rem
+- Font: Poppins 
 
 ---
 
@@ -78,7 +78,7 @@ Modernizacja strony głównej michalrapala.com z systemem nawigacji Gate → Hub
 - SVG `stroke-dasharray` + `stroke-dashoffset` dla efektu przepływu
 
 **Trasy flash lines:**
-- **Robotyka**: Dwie linie zbiegające się w centrum
+- **Robotyka**: Dwie linie zbiegające się w centrum (nie działa jeszcze) 
   - wymaga dostosowania cel:
     - Lewa: z lewej krawędzi (100, 750) → centrum (500, 500)
     - Prawa: z prawego górnego rogu (900, 250) → centrum (500, 500)
@@ -178,28 +178,23 @@ Modernizacja strony głównej michalrapala.com z systemem nawigacji Gate → Hub
 
 ---
 
-### 9. Font System - Montserrat
+### 9. Font System - Poppins
 
-**Migration:** Inter/Manrope → Montserrat (lokalny hosting)
 
 **Wagi:**
-- **400 (Regular)**: Body text, opisy, linki
-- **600 (Semi-Bold)**: Przyciski, pills, elementy interaktywne
-- **700 (Bold)**: Nagłówki, tytuły kart
-
+- **400(Regular)**: Body text, paragrafy, opisy
+- ** 500 (Medium)**: Linki, nawigacja, subtle emphasis
+- ** 600 (Semi-Bold)**: Przyciski, pills, elementy interaktywne, strong text
+- ** 700 (Bold) **: Nagłówki H1-H6, tytuły (Perfect Logo Match ⭐)
+ 
 **Pliki:**
 ```
 assets/fonts/
-├── montserrat-latin-400-normal.woff2
-├── montserrat-latin-600-normal.woff2
-└── montserrat-latin-700-normal.woff2
+├── poppins-400.woff2    (~25KB)
+├── poppins-500.woff2    (~25KB)
+├── poppins-600.woff2    (~26KB)
+└── poppins-700.woff2    (~26KB) 
 ```
-
-**Zalety:**
-- Szybsze ładowanie (self-hosted)
-- GDPR compliance
-- Brak zewnętrznych requestów
-- Offline functionality
 
 ---
 
@@ -253,7 +248,7 @@ public_html/
 ├── hub-styles.css         # Style specifyczne dla Hub
 ├── main-script.js         # Logika JS (GSAP, pills, cards)
 ├── assets/
-│   ├── fonts/             # Montserrat woff2
+│   ├── fonts/             # Poppins woff2
 │   ├── images/global/     # Logos
 │   └── movies/            # AI_intro.mp4
 ├── FONTS.md               # Dokumentacja fontów
