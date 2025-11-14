@@ -1,4 +1,4 @@
-/* hub-styles.css v0.012 – Diagonal anchors for pills (corner-based positioning) */
+/* hub-styles.css v0.013 – Enhanced connector visibility (gradients, wider dashes) */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -309,22 +309,21 @@ body {
 }
 
 /* ========== PERMANENT CONNECTOR LINES ========== */
+/* Note: stroke-width, opacity, stroke (gradient) are set in HTML SVG attributes */
+/* CSS handles only transitions and animations */
 .pill-connector {
-    stroke: #48D2E7;
-    stroke-width: 1.5;
-    opacity: 0.3;
     transition: opacity 0.3s ease, stroke-width 0.3s ease;
     animation: connectorPulse 3s ease-in-out infinite;
 }
 
 @keyframes connectorPulse {
     0%, 100% {
-        opacity: 0.2;
-        stroke-width: 1.5;
-    }
-    50% {
         opacity: 0.4;
         stroke-width: 2;
+    }
+    50% {
+        opacity: 0.6;
+        stroke-width: 2.5;
     }
 }
 
