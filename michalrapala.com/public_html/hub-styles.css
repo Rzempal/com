@@ -1,4 +1,4 @@
-/* hub-styles.css v0.010 – Dynamic positioning + permanent connector lines */
+/* hub-styles.css v0.011 – Pills as labels with angled corners, no floating */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -347,7 +347,7 @@ body {
     padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
     border: 1.5px solid var(--accent);
-    border-radius: 50px;
+    border-radius: 4px;
     color: var(--fg);
     font-size: 0.9rem;
     font-weight: 600;
@@ -356,8 +356,16 @@ body {
     transition: all 0.3s ease;
     white-space: nowrap;
     pointer-events: auto;
-    transform: translate(-50%, -50%) scale(0);
+    /* Pills positioned as label ABOVE node (bottom-center anchor) */
+    transform: translate(-50%, -100%) scale(0);
     opacity: 0;
+    /* Angled corners for tech/PCB aesthetic */
+    clip-path: polygon(
+        0 6px, 6px 0,                        /* top-left cut */
+        calc(100% - 6px) 0, 100% 6px,        /* top-right cut */
+        100% calc(100% - 6px), calc(100% - 6px) 100%,  /* bottom-right cut */
+        6px 100%, 0 calc(100% - 6px)         /* bottom-left cut */
+    );
 }
 
 .hub-pill:hover {
@@ -373,35 +381,10 @@ body {
 
 /* Pill Positions - Dynamically positioned by JavaScript */
 /* Pills are positioned based on SVG viewBox coordinates (see main-script.js positionPills()) */
-/* Pill 1: Robotyka - SVG node (500, 500) */
-.hub-pill-1 {
-    animation: floatPill1 6s ease-in-out infinite;
-}
-
-/* Pill 2: Aplikacje - SVG node (850, 350) */
-.hub-pill-2 {
-    animation: floatPill2 6s ease-in-out infinite;
-}
-
-/* Pill 3: Strony WWW - SVG node (600, 850) */
-.hub-pill-3 {
-    animation: floatPill3 6s ease-in-out infinite;
-}
-
-@keyframes floatPill1 {
-    0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-    50% { transform: translate(-50%, -50%) translateY(-8px); }
-}
-
-@keyframes floatPill2 {
-    0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-    50% { transform: translate(-50%, -50%) translateY(-8px); }
-}
-
-@keyframes floatPill3 {
-    0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-    50% { transform: translate(-50%, -50%) translateY(-8px); }
-}
+/* Pills positioned as labels 60px ABOVE their respective nodes (no floating animation) */
+/* Pill 1: Robotyka - above SVG node (500, 500) */
+/* Pill 2: Aplikacje - above SVG node (850, 350) */
+/* Pill 3: Strony WWW - above SVG node (600, 850) */
 
 .pill-text {
     position: relative;

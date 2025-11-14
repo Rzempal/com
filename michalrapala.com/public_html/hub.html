@@ -1,4 +1,4 @@
-<!-- hub.html v0.013 – Dynamic pills positioning + connector lines -->
+<!-- hub.html v0.014 – Pills as labels above nodes with angled design -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -119,22 +119,22 @@
                     <circle class="circuit-pad" cx="250" cy="750" r="6" data-pad="8" />
                     <circle class="circuit-pad" cx="600" cy="850" r="8" data-pad="9" />
 
-                    <!-- Pills connection points (matching pill positions) -->
-                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="10" data-pad="pill-1" />
-                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="10" data-pad="pill-2" />
-                    <circle class="circuit-pad pill-pad" cx="600" cy="850" r="10" data-pad="pill-3" />
+                    <!-- Pills connection points (matching pill positions - enhanced like central pad) -->
+                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-1" />
+                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-2" />
+                    <circle class="circuit-pad pill-pad" cx="600" cy="850" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-3" />
                 </g>
 
                 <!-- Permanent Connector Lines (pills → nodes, always visible) -->
                 <g class="pill-connectors" stroke="#48D2E7" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3">
-                    <!-- Connector for Robotyka (center node 500, 500) - vertical up -->
-                    <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="500" y2="460" />
+                    <!-- Connector for Robotyka (center node 500, 500) - 60px vertical up to pill label -->
+                    <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="500" y2="440" />
 
-                    <!-- Connector for Aplikacje (top-right node 850, 350) - vertical up -->
-                    <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="850" y2="310" />
+                    <!-- Connector for Aplikacje (top-right node 850, 350) - 60px vertical up to pill label -->
+                    <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="850" y2="290" />
 
-                    <!-- Connector for WWW (bottom node 600, 850) - vertical up -->
-                    <line class="pill-connector pill-connector-3" x1="600" y1="850" x2="600" y2="810" />
+                    <!-- Connector for WWW (bottom node 600, 850) - 60px vertical up to pill label -->
+                    <line class="pill-connector pill-connector-3" x1="600" y1="850" x2="600" y2="790" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->

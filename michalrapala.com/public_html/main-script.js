@@ -1,4 +1,4 @@
-// main-script.js v0.021 – Dynamic positioning system for perfect pills alignment
+// main-script.js v0.022 – Pills as labels above nodes (60px offset)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -441,7 +441,9 @@ function positionPills() {
   const offsetX = (svgRect.width - viewBox.width * scale) / 2;
   const offsetY = (svgRect.height - viewBox.height * scale) / 2;
 
-  // Position each pill based on its node coordinates
+  // Position each pill based on its node coordinates (with 60px offset above node)
+  const pillOffsetY = 60; // SVG units - pill positioned ABOVE node
+
   pills.forEach(pill => {
     const nodeX = parseFloat(pill.dataset.nodeX);
     const nodeY = parseFloat(pill.dataset.nodeY);
@@ -452,14 +454,15 @@ function positionPills() {
     }
 
     // Convert SVG viewBox coordinates to screen pixels
+    // Pills positioned 60px ABOVE node (nodeY - pillOffsetY)
     const screenX = svgRect.left + offsetX + (nodeX * scale);
-    const screenY = svgRect.top + offsetY + (nodeY * scale);
+    const screenY = svgRect.top + offsetY + ((nodeY - pillOffsetY) * scale);
 
     pill.style.left = `${screenX}px`;
     pill.style.top = `${screenY}px`;
   });
 
-  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ')');
+  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ', offset: 60px above nodes)');
 }
 
 // Debounced resize handler for performance
