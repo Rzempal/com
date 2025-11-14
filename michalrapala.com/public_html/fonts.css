@@ -1,30 +1,39 @@
-/* fonts.css v0.001 – Self-Hosted Fonts Setup */
+/* fonts.css v0.002 – Poppins Self-Hosted (latin-ext) */
 
 /* ========== FONT FACE DECLARATIONS ========== */
 
-/* Manrope 700 (Bold) – Headers */
+/* Poppins Regular (400) – Body Text */
 @font-face {
-    font-family: 'Manrope';
-    src: url('/assets/fonts/manrope-700.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
     font-display: swap;
-}
-
-/* Inter 400 (Regular) – Body Text */
-@font-face {
-    font-family: 'Inter';
-    src: url('/assets/fonts/inter-400.woff2') format('woff2');
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+    src: url('/fonts/poppins-400.woff2') format('woff2');
 }
 
-/* Inter 600 (Semibold) – Buttons, Emphasis */
+/* Poppins Medium (500) – Links, Navigation */
 @font-face {
-    font-family: 'Inter';
-    src: url('/assets/fonts/inter-600.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
     font-display: swap;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    src: url('/fonts/poppins-500.woff2') format('woff2');
+}
+
+/* Poppins Semi-Bold (600) – Buttons, Emphasis */
+@font-face {
+    font-display: swap;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    src: url('/fonts/poppins-600.woff2') format('woff2');
+}
+
+/* Poppins Bold (700) – Headers (Logo Match) */
+@font-face {
+    font-display: swap;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/poppins-700.woff2') format('woff2');
 }
