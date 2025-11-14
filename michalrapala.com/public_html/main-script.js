@@ -1,10 +1,11 @@
-// main-script.js v0.020 – Dual flash lines for Robotyka (converging from both sides)
+// main-script.js v0.021 – Dynamic positioning system for perfect pills alignment
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
 
 // ========== STATE ==========
 let isNavigating = false;
+let resizeDebounceTimer = null;
 
 // ========== REDUCED MOTION CHECK ==========
 function prefersReducedMotion() {
@@ -419,6 +420,60 @@ function fadeInHub() {
   console.log('✅ Hub fade in started (2s)');
 }
 
+// ========== DYNAMIC PILLS POSITIONING ==========
+function positionPills() {
+  const svg = document.querySelector('.hub-mesh');
+  const pills = document.querySelectorAll('.hub-pill');
+
+  if (!svg || pills.length === 0) {
+    return;
+  }
+
+  const svgRect = svg.getBoundingClientRect();
+  const viewBox = svg.viewBox.baseVal;
+
+  // Calculate scale (preserveAspectRatio="xMidYMid meet" uses min scale)
+  const scaleX = svgRect.width / viewBox.width;
+  const scaleY = svgRect.height / viewBox.height;
+  const scale = Math.min(scaleX, scaleY);
+
+  // Calculate offset for centering SVG
+  const offsetX = (svgRect.width - viewBox.width * scale) / 2;
+  const offsetY = (svgRect.height - viewBox.height * scale) / 2;
+
+  // Position each pill based on its node coordinates
+  pills.forEach(pill => {
+    const nodeX = parseFloat(pill.dataset.nodeX);
+    const nodeY = parseFloat(pill.dataset.nodeY);
+
+    if (isNaN(nodeX) || isNaN(nodeY)) {
+      console.warn('⚠️ Pill missing data-node-x or data-node-y attributes');
+      return;
+    }
+
+    // Convert SVG viewBox coordinates to screen pixels
+    const screenX = svgRect.left + offsetX + (nodeX * scale);
+    const screenY = svgRect.top + offsetY + (nodeY * scale);
+
+    pill.style.left = `${screenX}px`;
+    pill.style.top = `${screenY}px`;
+  });
+
+  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ')');
+}
+
+// Debounced resize handler for performance
+function handleResize() {
+  if (resizeDebounceTimer) {
+    clearTimeout(resizeDebounceTimer);
+  }
+
+  resizeDebounceTimer = setTimeout(() => {
+    positionPills();
+    console.log('🔄 Pills repositioned on resize');
+  }, 100);
+}
+
 // ========== PAGE DETECTION & INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Initializing michalrapala.com...');
@@ -448,6 +503,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeInHub();
     initBackButton();
     initPills();
+
+    // Position pills dynamically after DOM is ready
+    setTimeout(() => {
+      positionPills();
+    }, 100);
+
+    // Add resize listeners with debounce
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
   }
 
   console.log('✅ Initialization complete');
