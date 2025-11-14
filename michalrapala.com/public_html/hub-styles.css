@@ -1,4 +1,4 @@
-/* hub-styles.css v0.009 – Repositioned pills + enhanced flash animation */
+/* hub-styles.css v0.010 – Dynamic positioning + permanent connector lines */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -308,6 +308,26 @@ body {
     }
 }
 
+/* ========== PERMANENT CONNECTOR LINES ========== */
+.pill-connector {
+    stroke: #48D2E7;
+    stroke-width: 1.5;
+    opacity: 0.3;
+    transition: opacity 0.3s ease, stroke-width 0.3s ease;
+    animation: connectorPulse 3s ease-in-out infinite;
+}
+
+@keyframes connectorPulse {
+    0%, 100% {
+        opacity: 0.2;
+        stroke-width: 1.5;
+    }
+    50% {
+        opacity: 0.4;
+        stroke-width: 2;
+    }
+}
+
 /* ========== HUB PILLS ========== */
 .hub-pills-container {
     position: absolute;
@@ -351,25 +371,20 @@ body {
     outline-offset: 4px;
 }
 
-/* Pill Positions - Pinned to Neurons */
-/* Pill 1: Robotyka - Central Node (500, 500) = 50% left, 50% top */
+/* Pill Positions - Dynamically positioned by JavaScript */
+/* Pills are positioned based on SVG viewBox coordinates (see main-script.js positionPills()) */
+/* Pill 1: Robotyka - SVG node (500, 500) */
 .hub-pill-1 {
-    left: 50%;
-    top: 50%;
     animation: floatPill1 6s ease-in-out infinite;
 }
 
-/* Pill 2: Aplikacje - Top-Right Node (850, 350) = 85% left, 35% top */
+/* Pill 2: Aplikacje - SVG node (850, 350) */
 .hub-pill-2 {
-    left: 85%;
-    top: 35%;
     animation: floatPill2 6s ease-in-out infinite;
 }
 
-/* Pill 3: Strony WWW - Bottom Node (600, 850) = 60% left, 85% top */
+/* Pill 3: Strony WWW - SVG node (600, 850) */
 .hub-pill-3 {
-    left: 60%;
-    top: 85%;
     animation: floatPill3 6s ease-in-out infinite;
 }
 

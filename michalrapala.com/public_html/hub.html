@@ -1,4 +1,4 @@
-<!-- hub.html v0.012 – Flash lines follow circuit board traces -->
+<!-- hub.html v0.013 – Dynamic pills positioning + connector lines -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -125,6 +125,18 @@
                     <circle class="circuit-pad pill-pad" cx="600" cy="850" r="10" data-pad="pill-3" />
                 </g>
 
+                <!-- Permanent Connector Lines (pills → nodes, always visible) -->
+                <g class="pill-connectors" stroke="#48D2E7" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3">
+                    <!-- Connector for Robotyka (center node 500, 500) - vertical up -->
+                    <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="500" y2="460" />
+
+                    <!-- Connector for Aplikacje (top-right node 850, 350) - vertical up -->
+                    <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="850" y2="310" />
+
+                    <!-- Connector for WWW (bottom node 600, 850) - vertical up -->
+                    <line class="pill-connector pill-connector-3" x1="600" y1="850" x2="600" y2="810" />
+                </g>
+
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
                 <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="6" fill="none" stroke-linecap="round">
                     <!-- Line to Pill 1 (Robotyka - center) - follows existing horizontal trace (line 2) -->
@@ -145,20 +157,20 @@
 
             <!-- Pills Container -->
             <div class="hub-pills-container">
-                <!-- Pill 1: Robotyka (Top-Right - pinned to node 2) -->
-                <button class="hub-pill hub-pill-1" data-card="robotyka" data-neuron="2" aria-label="Robotyka">
+                <!-- Pill 1: Robotyka (Center - pinned to node 500, 500) -->
+                <button class="hub-pill hub-pill-1" data-card="robotyka" data-neuron="2" data-node-x="500" data-node-y="500" aria-label="Robotyka">
                     <span class="pill-glow"></span>
                     <span class="pill-text">Robotyka</span>
                 </button>
 
-                <!-- Pill 2: Aplikacje (Middle-Right - pinned to node 5) -->
-                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" aria-label="Aplikacje webowe">
+                <!-- Pill 2: Aplikacje (Top-Right - pinned to node 850, 350) -->
+                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="850" data-node-y="350" aria-label="Aplikacje webowe">
                     <span class="pill-glow"></span>
                     <span class="pill-text">Aplikacje webowe</span>
                 </button>
 
-                <!-- Pill 3: Strony (Bottom - pinned to node 13) -->
-                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" aria-label="Strony internetowe">
+                <!-- Pill 3: Strony (Bottom - pinned to node 600, 850) -->
+                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="600" data-node-y="850" aria-label="Strony internetowe">
                     <span class="pill-glow"></span>
                     <span class="pill-text">Strony internetowe</span>
                 </button>
