@@ -1,4 +1,4 @@
-<!-- hub.html v0.014 – Pills as labels above nodes with angled design -->
+<!-- hub.html v0.015 – Diagonal dashed connectors (60° angle) -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -126,15 +126,15 @@
                 </g>
 
                 <!-- Permanent Connector Lines (pills → nodes, always visible) -->
-                <g class="pill-connectors" stroke="#48D2E7" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3">
-                    <!-- Connector for Robotyka (center node 500, 500) - 60px vertical up to pill label -->
-                    <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="500" y2="440" />
+                <g class="pill-connectors" stroke="#48D2E7" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="5 3" opacity="0.3">
+                    <!-- Connector for Robotyka (node 500,500) - 60° diagonal up-left to bottom-right corner of pill -->
+                    <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="448" y2="470" />
 
-                    <!-- Connector for Aplikacje (top-right node 850, 350) - 60px vertical up to pill label -->
-                    <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="850" y2="290" />
+                    <!-- Connector for Aplikacje (node 850,350) - 60° diagonal up-left to bottom-right corner of pill -->
+                    <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="798" y2="320" />
 
-                    <!-- Connector for WWW (bottom node 600, 850) - 60px vertical up to pill label -->
-                    <line class="pill-connector pill-connector-3" x1="600" y1="850" x2="600" y2="790" />
+                    <!-- Connector for WWW (node 600,850) - 60° diagonal up-right to bottom-left corner of pill -->
+                    <line class="pill-connector pill-connector-3" x1="600" y1="850" x2="652" y2="820" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->

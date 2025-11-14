@@ -1,4 +1,4 @@
-// main-script.js v0.022 – Pills as labels above nodes (60px offset)
+// main-script.js v0.023 – Diagonal pill positioning (60° angle offsets)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -372,11 +372,16 @@ function fadeInHub() {
     body.style.opacity = '1';
     body.style.transition = 'opacity 2s ease-out';
 
-    // Pills stagger fallback
+    // Pills stagger fallback (preserve corner-based transforms)
     pills.forEach((pill, index) => {
       setTimeout(() => {
         pill.style.opacity = '1';
-        pill.style.transform = 'translate(-50%, -50%)';
+        // Preserve anchor point based on pill class
+        if (pill.classList.contains('hub-pill-3')) {
+          pill.style.transform = 'translate(0%, -100%)'; // bottom-left anchor
+        } else {
+          pill.style.transform = 'translate(-100%, -100%)'; // bottom-right anchor
+        }
       }, 2000 + (index * 200));
     });
     return;
@@ -441,28 +446,37 @@ function positionPills() {
   const offsetX = (svgRect.width - viewBox.width * scale) / 2;
   const offsetY = (svgRect.height - viewBox.height * scale) / 2;
 
-  // Position each pill based on its node coordinates (with 60px offset above node)
-  const pillOffsetY = 60; // SVG units - pill positioned ABOVE node
+  // Diagonal offsets for each pill (60° angle from vertical)
+  // x: ±52px (horizontal), y: -30px (vertical up)
+  const pillOffsets = {
+    'robotyka': { x: -52, y: -30 },    // up-left diagonal
+    'aplikacje': { x: -52, y: -30 },   // up-left diagonal
+    'www': { x: 52, y: -30 }           // up-right diagonal
+  };
 
   pills.forEach(pill => {
     const nodeX = parseFloat(pill.dataset.nodeX);
     const nodeY = parseFloat(pill.dataset.nodeY);
+    const cardId = pill.dataset.card;
 
     if (isNaN(nodeX) || isNaN(nodeY)) {
       console.warn('⚠️ Pill missing data-node-x or data-node-y attributes');
       return;
     }
 
+    // Get offset for this pill (default to vertical if card ID not found)
+    const offset = pillOffsets[cardId] || { x: 0, y: -60 };
+
     // Convert SVG viewBox coordinates to screen pixels
-    // Pills positioned 60px ABOVE node (nodeY - pillOffsetY)
-    const screenX = svgRect.left + offsetX + (nodeX * scale);
-    const screenY = svgRect.top + offsetY + ((nodeY - pillOffsetY) * scale);
+    // Pills positioned diagonally from node (60° angle)
+    const screenX = svgRect.left + offsetX + ((nodeX + offset.x) * scale);
+    const screenY = svgRect.top + offsetY + ((nodeY + offset.y) * scale);
 
     pill.style.left = `${screenX}px`;
     pill.style.top = `${screenY}px`;
   });
 
-  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ', offset: 60px above nodes)');
+  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ', diagonal 60° offsets)');
 }
 
 // Debounced resize handler for performance
