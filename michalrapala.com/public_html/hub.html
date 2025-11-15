@@ -1,4 +1,4 @@
-<!-- hub.html v0.022 – PCB substrate color + professional silk screen markings -->
+<!-- hub.html v0.023 – Moved WWW node closer to center (450,750) -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -100,7 +100,7 @@
                         <stop offset="100%" stop-color="#48D2E7" stop-opacity="0.2" />
                     </linearGradient>
 
-                    <linearGradient id="connectorGradient3" x1="600" y1="850" x2="652" y2="820" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="connectorGradient3" x1="450" y1="750" x2="502" y2="720" gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#48D2E7" stop-opacity="0.7" />
                         <stop offset="100%" stop-color="#48D2E7" stop-opacity="0.2" />
                     </linearGradient>
@@ -142,7 +142,6 @@
                     <!-- Power traces (thicker - 4.5px) -->
                     <path class="circuit-trace power-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2" stroke-width="4.5" />
                     <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5" stroke-width="4.5" />
-                    <path class="circuit-trace power-trace" d="M 550 850 L 600 850" data-index="10" stroke-width="4" />
 
                     <!-- Signal traces (medium - 3px) -->
                     <path class="circuit-trace signal-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1" stroke-width="3" />
@@ -193,8 +192,8 @@
                     <circle cx="250" cy="450" r="2.5" fill="#0a1120" opacity="0.7"/>
                     <circle cx="800" cy="400" r="2.5" fill="#0a1120" opacity="0.7"/>
                     <circle cx="400" cy="750" r="2.5" fill="#0a1120" opacity="0.7"/>
+                    <circle cx="450" cy="750" r="3" fill="#0a1120" opacity="0.8"/>
                     <circle cx="550" cy="850" r="3" fill="#0a1120" opacity="0.8"/>
-                    <circle cx="600" cy="850" r="3" fill="#0a1120" opacity="0.8"/>
                 </g>
 
                 <!-- SMD Components (Resistors & Capacitors) -->
@@ -256,13 +255,13 @@
                     <circle class="circuit-pad" cx="800" cy="400" r="6" data-pad="7a" />
                     <circle class="circuit-pad" cx="250" cy="750" r="6" data-pad="8" />
                     <circle class="circuit-pad" cx="400" cy="750" r="6" data-pad="8a" />
+                    <circle class="circuit-pad" cx="450" cy="750" r="8" data-pad="9" />
                     <circle class="circuit-pad" cx="550" cy="850" r="8" data-pad="9a" />
-                    <circle class="circuit-pad" cx="600" cy="850" r="8" data-pad="9" />
 
                     <!-- Pills connection points (matching pill positions - enhanced like central pad) -->
                     <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-1" />
                     <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-2" />
-                    <circle class="circuit-pad pill-pad" cx="600" cy="850" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-3" />
+                    <circle class="circuit-pad pill-pad" cx="450" cy="750" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-3" />
                 </g>
 
                 <!-- Permanent Connector Lines (pills → nodes, always visible) -->
@@ -273,8 +272,8 @@
                     <!-- Connector for Aplikacje (node 850,350) - 60° diagonal up-left with gradient fade -->
                     <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="798" y2="320" stroke="url(#connectorGradient2)" />
 
-                    <!-- Connector for WWW (node 600,850) - 60° diagonal up-right with gradient fade -->
-                    <line class="pill-connector pill-connector-3" x1="600" y1="850" x2="652" y2="820" stroke="url(#connectorGradient3)" />
+                    <!-- Connector for WWW (node 450,750) - 60° diagonal up-right with gradient fade -->
+                    <line class="pill-connector pill-connector-3" x1="450" y1="750" x2="502" y2="720" stroke="url(#connectorGradient3)" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
@@ -286,8 +285,8 @@
                     <!-- Line to Pill 2 (Aplikacje - top-right) - follows existing horizontal trace (line 1) -->
                     <path id="pill-line-aplikacje" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350" filter="url(#glowStrong)" opacity="0" />
 
-                    <!-- Line to Pill 3 (WWW - bottom) - follows vertical trace 5 exactly with corner -->
-                    <path id="pill-line-www" class="pill-line" d="M 500 100 L 500 450 L 550 500 L 550 850 L 600 850" filter="url(#glowStrong)" opacity="0" />
+                    <!-- Line to Pill 3 (WWW - bottom-center) - follows trace 3 exactly -->
+                    <path id="pill-line-www" class="pill-line" d="M 50 700 L 350 700 L 400 750 L 450 750" filter="url(#glowStrong)" opacity="0" />
                 </g>
 
                 <!-- Central Pad (main junction) -->
@@ -305,7 +304,7 @@
                         <text x="860" y="365" font-size="8" font-weight="600">TP2</text>
 
                         <!-- TP3: WWW node -->
-                        <text x="610" y="865" font-size="8" font-weight="600">TP3</text>
+                        <text x="460" y="765" font-size="8" font-weight="600">TP3</text>
                     </g>
 
                     <!-- Component Reference Designators (already added earlier as R1-R4, C1-C4) -->
@@ -368,8 +367,8 @@
                     <span class="pill-text">Aplikacje webowe</span>
                 </button>
 
-                <!-- Pill 3: Strony (Bottom - pinned to node 600, 850) -->
-                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="600" data-node-y="850" aria-label="Strony internetowe">
+                <!-- Pill 3: Strony (Bottom-Center - pinned to node 450, 750) -->
+                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750" aria-label="Strony internetowe">
                     <span class="pill-glow"></span>
                     <span class="pill-text">Strony internetowe</span>
                 </button>
