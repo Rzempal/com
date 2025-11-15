@@ -1,4 +1,4 @@
-<!-- index.html v0.018 – Changed WWW current flow path to start from H1 mounting hole -->
+<!-- index.html v0.019 – WWW flow follows existing traces (4 vertical, 3 horizontal) + trace orientation comments -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -89,17 +89,17 @@
                 <!-- Circuit Board Traces (PCB paths) - Variable width for realism -->
                 <g class="circuit-traces" stroke="url(#meshGradient)" fill="none" opacity="0.5" stroke-linecap="round" filter="url(#solderMask)">
                     <!-- Power traces (thicker - 4.5px) -->
-                    <path class="circuit-trace power-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2" stroke-width="4.5" />
-                    <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5" stroke-width="4.5" />
+                    <path class="circuit-trace power-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2" stroke-width="4.5" /><!-- horizontal -->
+                    <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5" stroke-width="4.5" /><!-- vertical -->
 
                     <!-- Signal traces (medium - 3px) -->
-                    <path class="circuit-trace signal-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1" stroke-width="3" />
-                    <path class="circuit-trace signal-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6" stroke-width="3" />
+                    <path class="circuit-trace signal-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1" stroke-width="3" /><!-- horizontal -->
+                    <path class="circuit-trace signal-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6" stroke-width="3" /><!-- vertical -->
 
                     <!-- Thin signal traces (2px) -->
-                    <path class="circuit-trace signal-trace-thin" d="M 50 150 L 300 150 L 350 200 L 650 200" data-index="0" stroke-width="2" />
-                    <path class="circuit-trace signal-trace-thin" d="M 50 700 L 350 700 L 400 750 L 750 750" data-index="3" stroke-width="2" />
-                    <path class="circuit-trace signal-trace-thin" d="M 200 50 L 200 400 L 250 450 L 250 850" data-index="4" stroke-width="2.5" />
+                    <path class="circuit-trace signal-trace-thin" d="M 50 150 L 300 150 L 350 200 L 650 200" data-index="0" stroke-width="2" /><!-- horizontal -->
+                    <path class="circuit-trace signal-trace-thin" d="M 50 700 L 350 700 L 400 750 L 750 750" data-index="3" stroke-width="2" /><!-- horizontal -->
+                    <path class="circuit-trace signal-trace-thin" d="M 200 50 L 200 400 L 250 450 L 250 850" data-index="4" stroke-width="2.5" /><!-- vertical -->
 
                     <!-- Curved/angled traces (decorative - thin) -->
                     <path class="circuit-trace decorative-trace" d="M 100 100 Q 300 100 400 250 T 600 400" data-index="7" stroke-width="2" />
@@ -221,8 +221,8 @@
                     <!-- Line to Pill 2 (Aplikacje - 850, 350 - horizontal trace to top-right) -->
                     <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 500 350 L 850 350" filter="url(#glowStrong)" />
 
-                    <!-- Line to Pill 3 (WWW - 450, 750 - diagonal path from H1 mounting hole through PCB center) -->
-                    <path id="pill-line-www" class="pill-line" d="M 60 60 L 200 250 L 350 500 L 450 750" filter="url(#glowStrong)" />
+                    <!-- Line to Pill 3 (WWW - 450, 750 - follows trace 4 (vertical) then trace 3 (horizontal)) -->
+                    <path id="pill-line-www" class="pill-line" d="M 200 50 L 200 400 L 250 450 L 250 700 L 350 700 L 400 750 L 450 750" filter="url(#glowStrong)" />
                 </g>
 
                 <!-- Central Pad (main junction) -->
