@@ -1,4 +1,4 @@
-<!-- index.html v0.012 – Poppins Self-Hosted Fonts -->
+<!-- index.html v0.013 – Synchronized PCB with Hub + enhanced realism -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -65,13 +65,16 @@
 
                     <!-- Vertical traces -->
                     <path class="circuit-trace" d="M 200 50 L 200 400 L 250 450 L 250 850" data-index="4" />
-                    <path class="circuit-trace" d="M 500 100 L 500 450 L 550 500 L 550 900" data-index="5" />
+                    <path class="circuit-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5" />
                     <path class="circuit-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6" />
 
                     <!-- Curved/angled traces -->
                     <path class="circuit-trace" d="M 100 100 Q 300 100 400 250 T 600 400" data-index="7" />
                     <path class="circuit-trace" d="M 800 200 Q 700 300 650 450 T 500 650" data-index="8" />
                     <path class="circuit-trace" d="M 300 800 Q 500 750 700 700 T 900 600" data-index="9" />
+
+                    <!-- Connection to WWW node (horizontal extension from vertical trace 5) -->
+                    <path class="circuit-trace" d="M 550 850 L 600 850" data-index="10" />
                 </g>
 
                 <!-- Connection Pads (vias/pads at intersections) -->
@@ -79,19 +82,28 @@
                     <!-- Pads at key positions -->
                     <circle class="circuit-pad" cx="150" cy="150" r="8" data-pad="0" />
                     <circle class="circuit-pad" cx="300" cy="150" r="6" data-pad="1" />
+                    <circle class="circuit-pad" cx="350" cy="200" r="6" data-pad="2a" />
                     <circle class="circuit-pad" cx="650" cy="200" r="8" data-pad="2" />
                     <circle class="circuit-pad" cx="400" cy="300" r="6" data-pad="3" />
+                    <circle class="circuit-pad" cx="450" cy="350" r="6" data-pad="4a" />
                     <circle class="circuit-pad" cx="850" cy="350" r="8" data-pad="4" />
+                    <circle class="circuit-pad" cx="500" cy="450" r="6" data-pad="5a" />
                     <circle class="circuit-pad" cx="500" cy="500" r="10" data-pad="5" />
+                    <circle class="circuit-pad" cx="550" cy="500" r="6" data-pad="5b" />
+                    <circle class="circuit-pad" cx="550" cy="550" r="6" data-pad="5c" />
                     <circle class="circuit-pad" cx="200" cy="450" r="6" data-pad="6" />
+                    <circle class="circuit-pad" cx="250" cy="450" r="6" data-pad="6a" />
                     <circle class="circuit-pad" cx="750" cy="350" r="8" data-pad="7" />
+                    <circle class="circuit-pad" cx="800" cy="400" r="6" data-pad="7a" />
                     <circle class="circuit-pad" cx="250" cy="750" r="6" data-pad="8" />
+                    <circle class="circuit-pad" cx="400" cy="750" r="6" data-pad="8a" />
+                    <circle class="circuit-pad" cx="550" cy="850" r="8" data-pad="9a" />
                     <circle class="circuit-pad" cx="600" cy="850" r="8" data-pad="9" />
 
-                    <!-- Pills connection points (matching Hub pill positions - not visible on Gate) -->
-                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="10" data-pad="pill-1" />
-                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="10" data-pad="pill-2" />
-                    <circle class="circuit-pad pill-pad" cx="600" cy="850" r="10" data-pad="pill-3" />
+                    <!-- Pills connection points (matching Hub pill positions - enhanced like central pad) -->
+                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-1" />
+                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-2" />
+                    <circle class="circuit-pad pill-pad" cx="600" cy="850" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-3" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden - only used on Hub) -->
