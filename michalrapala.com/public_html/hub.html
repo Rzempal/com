@@ -1,4 +1,4 @@
-<!-- hub.html v0.023 – Moved WWW node closer to center (450,750) -->
+<!-- hub.html v0.024 – Changed WWW current flow path to start from H1 mounting hole -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -285,8 +285,8 @@
                     <!-- Line to Pill 2 (Aplikacje - top-right) - follows existing horizontal trace (line 1) -->
                     <path id="pill-line-aplikacje" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350" filter="url(#glowStrong)" opacity="0" />
 
-                    <!-- Line to Pill 3 (WWW - bottom-center) - follows trace 3 exactly -->
-                    <path id="pill-line-www" class="pill-line" d="M 50 700 L 350 700 L 400 750 L 450 750" filter="url(#glowStrong)" opacity="0" />
+                    <!-- Line to Pill 3 (WWW - bottom-center) - diagonal path from H1 mounting hole through PCB center -->
+                    <path id="pill-line-www" class="pill-line" d="M 60 60 L 200 250 L 350 500 L 450 750" filter="url(#glowStrong)" opacity="0" />
                 </g>
 
                 <!-- Central Pad (main junction) -->
