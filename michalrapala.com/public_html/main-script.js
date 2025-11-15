@@ -1,4 +1,4 @@
-// main-script.js v0.023 – Diagonal pill positioning (60° angle offsets)
+// main-script.js v0.024 – Fixed pills visibility with preserved transforms
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -395,10 +395,14 @@ function fadeInHub() {
       duration: 0.6,
       ease: 'power2.out',
     });
-    gsap.to(pills, {
-      opacity: 1,
-      duration: 0.3,
-      stagger: 0.1,
+    pills.forEach((pill) => {
+      const isWWW = pill.classList.contains('hub-pill-3');
+      const translateX = isWWW ? '0%' : '-100%';
+      gsap.to(pill, {
+        opacity: 1,
+        transform: `translate(${translateX}, -100%) scale(1)`,
+        duration: 0.3,
+      });
     });
   } else {
     // Full animation - extended fade in (2s) + staggered pills
@@ -413,13 +417,19 @@ function fadeInHub() {
     }, 0);
 
     // Pills stagger animation (start after 1.5s)
-    timeline.to(pills, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.6,
-      stagger: 0.2,
-      ease: 'back.out(1.7)',
-    }, 1.5);
+    pills.forEach((pill, index) => {
+      // Preserve anchor point transform while animating scale
+      const isWWW = pill.classList.contains('hub-pill-3');
+      const translateX = isWWW ? '0%' : '-100%';
+
+      timeline.to(pill, {
+        opacity: 1,
+        scale: 1,
+        transform: `translate(${translateX}, -100%) scale(1)`,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+      }, 1.5 + (index * 0.2));
+    });
   }
 
   console.log('✅ Hub fade in started (2s)');

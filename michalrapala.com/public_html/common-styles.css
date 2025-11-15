@@ -171,8 +171,6 @@ button {
     width: 100%;
     height: auto;
     margin: 0 auto 1.5rem;
-    opacity: 0;
-    transform: translateY(20px);
     cursor: pointer;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -185,8 +183,6 @@ button {
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     color: var(--muted);
     margin-bottom: 2.5rem;
-    opacity: 0;
-    transform: translateY(20px);
     font-family: var(--font-body);
     font-weight: 400;
 }
