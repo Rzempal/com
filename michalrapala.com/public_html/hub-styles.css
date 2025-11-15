@@ -1,4 +1,4 @@
-/* hub-styles.css v0.013 – Enhanced connector visibility (gradients, wider dashes) */
+/* hub-styles.css v0.014 – Further enhanced connector opacity */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -318,11 +318,11 @@ body {
 
 @keyframes connectorPulse {
     0%, 100% {
-        opacity: 0.4;
+        opacity: 0.6;
         stroke-width: 2;
     }
     50% {
-        opacity: 0.6;
+        opacity: 0.8;
         stroke-width: 2.5;
     }
 }

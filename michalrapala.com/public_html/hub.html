@@ -1,4 +1,4 @@
-<!-- hub.html v0.016 – Enhanced connectors with gradients + WWW trace -->
+<!-- hub.html v0.017 – Fixed WWW trace routing + enhanced connector opacity -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -112,7 +112,7 @@
 
                     <!-- Vertical traces -->
                     <path class="circuit-trace" d="M 200 50 L 200 400 L 250 450 L 250 850" data-index="4" />
-                    <path class="circuit-trace" d="M 500 100 L 500 450 L 550 500 L 550 900" data-index="5" />
+                    <path class="circuit-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5" />
                     <path class="circuit-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6" />
 
                     <!-- Curved/angled traces -->
@@ -145,7 +145,7 @@
                 </g>
 
                 <!-- Permanent Connector Lines (pills → nodes, always visible) -->
-                <g class="pill-connectors" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="8 4" opacity="0.5">
+                <g class="pill-connectors" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="8 4" opacity="0.7">
                     <!-- Connector for Robotyka (node 500,500) - 60° diagonal up-left with gradient fade -->
                     <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="448" y2="470" stroke="url(#connectorGradient1)" />
 
