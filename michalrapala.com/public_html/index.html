@@ -1,4 +1,4 @@
-<!-- index.html v0.015 – Enhanced PCB realism: mounting holes, vias, SMD, zone fills, solder mask -->
+<!-- index.html v0.016 – PCB substrate color + professional silk screen markings -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -70,6 +70,9 @@
                         <path d="M 0 0 L 20 20 M 20 0 L 0 20" stroke="#48D2E7" stroke-width="0.5" opacity="0.15"/>
                     </pattern>
                 </defs>
+
+                <!-- PCB Substrate (dark teal-green base - classic PCB color) -->
+                <rect x="0" y="0" width="1000" height="1000" fill="#0d2626" opacity="0.85"/>
 
                 <!-- Zone Fills (Ground Planes) - Background layer -->
                 <g class="zone-fills" opacity="0.3" filter="url(#solderMask)">
@@ -226,6 +229,65 @@
                 <!-- Central Pad (main junction) -->
                 <circle cx="500" cy="500" r="12" fill="#48D2E7" stroke="#48D2E7" stroke-width="2" filter="url(#glow)" opacity="0.9" class="center-pad"/>
                 <circle cx="500" cy="500" r="18" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.5" class="center-pad-ring"/>
+
+                <!-- Silk Screen Layer (white markings - professional PCB annotations) -->
+                <g class="silk-screen" fill="#ffffff" opacity="0.8" font-family="monospace">
+                    <!-- Test Points (TP) - locations where technicians can probe signals -->
+                    <g class="test-points">
+                        <!-- TP1: Robotyka node -->
+                        <text x="510" y="520" font-size="8" font-weight="600">TP1</text>
+
+                        <!-- TP2: Aplikacje node -->
+                        <text x="860" y="365" font-size="8" font-weight="600">TP2</text>
+
+                        <!-- TP3: WWW node -->
+                        <text x="610" y="865" font-size="8" font-weight="600">TP3</text>
+                    </g>
+
+                    <!-- Component Reference Designators (already added earlier as R1-R4, C1-C4) -->
+
+                    <!-- Jumper designation at central pad -->
+                    <g class="jumpers">
+                        <text x="470" y="490" font-size="7" opacity="0.6">JP1</text>
+                    </g>
+
+                    <!-- Board Information (bottom-right corner) -->
+                    <g class="board-info">
+                        <!-- Board version and designer mark -->
+                        <text x="850" y="970" font-size="9" font-weight="700" letter-spacing="1">MR PCB</text>
+                        <text x="900" y="985" font-size="7" opacity="0.7">v1.0</text>
+
+                        <!-- Copyright -->
+                        <text x="50" y="985" font-size="6" opacity="0.6">© 2025</text>
+                    </g>
+
+                    <!-- Functional labels near mounting holes -->
+                    <g class="mounting-labels">
+                        <text x="75" y="65" font-size="6" opacity="0.5">H1</text>
+                        <text x="920" y="65" font-size="6" opacity="0.5">H2</text>
+                        <text x="75" y="945" font-size="6" opacity="0.5">H3</text>
+                        <text x="920" y="945" font-size="6" opacity="0.5">H4</text>
+                    </g>
+
+                    <!-- Pin 1 indicators (small dots showing orientation) -->
+                    <g class="pin-indicators">
+                        <circle cx="268" cy="147" r="1.5" fill="#ffffff" opacity="0.6"/>
+                        <circle cx="368" cy="297" r="1.5" fill="#ffffff" opacity="0.6"/>
+                    </g>
+
+                    <!-- Polarity marks for capacitors -->
+                    <g class="polarity-marks">
+                        <text x="113" y="152" font-size="8" opacity="0.5">+</text>
+                        <text x="413" y="351" font-size="8" opacity="0.5">+</text>
+                    </g>
+
+                    <!-- Zone boundary labels -->
+                    <g class="zone-labels">
+                        <text x="40" y="50" font-size="7" opacity="0.5">GND</text>
+                        <text x="580" y="50" font-size="7" opacity="0.5">GND</text>
+                        <text x="40" y="690" font-size="7" opacity="0.5">GND</text>
+                    </g>
+                </g>
             </svg>
             
             <!-- Treść Gate -->
