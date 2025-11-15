@@ -1,4 +1,4 @@
-/* hub-styles.css v0.014 – Further enhanced connector opacity */
+/* hub-styles.css v0.015 – Top bar: LinkedIn, GitHub icons only; Email responsive */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -53,6 +53,12 @@ body {
 .top-info-bar-contact a i {
     color: var(--accent);
     font-size: 1rem;
+}
+
+/* LinkedIn i GitHub: zawsze tylko ikony (desktop) */
+.top-info-bar-contact a:nth-child(1) span, /* LinkedIn */
+.top-info-bar-contact a:nth-child(2) span { /* GitHub */
+    display: none;
 }
 
 .top-info-bar-status {
@@ -132,7 +138,7 @@ body {
     50% { transform: translateY(-50%) translateX(-5px); }
 }
 
-/* Responsive - Średnie ekrany (600px-900px): tekst przy email, ikona LinkedIn */
+/* Responsive - Średnie ekrany (600px-900px): Email z tekstem, LinkedIn+GitHub tylko ikony */
 @media (max-width: 900px) and (min-width: 600px) {
     .top-info-bar {
         padding: 0.6rem 1.25rem;
@@ -147,21 +153,9 @@ body {
         gap: 1rem;
     }
 
-    /* Email: pokazuj tekst */
-    .top-info-bar-contact a:first-child {
+    /* Email (last-child): pokazuj tekst */
+    .top-info-bar-contact a:nth-child(3) {
         font-size: 0.85rem;
-    }
-
-    /* LinkedIn: tylko ikona */
-    .top-info-bar-contact a:last-child {
-        width: 2.25rem;
-        height: 2.25rem;
-        justify-content: center;
-        padding: 0;
-    }
-
-    .top-info-bar-contact a:last-child span {
-        display: none;
     }
 
     .top-info-bar-status span {
