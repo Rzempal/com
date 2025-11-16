@@ -1,4 +1,4 @@
-// main-script.js v0.025 – Fixed reduced motion: instant display without GSAP animations
+// main-script.js v0.026 – Dynamic top-bar width sync to PCB mesh section
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -484,6 +484,24 @@ function positionPills() {
   console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ', diagonal 60° offsets)');
 }
 
+// ========== SYNC TOP BAR WIDTH TO PCB ==========
+function syncTopBarWidth() {
+  const meshSection = document.querySelector('.hub-mesh-section');
+  const topBarContent = document.querySelector('.top-info-bar-content');
+
+  if (!meshSection || !topBarContent) {
+    return;
+  }
+
+  // Get actual width of PCB mesh section
+  const meshWidth = meshSection.getBoundingClientRect().width;
+
+  // Set same width on top-bar content
+  topBarContent.style.maxWidth = `${meshWidth}px`;
+
+  console.log(`📐 Top-bar synced to PCB width: ${meshWidth}px`);
+}
+
 // Debounced resize handler for performance
 function handleResize() {
   if (resizeDebounceTimer) {
@@ -492,7 +510,8 @@ function handleResize() {
 
   resizeDebounceTimer = setTimeout(() => {
     positionPills();
-    console.log('🔄 Pills repositioned on resize');
+    syncTopBarWidth();
+    console.log('🔄 Pills repositioned and top-bar synced on resize');
   }, 100);
 }
 
@@ -526,9 +545,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackButton();
     initPills();
 
-    // Position pills dynamically after DOM is ready
+    // Position pills and sync top-bar dynamically after DOM is ready
     setTimeout(() => {
       positionPills();
+      syncTopBarWidth();
     }, 100);
 
     // Add resize listeners with debounce
