@@ -1,4 +1,4 @@
-/* common-styles.css v0.012 – Fixed desktop card: notch on left side, removed backdrop blur */
+/* common-styles.css v0.013 – Desktop card: notch on left with counter-clockwise polygon shape */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -898,14 +898,14 @@ body.card-open {
         bottom: 0;
         width: clamp(440px, 40vw, 560px);
         transform: translateX(100%);
-        /* Notch shape (left side): A=90px (notch), B=90px (diagonal), C=reszta */
+        /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
         clip-path: polygon(
-            0 0,                         /* P1: lewy górny skrajny */
-            90px 0,                      /* P2: A=90px (notch) */
-            180px 60px,                  /* P3: B=90px (diagonal) */
-            100% 60px,                   /* P4: prawy z offsetem */
-            100% 100%,                   /* P5: prawy dolny */
-            0 100%                       /* P6: lewy dolny */
+            0 0,                         /* A: lewy górny */
+            0 60px,                      /* B: w dół, przed notchem */
+            90px 150px,                  /* C: diagonal w prawo i w dół */
+            90px 100%,                   /* D: w dół do końca */
+            100% 100%,                   /* E: prawy dolny */
+            100% 0                       /* F: prawy górny */
         );
         border-radius: 0 0 0 24px;
     }
