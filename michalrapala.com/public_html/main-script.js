@@ -1,4 +1,4 @@
-// main-script.js v0.024 – Fixed pills visibility with preserved transforms
+// main-script.js v0.025 – Fixed reduced motion: instant display without GSAP animations
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -388,22 +388,17 @@ function fadeInHub() {
   }
 
   if (prefersReducedMotion()) {
-    // Reduced motion
-    const gsap = window.gsap;
-    gsap.to(body, {
-      opacity: 1,
-      duration: 0.6,
-      ease: 'power2.out',
-    });
+    // Reduced motion - instant display (no animations, no GSAP)
+    body.style.opacity = '1';
     pills.forEach((pill) => {
+      pill.style.opacity = '1';
+      // Preserve positioning only
       const isWWW = pill.classList.contains('hub-pill-3');
       const translateX = isWWW ? '0%' : '-100%';
-      gsap.to(pill, {
-        opacity: 1,
-        transform: `translate(${translateX}, -100%) scale(1)`,
-        duration: 0.3,
-      });
+      pill.style.transform = `translate(${translateX}, -100%) scale(1)`;
     });
+    console.log('✅ Hub instant display (reduced motion)');
+    return; // Skip GSAP animations
   } else {
     // Full animation - extended fade in (2s) + staggered pills
     const gsap = window.gsap;

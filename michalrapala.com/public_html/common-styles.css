@@ -1,4 +1,4 @@
-/* common-styles.css v0.010 – Poppins Typography (Pure Font Strategy) */
+/* common-styles.css v0.011 – Fixed reduced motion: removed !important, added GSAP exceptions */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -574,11 +574,23 @@ button {
 /* ========== REDUCED MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
     * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
     }
-    
+
+    /* Wyjątki dla GSAP-controlled elements */
+    body,
+    .hub-pill,
+    .gate__enter,
+    .circuit-pad,
+    .circuit-trace,
+    .center-pad,
+    .center-pad-ring {
+        animation-duration: unset;
+        transition-duration: unset;
+    }
+
     html {
         scroll-behavior: auto;
     }
