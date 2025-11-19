@@ -1,4 +1,4 @@
-// main-script.js v0.030 – Sync back button position to PCB left edge
+// main-script.js v0.031 – Back button fade-in animation same as pills (after all pills, 2.1s)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -366,6 +366,7 @@ function animateLine(lineId) {
 function fadeInHub() {
   const body = document.body;
   const pills = document.querySelectorAll('.hub-pill');
+  const backButton = document.querySelector('.hub-back-button');
 
   if (!window.gsap) {
     // Fallback bez GSAP
@@ -384,6 +385,13 @@ function fadeInHub() {
         }
       }, 2000 + (index * 200));
     });
+
+    // Back button - after all pills
+    if (backButton) {
+      setTimeout(() => {
+        backButton.style.opacity = '1';
+      }, 2800);
+    }
     return;
   }
 
@@ -397,6 +405,10 @@ function fadeInHub() {
       const translateX = isWWW ? '0%' : '-100%';
       pill.style.transform = `translate(${translateX}, -100%) scale(1)`;
     });
+    // Back button instant
+    if (backButton) {
+      backButton.style.opacity = '1';
+    }
     console.log('✅ Hub instant display (reduced motion)');
     return; // Skip GSAP animations
   } else {
@@ -425,6 +437,16 @@ function fadeInHub() {
         ease: 'back.out(1.7)',
       }, 1.5 + (index * 0.2));
     });
+
+    // Back button - appears after all pills (2.1s)
+    if (backButton) {
+      timeline.to(backButton, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+      }, 2.1);
+    }
   }
 
   console.log('✅ Hub fade in started (2s)');

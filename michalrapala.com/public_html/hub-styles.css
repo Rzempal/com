@@ -1,4 +1,4 @@
-/* hub-styles.css v0.018 – Transparent top bar (50% opacity, saturate/contrast instead of blur) */
+/* hub-styles.css v0.019 – Back button starts hidden (opacity: 0) for fade-in animation */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -110,6 +110,7 @@ body {
     transition: all 0.3s ease;
     border: 1.5px solid var(--accent);
     animation: floatBackButton 6s ease-in-out infinite;
+    opacity: 0;
 }
 
 .hub-back-button:hover {
