@@ -1,4 +1,4 @@
-// main-script.js v0.027 – Sync both top-bar container and content to PCB SVG width
+// main-script.js v0.028 – Top-bar position synced: use SVG left offset for alignment
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -494,19 +494,21 @@ function syncTopBarWidth() {
     return;
   }
 
-  // Get actual width of PCB SVG
-  const svgWidth = svg.getBoundingClientRect().width;
+  // Get actual position and width of PCB SVG
+  const svgRect = svg.getBoundingClientRect();
+  const svgWidth = svgRect.width;
+  const svgLeft = svgRect.left;
 
-  // Sync top-bar container
-  topBar.style.maxWidth = `${svgWidth}px`;
-  topBar.style.margin = '0 auto';
-  topBar.style.left = 'auto';
+  // Sync top-bar container to match SVG position
+  topBar.style.width = `${svgWidth}px`;
+  topBar.style.left = `${svgLeft}px`;
   topBar.style.right = 'auto';
+  topBar.style.maxWidth = 'none';
 
   // Sync top-bar content
   topBarContent.style.maxWidth = `${svgWidth}px`;
 
-  console.log(`📐 Top-bar synced to PCB width: ${svgWidth}px`);
+  console.log(`📐 Top-bar synced to PCB: width=${svgWidth}px, left=${svgLeft}px`);
 }
 
 // Debounced resize handler for performance
