@@ -1,4 +1,4 @@
-// main-script.js v0.031 – Back button fade-in animation same as pills (after all pills, 2.1s)
+// main-script.js v0.032 – Back button visibility fix (visibility: hidden + visible) to prevent flash on load
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -390,6 +390,7 @@ function fadeInHub() {
     if (backButton) {
       setTimeout(() => {
         backButton.style.opacity = '1';
+        backButton.style.visibility = 'visible';
       }, 2800);
     }
     return;
@@ -408,6 +409,7 @@ function fadeInHub() {
     // Back button instant
     if (backButton) {
       backButton.style.opacity = '1';
+      backButton.style.visibility = 'visible';
     }
     console.log('✅ Hub instant display (reduced motion)');
     return; // Skip GSAP animations
@@ -442,6 +444,7 @@ function fadeInHub() {
     if (backButton) {
       timeline.to(backButton, {
         opacity: 1,
+        visibility: 'visible',
         scale: 1,
         duration: 0.6,
         ease: 'back.out(1.7)',
