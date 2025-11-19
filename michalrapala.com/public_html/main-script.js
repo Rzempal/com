@@ -1,4 +1,4 @@
-// main-script.js v0.029 – Calculate actual SVG size (square aspect ratio) for top-bar sync
+// main-script.js v0.030 – Sync back button position to PCB left edge
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -489,6 +489,7 @@ function syncTopBarWidth() {
   const section = document.querySelector('.hub-mesh-section');
   const topBar = document.querySelector('.top-info-bar');
   const topBarContent = document.querySelector('.top-info-bar-content');
+  const backButton = document.querySelector('.hub-back-button');
 
   if (!section || !topBar || !topBarContent) {
     return;
@@ -515,7 +516,12 @@ function syncTopBarWidth() {
   // Sync top-bar content
   topBarContent.style.maxWidth = `${actualSvgSize}px`;
 
-  console.log(`📐 Top-bar synced: size=${actualSvgSize}px, left=${actualSvgLeft.toFixed(1)}px (section: ${sectionWidth}x${sectionHeight})`);
+  // Sync back button to PCB left edge (+ 1rem offset)
+  if (backButton) {
+    backButton.style.left = `${actualSvgLeft + 16}px`;  // 16px = 1rem
+  }
+
+  console.log(`📐 Synced to PCB: top-bar & back-button, size=${actualSvgSize}px, left=${actualSvgLeft.toFixed(1)}px`);
 }
 
 // Debounced resize handler for performance
