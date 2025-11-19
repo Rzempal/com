@@ -1,4 +1,4 @@
-// main-script.js v0.026 – Dynamic top-bar width sync to PCB mesh section
+// main-script.js v0.027 – Sync both top-bar container and content to PCB SVG width
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -486,20 +486,27 @@ function positionPills() {
 
 // ========== SYNC TOP BAR WIDTH TO PCB ==========
 function syncTopBarWidth() {
-  const meshSection = document.querySelector('.hub-mesh-section');
+  const svg = document.querySelector('.hub-mesh');
+  const topBar = document.querySelector('.top-info-bar');
   const topBarContent = document.querySelector('.top-info-bar-content');
 
-  if (!meshSection || !topBarContent) {
+  if (!svg || !topBar || !topBarContent) {
     return;
   }
 
-  // Get actual width of PCB mesh section
-  const meshWidth = meshSection.getBoundingClientRect().width;
+  // Get actual width of PCB SVG
+  const svgWidth = svg.getBoundingClientRect().width;
 
-  // Set same width on top-bar content
-  topBarContent.style.maxWidth = `${meshWidth}px`;
+  // Sync top-bar container
+  topBar.style.maxWidth = `${svgWidth}px`;
+  topBar.style.margin = '0 auto';
+  topBar.style.left = 'auto';
+  topBar.style.right = 'auto';
 
-  console.log(`📐 Top-bar synced to PCB width: ${meshWidth}px`);
+  // Sync top-bar content
+  topBarContent.style.maxWidth = `${svgWidth}px`;
+
+  console.log(`📐 Top-bar synced to PCB width: ${svgWidth}px`);
 }
 
 // Debounced resize handler for performance
