@@ -1,4 +1,4 @@
-// main-script.js v0.028 – Top-bar position synced: use SVG left offset for alignment
+// main-script.js v0.029 – Calculate actual SVG size (square aspect ratio) for top-bar sync
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -486,29 +486,36 @@ function positionPills() {
 
 // ========== SYNC TOP BAR WIDTH TO PCB ==========
 function syncTopBarWidth() {
-  const svg = document.querySelector('.hub-mesh');
+  const section = document.querySelector('.hub-mesh-section');
   const topBar = document.querySelector('.top-info-bar');
   const topBarContent = document.querySelector('.top-info-bar-content');
 
-  if (!svg || !topBar || !topBarContent) {
+  if (!section || !topBar || !topBarContent) {
     return;
   }
 
-  // Get actual position and width of PCB SVG
-  const svgRect = svg.getBoundingClientRect();
-  const svgWidth = svgRect.width;
-  const svgLeft = svgRect.left;
+  // Get section dimensions
+  const sectionRect = section.getBoundingClientRect();
+  const sectionWidth = sectionRect.width;
+  const sectionHeight = sectionRect.height;
 
-  // Sync top-bar container to match SVG position
-  topBar.style.width = `${svgWidth}px`;
-  topBar.style.left = `${svgLeft}px`;
+  // SVG is square (viewBox 1000x1000) with preserveAspectRatio="xMidYMid meet"
+  // Actual rendered size = min(width, height) to maintain square aspect ratio
+  const actualSvgSize = Math.min(sectionWidth, sectionHeight);
+
+  // SVG is centered in section, calculate left offset
+  const actualSvgLeft = sectionRect.left + (sectionWidth - actualSvgSize) / 2;
+
+  // Sync top-bar container to match actual SVG size and position
+  topBar.style.width = `${actualSvgSize}px`;
+  topBar.style.left = `${actualSvgLeft}px`;
   topBar.style.right = 'auto';
   topBar.style.maxWidth = 'none';
 
   // Sync top-bar content
-  topBarContent.style.maxWidth = `${svgWidth}px`;
+  topBarContent.style.maxWidth = `${actualSvgSize}px`;
 
-  console.log(`📐 Top-bar synced to PCB: width=${svgWidth}px, left=${svgLeft}px`);
+  console.log(`📐 Top-bar synced: size=${actualSvgSize}px, left=${actualSvgLeft.toFixed(1)}px (section: ${sectionWidth}x${sectionHeight})`);
 }
 
 // Debounced resize handler for performance
