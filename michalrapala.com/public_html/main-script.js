@@ -1,4 +1,4 @@
-// main-script.js v0.032 – Back button visibility fix (visibility: hidden + visible) to prevent flash on load
+// main-script.js v0.033 – Desktop card: dynamic clip-path sync to top-bar height (KROK 1)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -549,6 +549,45 @@ function syncTopBarWidth() {
   console.log(`📐 Synced to PCB: top-bar & back-button, size=${actualSvgSize}px, left=${actualSvgLeft.toFixed(1)}px`);
 }
 
+// ========== UPDATE CARD CLIP-PATH (DESKTOP) ==========
+function updateCardClipPath() {
+  const topBar = document.querySelector('.top-info-bar');
+  const cardSheet = document.getElementById('card-sheet');
+
+  if (!topBar || !cardSheet) {
+    return;
+  }
+
+  // Only for desktop (≥1025px)
+  if (window.matchMedia('(max-width: 1024px)').matches) {
+    return;
+  }
+
+  // Get top bar height
+  const topBarHeight = topBar.getBoundingClientRect().height;
+
+  // Calculate notch point C (B + 60px diagonal offset)
+  const notchC = topBarHeight + 60;
+
+  // Update clip-path dynamically
+  // A: 0 0 (top-left corner)
+  // B: 0 topBarHeight (down along left edge, before notch)
+  // C: 90px notchC (diagonal right and down)
+  // D: 90px 100% (down to bottom)
+  // E: 100% 100% (bottom-right corner)
+  // F: 100% 0 (top-right corner)
+  cardSheet.style.clipPath = `polygon(
+    0 0,
+    0 ${topBarHeight}px,
+    90px ${notchC}px,
+    90px 100%,
+    100% 100%,
+    100% 0
+  )`;
+
+  console.log(`📐 Updated card clip-path: B=${topBarHeight}px, C=90px ${notchC}px`);
+}
+
 // Debounced resize handler for performance
 function handleResize() {
   if (resizeDebounceTimer) {
@@ -558,7 +597,8 @@ function handleResize() {
   resizeDebounceTimer = setTimeout(() => {
     positionPills();
     syncTopBarWidth();
-    console.log('🔄 Pills repositioned and top-bar synced on resize');
+    updateCardClipPath();
+    console.log('🔄 Pills repositioned, top-bar synced, and card clip-path updated on resize');
   }, 100);
 }
 
@@ -592,10 +632,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackButton();
     initPills();
 
-    // Position pills and sync top-bar dynamically after DOM is ready
+    // Position pills, sync top-bar, and update card clip-path dynamically after DOM is ready
     setTimeout(() => {
       positionPills();
       syncTopBarWidth();
+      updateCardClipPath();
     }, 100);
 
     // Add resize listeners with debounce
