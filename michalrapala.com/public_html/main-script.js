@@ -1,4 +1,4 @@
-// main-script.js v0.033 – Desktop card: dynamic clip-path sync to top-bar height (KROK 1)
+// main-script.js v0.034 – Top bar: tooltip copy (desktop hover) + long-press copy (mobile)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -602,6 +602,169 @@ function handleResize() {
   }, 100);
 }
 
+// ========== TOP BAR TOOLTIPS & COPY FUNCTIONALITY ==========
+
+// Copy to clipboard with fallback
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  } else {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return Promise.resolve();
+    } catch (err) {
+      document.body.removeChild(textarea);
+      return Promise.reject(err);
+    }
+  }
+}
+
+// Show copy feedback toast
+function showCopyFeedback() {
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = '✓ Skopiowano!';
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => {
+      document.body.removeChild(toast);
+    }, 300);
+  }, 2000);
+}
+
+// Desktop: Hover tooltips with copy button
+function initTopBarTooltips() {
+  const contactLinks = document.querySelectorAll('.top-info-bar-contact a');
+  const tooltip = document.getElementById('topBarTooltip');
+  const tooltipText = document.getElementById('tooltipText');
+  const tooltipCopyBtn = document.getElementById('tooltipCopyBtn');
+
+  if (!tooltip || !tooltipText || !tooltipCopyBtn) return;
+
+  let currentLink = null;
+
+  contactLinks.forEach(link => {
+    link.addEventListener('mouseenter', (e) => {
+      const copyText = link.dataset.copyText;
+      if (!copyText) return;
+
+      currentLink = link;
+      tooltipText.textContent = copyText;
+
+      // Position tooltip below the link
+      const linkRect = link.getBoundingClientRect();
+      const topBarRect = document.querySelector('.top-info-bar-content').getBoundingClientRect();
+      tooltip.style.left = `${linkRect.left - topBarRect.left}px`;
+      tooltip.hidden = false;
+    });
+
+    link.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!tooltip.matches(':hover')) {
+          tooltip.hidden = true;
+          currentLink = null;
+        }
+      }, 100);
+    });
+  });
+
+  // Tooltip hover - keep visible
+  tooltip.addEventListener('mouseenter', () => {
+    // Keep visible
+  });
+
+  tooltip.addEventListener('mouseleave', () => {
+    tooltip.hidden = true;
+    currentLink = null;
+  });
+
+  // Copy button click
+  tooltipCopyBtn.addEventListener('click', () => {
+    if (!currentLink) return;
+    const copyText = currentLink.dataset.copyText;
+    copyToClipboard(copyText)
+      .then(() => {
+        tooltip.hidden = true;
+        showCopyFeedback();
+        console.log(`✓ Copied: ${copyText}`);
+      })
+      .catch(err => {
+        console.error('❌ Copy failed:', err);
+      });
+  });
+
+  console.log('✅ Top bar tooltips initialized (desktop)');
+}
+
+// Mobile: Long press to copy
+function initTopBarCopy() {
+  const contactLinks = document.querySelectorAll('.top-info-bar-contact a');
+
+  contactLinks.forEach(link => {
+    let pressTimer = null;
+    let isPressing = false;
+
+    const startPress = (e) => {
+      isPressing = true;
+      const copyText = link.dataset.copyText;
+      if (!copyText) return;
+
+      // Visual feedback: slight scale
+      link.style.transform = 'scale(0.95)';
+
+      pressTimer = setTimeout(() => {
+        if (isPressing) {
+          // Long press complete - copy
+          copyToClipboard(copyText)
+            .then(() => {
+              showCopyFeedback();
+              console.log(`✓ Copied (long press): ${copyText}`);
+            })
+            .catch(err => {
+              console.error('❌ Copy failed:', err);
+            });
+
+          // Reset
+          link.style.transform = '';
+          isPressing = false;
+        }
+      }, 500); // 500ms long press
+    };
+
+    const endPress = (e) => {
+      if (pressTimer) {
+        clearTimeout(pressTimer);
+        pressTimer = null;
+      }
+      isPressing = false;
+      link.style.transform = '';
+    };
+
+    // Touch events
+    link.addEventListener('touchstart', startPress, { passive: true });
+    link.addEventListener('touchend', endPress);
+    link.addEventListener('touchcancel', endPress);
+
+    // Mouse events (for testing on desktop)
+    link.addEventListener('mousedown', startPress);
+    link.addEventListener('mouseup', endPress);
+    link.addEventListener('mouseleave', endPress);
+  });
+
+  console.log('✅ Top bar copy initialized (mobile long-press)');
+}
+
 // ========== PAGE DETECTION & INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🚀 Initializing michalrapala.com...');
@@ -631,6 +794,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeInHub();
     initBackButton();
     initPills();
+    initTopBarTooltips();
+    initTopBarCopy();
 
     // Position pills, sync top-bar, and update card clip-path dynamically after DOM is ready
     setTimeout(() => {
