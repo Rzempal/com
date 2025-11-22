@@ -1,4 +1,4 @@
-// main-script.js v0.034 – Top bar: tooltip copy (desktop hover) + long-press copy (mobile)
+// main-script.js v0.035 – Desktop card: dynamic left position (aligned to end of status text)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -588,6 +588,30 @@ function updateCardClipPath() {
   console.log(`📐 Updated card clip-path: B=${topBarHeight}px, C=90px ${notchC}px`);
 }
 
+// ========== UPDATE CARD POSITION (DESKTOP) ==========
+function updateCardPosition() {
+  const statusEl = document.querySelector('.top-info-bar-status');
+  const cardSheet = document.getElementById('card-sheet');
+
+  if (!statusEl || !cardSheet) {
+    return;
+  }
+
+  // Only for desktop (≥1025px)
+  if (window.matchMedia('(max-width: 1024px)').matches) {
+    return;
+  }
+
+  // Get position of status text end (right edge)
+  const statusRect = statusEl.getBoundingClientRect();
+  const statusRightEdge = statusRect.right;
+
+  // Set card's left edge to align with end of status text
+  cardSheet.style.left = `${statusRightEdge}px`;
+
+  console.log(`📐 Updated card position: left=${statusRightEdge.toFixed(1)}px (aligned to status text end)`);
+}
+
 // Debounced resize handler for performance
 function handleResize() {
   if (resizeDebounceTimer) {
@@ -598,7 +622,8 @@ function handleResize() {
     positionPills();
     syncTopBarWidth();
     updateCardClipPath();
-    console.log('🔄 Pills repositioned, top-bar synced, and card clip-path updated on resize');
+    updateCardPosition();
+    console.log('🔄 Pills repositioned, top-bar synced, card clip-path & position updated on resize');
   }, 100);
 }
 
@@ -797,11 +822,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initTopBarTooltips();
     initTopBarCopy();
 
-    // Position pills, sync top-bar, and update card clip-path dynamically after DOM is ready
+    // Position pills, sync top-bar, update card clip-path & position dynamically after DOM is ready
     setTimeout(() => {
       positionPills();
       syncTopBarWidth();
       updateCardClipPath();
+      updateCardPosition();
     }, 100);
 
     // Add resize listeners with debounce
@@ -877,6 +903,11 @@ function openCard(id) {
 
   sheet.hidden = false;
   sheet.classList.add('is-open');
+
+  // Update card position (desktop only - align to status text end)
+  if (isDesktop()) {
+    updateCardPosition();
+  }
 
   // Animation with GSAP
   if (window.gsap && !prefersReducedMotion()) {
