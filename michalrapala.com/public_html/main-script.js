@@ -1,4 +1,4 @@
-// main-script.js v0.035 – Desktop card: dynamic left position (aligned to end of status text)
+// main-script.js v0.036 – Card clip-path: fixed AB height measurement (content without padding) + update on card open
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -551,10 +551,10 @@ function syncTopBarWidth() {
 
 // ========== UPDATE CARD CLIP-PATH (DESKTOP) ==========
 function updateCardClipPath() {
-  const topBar = document.querySelector('.top-info-bar');
+  const topBarContent = document.querySelector('.top-info-bar-content');
   const cardSheet = document.getElementById('card-sheet');
 
-  if (!topBar || !cardSheet) {
+  if (!topBarContent || !cardSheet) {
     return;
   }
 
@@ -563,8 +563,8 @@ function updateCardClipPath() {
     return;
   }
 
-  // Get top bar height
-  const topBarHeight = topBar.getBoundingClientRect().height;
+  // Get top bar content height (without padding)
+  const topBarHeight = topBarContent.getBoundingClientRect().height;
 
   // Calculate notch point C (B + 60px diagonal offset)
   const notchC = topBarHeight + 60;
@@ -904,9 +904,10 @@ function openCard(id) {
   sheet.hidden = false;
   sheet.classList.add('is-open');
 
-  // Update card position (desktop only - align to status text end)
+  // Update card position & clip-path (desktop only)
   if (isDesktop()) {
-    updateCardPosition();
+    updateCardClipPath();  // Update AB to match top-bar height (accounting for status position change)
+    updateCardPosition();  // Align left edge to status text end
   }
 
   // Animation with GSAP

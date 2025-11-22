@@ -1,4 +1,4 @@
-/* common-styles.css v0.017 – Desktop card: dynamic left position (aligned to end of status text) */
+/* common-styles.css v0.018 – Desktop card: removed arrow border */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -928,6 +928,7 @@ body.card-open {
         width: 2rem;
         height: 2rem;
         font-size: 1rem;
+        border: none;
     }
 
     /* Topbar: tytuł obok strzałki */
