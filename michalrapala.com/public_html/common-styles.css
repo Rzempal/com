@@ -1,4 +1,4 @@
-/* common-styles.css v0.015 – Desktop card: top aligned to top-bar, dynamic clip-path, smaller title/logo, arrow button */
+/* common-styles.css v0.016 – Desktop card: smaller arrow button & title to match top-bar text height (0.9rem) */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -919,24 +919,27 @@ body.card-open {
         display: none;
     }
 
-    /* X button na lewą stronę */
+    /* Arrow button - smaller to match top bar text height */
     .card-close {
         left: 1.5rem;
         right: auto;
-        top: 1rem;
+        top: 0.75rem;
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
     }
 
-    /* Topbar: tytuł obok X */
+    /* Topbar: tytuł obok strzałki */
     .card-topbar {
         justify-content: flex-start;
-        padding-left: 4.5rem;
-        padding-top: 1.5rem;
+        padding-left: 3.75rem;
+        padding-top: 1rem;
     }
 
     .card-title {
         padding-top: 0;
         text-align: left;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
 
     /* Zawartość wysrodkowana między CD (90px) a prawą krawędzią */
