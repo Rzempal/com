@@ -1,4 +1,4 @@
-/* common-styles.css v0.018 – Desktop card: removed arrow border */
+/* common-styles.css v0.019 – Desktop card: arrow & title aligned via flexbox + smaller padding */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -922,26 +922,28 @@ body.card-open {
 
     /* Arrow button - smaller to match top bar text height */
     .card-close {
-        left: 1.5rem;
-        right: auto;
-        top: 0.75rem;
+        position: static;
         width: 2rem;
         height: 2rem;
         font-size: 1rem;
         border: none;
+        flex-shrink: 0;
     }
 
-    /* Topbar: tytuł obok strzałki */
+    /* Topbar: tytuł obok strzałki (flexbox alignment) */
     .card-topbar {
         justify-content: flex-start;
-        padding-left: 3.75rem;
-        padding-top: 1rem;
+        align-items: center;
+        gap: 0.5rem;
+        padding-left: 1.5rem;
+        padding-top: 0.5rem;
     }
 
     .card-title {
         padding-top: 0;
         text-align: left;
         font-size: 0.9rem;
+        line-height: 1;
     }
 
     /* Zawartość wysrodkowana między CD (90px) a prawą krawędzią */

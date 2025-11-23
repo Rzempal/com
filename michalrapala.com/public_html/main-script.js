@@ -1,4 +1,4 @@
-// main-script.js v0.036 – Card clip-path: fixed AB height measurement (content without padding) + update on card open
+// main-script.js v0.037 – Card clip-path: added +8px margin for comfortable AB spacing
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -563,8 +563,8 @@ function updateCardClipPath() {
     return;
   }
 
-  // Get top bar content height (without padding)
-  const topBarHeight = topBarContent.getBoundingClientRect().height;
+  // Get top bar content height (without padding) + add margin for comfortable spacing
+  const topBarHeight = topBarContent.getBoundingClientRect().height + 8;
 
   // Calculate notch point C (B + 60px diagonal offset)
   const notchC = topBarHeight + 60;
