@@ -1,4 +1,4 @@
-/* common-styles.css v0.021 – Desktop card: optimized layout (reduced width, padding, spacing) */
+/* common-styles.css v0.022 – Desktop card: natural height + fixed border animation flash */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -759,7 +759,7 @@ body.card-open {
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     flex-shrink: 0;
     z-index: 10;
     backdrop-filter: blur(10px);
@@ -894,7 +894,6 @@ body.card-open {
     .card-sheet {
         top: 0;
         left: auto;
-        bottom: 0;
         width: clamp(380px, 35vw, 450px);
         transform: translateX(100%);
         /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
