@@ -159,6 +159,11 @@ Modernizacja strony głównej michalrapala.com z systemem nawigacji Gate → Hub
 - Pill styling: gradient + border + glow
 - Floating animation (horizontal -5px)
 
+**Visibility Fix:**
+- `visibility: hidden` + `opacity: 0` dla kompletnego ukrycia początkowego
+- `visibility: visible` dodane do wszystkich ścieżek animacji (GSAP, fallback, reduced motion)
+- Zapobiega "flashowi" pozycjonowania podczas ładowania strony
+
 ---
 
 ### 8. Przyciski CTA
@@ -215,6 +220,90 @@ assets/fonts/
 
 ---
 
+### 11. Desktop Card System - Advanced Positioning
+
+**Dynamic Clip-Path:**
+- Górna krawędź karty aligned do top bar (brak gap)
+- Odcinek AB = wysokość top bar + 8px margines (dynamicznie kalkulowane)
+- Funkcja `updateCardClipPath()` synchronizuje z wysokością top bar
+- Mierzy `.top-info-bar-content` (bez paddingu) dla precyzji
+- Aktualizowane przy otwarciu karty, resize, i podczas page load
+
+**Dynamic Positioning:**
+- Lewa krawędź karty aligned do końca tekstu "Otwarty na nowe projekty"
+- Funkcja `updateCardPosition()` kalkuluje używając `getBoundingClientRect()`
+- `left: auto` + JS-controlled positioning zamiast `right: 0`
+- Aktualizowane przy card open, resize, i init
+- Desktop only (>1024px)
+
+**Card Topbar Layout:**
+- Przycisk strzałki (fa-arrow-right) aligned z tytułem
+- Flexbox layout: `align-items: center`, `gap: 0.5rem`
+- Skalowanie dopasowane do wysokości tekstu top bar
+  - Tytuł: 0.9rem (dopasowany do "Otwarty na nowe projekty")
+  - Ikona: 1rem
+  - Button: 2rem × 2rem
+- Arrow: `position: static` (flexbox child) zamiast absolute
+
+**Technical Implementation:**
+```javascript
+// Sync clip-path z wysokością top bar
+function updateCardClipPath() {
+  const topBarHeight = topBarContent.getBoundingClientRect().height + 8;
+  const notchC = topBarHeight + 60;
+  cardSheet.style.clipPath = `polygon(0 0, 0 ${topBarHeight}px, 90px ${notchC}px, ...)`;
+}
+
+// Align left edge do końca status text
+function updateCardPosition() {
+  const statusRightEdge = statusEl.getBoundingClientRect().right;
+  cardSheet.style.left = `${statusRightEdge}px`;
+}
+```
+
+**Top Bar Animation (Card Open State):**
+- Email text znika (`opacity: 0`), ikona zostaje
+- Status text przesuwa się do środka top bar (`position: absolute`)
+- Transition: 0.6s ease (synchronized z card slide)
+- Triggered przez `body.card-open` class
+
+---
+
+### 12. Top Bar - Icon-Only Mode with Copy Functionality
+
+**Always Icon-Only:**
+- LinkedIn, GitHub, Email: zawsze tylko ikona (desktop + mobile)
+- Tekst ukryty przez CSS (`display: none`)
+- Hover scale effect (transform: scale(1.1))
+
+**Desktop Interaction:**
+- Hover: tooltip pojawia się poniżej ikony
+- Tooltip pokazuje pełny link (np. "linkedin.com/in/michal-rapala")
+- Przycisk "Kopiuj" w tooltipie
+- Toast feedback po skopiowaniu
+
+**Mobile Interaction:**
+- Long-press detection (500ms timer)
+- Auto-copy do schowka po long-press
+- Toast feedback po skopiowaniu
+- Brak tooltipa (touch interface)
+
+**Technical Implementation:**
+- Atrybuty `data-copy-text` na linkach
+- Clipboard API z fallbackiem `document.execCommand('copy')`
+- `initTopBarTooltips()` - desktop hover logic
+- `initTopBarCopy()` - mobile long-press logic
+- `copyToClipboard()` - unified copy function (Promise-based)
+- `showCopyFeedback()` - toast notification (2s fade-out)
+
+**Styling:**
+- Tooltip: dark background (`rgba(30, 41, 59, 0.95)`)
+- Border: cyan accent (`rgba(72, 210, 231, 0.3)`)
+- Toast: podobny styl, wyśrodkowany na dole ekranu
+- z-index: 200 (ponad innymi elementami)
+
+---
+
 ## 🎨 Design System
 
 **Kolory:**
@@ -243,10 +332,10 @@ assets/fonts/
 ```
 public_html/
 ├── index.html              # Gate (strona główna)
-├── hub.html               # Hub (nawigacja)
-├── common-styles.css      # Wspólne style + fonts
-├── hub-styles.css         # Style specifyczne dla Hub
-├── main-script.js         # Logika JS (GSAP, pills, cards)
+├── hub.html               # Hub (nawigacja) v0.028
+├── common-styles.css      # Wspólne style + fonts v0.019
+├── hub-styles.css         # Style specifyczne dla Hub v0.022
+├── main-script.js         # Logika JS (GSAP, pills, cards) v0.037
 ├── assets/
 │   ├── fonts/             # Poppins woff2
 │   ├── images/global/     # Logos
@@ -682,12 +771,24 @@ Unauthorized copying, modification, or distribution is prohibited.
 
 ## 📝 Changelog - Recent commits
 
-**Latest:**
-1. `d880e31` - Add comprehensive project status documentation
-2. `2c0af75` - Switch to Montserrat local fonts from Inter/Manrope
-3. `bcb4290` - Remove text from back button, keep only arrow icon
-4. `25e3ec4` - Add font documentation (FONTS.md)
-5. `7fb84b1` - Update pill labels and card titles
+**Latest (Desktop Card & Top Bar Improvements):**
+1. `2a2a8d2` - #1-#8 Desktop card: arrow aligned with title + AB spacing fix
+2. `c6f14d3` - #1-#3 Desktop card: fixed AB height + removed arrow border
+3. `63e06dd` - #1-#7 Desktop card: left edge aligned to end of status text
+4. `8dadd2a` - #1-#6 Desktop card: smaller arrow & title to match top-bar
+5. `56cfa4a` - #1-#12 Top bar: icon-only mode + tooltip/copy functionality
+6. `d53429a` - #1-#7 Desktop card improvements - KROK 2 (top bar animation)
+7. `7da2c0b` - #1-#10 Desktop card improvements - KROK 1 (clip-path, arrow, sizing)
+8. `06e76fe` - #1-#2 Fix back button visibility (hidden + opacity)
+9. `fcfd4b6` - Back button animation implementation
+10. `cc02ae1` - Sync back button position between Gate and Hub
+
+**Previous:**
+11. `d880e31` - Add comprehensive project status documentation
+12. `2c0af75` - Switch to Montserrat local fonts from Inter/Manrope
+13. `bcb4290` - Remove text from back button, keep only arrow icon
+14. `25e3ec4` - Add font documentation (FONTS.md)
+15. `7fb84b1` - Update pill labels and card titles
 
 **Zobacz pełną historię:** `git log --oneline`
 
@@ -707,6 +808,6 @@ Proprietary - michalrapala.com
 
 ---
 
-**Last updated:** 2025-01-09
-**Version:** 1.0.0
-**Branch:** `claude/modernize-website-hub-011CUtyaXJyu1kYnEtaQjzs6`
+**Last updated:** 2025-11-24
+**Version:** 1.1.0
+**Branch:** `claude/senior-frontend-workflow-011pxw3uZjRchf7sgxjmyBwE`
