@@ -1,4 +1,4 @@
-/* main-animations.css v0.001 Animacje GSAP + fallback CSS */
+/* main-animations.css v0.002 Fixed reduced motion: instant visibility for [data-reveal] elements */
 
 /* ========== ANIMACJE WEJŚCIA GATE ========== */
 @keyframes slideUp {
@@ -216,6 +216,8 @@
     .card,
     .card__icon {
         animation: none !important;
-        transition: opacity 0.3s ease !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
     }
 }

@@ -1,4 +1,4 @@
-// main-script.js v0.021 – Dynamic positioning system for perfect pills alignment
+// main-script.js v0.037 – Card clip-path: added +8px margin for comfortable AB spacing
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -366,35 +366,53 @@ function animateLine(lineId) {
 function fadeInHub() {
   const body = document.body;
   const pills = document.querySelectorAll('.hub-pill');
+  const backButton = document.querySelector('.hub-back-button');
 
   if (!window.gsap) {
     // Fallback bez GSAP
     body.style.opacity = '1';
     body.style.transition = 'opacity 2s ease-out';
 
-    // Pills stagger fallback
+    // Pills stagger fallback (preserve corner-based transforms)
     pills.forEach((pill, index) => {
       setTimeout(() => {
         pill.style.opacity = '1';
-        pill.style.transform = 'translate(-50%, -50%)';
+        // Preserve anchor point based on pill class
+        if (pill.classList.contains('hub-pill-3')) {
+          pill.style.transform = 'translate(0%, -100%)'; // bottom-left anchor
+        } else {
+          pill.style.transform = 'translate(-100%, -100%)'; // bottom-right anchor
+        }
       }, 2000 + (index * 200));
     });
+
+    // Back button - after all pills
+    if (backButton) {
+      setTimeout(() => {
+        backButton.style.opacity = '1';
+        backButton.style.visibility = 'visible';
+      }, 2800);
+    }
     return;
   }
 
   if (prefersReducedMotion()) {
-    // Reduced motion
-    const gsap = window.gsap;
-    gsap.to(body, {
-      opacity: 1,
-      duration: 0.6,
-      ease: 'power2.out',
+    // Reduced motion - instant display (no animations, no GSAP)
+    body.style.opacity = '1';
+    pills.forEach((pill) => {
+      pill.style.opacity = '1';
+      // Preserve positioning only
+      const isWWW = pill.classList.contains('hub-pill-3');
+      const translateX = isWWW ? '0%' : '-100%';
+      pill.style.transform = `translate(${translateX}, -100%) scale(1)`;
     });
-    gsap.to(pills, {
-      opacity: 1,
-      duration: 0.3,
-      stagger: 0.1,
-    });
+    // Back button instant
+    if (backButton) {
+      backButton.style.opacity = '1';
+      backButton.style.visibility = 'visible';
+    }
+    console.log('✅ Hub instant display (reduced motion)');
+    return; // Skip GSAP animations
   } else {
     // Full animation - extended fade in (2s) + staggered pills
     const gsap = window.gsap;
@@ -408,13 +426,30 @@ function fadeInHub() {
     }, 0);
 
     // Pills stagger animation (start after 1.5s)
-    timeline.to(pills, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.6,
-      stagger: 0.2,
-      ease: 'back.out(1.7)',
-    }, 1.5);
+    pills.forEach((pill, index) => {
+      // Preserve anchor point transform while animating scale
+      const isWWW = pill.classList.contains('hub-pill-3');
+      const translateX = isWWW ? '0%' : '-100%';
+
+      timeline.to(pill, {
+        opacity: 1,
+        scale: 1,
+        transform: `translate(${translateX}, -100%) scale(1)`,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+      }, 1.5 + (index * 0.2));
+    });
+
+    // Back button - appears after all pills (2.1s)
+    if (backButton) {
+      timeline.to(backButton, {
+        opacity: 1,
+        visibility: 'visible',
+        scale: 1,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+      }, 2.1);
+    }
   }
 
   console.log('✅ Hub fade in started (2s)');
@@ -441,25 +476,140 @@ function positionPills() {
   const offsetX = (svgRect.width - viewBox.width * scale) / 2;
   const offsetY = (svgRect.height - viewBox.height * scale) / 2;
 
-  // Position each pill based on its node coordinates
+  // Diagonal offsets for each pill (60° angle from vertical)
+  // x: ±52px (horizontal), y: -30px (vertical up)
+  const pillOffsets = {
+    'robotyka': { x: -52, y: -30 },    // up-left diagonal
+    'aplikacje': { x: -52, y: -30 },   // up-left diagonal
+    'www': { x: 52, y: -30 }           // up-right diagonal
+  };
+
   pills.forEach(pill => {
     const nodeX = parseFloat(pill.dataset.nodeX);
     const nodeY = parseFloat(pill.dataset.nodeY);
+    const cardId = pill.dataset.card;
 
     if (isNaN(nodeX) || isNaN(nodeY)) {
       console.warn('⚠️ Pill missing data-node-x or data-node-y attributes');
       return;
     }
 
+    // Get offset for this pill (default to vertical if card ID not found)
+    const offset = pillOffsets[cardId] || { x: 0, y: -60 };
+
     // Convert SVG viewBox coordinates to screen pixels
-    const screenX = svgRect.left + offsetX + (nodeX * scale);
-    const screenY = svgRect.top + offsetY + (nodeY * scale);
+    // Pills positioned diagonally from node (60° angle)
+    const screenX = svgRect.left + offsetX + ((nodeX + offset.x) * scale);
+    const screenY = svgRect.top + offsetY + ((nodeY + offset.y) * scale);
 
     pill.style.left = `${screenX}px`;
     pill.style.top = `${screenY}px`;
   });
 
-  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ')');
+  console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ', diagonal 60° offsets)');
+}
+
+// ========== SYNC TOP BAR WIDTH TO PCB ==========
+function syncTopBarWidth() {
+  const section = document.querySelector('.hub-mesh-section');
+  const topBar = document.querySelector('.top-info-bar');
+  const topBarContent = document.querySelector('.top-info-bar-content');
+  const backButton = document.querySelector('.hub-back-button');
+
+  if (!section || !topBar || !topBarContent) {
+    return;
+  }
+
+  // Get section dimensions
+  const sectionRect = section.getBoundingClientRect();
+  const sectionWidth = sectionRect.width;
+  const sectionHeight = sectionRect.height;
+
+  // SVG is square (viewBox 1000x1000) with preserveAspectRatio="xMidYMid meet"
+  // Actual rendered size = min(width, height) to maintain square aspect ratio
+  const actualSvgSize = Math.min(sectionWidth, sectionHeight);
+
+  // SVG is centered in section, calculate left offset
+  const actualSvgLeft = sectionRect.left + (sectionWidth - actualSvgSize) / 2;
+
+  // Sync top-bar container to match actual SVG size and position
+  topBar.style.width = `${actualSvgSize}px`;
+  topBar.style.left = `${actualSvgLeft}px`;
+  topBar.style.right = 'auto';
+  topBar.style.maxWidth = 'none';
+
+  // Sync top-bar content
+  topBarContent.style.maxWidth = `${actualSvgSize}px`;
+
+  // Sync back button to PCB left edge (+ 1rem offset)
+  if (backButton) {
+    backButton.style.left = `${actualSvgLeft + 16}px`;  // 16px = 1rem
+  }
+
+  console.log(`📐 Synced to PCB: top-bar & back-button, size=${actualSvgSize}px, left=${actualSvgLeft.toFixed(1)}px`);
+}
+
+// ========== UPDATE CARD CLIP-PATH (DESKTOP) ==========
+function updateCardClipPath() {
+  const topBarContent = document.querySelector('.top-info-bar-content');
+  const cardSheet = document.getElementById('card-sheet');
+
+  if (!topBarContent || !cardSheet) {
+    return;
+  }
+
+  // Only for desktop (≥1025px)
+  if (window.matchMedia('(max-width: 1024px)').matches) {
+    return;
+  }
+
+  // Get top bar content height (without padding) + add margin for comfortable spacing
+  const topBarHeight = topBarContent.getBoundingClientRect().height + 8;
+
+  // Calculate notch point C (B + 60px diagonal offset)
+  const notchC = topBarHeight + 60;
+
+  // Update clip-path dynamically
+  // A: 0 0 (top-left corner)
+  // B: 0 topBarHeight (down along left edge, before notch)
+  // C: 90px notchC (diagonal right and down)
+  // D: 90px 100% (down to bottom)
+  // E: 100% 100% (bottom-right corner)
+  // F: 100% 0 (top-right corner)
+  cardSheet.style.clipPath = `polygon(
+    0 0,
+    0 ${topBarHeight}px,
+    90px ${notchC}px,
+    90px 100%,
+    100% 100%,
+    100% 0
+  )`;
+
+  console.log(`📐 Updated card clip-path: B=${topBarHeight}px, C=90px ${notchC}px`);
+}
+
+// ========== UPDATE CARD POSITION (DESKTOP) ==========
+function updateCardPosition() {
+  const statusEl = document.querySelector('.top-info-bar-status');
+  const cardSheet = document.getElementById('card-sheet');
+
+  if (!statusEl || !cardSheet) {
+    return;
+  }
+
+  // Only for desktop (≥1025px)
+  if (window.matchMedia('(max-width: 1024px)').matches) {
+    return;
+  }
+
+  // Get position of status text end (right edge)
+  const statusRect = statusEl.getBoundingClientRect();
+  const statusRightEdge = statusRect.right;
+
+  // Set card's left edge to align with end of status text
+  cardSheet.style.left = `${statusRightEdge}px`;
+
+  console.log(`📐 Updated card position: left=${statusRightEdge.toFixed(1)}px (aligned to status text end)`);
 }
 
 // Debounced resize handler for performance
@@ -470,8 +620,174 @@ function handleResize() {
 
   resizeDebounceTimer = setTimeout(() => {
     positionPills();
-    console.log('🔄 Pills repositioned on resize');
+    syncTopBarWidth();
+    updateCardClipPath();
+    updateCardPosition();
+    console.log('🔄 Pills repositioned, top-bar synced, card clip-path & position updated on resize');
   }, 100);
+}
+
+// ========== TOP BAR TOOLTIPS & COPY FUNCTIONALITY ==========
+
+// Copy to clipboard with fallback
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  } else {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return Promise.resolve();
+    } catch (err) {
+      document.body.removeChild(textarea);
+      return Promise.reject(err);
+    }
+  }
+}
+
+// Show copy feedback toast
+function showCopyFeedback() {
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = '✓ Skopiowano!';
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => {
+      document.body.removeChild(toast);
+    }, 300);
+  }, 2000);
+}
+
+// Desktop: Hover tooltips with copy button
+function initTopBarTooltips() {
+  const contactLinks = document.querySelectorAll('.top-info-bar-contact a');
+  const tooltip = document.getElementById('topBarTooltip');
+  const tooltipText = document.getElementById('tooltipText');
+  const tooltipCopyBtn = document.getElementById('tooltipCopyBtn');
+
+  if (!tooltip || !tooltipText || !tooltipCopyBtn) return;
+
+  let currentLink = null;
+
+  contactLinks.forEach(link => {
+    link.addEventListener('mouseenter', (e) => {
+      const copyText = link.dataset.copyText;
+      if (!copyText) return;
+
+      currentLink = link;
+      tooltipText.textContent = copyText;
+
+      // Position tooltip below the link
+      const linkRect = link.getBoundingClientRect();
+      const topBarRect = document.querySelector('.top-info-bar-content').getBoundingClientRect();
+      tooltip.style.left = `${linkRect.left - topBarRect.left}px`;
+      tooltip.hidden = false;
+    });
+
+    link.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!tooltip.matches(':hover')) {
+          tooltip.hidden = true;
+          currentLink = null;
+        }
+      }, 100);
+    });
+  });
+
+  // Tooltip hover - keep visible
+  tooltip.addEventListener('mouseenter', () => {
+    // Keep visible
+  });
+
+  tooltip.addEventListener('mouseleave', () => {
+    tooltip.hidden = true;
+    currentLink = null;
+  });
+
+  // Copy button click
+  tooltipCopyBtn.addEventListener('click', () => {
+    if (!currentLink) return;
+    const copyText = currentLink.dataset.copyText;
+    copyToClipboard(copyText)
+      .then(() => {
+        tooltip.hidden = true;
+        showCopyFeedback();
+        console.log(`✓ Copied: ${copyText}`);
+      })
+      .catch(err => {
+        console.error('❌ Copy failed:', err);
+      });
+  });
+
+  console.log('✅ Top bar tooltips initialized (desktop)');
+}
+
+// Mobile: Long press to copy
+function initTopBarCopy() {
+  const contactLinks = document.querySelectorAll('.top-info-bar-contact a');
+
+  contactLinks.forEach(link => {
+    let pressTimer = null;
+    let isPressing = false;
+
+    const startPress = (e) => {
+      isPressing = true;
+      const copyText = link.dataset.copyText;
+      if (!copyText) return;
+
+      // Visual feedback: slight scale
+      link.style.transform = 'scale(0.95)';
+
+      pressTimer = setTimeout(() => {
+        if (isPressing) {
+          // Long press complete - copy
+          copyToClipboard(copyText)
+            .then(() => {
+              showCopyFeedback();
+              console.log(`✓ Copied (long press): ${copyText}`);
+            })
+            .catch(err => {
+              console.error('❌ Copy failed:', err);
+            });
+
+          // Reset
+          link.style.transform = '';
+          isPressing = false;
+        }
+      }, 500); // 500ms long press
+    };
+
+    const endPress = (e) => {
+      if (pressTimer) {
+        clearTimeout(pressTimer);
+        pressTimer = null;
+      }
+      isPressing = false;
+      link.style.transform = '';
+    };
+
+    // Touch events
+    link.addEventListener('touchstart', startPress, { passive: true });
+    link.addEventListener('touchend', endPress);
+    link.addEventListener('touchcancel', endPress);
+
+    // Mouse events (for testing on desktop)
+    link.addEventListener('mousedown', startPress);
+    link.addEventListener('mouseup', endPress);
+    link.addEventListener('mouseleave', endPress);
+  });
+
+  console.log('✅ Top bar copy initialized (mobile long-press)');
 }
 
 // ========== PAGE DETECTION & INITIALIZATION ==========
@@ -503,10 +819,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeInHub();
     initBackButton();
     initPills();
+    initTopBarTooltips();
+    initTopBarCopy();
 
-    // Position pills dynamically after DOM is ready
+    // Position pills, sync top-bar, update card clip-path & position dynamically after DOM is ready
     setTimeout(() => {
       positionPills();
+      syncTopBarWidth();
+      updateCardClipPath();
+      updateCardPosition();
     }, 100);
 
     // Add resize listeners with debounce
@@ -582,6 +903,12 @@ function openCard(id) {
 
   sheet.hidden = false;
   sheet.classList.add('is-open');
+
+  // Update card position & clip-path (desktop only)
+  if (isDesktop()) {
+    updateCardClipPath();  // Update AB to match top-bar height (accounting for status position change)
+    updateCardPosition();  // Align left edge to status text end
+  }
 
   // Animation with GSAP
   if (window.gsap && !prefersReducedMotion()) {
