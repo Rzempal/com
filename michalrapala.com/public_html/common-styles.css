@@ -1,4 +1,4 @@
-/* common-styles.css v0.019 – Desktop card: arrow & title aligned via flexbox + smaller padding */
+/* common-styles.css v0.020 – Desktop card: arrow without border + moved before title */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -756,7 +756,7 @@ body.card-open {
     background: rgba(30, 41, 59, 0.95);
     color: var(--accent);
     font-size: 1.5rem;
-    border: 1px solid rgba(72, 210, 231, 0.3);
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -767,7 +767,6 @@ body.card-open {
 
 .card-close:hover {
     background: rgba(72, 210, 231, 0.1);
-    border-color: var(--accent);
     box-shadow: 0 0 12px rgba(72, 210, 231, 0.3);
 }
 
