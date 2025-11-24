@@ -1,4 +1,4 @@
-// main-script.js v0.038 – Card clip-path: AB height exactly matches top bar (removed +8px margin)
+// main-script.js v0.039 – Card clip-path: AB measures full top-info-bar height (with padding & border)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -551,10 +551,10 @@ function syncTopBarWidth() {
 
 // ========== UPDATE CARD CLIP-PATH (DESKTOP) ==========
 function updateCardClipPath() {
-  const topBarContent = document.querySelector('.top-info-bar-content');
+  const topBar = document.querySelector('.top-info-bar');
   const cardSheet = document.getElementById('card-sheet');
 
-  if (!topBarContent || !cardSheet) {
+  if (!topBar || !cardSheet) {
     return;
   }
 
@@ -563,8 +563,8 @@ function updateCardClipPath() {
     return;
   }
 
-  // Get top bar content height (without padding) - AB should match exactly
-  const topBarHeight = topBarContent.getBoundingClientRect().height;
+  // Get full top bar height (including padding & border) - AB should match exactly
+  const topBarHeight = topBar.getBoundingClientRect().height;
 
   // Calculate notch point C (B + 60px diagonal offset)
   const notchC = topBarHeight + 60;
