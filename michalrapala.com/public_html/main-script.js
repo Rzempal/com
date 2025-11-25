@@ -1,4 +1,4 @@
-// main-script.js v0.037 – Card clip-path: added +8px margin for comfortable AB spacing
+// main-script.js v0.040 – Card animation: enhanced slide-in with scale effect and back.out easing
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -551,10 +551,10 @@ function syncTopBarWidth() {
 
 // ========== UPDATE CARD CLIP-PATH (DESKTOP) ==========
 function updateCardClipPath() {
-  const topBarContent = document.querySelector('.top-info-bar-content');
+  const topBar = document.querySelector('.top-info-bar');
   const cardSheet = document.getElementById('card-sheet');
 
-  if (!topBarContent || !cardSheet) {
+  if (!topBar || !cardSheet) {
     return;
   }
 
@@ -563,8 +563,8 @@ function updateCardClipPath() {
     return;
   }
 
-  // Get top bar content height (without padding) + add margin for comfortable spacing
-  const topBarHeight = topBarContent.getBoundingClientRect().height + 8;
+  // Get full top bar height (including padding & border) - AB should match exactly
+  const topBarHeight = topBar.getBoundingClientRect().height;
 
   // Calculate notch point C (B + 60px diagonal offset)
   const notchC = topBarHeight + 60;
@@ -913,13 +913,13 @@ function openCard(id) {
   // Animation with GSAP
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.6;
-    const ease = 'power3.out';
+    const duration = 0.7;
+    const ease = 'back.out(1.2)';
 
     if (isDesktop()) {
-      // Desktop: slide from right
-      gsap.set(sheet, { xPercent: 100, yPercent: 0, opacity: 0 });
-      gsap.to(sheet, { xPercent: 0, opacity: 1, duration, ease });
+      // Desktop: slide from right with scale effect
+      gsap.set(sheet, { xPercent: 100, yPercent: 0, opacity: 0, scale: 0.95 });
+      gsap.to(sheet, { xPercent: 0, opacity: 1, scale: 1, duration, ease });
     } else {
       // Mobile: slide from bottom
       gsap.set(sheet, { yPercent: 100, xPercent: 0, opacity: 0 });

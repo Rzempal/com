@@ -1,4 +1,4 @@
-/* common-styles.css v0.019 – Desktop card: arrow & title aligned via flexbox + smaller padding */
+/* common-styles.css v0.024 – Desktop card: removed CSS transform (GSAP full control) */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -679,7 +679,6 @@ body.card-open {
 }
 
 .card-sheet:not([hidden]) {
-    opacity: 1;
     pointer-events: auto;
 }
 
@@ -756,10 +755,10 @@ body.card-open {
     background: rgba(30, 41, 59, 0.95);
     color: var(--accent);
     font-size: 1.5rem;
-    border: 1px solid rgba(72, 210, 231, 0.3);
+    border: none;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     flex-shrink: 0;
     z-index: 10;
     backdrop-filter: blur(10px);
@@ -767,7 +766,6 @@ body.card-open {
 
 .card-close:hover {
     background: rgba(72, 210, 231, 0.1);
-    border-color: var(--accent);
     box-shadow: 0 0 12px rgba(72, 210, 231, 0.3);
 }
 
@@ -781,7 +779,7 @@ body.card-open {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 0.75rem 1.5rem;
     flex-shrink: 0;
 }
 
@@ -797,7 +795,7 @@ body.card-open {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 1.5rem 2rem;
+    padding: 0 1.5rem 1.25rem;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -811,7 +809,7 @@ body.card-open {
     font-size: 1rem;
     line-height: 1.8;
     color: var(--muted);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-align: left;
 }
 
@@ -895,9 +893,7 @@ body.card-open {
     .card-sheet {
         top: 0;
         left: auto;
-        bottom: 0;
-        width: clamp(440px, 40vw, 560px);
-        transform: translateX(100%);
+        width: clamp(380px, 35vw, 450px);
         /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
         /* clip-path will be set dynamically by JavaScript (updateCardClipPath) */
         /* left position will be set dynamically by JavaScript (updateCardPosition) */
@@ -910,10 +906,6 @@ body.card-open {
             100% 0                       /* F: prawy górny */
         );
         border-radius: 0 0 0 24px;
-    }
-
-    .card-sheet.is-open {
-        transform: translateX(0);
     }
 
     .card-grabber {
@@ -958,11 +950,6 @@ body.card-open {
     }
 
     .card-logo-img {
-        max-height: 160px;
-    }
-
-    .card-cta {
-        margin-left: 90px;
-        margin-right: 0;
+        max-height: 120px;
     }
 }
