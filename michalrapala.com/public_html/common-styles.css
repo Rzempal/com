@@ -1,4 +1,4 @@
-/* common-styles.css v0.022 – Desktop card: natural height + fixed border animation flash */
+/* common-styles.css v0.023 – Card animation: removed CSS opacity override (allow GSAP control) */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -679,7 +679,6 @@ body.card-open {
 }
 
 .card-sheet:not([hidden]) {
-    opacity: 1;
     pointer-events: auto;
 }
 
