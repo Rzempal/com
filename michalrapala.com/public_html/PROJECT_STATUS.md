@@ -568,7 +568,7 @@ window.addEventListener('resize', positionPills);
 
 ---
 
-### Priorytet 6: Zabezpieczenie kodu źródłowego
+### Priorytet 6: Zabezpieczenie kodu źródłowego - wstrzymane 
 
 #### 6.1 Podstawowe zabezpieczenia
 
