@@ -1,4 +1,4 @@
-// main-script.js v0.040 – Card animation: enhanced slide-in with scale effect and back.out easing
+// main-script.js v0.042 – Card animation: using GSAP 'x' instead of 'xPercent' (works with right: 0)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -907,7 +907,7 @@ function openCard(id) {
   // Update card position & clip-path (desktop only)
   if (isDesktop()) {
     updateCardClipPath();  // Update AB to match top-bar height (accounting for status position change)
-    updateCardPosition();  // Align left edge to status text end
+    // updateCardPosition() moved to GSAP onComplete to avoid blocking animation
   }
 
   // Animation with GSAP
@@ -918,8 +918,17 @@ function openCard(id) {
 
     if (isDesktop()) {
       // Desktop: slide from right with scale effect
-      gsap.set(sheet, { xPercent: 100, yPercent: 0, opacity: 0, scale: 0.95 });
-      gsap.to(sheet, { xPercent: 0, opacity: 1, scale: 1, duration, ease });
+      gsap.set(sheet, { x: '100%', yPercent: 0, opacity: 0, scale: 0.95 });
+      gsap.to(sheet, {
+        x: '0%',
+        opacity: 1,
+        scale: 1,
+        duration,
+        ease,
+        onComplete: () => {
+          updateCardPosition();  // Set left position AFTER animation completes
+        }
+      });
     } else {
       // Mobile: slide from bottom
       gsap.set(sheet, { yPercent: 100, xPercent: 0, opacity: 0 });
