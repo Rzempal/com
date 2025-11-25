@@ -365,7 +365,69 @@ Pills używają procentowego pozycjonowania (`left: 50%`, `top: 50%`) względem 
 
 ---
 
+### 2. Desktop Card Slide-In Animation (KRYTYCZNY - W TRAKCIE NAPRAWY)
+
+**Problem:**
+Karta na desktop pojawia się bez animacji slide-in od prawej do lewej. Animacja działa na mobile, ale nie na desktop (≥1025px).
+
+**Symptomy:**
+- Karta pojawia się instant w finalnej pozycji
+- Brak efektu slide, scale, bounce
+- Mobile animation działa poprawnie
+- Top bar animation ("Otwarty na nowe projekty") działa poprawnie
+
+**Próby naprawy (commits #1-#8):**
+
+**#1-#4: Podstawowe poprawki UI**
+- Arrow alignment, AB segment, layout optimization, natural height
+- Border animation fix
+
+**#5: Enhanced GSAP animation**
+- Duration: 0.6s → 0.7s
+- Easing: power3.out → back.out(1.2)
+- Added scale: 0.95 → 1
+- Fixed CSS opacity override
+
+**#6: Removed CSS transform**
+- Usunięto `transform: translateX(100%)` z `.card-sheet`
+- Usunięto `.card-sheet.is-open { transform: translateX(0); }`
+- Cel: Pozwolić GSAP kontrolować transform
+
+**#7: Moved updateCardPosition() to onComplete**
+- Problem: `updateCardPosition()` ustawiało `left` PRZED animacją
+- Fixed left override blokował GSAP xPercent
+- Przeniesiono do callback onComplete
+
+**#8: Changed xPercent → x with right: 0**
+- Problem: `xPercent` nie działa z `left: auto`
+- CSS: `left: auto` → `right: 0`
+- JS: `xPercent: 100 → 0` → `x: '100%' → '0%'`
+
+**Status: NADAL NIE DZIAŁA**
+
+**Możliwe przyczyny (do zbadania):**
+1. Konflikt z `will-change: transform, opacity`
+2. Element off-screen (poza viewport) podczas animacji?
+3. GSAP `x` nie współpracuje z `right: 0` + `position: fixed`?
+4. `updateCardPosition()` w onComplete nadal interfere?
+5. CSS cascade priority - czy coś override'uje GSAP inline styles?
+6. Browser-specific issue (GPU acceleration, transform-origin)?
+
+**Debugging potrzebny:**
+- Console log GSAP tween values podczas animacji
+- Sprawdzić computed styles elementu w DevTools podczas animacji
+- Test z prostszą animacją (tylko x bez scale/opacity)
+- Sprawdzić czy element ma correct bounding box przed animacją
+
+**Cel:** Uzyskać płynną animację slide-in od prawej do lewej dla desktop card z efektami scale + bounce (jak na mobile).
+
+---
+
 ## 🚀 Możliwe dalsze kroki rozwoju
+
+### Priorytet 0: **NAPRAWA DESKTOP CARD ANIMATION** (NAJWYŻSZY)
+
+Przed kontynuacją innych features, musi działać podstawowa animacja otwierania karty.
 
 ### Priorytet 1: Rozwiązanie problemu pozycjonowania pills
 
