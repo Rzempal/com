@@ -1,4 +1,4 @@
-/* common-styles.css v0.024 – Desktop card: removed CSS transform (GSAP full control) */
+/* common-styles.css v0.025 – Desktop card: right anchor for GSAP x animation */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -892,7 +892,7 @@ body.card-open {
 
     .card-sheet {
         top: 0;
-        left: auto;
+        right: 0;
         width: clamp(380px, 35vw, 450px);
         /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
         /* clip-path will be set dynamically by JavaScript (updateCardClipPath) */

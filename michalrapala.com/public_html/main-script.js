@@ -1,4 +1,4 @@
-// main-script.js v0.041 – Card animation: moved updateCardPosition() to onComplete (fixes slide-in)
+// main-script.js v0.042 – Card animation: using GSAP 'x' instead of 'xPercent' (works with right: 0)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -918,9 +918,9 @@ function openCard(id) {
 
     if (isDesktop()) {
       // Desktop: slide from right with scale effect
-      gsap.set(sheet, { xPercent: 100, yPercent: 0, opacity: 0, scale: 0.95 });
+      gsap.set(sheet, { x: '100%', yPercent: 0, opacity: 0, scale: 0.95 });
       gsap.to(sheet, {
-        xPercent: 0,
+        x: '0%',
         opacity: 1,
         scale: 1,
         duration,
