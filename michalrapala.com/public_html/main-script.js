@@ -1,4 +1,4 @@
-// main-script.js v0.046 – Card animation: removed updateCardPosition() jump
+// main-script.js v0.047 – Card animation: GPU acceleration with force3D
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -909,33 +909,34 @@ function openCard(id) {
     updateCardClipPath();
   }
 
-  // Animation with GSAP
+  // Animation with GSAP (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.6;
-    const ease = 'power3.out';  // Smooth deceleration, no bounce
+    const duration = 0.5;
+    const ease = 'power2.out';
 
     if (isDesktop()) {
-      // Desktop: slide from right (smooth, no bounce)
-      // Position is controlled by CSS right: 0, no need for JS positioning
+      // Desktop: slide from right with GPU acceleration
       gsap.fromTo(sheet,
-        { xPercent: 100, opacity: 0 },
+        { x: '100%', opacity: 0 },
         {
-          xPercent: 0,
-          opacity: 1,
-          duration,
-          ease
-        }
-      );
-    } else {
-      // Mobile: slide from bottom
-      gsap.fromTo(sheet,
-        { yPercent: 100, opacity: 0 },
-        {
-          yPercent: 0,
+          x: '0%',
           opacity: 1,
           duration,
           ease,
+          force3D: true  // Forces GPU rendering
+        }
+      );
+    } else {
+      // Mobile: slide from bottom with GPU acceleration
+      gsap.fromTo(sheet,
+        { y: '100%', opacity: 0 },
+        {
+          y: '0%',
+          opacity: 1,
+          duration,
+          ease,
+          force3D: true,
           onComplete: () => enableDrag(sheet)
         }
       );
@@ -974,29 +975,30 @@ function closeCard() {
   // Disable drag
   disableDrag();
 
-  // Animation
+  // Animation (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.4;
-    const ease = 'power2.in';  // Smooth acceleration out
+    const duration = 0.35;
+    const ease = 'power2.in';
 
-    // Clear any inline left position before animating out
     sheet.style.left = '';
 
     if (isDesktop()) {
       gsap.to(sheet, {
-        xPercent: 100,
+        x: '100%',
         opacity: 0,
         duration,
         ease,
+        force3D: true,
         onComplete: () => finishClose(sheet),
       });
     } else {
       gsap.to(sheet, {
-        yPercent: 100,
+        y: '100%',
         opacity: 0,
         duration,
         ease,
+        force3D: true,
         onComplete: () => finishClose(sheet),
       });
     }
