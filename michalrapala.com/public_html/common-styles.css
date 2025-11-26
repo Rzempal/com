@@ -1,4 +1,4 @@
-/* common-styles.css v0.027 – Desktop card: removed CSS transform conflict with GSAP */
+/* common-styles.css v0.028 – Desktop card: removed CSS transform, GSAP controls all */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -843,7 +843,7 @@ body.card-open {
         right: 0;
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
-        transform: translateY(100%);
+        /* GSAP controls transform via inline styles */
         /* Notch shape: A=80px (notch), B=80px (diagonal), C=reszta */
         clip-path: polygon(
             100% 0,                      /* P1: prawy górny skrajny (wyżej) */
@@ -893,15 +893,13 @@ body.card-open {
         top: 0;
         right: 0;
         width: clamp(380px, 35vw, 450px);
-        /* Initial state: off-screen to the right, hidden until GSAP animates */
-        transform: translateX(100%);
+        /* GSAP controls transform via inline styles */
+        /* opacity: 0 hides until animation starts */
         opacity: 0;
         /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
-        /* clip-path will be set dynamically by JavaScript (updateCardClipPath) */
-        /* left position will be set dynamically by JavaScript (updateCardPosition) */
         clip-path: polygon(
             0 0,                         /* A: lewy górny */
-            0 56px,                      /* B: w dół, przed notchem (dynamically updated to match top bar height) */
+            0 56px,                      /* B: w dół, przed notchem (dynamically updated) */
             90px 116px,                  /* C: diagonal w prawo i w dół (B + 60px) */
             90px 100%,                   /* D: w dół do końca */
             100% 100%,                   /* E: prawy dolny */
