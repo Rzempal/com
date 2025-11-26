@@ -1,4 +1,4 @@
-/* common-styles.css v0.025 – Desktop card: right anchor for GSAP x animation */
+/* common-styles.css v0.036 – Mobile: slower unblur animations (0.8s bar, 1s status) */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -663,6 +663,29 @@ body.card-open {
     pointer-events: auto;
 }
 
+/* Status highlight - "unblur" effect when card is open (mobile only) */
+/* Mobile: lift entire top-bar above blur using :has() */
+@media (max-width: 1024px) {
+    .top-info-bar:has(.status-highlight) {
+        z-index: 1000;
+        animation: topBarUnblur 0.8s ease-out forwards;
+    }
+
+    .top-info-bar-status.status-highlight {
+        animation: statusUnblur 1s ease-out forwards;
+    }
+}
+
+@keyframes topBarUnblur {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+}
+
+@keyframes statusUnblur {
+    from { opacity: 0.5; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 /* Card Sheet - Base */
 .card-sheet {
     position: fixed;
@@ -843,7 +866,7 @@ body.card-open {
         right: 0;
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
-        transform: translateY(100%);
+        /* GSAP controls transform via inline styles */
         /* Notch shape: A=80px (notch), B=80px (diagonal), C=reszta */
         clip-path: polygon(
             100% 0,                      /* P1: prawy górny skrajny (wyżej) */
@@ -856,12 +879,36 @@ body.card-open {
         border-radius: 0 0 0 16px;
     }
 
-    .card-sheet.is-open {
-        transform: translateY(0);
-    }
+    /* Mobile card open state - GSAP controls transform animation */
+    /* .is-open class is semantic only */
 
     .card-grabber {
         display: block;
+    }
+
+    /* Mobile: arrow points down (card hides downward) */
+    .card-close i {
+        transform: rotate(90deg);
+    }
+
+    /* Mobile: topbar centered */
+    .card-topbar {
+        justify-content: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Mobile: title centered */
+    .card-title {
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Mobile: all content centered */
+    .card-media,
+    .card-content {
+        align-items: center;
+        text-align: center;
     }
 
     .card-logo-img {
@@ -892,21 +939,25 @@ body.card-open {
 
     .card-sheet {
         top: 0;
-        right: 0;
+        right: auto;
+        /* left is set dynamically by JS based on status text position */
         width: clamp(380px, 35vw, 450px);
+        opacity: 0;
         /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
-        /* clip-path will be set dynamically by JavaScript (updateCardClipPath) */
-        /* left position will be set dynamically by JavaScript (updateCardPosition) */
         clip-path: polygon(
             0 0,                         /* A: lewy górny */
-            0 56px,                      /* B: w dół, przed notchem (dynamically updated to match top bar height) */
+            0 56px,                      /* B: w dół, przed notchem (dynamically updated) */
             90px 116px,                  /* C: diagonal w prawo i w dół (B + 60px) */
             90px 100%,                   /* D: w dół do końca */
             100% 100%,                   /* E: prawy dolny */
             100% 0                       /* F: prawy górny */
         );
         border-radius: 0 0 0 24px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
+
+    /* Desktop card open state - GSAP controls transform/opacity animation */
+    /* .is-open class is semantic only, animation values set by GSAP inline styles */
 
     .card-grabber {
         display: none;

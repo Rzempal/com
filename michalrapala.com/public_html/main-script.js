@@ -1,4 +1,4 @@
-// main-script.js v0.042 – Card animation: using GSAP 'x' instead of 'xPercent' (works with right: 0)
+// main-script.js v0.052 – Mobile: status highlight (unblur) after 1s delay
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -906,52 +906,50 @@ function openCard(id) {
 
   // Update card position & clip-path (desktop only)
   if (isDesktop()) {
-    updateCardClipPath();  // Update AB to match top-bar height (accounting for status position change)
-    // updateCardPosition() moved to GSAP onComplete to avoid blocking animation
+    updateCardClipPath();
   }
 
-  // Animation with GSAP
+  // Animation with GSAP (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.7;
-    const ease = 'back.out(1.2)';
 
     if (isDesktop()) {
-      // Desktop: slide from right with scale effect
-      gsap.set(sheet, { x: '100%', yPercent: 0, opacity: 0, scale: 0.95 });
-      gsap.to(sheet, {
-        x: '0%',
-        opacity: 1,
-        scale: 1,
-        duration,
-        ease,
-        onComplete: () => {
-          updateCardPosition();  // Set left position AFTER animation completes
-        }
-      });
+      // Desktop: slide from right, end position aligned to centered status text
+      // Calculate where status will be after it animates to center
+      const statusEl = document.querySelector('.top-info-bar-status');
+      const viewportWidth = window.innerWidth;
+      const statusWidth = statusEl ? statusEl.getBoundingClientRect().width : 200;
+
+      // Status centered: left edge at (viewportWidth/2 - statusWidth/2)
+      // Card's left edge should be at status right edge: (viewportWidth/2 + statusWidth/2)
+      const targetLeft = (viewportWidth / 2) + (statusWidth / 2) + 16; // +16px gap
+
+      // Animate from off-screen right to target position
+      gsap.fromTo(sheet,
+        { left: viewportWidth, opacity: 0 },
+        { left: targetLeft, opacity: 1, duration: 1.2, ease: 'power2.out', force3D: true }
+      );
     } else {
       // Mobile: slide from bottom
-      gsap.set(sheet, { yPercent: 100, xPercent: 0, opacity: 0 });
-      gsap.to(sheet, {
-        yPercent: 0,
-        opacity: 1,
-        duration,
-        ease,
-        onComplete: () => {
-          // Enable drag on mobile
-          enableDrag(sheet);
-        },
-      });
+      gsap.fromTo(sheet,
+        { y: '100%', opacity: 0 },
+        { y: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+      );
     }
   } else {
-    // Reduced motion: instant
+    // Reduced motion: simple fade-in
+    sheet.style.transition = 'opacity 0.3s ease';
     if (isDesktop()) {
-      sheet.style.transform = 'translateX(0)';
-    } else {
-      sheet.style.transform = 'translateY(0)';
+      const statusEl = document.querySelector('.top-info-bar-status');
+      const viewportWidth = window.innerWidth;
+      const statusWidth = statusEl ? statusEl.getBoundingClientRect().width : 200;
+      const targetLeft = (viewportWidth / 2) + (statusWidth / 2) + 16;
+      sheet.style.left = `${targetLeft}px`;
     }
+    sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
+    sheet.style.opacity = '0';
+    sheet.offsetHeight;
     sheet.style.opacity = '1';
-    if (!isDesktop()) enableDrag(sheet);
   }
 
   // Update hash
@@ -959,6 +957,11 @@ function openCard(id) {
 
   // Focus trap
   setTimeout(() => trapFocus(sheet), 100);
+
+  // Status highlight after delay (mobile: draws attention to status above blur)
+  setTimeout(() => {
+    document.querySelector('.top-info-bar-status')?.classList.add('status-highlight');
+  }, 1000);
 
   console.log(`✅ Card opened: ${id}`);
 }
@@ -974,46 +977,52 @@ function closeCard() {
 
   sheet.classList.remove('is-open');
 
+  // Remove status highlight
+  document.querySelector('.top-info-bar-status')?.classList.remove('status-highlight');
+
   // Disable drag
   disableDrag();
 
-  // Animation
+  // Animation (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.36;
-    const ease = 'power2.in';
 
     if (isDesktop()) {
+      // Desktop: slide to right (off-screen)
+      const viewportWidth = window.innerWidth;
       gsap.to(sheet, {
-        xPercent: 100,
-        opacity: 0,
-        duration,
-        ease,
+        left: viewportWidth, opacity: 0, duration: 0.8, ease: 'power2.in', force3D: true,
         onComplete: () => finishClose(sheet),
       });
     } else {
+      // Mobile: slide to bottom
       gsap.to(sheet, {
-        yPercent: 100,
-        opacity: 0,
-        duration,
-        ease,
+        y: '100%', opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
         onComplete: () => finishClose(sheet),
       });
     }
   } else {
-    // Reduced motion
-    if (isDesktop()) {
-      sheet.style.transform = 'translateX(100%)';
-    } else {
-      sheet.style.transform = 'translateY(100%)';
-    }
+    // Reduced motion: simple fade-out
+    sheet.style.transition = 'opacity 0.2s ease';
     sheet.style.opacity = '0';
-    setTimeout(() => finishClose(sheet), 150);
+    setTimeout(() => finishClose(sheet), 200);
   }
 }
 
 function finishClose(sheet) {
   sheet.hidden = true;
+
+  // Reset inline styles to allow CSS defaults for next open
+  sheet.style.transform = '';
+  sheet.style.opacity = '';
+  sheet.style.left = '';
+  sheet.style.transition = '';
+
+  // Kill any remaining GSAP tweens on this element
+  if (window.gsap) {
+    window.gsap.killTweensOf(sheet);
+  }
+
   unmountCardContent();
   showBackdrop(false);
   lockBodyScroll(false);
