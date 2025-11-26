@@ -1,4 +1,4 @@
-// main-script.js v0.044 – DEBUG: added console logging to openCard() animation
+// main-script.js v0.045 – Card animation: smooth easing (no bounce) + reduced motion fade
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -885,8 +885,6 @@ function openCard(id) {
   }
 
   console.log(`📂 Opening card: ${id}`);
-  console.log(`🖥️ isDesktop: ${isDesktop()}, viewport: ${window.innerWidth}x${window.innerHeight}`);
-  console.log(`🎬 GSAP available: ${!!window.gsap}, reducedMotion: ${prefersReducedMotion()}`);
 
   currentCardId = id;
 
@@ -903,94 +901,52 @@ function openCard(id) {
   const sheet = document.getElementById('card-sheet');
   if (!sheet) return;
 
-  // DEBUG: Log initial state
-  const computedBefore = window.getComputedStyle(sheet);
-  console.log(`📊 BEFORE - hidden: ${sheet.hidden}, transform: ${computedBefore.transform}, opacity: ${computedBefore.opacity}, right: ${computedBefore.right}`);
-
   sheet.hidden = false;
   sheet.classList.add('is-open');
 
-  // DEBUG: Log state after unhiding
-  const computedAfter = window.getComputedStyle(sheet);
-  console.log(`📊 AFTER unhide - transform: ${computedAfter.transform}, opacity: ${computedAfter.opacity}, right: ${computedAfter.right}`);
-
   // Update card position & clip-path (desktop only)
   if (isDesktop()) {
-    updateCardClipPath();  // Update AB to match top-bar height (accounting for status position change)
-    // updateCardPosition() moved to GSAP onComplete to avoid blocking animation
+    updateCardClipPath();
   }
 
   // Animation with GSAP
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.7;
-    const ease = 'back.out(1.2)';
+    const duration = 0.6;
+    const ease = 'power3.out';  // Smooth deceleration, no bounce
 
     if (isDesktop()) {
-      console.log(`🚀 Starting DESKTOP animation with gsap.fromTo()`);
-      // Desktop: slide from right with scale effect
-      // Using fromTo() for precise control over initial and final states
-      // xPercent works with right: 0 positioning (element slides from off-screen right)
+      // Desktop: slide from right (smooth, no bounce)
       gsap.fromTo(sheet,
-        {
-          xPercent: 100,
-          opacity: 0,
-          scale: 0.95
-        },
+        { xPercent: 100, opacity: 0 },
         {
           xPercent: 0,
           opacity: 1,
-          scale: 1,
           duration,
           ease,
-          onStart: () => {
-            console.log(`▶️ GSAP animation STARTED`);
-            const cs = window.getComputedStyle(sheet);
-            console.log(`📊 onStart - transform: ${cs.transform}, opacity: ${cs.opacity}`);
-          },
-          onUpdate: function() {
-            // Log progress every 25%
-            const progress = this.progress();
-            if (progress === 0 || Math.abs(progress - 0.25) < 0.02 || Math.abs(progress - 0.5) < 0.02 || Math.abs(progress - 0.75) < 0.02 || progress === 1) {
-              console.log(`🔄 Progress: ${(progress * 100).toFixed(0)}%`);
-            }
-          },
-          onComplete: () => {
-            console.log(`✅ GSAP animation COMPLETED`);
-            const cs = window.getComputedStyle(sheet);
-            console.log(`📊 onComplete - transform: ${cs.transform}, opacity: ${cs.opacity}`);
-            updateCardPosition();  // Set left position AFTER animation completes
-          }
+          onComplete: () => updateCardPosition()
         }
       );
     } else {
-      console.log(`🚀 Starting MOBILE animation with gsap.fromTo()`);
       // Mobile: slide from bottom
       gsap.fromTo(sheet,
-        {
-          yPercent: 100,
-          opacity: 0
-        },
+        { yPercent: 100, opacity: 0 },
         {
           yPercent: 0,
           opacity: 1,
           duration,
           ease,
-          onComplete: () => {
-            // Enable drag on mobile
-            enableDrag(sheet);
-          }
+          onComplete: () => enableDrag(sheet)
         }
       );
     }
   } else {
-    console.log(`⚠️ Using fallback (no GSAP or reduced motion)`);
-    // Reduced motion: instant
-    if (isDesktop()) {
-      sheet.style.transform = 'translateX(0)';
-    } else {
-      sheet.style.transform = 'translateY(0)';
-    }
+    // Reduced motion: simple fade-in with CSS transition
+    sheet.style.transition = 'opacity 0.3s ease';
+    sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
+    sheet.style.opacity = '0';
+    // Trigger reflow, then fade in
+    sheet.offsetHeight;
     sheet.style.opacity = '1';
     if (!isDesktop()) enableDrag(sheet);
   }
@@ -1021,16 +977,16 @@ function closeCard() {
   // Animation
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.36;
-    const ease = 'power2.in';
+    const duration = 0.4;
+    const ease = 'power2.in';  // Smooth acceleration out
+
+    // Clear any inline left position before animating out
+    sheet.style.left = '';
 
     if (isDesktop()) {
-      // Clear any inline left position before animating out
-      sheet.style.left = '';
       gsap.to(sheet, {
         xPercent: 100,
         opacity: 0,
-        scale: 0.95,
         duration,
         ease,
         onComplete: () => finishClose(sheet),
@@ -1045,15 +1001,11 @@ function closeCard() {
       });
     }
   } else {
-    // Reduced motion
-    if (isDesktop()) {
-      sheet.style.left = '';
-      sheet.style.transform = 'translateX(100%)';
-    } else {
-      sheet.style.transform = 'translateY(100%)';
-    }
+    // Reduced motion: simple fade-out
+    sheet.style.left = '';
+    sheet.style.transition = 'opacity 0.2s ease';
     sheet.style.opacity = '0';
-    setTimeout(() => finishClose(sheet), 150);
+    setTimeout(() => finishClose(sheet), 200);
   }
 }
 
@@ -1064,6 +1016,7 @@ function finishClose(sheet) {
   sheet.style.transform = '';
   sheet.style.opacity = '';
   sheet.style.left = '';
+  sheet.style.transition = '';
 
   // Kill any remaining GSAP tweens on this element
   if (window.gsap) {
