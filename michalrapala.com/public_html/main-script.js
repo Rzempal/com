@@ -1,4 +1,4 @@
-// main-script.js v0.056 – Use removeProperty('clip-path') for proper CSS reset
+// main-script.js v0.057 – Mobile: set clip-path explicitly in JS (bypass CSS issue)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -945,6 +945,9 @@ function openCard(id) {
         { left: targetLeft, opacity: 1, duration: 1.2, ease: 'power2.out', force3D: true }
       );
     } else {
+      // Mobile: set clip-path explicitly (CSS may not apply after breakpoint change)
+      sheet.style.clipPath = 'polygon(100% 0, calc(100% - 80px) 0, calc(100% - 160px) 50px, 0 50px, 0 100%, 100% 100%)';
+
       // Mobile: slide from bottom
       gsap.fromTo(sheet,
         { y: '100%', opacity: 0 },
