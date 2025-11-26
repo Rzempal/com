@@ -1,4 +1,4 @@
-/* common-styles.css v0.031 – Desktop card: left position aligned to status text */
+/* common-styles.css v0.032 – Desktop card: added border-left matching top bar */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -930,6 +930,7 @@ body.card-open {
             100% 0                       /* F: prawy górny */
         );
         border-radius: 0 0 0 24px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Desktop card open state - GSAP controls transform/opacity animation */
