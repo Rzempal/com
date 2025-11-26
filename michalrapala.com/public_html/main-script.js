@@ -1,4 +1,4 @@
-// main-script.js v0.053 – Close card on breakpoint change (desktop↔mobile)
+// main-script.js v0.054 – Reset inline styles before card animation (breakpoint fix)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -921,6 +921,11 @@ function openCard(id) {
   // Animation with GSAP (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
+
+    // Reset inline styles before animation (prevents conflicts after breakpoint change)
+    sheet.style.left = '';
+    sheet.style.transform = '';
+    gsap.killTweensOf(sheet);
 
     if (isDesktop()) {
       // Desktop: slide from right, end position aligned to centered status text
