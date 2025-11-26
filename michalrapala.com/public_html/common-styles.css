@@ -1,4 +1,4 @@
-/* common-styles.css v0.028 – Desktop card: removed CSS transform, GSAP controls all */
+/* common-styles.css v0.029 – Mobile card: arrow points down, centered content */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -861,6 +861,25 @@ body.card-open {
 
     .card-grabber {
         display: block;
+    }
+
+    /* Mobile: arrow points down (card hides downward) */
+    .card-close i {
+        transform: rotate(90deg);
+    }
+
+    /* Mobile: topbar centered */
+    .card-topbar {
+        justify-content: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Mobile: all content centered */
+    .card-media,
+    .card-content {
+        align-items: center;
+        text-align: center;
     }
 
     .card-logo-img {
