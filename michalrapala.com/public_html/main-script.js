@@ -1,4 +1,4 @@
-// main-script.js v0.051 – Desktop card: slower animation (1.2s open, 0.8s close)
+// main-script.js v0.052 – Mobile: status highlight (unblur) after 1s delay
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -958,6 +958,11 @@ function openCard(id) {
   // Focus trap
   setTimeout(() => trapFocus(sheet), 100);
 
+  // Status highlight after delay (mobile: draws attention to status above blur)
+  setTimeout(() => {
+    document.querySelector('.top-info-bar-status')?.classList.add('status-highlight');
+  }, 1000);
+
   console.log(`✅ Card opened: ${id}`);
 }
 
@@ -971,6 +976,9 @@ function closeCard() {
   if (!sheet) return;
 
   sheet.classList.remove('is-open');
+
+  // Remove status highlight
+  document.querySelector('.top-info-bar-status')?.classList.remove('status-highlight');
 
   // Disable drag
   disableDrag();
