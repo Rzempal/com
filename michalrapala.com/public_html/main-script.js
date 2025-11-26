@@ -1,4 +1,4 @@
-// main-script.js v0.047 – Card animation: GPU acceleration with force3D
+// main-script.js v0.048 – Card animation: always slide from right (no bottom sheet)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -909,47 +909,26 @@ function openCard(id) {
     updateCardClipPath();
   }
 
-  // Animation with GSAP (GPU accelerated)
+  // Animation with GSAP (GPU accelerated) - always slide from right
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.5;
-    const ease = 'power2.out';
-
-    if (isDesktop()) {
-      // Desktop: slide from right with GPU acceleration
-      gsap.fromTo(sheet,
-        { x: '100%', opacity: 0 },
-        {
-          x: '0%',
-          opacity: 1,
-          duration,
-          ease,
-          force3D: true  // Forces GPU rendering
-        }
-      );
-    } else {
-      // Mobile: slide from bottom with GPU acceleration
-      gsap.fromTo(sheet,
-        { y: '100%', opacity: 0 },
-        {
-          y: '0%',
-          opacity: 1,
-          duration,
-          ease,
-          force3D: true,
-          onComplete: () => enableDrag(sheet)
-        }
-      );
-    }
+    gsap.fromTo(sheet,
+      { x: '100%', opacity: 0 },
+      {
+        x: '0%',
+        opacity: 1,
+        duration: 0.5,
+        ease: 'power2.out',
+        force3D: true
+      }
+    );
   } else {
-    // Reduced motion: simple fade-in with CSS transition
+    // Reduced motion: simple fade-in
     sheet.style.transition = 'opacity 0.3s ease';
-    sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
+    sheet.style.transform = 'translateX(0)';
     sheet.style.opacity = '0';
-    // Trigger reflow, then fade in
     sheet.offsetHeight;
     sheet.style.opacity = '1';
-    if (!isDesktop()) enableDrag(sheet);
   }
 
   // Update hash
@@ -975,33 +954,18 @@ function closeCard() {
   // Disable drag
   disableDrag();
 
-  // Animation (GPU accelerated)
+  // Animation (GPU accelerated) - always slide to right
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    const duration = 0.35;
-    const ease = 'power2.in';
-
     sheet.style.left = '';
-
-    if (isDesktop()) {
-      gsap.to(sheet, {
-        x: '100%',
-        opacity: 0,
-        duration,
-        ease,
-        force3D: true,
-        onComplete: () => finishClose(sheet),
-      });
-    } else {
-      gsap.to(sheet, {
-        y: '100%',
-        opacity: 0,
-        duration,
-        ease,
-        force3D: true,
-        onComplete: () => finishClose(sheet),
-      });
-    }
+    gsap.to(sheet, {
+      x: '100%',
+      opacity: 0,
+      duration: 0.35,
+      ease: 'power2.in',
+      force3D: true,
+      onComplete: () => finishClose(sheet),
+    });
   } else {
     // Reduced motion: simple fade-out
     sheet.style.left = '';
