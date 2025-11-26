@@ -1,4 +1,4 @@
-// main-script.js v0.049 – Card animation: mobile from bottom, desktop from right
+// main-script.js v0.050 – Desktop card: left aligned to centered status text
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -914,10 +914,20 @@ function openCard(id) {
     const gsap = window.gsap;
 
     if (isDesktop()) {
-      // Desktop: slide from right
+      // Desktop: slide from right, end position aligned to centered status text
+      // Calculate where status will be after it animates to center
+      const statusEl = document.querySelector('.top-info-bar-status');
+      const viewportWidth = window.innerWidth;
+      const statusWidth = statusEl ? statusEl.getBoundingClientRect().width : 200;
+
+      // Status centered: left edge at (viewportWidth/2 - statusWidth/2)
+      // Card's left edge should be at status right edge: (viewportWidth/2 + statusWidth/2)
+      const targetLeft = (viewportWidth / 2) + (statusWidth / 2) + 16; // +16px gap
+
+      // Animate from off-screen right to target position
       gsap.fromTo(sheet,
-        { x: '100%', opacity: 0 },
-        { x: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+        { left: viewportWidth, opacity: 0 },
+        { left: targetLeft, opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
       );
     } else {
       // Mobile: slide from bottom
@@ -929,6 +939,13 @@ function openCard(id) {
   } else {
     // Reduced motion: simple fade-in
     sheet.style.transition = 'opacity 0.3s ease';
+    if (isDesktop()) {
+      const statusEl = document.querySelector('.top-info-bar-status');
+      const viewportWidth = window.innerWidth;
+      const statusWidth = statusEl ? statusEl.getBoundingClientRect().width : 200;
+      const targetLeft = (viewportWidth / 2) + (statusWidth / 2) + 16;
+      sheet.style.left = `${targetLeft}px`;
+    }
     sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
     sheet.style.opacity = '0';
     sheet.offsetHeight;
@@ -961,12 +978,12 @@ function closeCard() {
   // Animation (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    sheet.style.left = '';
 
     if (isDesktop()) {
-      // Desktop: slide to right
+      // Desktop: slide to right (off-screen)
+      const viewportWidth = window.innerWidth;
       gsap.to(sheet, {
-        x: '100%', opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
+        left: viewportWidth, opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
         onComplete: () => finishClose(sheet),
       });
     } else {
@@ -978,7 +995,6 @@ function closeCard() {
     }
   } else {
     // Reduced motion: simple fade-out
-    sheet.style.left = '';
     sheet.style.transition = 'opacity 0.2s ease';
     sheet.style.opacity = '0';
     setTimeout(() => finishClose(sheet), 200);

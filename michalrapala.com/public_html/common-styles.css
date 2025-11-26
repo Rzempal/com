@@ -1,4 +1,4 @@
-/* common-styles.css v0.030 – Mobile card: slide from bottom, title centered */
+/* common-styles.css v0.031 – Desktop card: left position aligned to status text */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -916,10 +916,9 @@ body.card-open {
 
     .card-sheet {
         top: 0;
-        right: 0;
+        right: auto;
+        /* left is set dynamically by JS based on status text position */
         width: clamp(380px, 35vw, 450px);
-        /* GSAP controls transform via inline styles */
-        /* opacity: 0 hides until animation starts */
         opacity: 0;
         /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
         clip-path: polygon(
