@@ -1,4 +1,4 @@
-/* common-styles.css v0.034 – Fix: status unblur uses position:fixed to escape stacking context */
+/* common-styles.css v0.035 – Mobile: status unblur lifts entire top-bar via :has() */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -663,20 +663,21 @@ body.card-open {
     pointer-events: auto;
 }
 
-/* Status highlight - "unblur" effect when card is open (mobile) */
-/* Must use position:fixed to escape parent's stacking context */
-.top-info-bar-status.status-highlight {
-    position: fixed;
-    top: 0.75rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    animation: statusUnblur 0.4s ease-out forwards;
+/* Status highlight - "unblur" effect when card is open (mobile only) */
+/* Mobile: lift entire top-bar above blur using :has() */
+@media (max-width: 1024px) {
+    .top-info-bar:has(.status-highlight) {
+        z-index: 1000;
+    }
+
+    .top-info-bar-status.status-highlight {
+        animation: statusUnblur 0.4s ease-out forwards;
+    }
 }
 
 @keyframes statusUnblur {
-    from { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
-    to { opacity: 1; transform: translateX(-50%) scale(1); }
+    from { opacity: 0.7; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 /* Card Sheet - Base */
