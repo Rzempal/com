@@ -1,4 +1,4 @@
-/* common-styles.css v0.026 – Desktop card: fixed slide-in animation with transform initial state */
+/* common-styles.css v0.027 – Desktop card: removed CSS transform conflict with GSAP */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -856,9 +856,8 @@ body.card-open {
         border-radius: 0 0 0 16px;
     }
 
-    .card-sheet.is-open {
-        transform: translateY(0);
-    }
+    /* Mobile card open state - GSAP controls transform animation */
+    /* .is-open class is semantic only */
 
     .card-grabber {
         display: block;
@@ -911,11 +910,8 @@ body.card-open {
         border-radius: 0 0 0 24px;
     }
 
-    /* Desktop card open state - GSAP controls the animation, CSS provides fallback */
-    .card-sheet.is-open {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    /* Desktop card open state - GSAP controls transform/opacity animation */
+    /* .is-open class is semantic only, animation values set by GSAP inline styles */
 
     .card-grabber {
         display: none;
