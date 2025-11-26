@@ -1,4 +1,4 @@
-// main-script.js v0.048 – Card animation: always slide from right (no bottom sheet)
+// main-script.js v0.049 – Card animation: mobile from bottom, desktop from right
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -909,23 +909,27 @@ function openCard(id) {
     updateCardClipPath();
   }
 
-  // Animation with GSAP (GPU accelerated) - always slide from right
+  // Animation with GSAP (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
-    gsap.fromTo(sheet,
-      { x: '100%', opacity: 0 },
-      {
-        x: '0%',
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.out',
-        force3D: true
-      }
-    );
+
+    if (isDesktop()) {
+      // Desktop: slide from right
+      gsap.fromTo(sheet,
+        { x: '100%', opacity: 0 },
+        { x: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+      );
+    } else {
+      // Mobile: slide from bottom
+      gsap.fromTo(sheet,
+        { y: '100%', opacity: 0 },
+        { y: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+      );
+    }
   } else {
     // Reduced motion: simple fade-in
     sheet.style.transition = 'opacity 0.3s ease';
-    sheet.style.transform = 'translateX(0)';
+    sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
     sheet.style.opacity = '0';
     sheet.offsetHeight;
     sheet.style.opacity = '1';
@@ -954,18 +958,24 @@ function closeCard() {
   // Disable drag
   disableDrag();
 
-  // Animation (GPU accelerated) - always slide to right
+  // Animation (GPU accelerated)
   if (window.gsap && !prefersReducedMotion()) {
     const gsap = window.gsap;
     sheet.style.left = '';
-    gsap.to(sheet, {
-      x: '100%',
-      opacity: 0,
-      duration: 0.35,
-      ease: 'power2.in',
-      force3D: true,
-      onComplete: () => finishClose(sheet),
-    });
+
+    if (isDesktop()) {
+      // Desktop: slide to right
+      gsap.to(sheet, {
+        x: '100%', opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
+        onComplete: () => finishClose(sheet),
+      });
+    } else {
+      // Mobile: slide to bottom
+      gsap.to(sheet, {
+        y: '100%', opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
+        onComplete: () => finishClose(sheet),
+      });
+    }
   } else {
     // Reduced motion: simple fade-out
     sheet.style.left = '';

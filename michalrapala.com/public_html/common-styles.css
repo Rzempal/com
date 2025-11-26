@@ -1,4 +1,4 @@
-/* common-styles.css v0.029 – Mobile card: arrow points down, centered content */
+/* common-styles.css v0.030 – Mobile card: slide from bottom, title centered */
 
 /* ========== ZMIENNE KOLORÓW ========== */
 :root {
@@ -873,6 +873,12 @@ body.card-open {
         justify-content: center;
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+
+    /* Mobile: title centered */
+    .card-title {
+        text-align: center;
+        width: 100%;
     }
 
     /* Mobile: all content centered */
