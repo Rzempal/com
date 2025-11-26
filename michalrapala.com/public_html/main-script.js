@@ -1,4 +1,4 @@
-// main-script.js v0.050 – Desktop card: left aligned to centered status text
+// main-script.js v0.051 – Desktop card: slower animation (1.2s open, 0.8s close)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -927,7 +927,7 @@ function openCard(id) {
       // Animate from off-screen right to target position
       gsap.fromTo(sheet,
         { left: viewportWidth, opacity: 0 },
-        { left: targetLeft, opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+        { left: targetLeft, opacity: 1, duration: 1.2, ease: 'power2.out', force3D: true }
       );
     } else {
       // Mobile: slide from bottom
@@ -983,7 +983,7 @@ function closeCard() {
       // Desktop: slide to right (off-screen)
       const viewportWidth = window.innerWidth;
       gsap.to(sheet, {
-        left: viewportWidth, opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
+        left: viewportWidth, opacity: 0, duration: 0.8, ease: 'power2.in', force3D: true,
         onComplete: () => finishClose(sheet),
       });
     } else {
