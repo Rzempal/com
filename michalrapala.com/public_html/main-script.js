@@ -1,4 +1,4 @@
-// main-script.js v0.045 – Card animation: smooth easing (no bounce) + reduced motion fade
+// main-script.js v0.046 – Card animation: removed updateCardPosition() jump
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -917,14 +917,14 @@ function openCard(id) {
 
     if (isDesktop()) {
       // Desktop: slide from right (smooth, no bounce)
+      // Position is controlled by CSS right: 0, no need for JS positioning
       gsap.fromTo(sheet,
         { xPercent: 100, opacity: 0 },
         {
           xPercent: 0,
           opacity: 1,
           duration,
-          ease,
-          onComplete: () => updateCardPosition()
+          ease
         }
       );
     } else {
