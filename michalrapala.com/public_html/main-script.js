@@ -1,4 +1,4 @@
-// main-script.js v0.043 – Card animation: fixed desktop slide-in with gsap.fromTo()
+// main-script.js v0.044 – DEBUG: added console logging to openCard() animation
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -885,6 +885,8 @@ function openCard(id) {
   }
 
   console.log(`📂 Opening card: ${id}`);
+  console.log(`🖥️ isDesktop: ${isDesktop()}, viewport: ${window.innerWidth}x${window.innerHeight}`);
+  console.log(`🎬 GSAP available: ${!!window.gsap}, reducedMotion: ${prefersReducedMotion()}`);
 
   currentCardId = id;
 
@@ -901,8 +903,16 @@ function openCard(id) {
   const sheet = document.getElementById('card-sheet');
   if (!sheet) return;
 
+  // DEBUG: Log initial state
+  const computedBefore = window.getComputedStyle(sheet);
+  console.log(`📊 BEFORE - hidden: ${sheet.hidden}, transform: ${computedBefore.transform}, opacity: ${computedBefore.opacity}, right: ${computedBefore.right}`);
+
   sheet.hidden = false;
   sheet.classList.add('is-open');
+
+  // DEBUG: Log state after unhiding
+  const computedAfter = window.getComputedStyle(sheet);
+  console.log(`📊 AFTER unhide - transform: ${computedAfter.transform}, opacity: ${computedAfter.opacity}, right: ${computedAfter.right}`);
 
   // Update card position & clip-path (desktop only)
   if (isDesktop()) {
@@ -917,6 +927,7 @@ function openCard(id) {
     const ease = 'back.out(1.2)';
 
     if (isDesktop()) {
+      console.log(`🚀 Starting DESKTOP animation with gsap.fromTo()`);
       // Desktop: slide from right with scale effect
       // Using fromTo() for precise control over initial and final states
       // xPercent works with right: 0 positioning (element slides from off-screen right)
@@ -932,12 +943,28 @@ function openCard(id) {
           scale: 1,
           duration,
           ease,
+          onStart: () => {
+            console.log(`▶️ GSAP animation STARTED`);
+            const cs = window.getComputedStyle(sheet);
+            console.log(`📊 onStart - transform: ${cs.transform}, opacity: ${cs.opacity}`);
+          },
+          onUpdate: function() {
+            // Log progress every 25%
+            const progress = this.progress();
+            if (progress === 0 || Math.abs(progress - 0.25) < 0.02 || Math.abs(progress - 0.5) < 0.02 || Math.abs(progress - 0.75) < 0.02 || progress === 1) {
+              console.log(`🔄 Progress: ${(progress * 100).toFixed(0)}%`);
+            }
+          },
           onComplete: () => {
+            console.log(`✅ GSAP animation COMPLETED`);
+            const cs = window.getComputedStyle(sheet);
+            console.log(`📊 onComplete - transform: ${cs.transform}, opacity: ${cs.opacity}`);
             updateCardPosition();  // Set left position AFTER animation completes
           }
         }
       );
     } else {
+      console.log(`🚀 Starting MOBILE animation with gsap.fromTo()`);
       // Mobile: slide from bottom
       gsap.fromTo(sheet,
         {
@@ -957,6 +984,7 @@ function openCard(id) {
       );
     }
   } else {
+    console.log(`⚠️ Using fallback (no GSAP or reduced motion)`);
     // Reduced motion: instant
     if (isDesktop()) {
       sheet.style.transform = 'translateX(0)';
