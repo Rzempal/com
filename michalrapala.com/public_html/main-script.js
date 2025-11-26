@@ -1,4 +1,4 @@
-// main-script.js v0.042 – Card animation: using GSAP 'x' instead of 'xPercent' (works with right: 0)
+// main-script.js v0.043 – Card animation: fixed desktop slide-in with gsap.fromTo()
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -918,30 +918,43 @@ function openCard(id) {
 
     if (isDesktop()) {
       // Desktop: slide from right with scale effect
-      gsap.set(sheet, { x: '100%', yPercent: 0, opacity: 0, scale: 0.95 });
-      gsap.to(sheet, {
-        x: '0%',
-        opacity: 1,
-        scale: 1,
-        duration,
-        ease,
-        onComplete: () => {
-          updateCardPosition();  // Set left position AFTER animation completes
+      // Using fromTo() for precise control over initial and final states
+      // xPercent works with right: 0 positioning (element slides from off-screen right)
+      gsap.fromTo(sheet,
+        {
+          xPercent: 100,
+          opacity: 0,
+          scale: 0.95
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          scale: 1,
+          duration,
+          ease,
+          onComplete: () => {
+            updateCardPosition();  // Set left position AFTER animation completes
+          }
         }
-      });
+      );
     } else {
       // Mobile: slide from bottom
-      gsap.set(sheet, { yPercent: 100, xPercent: 0, opacity: 0 });
-      gsap.to(sheet, {
-        yPercent: 0,
-        opacity: 1,
-        duration,
-        ease,
-        onComplete: () => {
-          // Enable drag on mobile
-          enableDrag(sheet);
+      gsap.fromTo(sheet,
+        {
+          yPercent: 100,
+          opacity: 0
         },
-      });
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration,
+          ease,
+          onComplete: () => {
+            // Enable drag on mobile
+            enableDrag(sheet);
+          }
+        }
+      );
     }
   } else {
     // Reduced motion: instant
@@ -984,9 +997,12 @@ function closeCard() {
     const ease = 'power2.in';
 
     if (isDesktop()) {
+      // Clear any inline left position before animating out
+      sheet.style.left = '';
       gsap.to(sheet, {
         xPercent: 100,
         opacity: 0,
+        scale: 0.95,
         duration,
         ease,
         onComplete: () => finishClose(sheet),
@@ -1003,6 +1019,7 @@ function closeCard() {
   } else {
     // Reduced motion
     if (isDesktop()) {
+      sheet.style.left = '';
       sheet.style.transform = 'translateX(100%)';
     } else {
       sheet.style.transform = 'translateY(100%)';
@@ -1014,6 +1031,17 @@ function closeCard() {
 
 function finishClose(sheet) {
   sheet.hidden = true;
+
+  // Reset inline styles to allow CSS defaults for next open
+  sheet.style.transform = '';
+  sheet.style.opacity = '';
+  sheet.style.left = '';
+
+  // Kill any remaining GSAP tweens on this element
+  if (window.gsap) {
+    window.gsap.killTweensOf(sheet);
+  }
+
   unmountCardContent();
   showBackdrop(false);
   lockBodyScroll(false);
