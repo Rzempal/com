@@ -1,4 +1,4 @@
-// main-script.js v0.052 – Mobile: status highlight (unblur) after 1s delay
+// main-script.js v0.053 – Close card on breakpoint change (desktop↔mobile)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -6,6 +6,7 @@
 // ========== STATE ==========
 let isNavigating = false;
 let resizeDebounceTimer = null;
+let wasDesktop = window.matchMedia('(min-width: 1025px)').matches;
 
 // ========== REDUCED MOTION CHECK ==========
 function prefersReducedMotion() {
@@ -619,6 +620,14 @@ function handleResize() {
   }
 
   resizeDebounceTimer = setTimeout(() => {
+    // Check if breakpoint crossed (desktop <-> mobile)
+    const nowDesktop = isDesktop();
+    if (currentCardId && wasDesktop !== nowDesktop) {
+      console.log(`📱↔️🖥️ Breakpoint crossed, closing card`);
+      closeCard();
+    }
+    wasDesktop = nowDesktop;
+
     positionPills();
     syncTopBarWidth();
     updateCardClipPath();
