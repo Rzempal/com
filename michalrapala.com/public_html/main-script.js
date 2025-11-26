@@ -1,4 +1,4 @@
-// main-script.js v0.054 – Reset inline styles before card animation (breakpoint fix)
+// main-script.js v0.055 – Reset clipPath inline style on breakpoint change
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -925,6 +925,7 @@ function openCard(id) {
     // Reset inline styles before animation (prevents conflicts after breakpoint change)
     sheet.style.left = '';
     sheet.style.transform = '';
+    sheet.style.clipPath = '';
     gsap.killTweensOf(sheet);
 
     if (isDesktop()) {
@@ -1030,6 +1031,7 @@ function finishClose(sheet) {
   sheet.style.transform = '';
   sheet.style.opacity = '';
   sheet.style.left = '';
+  sheet.style.clipPath = '';
   sheet.style.transition = '';
 
   // Kill any remaining GSAP tweens on this element
