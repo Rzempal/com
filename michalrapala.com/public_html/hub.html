@@ -1,4 +1,4 @@
-<!-- hub.html v0.031 – Cyberpunk: Neon colors, terminal top bar -->
+<!-- hub.html v0.033 – Cyberpunk pills: Initialize_ style -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -11,7 +11,7 @@
     <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <!-- ========== TAILWIND CSS ========== -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -29,38 +29,37 @@
     <!-- Grid Background -->
     <div class="grid-bg"></div>
 
-    <!-- ========== TOP INFO BAR (FIXED) ========== -->
-     <div class="top-info-bar">
-            <div class="top-info-bar-content">
-                <div class="top-info-bar-contact">
-                    <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" data-copy-text="linkedin.com/in/michal-rapala">
-                        <i class="fab fa-linkedin fa-fw"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/Rzempal" target="_blank" rel="noopener noreferrer" data-copy-text="github.com/Rzempal">
-                        <i class="fab fa-github fa-fw"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="mailto:kontakt@michalrapala.com" data-copy-text="kontakt@michalrapala.com">
-                        <i class="fas fa-envelope fa-fw"></i>
-                        <span>kontakt@michalrapala.com</span>
-                    </a>
-                </div>
-                <div class="top-info-bar-status">
-                    <div class="status-indicator"></div>
-                    <span>Otwarty na nowe projekty</span>
-                </div>
+    <!-- ========== CYBERPUNK NAVBAR ========== -->
+    <nav class="cyber-nav">
+        <div class="cyber-nav-content">
+            <!-- Left: Logo -->
+            <a href="index.html" class="cyber-nav-logo">RAPALA<span class="logo-slash">//</span>SYS</a>
+
+            <!-- Center: Status -->
+            <div class="cyber-nav-status">
+                <span class="status-dot"></span>
+                <span class="status-text">System Online</span>
+                <span class="status-separator">//</span>
+                <span class="status-version">v2.025</span>
             </div>
-            <!-- Tooltip container -->
-            <div class="top-bar-tooltip" id="topBarTooltip" hidden>
-                <span class="tooltip-text" id="tooltipText"></span>
-                <button class="tooltip-copy-btn" id="tooltipCopyBtn">Kopiuj</button>
+
+            <!-- Right: Links -->
+            <div class="cyber-nav-links">
+                <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" class="cyber-nav-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/Rzempal" target="_blank" rel="noopener noreferrer" class="cyber-nav-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:kontakt@michalrapala.com" class="cyber-nav-link" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
-       </div>
+        </div>
+    </nav>
 
     <!-- ========== BACK BUTTON ========== -->
     <button class="hub-back-button" id="backButton" aria-label="Wróć do Gate">
-        <span class="pill-glow"></span>
         <i class="fas fa-arrow-left"></i>
     </button>
 
@@ -364,20 +363,17 @@
             <div class="hub-pills-container">
                 <!-- Pill 1: Robotyka (Center - pinned to node 500, 500) -->
                 <button class="hub-pill hub-pill-1" data-card="robotyka" data-neuron="2" data-node-x="500" data-node-y="500" aria-label="Robotyka">
-                    <span class="pill-glow"></span>
-                    <span class="pill-text">Robotyka</span>
+                    <span class="pill-text">Robotyka_</span>
                 </button>
 
                 <!-- Pill 2: Aplikacje (Top-Right - pinned to node 850, 350) -->
-                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="850" data-node-y="350" aria-label="Aplikacje webowe">
-                    <span class="pill-glow"></span>
-                    <span class="pill-text">Aplikacje webowe</span>
+                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="850" data-node-y="350" aria-label="Aplikacje">
+                    <span class="pill-text">Apps_</span>
                 </button>
 
                 <!-- Pill 3: Strony (Bottom-Center - pinned to node 450, 750) -->
-                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750" aria-label="Strony internetowe">
-                    <span class="pill-glow"></span>
-                    <span class="pill-text">Strony internetowe</span>
+                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750" aria-label="Strony WWW">
+                    <span class="pill-text">WWW_</span>
                 </button>
             </div>
         </section>
