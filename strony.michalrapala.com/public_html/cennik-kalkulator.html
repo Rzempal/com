@@ -1,440 +1,414 @@
+<!-- cennik-kalkulator.html v0.001 Vibrant Block Maximalist - twoja-strona.online -->
 <!DOCTYPE html>
-<html lang="pl">
-
+<html lang="pl" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cennik i kalkulator - Michał Rąpała AI Solutions</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-        <!-- Favicon - wieloformatowe wsparcie -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cennik i kalkulator - twoja-strona.online</title>
+  <meta name="description" content="Cennik stron internetowych i kalkulator wyceny online.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="navbar-container"></div>
+  <div id="navbar-container"></div>
 
-    <header class="header-area subpage-header py-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="header-title text-3xl sm:text-4xl fade-in-element">Cennik i kalkulator wyceny</h1>
-            <p class="header-description mt-2 fade-in-element" style="transition-delay: 0.1s;">Transparentne ceny i narzędzie do szybkiej estymacji kosztów.</p>
+  <!-- SUBPAGE HERO -->
+  <header class="subpage-hero">
+    <h1>Cennik i kalkulator</h1>
+    <p>Transparentne ceny i narzędzie do szybkiej estymacji kosztów.</p>
+  </header>
+
+  <!-- PAKIETY CENOWE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-in-element">
+        <span class="section-tag">Pakiety</span>
+        <h2 class="section-title">Wybierz pakiet</h2>
+        <p class="section-description">Konkurencyjne ceny dzięki optymalizacji procesu tworzenia.</p>
+      </div>
+
+      <div class="pricing-grid" style="max-width: 800px; margin: 0 auto;">
+        <div class="pricing-card fade-in-element">
+          <h3 class="pricing-card-title">Pakiet Start</h3>
+          <p class="pricing-card-price">od 499 zł</p>
+          <p class="pricing-card-note">Idealny na stronę-wizytówkę</p>
+          <ul>
+            <li>Hosting i domena na rok*</li>
+            <li>Strona One Page</li>
+            <li>Responsywny design</li>
+            <li>Formularz kontaktowy</li>
+          </ul>
+          <a href="kontakt.html" class="btn btn-primary" style="width: 100%;">Zapytaj o pakiet</a>
         </div>
-    </header>
 
-    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
-        <main class="main-container">
+        <div class="pricing-card fade-in-element">
+          <h3 class="pricing-card-title">Pakiet Standard</h3>
+          <p class="pricing-card-price">od 899 zł</p>
+          <p class="pricing-card-note">Dla małych firm</p>
+          <ul>
+            <li>Hosting i domena na rok*</li>
+            <li>Strona do 3-4 podstron</li>
+            <li>Responsywny design</li>
+            <li>Formularz kontaktowy</li>
+            <li>Mapa Google + Social Media</li>
+          </ul>
+          <a href="kontakt.html" class="btn btn-primary" style="width: 100%;">Zapytaj o pakiet</a>
+        </div>
+      </div>
 
-            <section id="cennik" class="section fade-in-element">
-                <h2 class="section-title"><i class="fas fa-tags"></i>Pakiety cenowe</h2>
-                <p class="text-center max-w-3xl mx-auto mb-6 leading-relaxed text-slate-600">
-                    Oferuję konkurencyjne ceny dzięki optymalizacji procesu tworzenia. Poniższe pakiety to popularne konfiguracje.
-                </p>
-                <p class="text-center max-w-3xl mx-auto mb-10 leading-relaxed text-slate-600">
-                    Potrzebujesz indywidualnej wyceny? Skorzystaj z <a href='#kalkulator-wyceny' class='font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-darker)]'>Kalkulatora wyceny</a> lub <a href='kontakt.html' class='font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-darker)]'>skontaktuj się</a>.
-                </p>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="pricing-card fade-in-element">
-                        <h3>Pakiet Start</h3>
-                        <p class="price">od 499 zł</p>
-                        <p class="price-note text-sm mb-4">Idealny na stronę-wizytówkę.</p>
-                        <ul class="space-y-2 text-sm">
-                            <li><span class="custom-bullet">*</span>Hosting i domena na rok</li>
-                            <li><i class="fas fa-check"></i>Strona One Page</li>
-                            <li><i class="fas fa-check"></i>Nowoczesny, responsywny design</li>
-                            <li><i class="fas fa-check"></i>Formularz kontaktowy</li>
-                        </ul>
-                        <a href="kontakt.html" class="cta-button">Zapytaj o Pakiet Start</a>
-                    </div>
-                    <div class="pricing-card fade-in-element" style="transition-delay: 0.1s;">
-                        <h3>Pakiet Standard</h3>
-                        <p class="price">od 899 zł</p>
-                        <p class="price-note text-sm mb-4">Dla małych firm i bardziej rozbudowanych wizytówek.</p>
-                        <ul class="space-y-2 text-sm">
-                            <li><span class="custom-bullet">*</span>Hosting i domena na rok</li>
-                            <li><i class="fas fa-check"></i>Strona do 3-4 podstron</li>
-                            <li><i class="fas fa-check"></i>Nowoczesny, responsywny design</li>
-                            <li><i class="fas fa-check"></i>Formularz kontaktowy</li>
-                            <li><i class="fas fa-check"></i>Mapa Google, integracja Social Media</li>
-                        </ul>
-                        <a href="kontakt.html" class="cta-button">Zapytaj o Pakiet Standard</a>
-                    </div>
-                </div>
-                <p class="text-center text-sm mt-8 text-slate-600 fade-in-element" style="transition-delay: 0.2s;">
-                    Podane ceny są orientacyjne. <a href="kontakt.html" class="font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-darker)]">Skontaktuj się</a> po indywidualną wycenę.
-                    <br>
-                    <span class="text-xs">* Koszt odnowienia hostingu i domeny na kolejny rok: 200 zł.</span>
-                </p>
-            </section>
-
-            <section id="kalkulator-wyceny" class="section fade-in-element">
-                <h2 class="section-title"><i class="fas fa-calculator mr-2"></i>Kalkulator wyceny online</h2>
-                <p class="text-center max-w-3xl mx-auto mb-10 leading-relaxed text-slate-600">
-                    Oszacuj koszt Twojej strony internetowej. Pamiętaj, że jest to wycena orientacyjna.
-                </p>
-                <div class="max-w-3xl mx-auto calculator-container fade-in-element">
-                    <form id="pricingCalculatorForm">
-                        <div class="form-group">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="siteType">Rodzaj strony:</label>
-                                    <select id="siteType" name="siteType" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]">
-                                        <option value="onepage">Strona One Page (wizytówka)</option>
-                                        <option value="multipage">Strona wielostronicowa</option>
-                                    </select>
-                                </div>
-                                <div id="subpages-container"> 
-                                    <label for="numSubpages">Liczba podstron (2-10):</label>
-                                    <input type="number" id="numSubpages" name="numSubpages" min="2" max="10" value="3" class="w-full p-3 border border-slate-300 rounded-md shadow-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="designComplexity">Poziom skomplikowania designu:</label>
-                            <input type="range" id="designComplexity" name="designComplexity" min="1" max="5" value="3" class="w-full">
-                            <span id="designComplexityValue" class="range-value-display">Standardowy (3/5)</span>
-                            <div class="flex justify-between text-xs px-1 mt-1 text-slate-600">
-                                <span>Prosty</span>
-                                <span>Standard</span>
-                                <span>Zaawansowany</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h4 class="text-lg font-semibold mb-4 text-slate-800">Dodatkowe funkcje:</h4>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" id="featContactForm" name="features" value="contactForm"><span>Formularz kontaktowy</span></label>
-                                <label><input type="checkbox" id="featGoogleMaps" name="features" value="googleMaps"><span>Mapa Google</span></label>
-                                <label><input type="checkbox" id="featSocialMedia" name="features" value="socialMedia"><span>Integracja z Social Media</span></label>
-                                <label><input type="checkbox" id="featBasicSeo" name="features" value="basicSeo"><span>Podstawowa optymalizacja SEO</span></label>
-                                <label><input type="checkbox" id="featAiContent" name="features" value="aiContent"><span>Wsparcie AI w tworzeniu treści</span></label>
-                                <label><input type="checkbox" id="featGallery" name="features" value="gallery"><span>Galeria zdjęć/projektów</span></label>
-                                <label><input type="checkbox" id="featGenerativeGraphics" name="features" value="generativeGraphics"><span>Pakiet grafik generatywnych AI (3-5 szt.)</span></label>
-                            </div>
-                        </div>
-
-                        <div class="form-group border-t border-dashed border-slate-300 pt-6 mt-6">
-                             <h4 class="text-lg font-semibold mb-4 text-slate-800">Opcje dodatkowe i rabaty:</h4>
-                            <label class="flex items-center p-3 bg-green-50 border border-green-300 rounded-md hover:bg-green-100 transition-colors cursor-pointer">
-                                <input type="checkbox" id="featBannerDiscount" name="bannerDiscount" class="h-5 w-5 text-[var(--color-primary)] border-slate-400 rounded focus:ring-[var(--color-primary)] mr-3">
-                                <span class="text-sm text-green-700 font-medium">Zgoda na umieszczenie bannera "Projekt i wykonanie..." w stopce <span class="font-bold">(Rabat -20%)</span></span>
-                            </label>
-                        </div>
-
-
-                        <button type="button" id="calculatePriceBtn" class="w-full cta-button font-semibold py-3.5 px-6 rounded-lg transition duration-300 ease-in-out flex items-center justify-center text-base mt-4">
-                            <i class="fas fa-dollar-sign mr-2.5"></i> Oblicz szacunkową cenę
-                        </button>
-                    </form>
-
-                    <div id="calculatorResult" class="calculator-result hidden mt-10">
-                        <h3 id="calculatorResultTitle" class="text-xl font-semibold">Twoja orientacyjna wycena:</h3>
-                        <p id="suggestedPackageText" class="suggested-package"></p>
-                        
-                        <div id="priceBreakdown" class="my-4 text-left max-w-md mx-auto">
-                            <p class="text-sm text-slate-700">Cena bazowa: <span id="subtotalPrice" class="font-semibold">0 zł</span></p>
-                            <p id="discountInfo" class="text-sm text-green-600 hidden">Rabat za banner (20%): -<span id="discountAmount" class="font-semibold">0 zł</span></p>
-                        </div>
-                        
-                        <p id="estimatedPriceValue" class="estimated-price-value text-3xl sm:text-4xl"></p>
-                        <p id="customQuoteNote" class="custom-quote-note hidden"></p>
-                        <p class="price-note">
-                            To tylko orientacyjna wycena.
-                            <a href="kontakt.html">Skontaktuj się</a> po dokładną ofertę.
-                        </p>
-                         <p id="generativeGraphicsNote" class="text-xs text-slate-500 mt-3 hidden">
-                            Cena za pakiet grafik generatywnych AI (3-5 szt.) została wliczona. Bardziej zaawansowane lub niestandardowe grafiki wyceniane są indywidualnie.
-                        </p>
-                    </div>
-                </div>
-                 <p class="text-center text-xs mt-8 max-w-xl mx-auto text-slate-600 fade-in-element">
-                    Kalkulator uwzględnia podstawowe elementy. Hosting i domena na pierwszy rok są wliczone w Pakiety Start i Standard.
-                </p>
-            </section>
-        </main>
+      <p class="text-center mt-4 fade-in-element" style="color: var(--color-text-muted); font-size: 0.875rem;">
+        * Koszt odnowienia hostingu i domeny na kolejny rok: 200 zł.
+      </p>
     </div>
+  </section>
 
-    <div id="footer-container"></div>
+  <!-- KALKULATOR -->
+  <section id="kalkulator-wyceny" class="section" style="background: var(--color-bg-alt);">
+    <div class="container">
+      <div class="section-header fade-in-element">
+        <span class="section-tag">Kalkulator</span>
+        <h2 class="section-title">Wycena online</h2>
+        <p class="section-description">Oszacuj koszt Twojej strony internetowej. Pamiętaj, że jest to wycena orientacyjna.</p>
+      </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbarContainer = document.getElementById('navbar-container');
-            const footerContainer = document.getElementById('footer-container');
-            async function loadTemplate(url, containerElement) {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error(`Nie udało się załadować ${url}: ${response.statusText}`);
-                    const html = await response.text();
-                    containerElement.innerHTML = html;
-                    if (containerElement.id === 'navbar-container') initializeMobileMenu();
-                    if (containerElement.id === 'footer-container') {
-                        const yearSpan = document.getElementById('currentYear');
-                        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-                    }
-                } catch (error) {
-                    console.error('Błąd ładowania szablonu:', error);
-                    containerElement.innerHTML = `<p class="text-red-500 text-center">Błąd ładowania komponentu.</p>`;
-                }
+      <div class="calculator-container fade-in-element" style="max-width: 800px; margin: 0 auto;">
+        <form id="pricingCalculatorForm">
+          <div class="form-group">
+            <label for="siteType">Rodzaj strony:</label>
+            <select id="siteType" name="siteType">
+              <option value="onepage">Strona One Page (wizytówka)</option>
+              <option value="multipage">Strona wielostronicowa</option>
+            </select>
+          </div>
+
+          <div id="subpages-container">
+            <div class="form-group">
+              <label for="numSubpages">Liczba podstron (2-10):</label>
+              <input type="number" id="numSubpages" name="numSubpages" min="2" max="10" value="3">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="designComplexity">Poziom skomplikowania designu:</label>
+            <input type="range" id="designComplexity" name="designComplexity" min="1" max="5" value="3">
+            <span id="designComplexityValue" class="range-value-display">Standardowy (3/5)</span>
+          </div>
+
+          <div class="form-group">
+            <label style="margin-bottom: 1rem;">Dodatkowe funkcje:</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="featContactForm" name="features" value="contactForm"><span>Formularz kontaktowy</span></label>
+              <label><input type="checkbox" id="featGoogleMaps" name="features" value="googleMaps"><span>Mapa Google</span></label>
+              <label><input type="checkbox" id="featSocialMedia" name="features" value="socialMedia"><span>Integracja Social Media</span></label>
+              <label><input type="checkbox" id="featBasicSeo" name="features" value="basicSeo"><span>Optymalizacja SEO</span></label>
+              <label><input type="checkbox" id="featAiContent" name="features" value="aiContent"><span>Wsparcie AI w treści</span></label>
+              <label><input type="checkbox" id="featGallery" name="features" value="gallery"><span>Galeria zdjęć</span></label>
+              <label><input type="checkbox" id="featGenerativeGraphics" name="features" value="generativeGraphics"><span>Grafiki AI (3-5 szt.)</span></label>
+            </div>
+          </div>
+
+          <div class="form-group" style="border-top: 2px dashed var(--color-text-muted); padding-top: 2rem; margin-top: 2rem;">
+            <label style="margin-bottom: 1rem;">Rabat:</label>
+            <label class="checkbox-group" style="display: flex; background: var(--color-green); color: var(--color-on-accent); border-color: var(--color-green);">
+              <input type="checkbox" id="featBannerDiscount" name="bannerDiscount">
+              <span>Zgoda na banner "Projekt i wykonanie..." w stopce <strong>(Rabat -20%)</strong></span>
+            </label>
+          </div>
+
+          <button type="button" id="calculatePriceBtn" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+            Oblicz szacunkową cenę
+          </button>
+        </form>
+
+        <div id="calculatorResult" class="calculator-result hidden">
+          <h3 id="calculatorResultTitle">Twoja orientacyjna wycena:</h3>
+          <p id="suggestedPackageText" class="suggested-package"></p>
+
+          <div id="priceBreakdown" style="margin: 1rem 0;">
+            <p style="font-size: 0.875rem;">Cena bazowa: <span id="subtotalPrice">0 zł</span></p>
+            <p id="discountInfo" class="hidden" style="font-size: 0.875rem; color: var(--color-green);">Rabat za banner (20%): -<span id="discountAmount">0 zł</span></p>
+          </div>
+
+          <p id="estimatedPriceValue" class="estimated-price-value"></p>
+          <p id="customQuoteNote" class="custom-quote-note hidden"></p>
+          <p class="price-note">
+            To tylko orientacyjna wycena. <a href="kontakt.html">Skontaktuj się</a> po dokładną ofertę.
+          </p>
+          <p id="generativeGraphicsNote" class="hidden" style="font-size: 0.75rem; margin-top: 1rem;">
+            Cena za pakiet grafik generatywnych AI (3-5 szt.) została wliczona.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title fade-in-element">Pytania?</h2>
+      <p class="cta-description fade-in-element">Skontaktuj się, chętnie odpowiem na wszystkie pytania.</p>
+      <div class="cta-buttons fade-in-element">
+        <a href="kontakt.html" class="btn btn-primary">Skontaktuj się</a>
+        <a href="realizacje.html" class="btn btn-outline">Zobacz realizacje</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbarContainer = document.getElementById('navbar-container');
+      const footerContainer = document.getElementById('footer-container');
+
+      async function loadTemplate(url, containerElement) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`Nie udało się załadować ${url}`);
+          const html = await response.text();
+          containerElement.innerHTML = html;
+          if (containerElement.id === 'navbar-container') initializeMobileMenu();
+        } catch (error) {
+          console.error('Błąd ładowania szablonu:', error);
+        }
+      }
+
+      function initializeMobileMenu() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            const iconMenu = menuToggle.querySelector('.icon-menu');
+            const iconClose = menuToggle.querySelector('.icon-close');
+            if (iconMenu && iconClose) {
+              iconMenu.classList.toggle('hidden', isOpen);
+              iconClose.classList.toggle('hidden', !isOpen);
             }
-            function initializeMobileMenu() {
-                const menuToggle = document.getElementById('menu-toggle');
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (menuToggle && mobileMenu) {
-                    menuToggle.addEventListener('click', () => {
-                        const isOpen = mobileMenu.classList.toggle('hidden');
-                        mobileMenu.classList.toggle('open', !isOpen);
-                        const icons = menuToggle.querySelectorAll('svg');
-                        icons[0].classList.toggle('hidden', !isOpen);
-                        icons[1].classList.toggle('hidden', isOpen);
-                        menuToggle.setAttribute('aria-expanded', String(!isOpen));
-                    });
-                    mobileMenu.querySelectorAll('a').forEach(link => {
-                        link.addEventListener('click', () => {
-                            if (!mobileMenu.classList.contains('hidden')) {
-                                mobileMenu.classList.add('hidden');
-                                mobileMenu.classList.remove('open');
-                                const icons = menuToggle.querySelectorAll('svg');
-                                icons[0].classList.remove('hidden');
-                                icons[1].classList.add('hidden');
-                                menuToggle.setAttribute('aria-expanded', 'false');
-                            }
-                        });
-                    });
-                }
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
+      }
+
+      if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
+      if (footerContainer) loadTemplate('footer-template.html', footerContainer);
+
+      // CALCULATOR LOGIC
+      const siteTypeSelect = document.getElementById('siteType');
+      const subpagesContainer = document.getElementById('subpages-container');
+      const numSubpagesInput = document.getElementById('numSubpages');
+      const designComplexityInput = document.getElementById('designComplexity');
+      const designComplexityValueSpan = document.getElementById('designComplexityValue');
+      const calculatePriceBtn = document.getElementById('calculatePriceBtn');
+      const calculatorResultDiv = document.getElementById('calculatorResult');
+      const calculatorResultTitle = document.getElementById('calculatorResultTitle');
+      const suggestedPackageTextP = document.getElementById('suggestedPackageText');
+
+      const subtotalPriceSpan = document.getElementById('subtotalPrice');
+      const discountInfoP = document.getElementById('discountInfo');
+      const discountAmountSpan = document.getElementById('discountAmount');
+      const estimatedPriceValueP = document.getElementById('estimatedPriceValue');
+
+      const customQuoteNoteP = document.getElementById('customQuoteNote');
+      const pricingCalculatorForm = document.getElementById('pricingCalculatorForm');
+      const bannerDiscountCheckbox = document.getElementById('featBannerDiscount');
+      const generativeGraphicsCheckbox = document.getElementById('featGenerativeGraphics');
+      const generativeGraphicsNoteP = document.getElementById('generativeGraphicsNote');
+
+      const packageStartPrice = 499;
+      const packageStandardPrice = 899;
+      const generativeGraphicsPrice = 250;
+
+      function updateDesignComplexityDisplay() {
+        if(designComplexityInput && designComplexityValueSpan) {
+          const value = designComplexityInput.value;
+          let label = "";
+          switch(value) {
+            case '1': label = "Bardzo prosty"; break;
+            case '2': label = "Prosty"; break;
+            case '3': label = "Standardowy"; break;
+            case '4': label = "Rozbudowany"; break;
+            case '5': label = "Zaawansowany"; break;
+            default: label = "Standardowy";
+          }
+          designComplexityValueSpan.textContent = `${label} (${value}/5)`;
+        }
+      }
+
+      function toggleSubpagesInput() {
+        if (siteTypeSelect && subpagesContainer) {
+          if (siteTypeSelect.value === 'multipage') {
+            subpagesContainer.classList.add('visible');
+            numSubpagesInput.disabled = false;
+          } else {
+            subpagesContainer.classList.remove('visible');
+            numSubpagesInput.disabled = true;
+          }
+        }
+      }
+
+      function calculateAndDisplayPrice() {
+        if (!siteTypeSelect || !designComplexityInput || !numSubpagesInput || !calculatorResultDiv) {
+          return;
+        }
+        const featureCheckboxes = document.querySelectorAll('input[name="features"]');
+        let basePrice = 0;
+        const siteType = siteTypeSelect.value;
+        const designLevel = parseInt(designComplexityInput.value);
+        let isContactFormSelected = false;
+        let featureCost = 0;
+
+        featureCheckboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            if (checkbox.id === 'featContactForm') isContactFormSelected = true;
+            switch (checkbox.id) {
+              case 'featGoogleMaps': featureCost += 50; break;
+              case 'featSocialMedia': featureCost += 70; break;
+              case 'featBasicSeo': featureCost += 150; break;
+              case 'featAiContent': featureCost += 200; break;
+              case 'featGallery': featureCost += 100; break;
+              case 'featGenerativeGraphics': featureCost += generativeGraphicsPrice; break;
             }
-            if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
-            if (footerContainer) loadTemplate('footer-template.html', footerContainer);
-
-            const siteTypeSelect = document.getElementById('siteType');
-            const subpagesContainer = document.getElementById('subpages-container');
-            const numSubpagesInput = document.getElementById('numSubpages');
-            const designComplexityInput = document.getElementById('designComplexity');
-            const designComplexityValueSpan = document.getElementById('designComplexityValue');
-            const calculatePriceBtn = document.getElementById('calculatePriceBtn');
-            const calculatorResultDiv = document.getElementById('calculatorResult');
-            const calculatorResultTitle = document.getElementById('calculatorResultTitle');
-            const suggestedPackageTextP = document.getElementById('suggestedPackageText');
-            
-            const subtotalPriceSpan = document.getElementById('subtotalPrice');
-            const discountInfoP = document.getElementById('discountInfo');
-            const discountAmountSpan = document.getElementById('discountAmount');
-            const estimatedPriceValueP = document.getElementById('estimatedPriceValue');
-
-            const customQuoteNoteP = document.getElementById('customQuoteNote');
-            const pricingCalculatorForm = document.getElementById('pricingCalculatorForm');
-            const bannerDiscountCheckbox = document.getElementById('featBannerDiscount');
-            const generativeGraphicsCheckbox = document.getElementById('featGenerativeGraphics');
-            const generativeGraphicsNoteP = document.getElementById('generativeGraphicsNote');
-
-
-            const packageStartPrice = 499;
-            const packageStandardPrice = 899;
-            const generativeGraphicsPrice = 250; // Cena za pakiet grafik AI
-
-            function updateDesignComplexityDisplay() {
-                if(designComplexityInput && designComplexityValueSpan) {
-                    const value = designComplexityInput.value;
-                    let label = "";
-                    switch(value) {
-                        case '1': label = "Bardzo prosty"; break; 
-                        case '2': label = "Prosty"; break;
-                        case '3': label = "Standardowy"; break;
-                        case '4': label = "Rozbudowany"; break;
-                        case '5': label = "Zaawansowany"; break;
-                        default: label = "Standardowy";
-                    }
-                    designComplexityValueSpan.textContent = `${label} (${value}/5)`;
-                }
-            }
-
-            function toggleSubpagesInput() {
-                if (siteTypeSelect && subpagesContainer) { 
-                    if (siteTypeSelect.value === 'multipage') {
-                        subpagesContainer.classList.add('visible');
-                         numSubpagesInput.disabled = false;
-                    } else {
-                        subpagesContainer.classList.remove('visible');
-                        numSubpagesInput.disabled = true;
-                    }
-                }
-            }
-
-            function calculateAndDisplayPrice() {
-                if (!siteTypeSelect || !designComplexityInput || !numSubpagesInput || !calculatorResultDiv) {
-                    console.warn("Brakuje elementów formularza kalkulatora na tej stronie.");
-                    return;
-                }
-                const featureCheckboxes = document.querySelectorAll('input[name="features"]');
-                let basePrice = 0;
-                const siteType = siteTypeSelect.value;
-                const designLevel = parseInt(designComplexityInput.value);
-                let isContactFormSelected = false;
-                let featureCost = 0;
-
-                featureCheckboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        if (checkbox.id === 'featContactForm') isContactFormSelected = true;
-                        switch (checkbox.id) { // Zmieniono z checkbox.value na checkbox.id dla pewności
-                            case 'featGoogleMaps': featureCost += 50; break;
-                            case 'featSocialMedia': featureCost += 70; break;
-                            case 'featBasicSeo': featureCost += 150; break;
-                            case 'featAiContent': featureCost += 200; break;
-                            case 'featGallery': featureCost += 100; break;
-                            case 'featGenerativeGraphics': featureCost += generativeGraphicsPrice; break;
-                        }
-                    }
-                });
-                
-                generativeGraphicsNoteP.classList.toggle('hidden', !generativeGraphicsCheckbox.checked);
-
-
-                if (siteType === 'onepage') {
-                    basePrice = 350;
-                    if (isContactFormSelected) basePrice += 50; 
-                } else { 
-                    basePrice = 600; 
-                    const numSubpages = parseInt(numSubpagesInput.value);
-                    if (numSubpages >= 2 && numSubpages <= 10) {
-                         basePrice += (numSubpages -1) * 80; 
-                    } else if (numSubpages < 2 && numSubpages > 0) { 
-                        basePrice += 1 * 80;
-                    } else if (numSubpages === 0 && siteType === 'multipage') { 
-                         basePrice += 1 * 80; 
-                    }
-                }
-
-                const designCostModifiers = [0, 50, 150, 250, 400]; 
-                basePrice += designCostModifiers[designLevel - 1];
-                basePrice += featureCost; 
-
-                if (basePrice < 299 && siteType === 'onepage') basePrice = 299;
-                else if (basePrice < 499 && siteType === 'multipage') basePrice = 499;
-
-                let calculatedPrice = Math.round(basePrice / 10) * 10; // Zaokrąglenie do najbliższych 10 zł
-                
-                subtotalPriceSpan.textContent = `${calculatedPrice} zł`;
-                let finalPrice = calculatedPrice;
-                let discountApplied = 0;
-
-                if (bannerDiscountCheckbox.checked) {
-                    discountApplied = Math.round(calculatedPrice * 0.20 / 10) * 10; // Rabat 20% zaokrąglony do 10zł
-                    finalPrice = calculatedPrice - discountApplied;
-                    discountAmountSpan.textContent = `${discountApplied} zł`;
-                    discountInfoP.classList.remove('hidden');
-                } else {
-                    discountInfoP.classList.add('hidden');
-                }
-
-
-                let suggestedPackage = "";
-                let displayPriceText = `~ ${finalPrice} - ${finalPrice + 200} zł`; // Zakres dla ceny końcowej
-                let customNote = "";
-
-                // Logika sugerowania pakietu (może wymagać dostosowania po dodaniu rabatu)
-                // Dla uproszczenia, sugestia pakietu bazuje na cenie *przed* rabatem
-                const priceBeforeDiscountForPackageSuggestion = calculatedPrice;
-
-
-                const isLikeStartPackage = siteType === 'onepage' &&
-                                          (designLevel <= 3) && 
-                                          document.getElementById('featContactForm')?.checked && 
-                                          (featureCost - (generativeGraphicsCheckbox.checked ? generativeGraphicsPrice : 0)) <= (50 + 70); 
-
-                if (isLikeStartPackage && priceBeforeDiscountForPackageSuggestion <= (packageStartPrice + 150) && priceBeforeDiscountForPackageSuggestion >= (packageStartPrice - 100) ) {
-                    suggestedPackage = "Najbardziej zbliżony: Pakiet Start";
-                    displayPriceText = `od ${packageStartPrice} zł (przed ewentualnym rabatem)`;
-                    if(bannerDiscountCheckbox.checked) {
-                        const discountedStart = Math.round(packageStartPrice * 0.8 / 10) * 10;
-                        displayPriceText = `od ${discountedStart} zł (po rabacie)`;
-                    }
-                } else {
-                    const numSubpagesVal = (siteType === 'multipage') ? parseInt(numSubpagesInput.value) : 0;
-                    const isLikeStandardPackage = siteType === 'multipage' &&
-                                                 (numSubpagesVal >= 2 && numSubpagesVal <= 4) &&
-                                                 (designLevel >= 2 && designLevel <= 4) && 
-                                                 document.getElementById('featContactForm')?.checked &&
-                                                 (document.getElementById('featGoogleMaps')?.checked || document.getElementById('featSocialMedia')?.checked) &&
-                                                 (featureCost - (generativeGraphicsCheckbox.checked ? generativeGraphicsPrice : 0)) <= (50 + 70 + 50 + 150); 
-
-                    if (isLikeStandardPackage && priceBeforeDiscountForPackageSuggestion <= (packageStandardPrice + 250) && priceBeforeDiscountForPackageSuggestion >= (packageStandardPrice - 150)) {
-                        suggestedPackage = "Najbardziej zbliżony: Pakiet Standard";
-                         displayPriceText = `od ${packageStandardPrice} zł (przed ewentualnym rabatem)`;
-                        if(bannerDiscountCheckbox.checked) {
-                            const discountedStandard = Math.round(packageStandardPrice * 0.8 / 10) * 10;
-                            displayPriceText = `od ${discountedStandard} zł (po rabacie)`;
-                        }
-                    } else {
-                         // Jeśli nie pasuje do pakietu, pokazujemy wyliczoną cenę z rabatem
-                        displayPriceText = `~ ${finalPrice} zł`;
-                        if (finalPrice > 200) { // Dodajemy zakres tylko jeśli cena jest wyższa
-                             displayPriceText = `~ ${finalPrice} - ${finalPrice + 200} zł`;
-                        }
-
-                        if (priceBeforeDiscountForPackageSuggestion > packageStandardPrice + 100 || (siteType === 'multipage' && numSubpagesVal > 5) || designLevel > 4 || featureCost > 300) { 
-                           suggestedPackage = "Konfiguracja niestandardowa";
-                           customNote = "Twoja konfiguracja wykracza poza standardowe pakiety. Zapraszam do kontaktu po indywidualną wycenę.";
-                        } else if (priceBeforeDiscountForPackageSuggestion < packageStartPrice - 50 && siteType === 'onepage') {
-                           suggestedPackage = "Prosta konfiguracja";
-                           customNote = "Dla tak prostej strony cena może być niższa. Skontaktuj się po szczegóły.";
-                        } else {
-                           suggestedPackage = "Wycena indywidualna";
-                        }
-                    }
-                }
-                if (calculatorResultTitle) calculatorResultTitle.textContent = "Twoja orientacyjna wycena:";
-                if (suggestedPackageTextP) suggestedPackageTextP.textContent = suggestedPackage;
-                if (estimatedPriceValueP) estimatedPriceValueP.textContent = displayPriceText;
-
-                if (customQuoteNoteP) {
-                    if (customNote) {
-                        customQuoteNoteP.textContent = customNote;
-                        customQuoteNoteP.classList.remove('hidden');
-                    } else {
-                        customQuoteNoteP.classList.add('hidden');
-                    }
-                }
-                if (calculatorResultDiv) calculatorResultDiv.classList.remove('hidden');
-                if (calculatorResultDiv) calculatorResultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            if (siteTypeSelect) siteTypeSelect.addEventListener('change', toggleSubpagesInput);
-            if (designComplexityInput) {
-                designComplexityInput.addEventListener('input', updateDesignComplexityDisplay);
-                updateDesignComplexityDisplay(); 
-            }
-            if (calculatePriceBtn) calculatePriceBtn.addEventListener('click', calculateAndDisplayPrice);
-            if (bannerDiscountCheckbox) bannerDiscountCheckbox.addEventListener('change', calculateAndDisplayPrice); // Przelicz przy zmianie rabatu
-            if (generativeGraphicsCheckbox) generativeGraphicsCheckbox.addEventListener('change', calculateAndDisplayPrice); // Przelicz przy zmianie grafiki
-            
-            // Inicjalne ustawienie widoczności i przeliczenie
-            if (siteTypeSelect) toggleSubpagesInput(); 
-            // calculateAndDisplayPrice(); // Opcjonalnie: przelicz przy pierwszym załadowaniu
-
-            if (pricingCalculatorForm) {
-                pricingCalculatorForm.addEventListener('submit', (e) => {
-                    e.preventDefault(); 
-                    calculateAndDisplayPrice();
-                });
-            }
+          }
         });
 
-        const animatedElements = document.querySelectorAll('.fade-in-element');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        animatedElements.forEach(element => { observer.observe(element); });
-    </script>
+        generativeGraphicsNoteP.classList.toggle('hidden', !generativeGraphicsCheckbox.checked);
+
+        if (siteType === 'onepage') {
+          basePrice = 350;
+          if (isContactFormSelected) basePrice += 50;
+        } else {
+          basePrice = 600;
+          const numSubpages = parseInt(numSubpagesInput.value);
+          if (numSubpages >= 2 && numSubpages <= 10) {
+            basePrice += (numSubpages -1) * 80;
+          } else if (numSubpages < 2 && numSubpages > 0) {
+            basePrice += 1 * 80;
+          } else if (numSubpages === 0 && siteType === 'multipage') {
+            basePrice += 1 * 80;
+          }
+        }
+
+        const designCostModifiers = [0, 50, 150, 250, 400];
+        basePrice += designCostModifiers[designLevel - 1];
+        basePrice += featureCost;
+
+        if (basePrice < 299 && siteType === 'onepage') basePrice = 299;
+        else if (basePrice < 499 && siteType === 'multipage') basePrice = 499;
+
+        let calculatedPrice = Math.round(basePrice / 10) * 10;
+
+        subtotalPriceSpan.textContent = `${calculatedPrice} zł`;
+        let finalPrice = calculatedPrice;
+        let discountApplied = 0;
+
+        if (bannerDiscountCheckbox.checked) {
+          discountApplied = Math.round(calculatedPrice * 0.20 / 10) * 10;
+          finalPrice = calculatedPrice - discountApplied;
+          discountAmountSpan.textContent = `${discountApplied} zł`;
+          discountInfoP.classList.remove('hidden');
+        } else {
+          discountInfoP.classList.add('hidden');
+        }
+
+        let suggestedPackage = "";
+        let displayPriceText = `~ ${finalPrice} - ${finalPrice + 200} zł`;
+        let customNote = "";
+
+        const priceBeforeDiscountForPackageSuggestion = calculatedPrice;
+
+        const isLikeStartPackage = siteType === 'onepage' &&
+                                  (designLevel <= 3) &&
+                                  document.getElementById('featContactForm')?.checked &&
+                                  (featureCost - (generativeGraphicsCheckbox.checked ? generativeGraphicsPrice : 0)) <= (50 + 70);
+
+        if (isLikeStartPackage && priceBeforeDiscountForPackageSuggestion <= (packageStartPrice + 150) && priceBeforeDiscountForPackageSuggestion >= (packageStartPrice - 100) ) {
+          suggestedPackage = "Najbardziej zbliżony: Pakiet Start";
+          displayPriceText = `od ${packageStartPrice} zł (przed ewentualnym rabatem)`;
+          if(bannerDiscountCheckbox.checked) {
+            const discountedStart = Math.round(packageStartPrice * 0.8 / 10) * 10;
+            displayPriceText = `od ${discountedStart} zł (po rabacie)`;
+          }
+        } else {
+          const numSubpagesVal = (siteType === 'multipage') ? parseInt(numSubpagesInput.value) : 0;
+          const isLikeStandardPackage = siteType === 'multipage' &&
+                                       (numSubpagesVal >= 2 && numSubpagesVal <= 4) &&
+                                       (designLevel >= 2 && designLevel <= 4) &&
+                                       document.getElementById('featContactForm')?.checked &&
+                                       (document.getElementById('featGoogleMaps')?.checked || document.getElementById('featSocialMedia')?.checked) &&
+                                       (featureCost - (generativeGraphicsCheckbox.checked ? generativeGraphicsPrice : 0)) <= (50 + 70 + 50 + 150);
+
+          if (isLikeStandardPackage && priceBeforeDiscountForPackageSuggestion <= (packageStandardPrice + 250) && priceBeforeDiscountForPackageSuggestion >= (packageStandardPrice - 150)) {
+            suggestedPackage = "Najbardziej zbliżony: Pakiet Standard";
+            displayPriceText = `od ${packageStandardPrice} zł (przed ewentualnym rabatem)`;
+            if(bannerDiscountCheckbox.checked) {
+              const discountedStandard = Math.round(packageStandardPrice * 0.8 / 10) * 10;
+              displayPriceText = `od ${discountedStandard} zł (po rabacie)`;
+            }
+          } else {
+            displayPriceText = `~ ${finalPrice} zł`;
+            if (finalPrice > 200) {
+              displayPriceText = `~ ${finalPrice} - ${finalPrice + 200} zł`;
+            }
+
+            if (priceBeforeDiscountForPackageSuggestion > packageStandardPrice + 100 || (siteType === 'multipage' && numSubpagesVal > 5) || designLevel > 4 || featureCost > 300) {
+              suggestedPackage = "Konfiguracja niestandardowa";
+              customNote = "Twoja konfiguracja wykracza poza standardowe pakiety. Zapraszam do kontaktu po indywidualną wycenę.";
+            } else if (priceBeforeDiscountForPackageSuggestion < packageStartPrice - 50 && siteType === 'onepage') {
+              suggestedPackage = "Prosta konfiguracja";
+              customNote = "Dla tak prostej strony cena może być niższa. Skontaktuj się po szczegóły.";
+            } else {
+              suggestedPackage = "Wycena indywidualna";
+            }
+          }
+        }
+        if (calculatorResultTitle) calculatorResultTitle.textContent = "Twoja orientacyjna wycena:";
+        if (suggestedPackageTextP) suggestedPackageTextP.textContent = suggestedPackage;
+        if (estimatedPriceValueP) estimatedPriceValueP.textContent = displayPriceText;
+
+        if (customQuoteNoteP) {
+          if (customNote) {
+            customQuoteNoteP.textContent = customNote;
+            customQuoteNoteP.classList.remove('hidden');
+          } else {
+            customQuoteNoteP.classList.add('hidden');
+          }
+        }
+        if (calculatorResultDiv) calculatorResultDiv.classList.remove('hidden');
+        if (calculatorResultDiv) calculatorResultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (siteTypeSelect) siteTypeSelect.addEventListener('change', toggleSubpagesInput);
+      if (designComplexityInput) {
+        designComplexityInput.addEventListener('input', updateDesignComplexityDisplay);
+        updateDesignComplexityDisplay();
+      }
+      if (calculatePriceBtn) calculatePriceBtn.addEventListener('click', calculateAndDisplayPrice);
+      if (bannerDiscountCheckbox) bannerDiscountCheckbox.addEventListener('change', calculateAndDisplayPrice);
+      if (generativeGraphicsCheckbox) generativeGraphicsCheckbox.addEventListener('change', calculateAndDisplayPrice);
+
+      if (siteTypeSelect) toggleSubpagesInput();
+
+      if (pricingCalculatorForm) {
+        pricingCalculatorForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          calculateAndDisplayPrice();
+        });
+      }
+    });
+
+    const animatedElements = document.querySelectorAll('.fade-in-element');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    animatedElements.forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>

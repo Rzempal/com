@@ -1,137 +1,127 @@
+<!-- realizacje.html v0.001 Vibrant Block Maximalist - twoja-strona.online -->
 <!DOCTYPE html>
-<html lang="pl">
-
+<html lang="pl" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realizacje - Michał Rąpała AI Solutions</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Favicon - wieloformatowe wsparcie -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Realizacje - twoja-strona.online</title>
+  <meta name="description" content="Portfolio zrealizowanych stron internetowych.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="navbar-container"></div>
+  <div id="navbar-container"></div>
 
-    <header class="header-area subpage-header py-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="header-title text-3xl sm:text-4xl fade-in-element">Portfolio projektów</h1>
-            <p class="header-description mt-2 fade-in-element" style="transition-delay: 0.1s;">Przegląd wybranych realizacji stron internetowych.</p>
+  <!-- SUBPAGE HERO -->
+  <header class="subpage-hero">
+    <h1>Realizacje</h1>
+    <p>Przegląd wybranych projektów stron internetowych.</p>
+  </header>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-in-element">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">Moje projekty</h2>
+        <p class="section-description">Każdy projekt to indywidualne podejście i dopasowanie do potrzeb klienta. Kliknij, aby zobaczyć stronę na żywo.</p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Project 1 -->
+        <a href="https://becleanandpure.pl/" target="_blank" rel="noopener noreferrer" class="project-card fade-in-element">
+          <img src="https://michalrapala.com/assets/images/strony_www/bepure.jpg" alt="BeCleanAndPure.pl">
+          <div class="project-card-content">
+            <h3 class="project-card-title">BeCleanAndPure.pl</h3>
+            <p class="project-card-description">Strona dla firmy sprzątającej. Czysty design, łatwa nawigacja, prezentacja oferty i kontakt.</p>
+          </div>
+        </a>
+
+        <!-- Project 2 -->
+        <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="project-card fade-in-element">
+          <img src="https://michalrapala.com/assets/images/strony_www/robotyk.jpg" alt="Portfolio Robotyka">
+          <div class="project-card-content">
+            <h3 class="project-card-title">Portfolio Robotyka</h3>
+            <p class="project-card-description">Osobiste portfolio projektów z robotyki i symulacji 3D. Nowoczesny wygląd, prezentacja umiejętności.</p>
+          </div>
+        </a>
+
+        <!-- Next Project CTA -->
+        <div class="next-project-card fade-in-element">
+          <h3>Twój projekt?</h3>
+          <p>Twoja strona może być następna! Skontaktuj się, aby omówić szczegóły.</p>
+          <div class="cta-buttons">
+            <a href="kontakt.html" class="btn btn-white">Porozmawiajmy</a>
+          </div>
         </div>
-    </header>
-
-    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
-        <main class="main-container">
-
-            <section id="realizacje" class="section fade-in-element">
-                <h2 class="section-title sr-only">Przykładowe realizacje</h2> 
-                <p class="text-center max-w-2xl mx-auto mb-10 text-slate-600">
-                    Każdy projekt to indywidualne podejście i dopasowanie do potrzeb klienta. Kliknij, aby zobaczyć stronę na żywo.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    <a href="https://becleanandpure.pl/" target="_blank" rel="noopener noreferrer" class="realizacje-card-link group fade-in-element">
-                        <div class="feature-card group-hover:shadow-xl group-hover:border-[var(--color-primary)] transition-all duration-300">
-                            <img src="https://michalrapala.com/assets/images/strony_www/bepure.jpg" alt="Zrzut ekranu strony BeCleanAndPure.pl" class="rounded mb-3 mx-auto">
-                            <h3 class="font-semibold text-[var(--color-primary-darker)] group-hover:text-[var(--color-primary)]">BeCleanAndPure.pl</h3>
-                            <p class="text-sm">Strona dla firmy sprzątającej. Czysty design, łatwa nawigacja, prezentacja oferty i kontakt.</p>
-                        </div>
-                    </a>
-
-                    <a href="https://robotyka.michalrapala.com" target="_blank" rel="noopener noreferrer" class="realizacje-card-link group fade-in-element" style="transition-delay: 0.1s;">
-                        <div class="feature-card group-hover:shadow-xl group-hover:border-[var(--color-primary)] transition-all duration-300">
-                             <img src="https://michalrapala.com/assets/images/strony_www/robotyk.jpg" alt="Zrzut ekranu strony o robotyce Michała Rąpały" class="rounded mb-3 mx-auto">
-                            <h3 class="font-semibold text-[var(--color-primary-darker)] group-hover:text-[var(--color-primary)]">Portfolio Robotyka</h3>
-                            <p class="text-sm">Osobiste portfolio projektów z robotyki i symulacji 3D. Nowoczesny wygląd, prezentacja umiejętności.</p>
-                        </div>
-                    </a>
-
-                    <div class="realizacje-card-link group fade-in-element" style="transition-delay: 0.2s;">
-                        <div class="next-project-card p-6 sm:p-8 text-center flex flex-col justify-center items-center">
-                            <h3 class="font-semibold text-2xl mb-3">Kolejny projekt?</h3>
-                            <p class="text-sm mb-4">Twoja strona może być następna! Skontaktuj się, aby omówić szczegóły i możliwości.</p>
-                            <div class="mt-auto space-y-3 flex flex-col items-center"> 
-                                <a href="kontakt.html" class="cta-button text-sm py-2 px-4">Porozmawiajmy o Twoim projekcie <i class="fas fa-arrow-right ml-1"></i></a>
-                                <a href="cennik-kalkulator.html" class="cta-button text-sm py-2 px-4 bg-opacity-90 hover:bg-opacity-100 border border-white/50" style="background-color: var(--color-primary); color: var(--color-white);">
-                                    Sprawdź orientacyjny koszt <i class="fas fa-calculator ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+      </div>
     </div>
+  </section>
 
-    <div id="footer-container"></div>
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title fade-in-element">Zainteresowany?</h2>
+      <p class="cta-description fade-in-element">Sprawdź cennik lub skontaktuj się bezpośrednio.</p>
+      <div class="cta-buttons fade-in-element">
+        <a href="cennik-kalkulator.html" class="btn btn-primary">Sprawdź cennik</a>
+        <a href="kontakt.html" class="btn btn-outline">Kontakt</a>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbarContainer = document.getElementById('navbar-container');
-            const footerContainer = document.getElementById('footer-container');
-            async function loadTemplate(url, containerElement) {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error(`Nie udało się załadować ${url}: ${response.statusText}`);
-                    const html = await response.text();
-                    containerElement.innerHTML = html;
-                    if (containerElement.id === 'navbar-container') initializeMobileMenu();
-                    if (containerElement.id === 'footer-container') {
-                        const yearSpan = document.getElementById('currentYear');
-                        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-                    }
-                } catch (error) {
-                    console.error('Błąd ładowania szablonu:', error);
-                    containerElement.innerHTML = `<p class="text-red-500 text-center">Błąd ładowania komponentu.</p>`;
-                }
+  <div id="footer-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbarContainer = document.getElementById('navbar-container');
+      const footerContainer = document.getElementById('footer-container');
+
+      async function loadTemplate(url, containerElement) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`Nie udało się załadować ${url}`);
+          const html = await response.text();
+          containerElement.innerHTML = html;
+          if (containerElement.id === 'navbar-container') initializeMobileMenu();
+        } catch (error) {
+          console.error('Błąd ładowania szablonu:', error);
+        }
+      }
+
+      function initializeMobileMenu() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            const iconMenu = menuToggle.querySelector('.icon-menu');
+            const iconClose = menuToggle.querySelector('.icon-close');
+            if (iconMenu && iconClose) {
+              iconMenu.classList.toggle('hidden', isOpen);
+              iconClose.classList.toggle('hidden', !isOpen);
             }
-            function initializeMobileMenu() {
-                const menuToggle = document.getElementById('menu-toggle');
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (menuToggle && mobileMenu) {
-                    menuToggle.addEventListener('click', () => {
-                        const isOpen = mobileMenu.classList.toggle('hidden');
-                        mobileMenu.classList.toggle('open', !isOpen);
-                        const icons = menuToggle.querySelectorAll('svg');
-                        icons[0].classList.toggle('hidden', !isOpen);
-                        icons[1].classList.toggle('hidden', isOpen);
-                        menuToggle.setAttribute('aria-expanded', String(!isOpen));
-                    });
-                    mobileMenu.querySelectorAll('a').forEach(link => {
-                        link.addEventListener('click', () => {
-                            if (!mobileMenu.classList.contains('hidden')) {
-                                mobileMenu.classList.add('hidden');
-                                mobileMenu.classList.remove('open');
-                                const icons = menuToggle.querySelectorAll('svg');
-                                icons[0].classList.remove('hidden');
-                                icons[1].classList.add('hidden');
-                                menuToggle.setAttribute('aria-expanded', 'false');
-                            }
-                        });
-                    });
-                }
-            }
-            if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
-            if (footerContainer) loadTemplate('footer-template.html', footerContainer);
-        });
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
+      }
 
-        const animatedElements = document.querySelectorAll('.fade-in-element');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        animatedElements.forEach(element => { observer.observe(element); });
-    </script>
+      if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
+      if (footerContainer) loadTemplate('footer-template.html', footerContainer);
+    });
+
+    const animatedElements = document.querySelectorAll('.fade-in-element');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    animatedElements.forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>
