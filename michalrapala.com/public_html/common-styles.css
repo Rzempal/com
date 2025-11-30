@@ -1,19 +1,34 @@
-/* common-styles.css v0.036 – Mobile: slower unblur animations (0.8s bar, 1s status) */
+/* common-styles.css v0.037 – Cyberpunk: Neon colors, Orbitron fonts, CRT scanlines */
 
-/* ========== ZMIENNE KOLORÓW ========== */
+/* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
-    --bg: #0f172a;           /* Ciemne tło */
-    --fg: #f9fafb;           /* Jasny tekst */
-    --muted: #d1d5db;        /* Tekst drugoplanowy */
-    --accent: #48D2E7;       /* Cyan (główny) */
-    --accent-2: #34c2d9;     /* Cyan hover */
-    --surface: #1e293b;      /* Powierzchnia karty */
-    --shadow: rgba(0, 0, 0, 0.3);
-    --border: rgba(255, 255, 255, 0.1);
+    /* Tła */
+    --bg: #0a0a0f;           /* Deep black z odcieniem niebieskiego */
+    --bg-alt: #12121a;       /* Alternatywne tło */
+    --fg: #ffffff;           /* Biały tekst */
+    --muted: rgba(255, 255, 255, 0.5);  /* Tekst drugoplanowy */
+    --surface: #1a1a24;      /* Powierzchnia karty */
+    --shadow: rgba(0, 0, 0, 0.5);
+    --border: rgba(0, 255, 255, 0.2);
 
-    /* Fonty – Poppins (Logo Match) + System Fallback */
-    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    /* Neonowe kolory */
+    --accent: #00ffff;       /* Neon Cyan */
+    --accent-2: #00cccc;     /* Cyan hover */
+    --magenta: #ff00ff;      /* Neon Magenta */
+    --yellow: #ffff00;       /* Neon Yellow */
+    --hot-pink: #ff1493;     /* Hot Pink */
+    --green: #00ff00;        /* Neon Green (status) */
+
+    /* Glow effects */
+    --glow-cyan: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 40px var(--accent);
+    --glow-magenta: 0 0 10px var(--magenta), 0 0 20px var(--magenta), 0 0 40px var(--magenta);
+    --glow-cyan-strong: 0 0 20px var(--accent), 0 0 40px var(--accent), 0 0 60px var(--accent);
+
+    /* Fonty – Cyberpunk */
+    --font-display: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-heading: 'Orbitron', 'Poppins', sans-serif;
+    --font-body: 'Share Tech Mono', 'Poppins', monospace;
 }
 
 /* ========== RESET + BOX-SIZING ========== */
@@ -38,6 +53,125 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+}
+
+/* ========== CRT SCANLINES OVERLAY ========== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* ========== GRID BACKGROUND ========== */
+.grid-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.grid-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(255, 0, 255, 0.05) 50%,
+        rgba(0, 255, 255, 0.08) 100%
+    );
+}
+
+/* ========== NEON TEXT UTILITIES ========== */
+.neon-cyan {
+    color: var(--accent);
+    text-shadow: var(--glow-cyan);
+}
+
+.neon-magenta {
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta);
+}
+
+.neon-glow {
+    text-shadow: var(--glow-cyan);
+}
+
+/* ========== GLITCH EFFECT ========== */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--magenta);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--accent);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(36px, 9999px, 97px, 0); }
+    25% { clip: rect(7px, 9999px, 75px, 0); }
+    50% { clip: rect(50px, 9999px, 68px, 0); }
+    75% { clip: rect(62px, 9999px, 15px, 0); }
+    100% { clip: rect(24px, 9999px, 14px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(65px, 9999px, 89px, 0); }
+    25% { clip: rect(4px, 9999px, 44px, 0); }
+    50% { clip: rect(99px, 9999px, 12px, 0); }
+    75% { clip: rect(23px, 9999px, 77px, 0); }
+    100% { clip: rect(56px, 9999px, 34px, 0); }
+}
+
+/* ========== FLICKER ANIMATION ========== */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.3; }
+    94% { opacity: 1; }
+    95% { opacity: 0.5; }
+    96% { opacity: 1; }
 }
 
 /* ========== TYPOGRAFIA ========== */
@@ -112,7 +246,7 @@ button {
     padding: 0 1rem;
 }
 
-/* ========== GATE: Ekran Wejściowy ========== */
+/* ========== GATE: Ekran Wejściowy (Cyberpunk) ========== */
 .gate {
     position: relative;
     width: 100%;
@@ -150,11 +284,13 @@ button {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     opacity: 0.6;
+    stroke: var(--accent);
 }
 
 .mesh-node {
     opacity: 0.7;
-    filter: drop-shadow(0 0 8px rgba(72, 210, 231, 0.3));
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+    fill: var(--accent);
 }
 
 .gate__content {
@@ -162,7 +298,50 @@ button {
     z-index: 2;
     text-align: center;
     padding: 2rem;
-    max-width: 600px;
+    max-width: 700px;
+}
+
+/* Gate Status Bar */
+.gate__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    margin-bottom: 2rem;
+    animation: flicker 3s infinite;
+}
+
+.gate__status-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: statusPulse 2s infinite;
+}
+
+.gate__status-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+}
+
+/* Gate Tag */
+.gate__tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border: 1px solid var(--magenta);
+    color: var(--magenta);
+    margin-bottom: 2rem;
+    animation: flicker 3s infinite;
 }
 
 .gate__logo {
@@ -172,61 +351,125 @@ button {
     height: auto;
     margin: 0 auto 1.5rem;
     cursor: pointer;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
 }
 
 .gate__logo:hover {
     opacity: 0.9;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+}
+
+/* Gate Title (Cyberpunk) */
+.gate__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.gate__title .line-1 {
+    display: block;
+    color: var(--fg);
+}
+
+.gate__title .line-2 {
+    display: block;
+    color: var(--accent);
+    text-shadow: var(--glow-cyan);
+}
+
+.gate__title .line-3 {
+    display: block;
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta);
 }
 
 .gate__subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-size: clamp(0.9rem, 2vw, 1rem);
     color: var(--muted);
     margin-bottom: 2.5rem;
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
     font-weight: 400;
+    line-height: 1.8;
 }
 
-.gate__enter {
+/* Cyber Button */
+.gate__enter,
+.btn-cyber {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     position: relative;
     gap: 0.75rem;
-    padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
-    color: var(--fg);
-    border: 1.5px solid var(--accent);
-    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
     font-weight: 600;
-    font-size: 1rem;
-    font-family: var(--font-body);
-    opacity: 1;
-    transform: translateY(0);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    animation: floatEnterButton 6s ease-in-out infinite;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    overflow: hidden;
 }
 
-.gate__enter:hover {
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.25), rgba(52, 194, 217, 0.15));
-    border-color: #48D2E7;
-    box-shadow: 0 0 20px rgba(72, 210, 231, 0.4);
+.gate__enter,
+.btn-cyber-primary {
+    color: var(--bg);
+    background: var(--accent);
+    box-shadow: var(--glow-cyan);
 }
 
-.gate__enter:hover .pill-glow {
-    opacity: 1;
-    animation: glow 2s ease-in-out infinite;
+.gate__enter:hover,
+.btn-cyber-primary:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
 }
 
-.gate__enter:focus-visible {
+.btn-cyber-secondary {
+    color: var(--accent);
+    background: transparent;
+    border: 2px solid var(--accent);
+}
+
+.btn-cyber-secondary:hover {
+    color: var(--bg);
+    background: var(--accent);
+}
+
+/* Button shine effect */
+.gate__enter::before,
+.btn-cyber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.4s ease;
+}
+
+.gate__enter:hover::before,
+.btn-cyber:hover::before {
+    left: 100%;
+}
+
+.gate__enter:focus-visible,
+.btn-cyber:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
 }
 
 @keyframes floatEnterButton {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-6px); }
 }
 
 /* Pill-style elements (text and glow) */

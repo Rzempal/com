@@ -1,22 +1,23 @@
-/* hub-styles.css v0.022 – Top bar: icon-only + tooltip/copy functionality (desktop hover, mobile long-press) */
+/* hub-styles.css v0.023 – Cyberpunk: Terminal top bar, neon PCB colors */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
     opacity: 0;
 }
 
-/* ========== TOP INFO BAR (FIXED) ========== */
+/* ========== TOP INFO BAR (TERMINAL STYLE) ========== */
 .top-info-bar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 40;
-    background-color: rgba(15, 23, 42, 0.5);
-    backdrop-filter: saturate(150%) contrast(110%);
-    -webkit-backdrop-filter: saturate(150%) contrast(110%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.75rem 1.5rem;
+    background-color: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    padding: 0.5rem 1.5rem;
+    font-family: var(--font-mono);
 }
 
 .top-info-bar-content {
@@ -31,29 +32,45 @@ body {
 
 .top-info-bar-contact {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
     flex-wrap: wrap;
 }
 
+/* Terminal-style contact links */
 .top-info-bar-contact a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     color: var(--muted);
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
+    font-size: 0.75rem;
+    transition: all 0.3s ease;
     text-decoration: none;
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid transparent;
 }
 
 .top-info-bar-contact a:hover {
     color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+    border-color: rgba(0, 255, 255, 0.3);
 }
 
 .top-info-bar-contact a i {
     color: var(--accent);
-    font-size: 1rem;
+    font-size: 0.9rem;
+    filter: drop-shadow(0 0 4px var(--accent));
+}
+
+/* Terminal prompt before icons */
+.top-info-bar-contact a::before {
+    content: '$';
+    color: var(--magenta);
+    margin-right: 0.25rem;
+    font-weight: bold;
 }
 
 /* All contact links: always icon-only (desktop + mobile) */
@@ -68,39 +85,49 @@ body {
 }
 
 .top-info-bar-contact a:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
+/* Terminal status */
 .top-info-bar-status {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--muted);
-    font-size: 0.9rem;
-    font-family: var(--font-body);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     transition: all 0.6s ease;
+}
+
+.top-info-bar-status::before {
+    content: '>';
+    color: var(--magenta);
+    font-weight: bold;
 }
 
 .status-indicator {
     width: 8px;
     height: 8px;
-    background: #22c55e;
+    background: var(--green);
     border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
     animation: statusPulse 2s ease-in-out infinite;
 }
 
 @keyframes statusPulse {
     0%, 100% {
         opacity: 1;
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        box-shadow: 0 0 10px var(--green);
     }
     50% {
-        opacity: 0.8;
-        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+        opacity: 0.7;
+        box-shadow: 0 0 20px var(--green);
     }
 }
 
-/* ========== BACK BUTTON (FLOATING) ========== */
+/* ========== BACK BUTTON (FLOATING - CYBERPUNK) ========== */
 .hub-back-button {
     position: fixed;
     top: 50%;
@@ -113,27 +140,27 @@ body {
     width: 3rem;
     height: 3rem;
     padding: 0;
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
-    color: var(--fg);
+    background: rgba(0, 255, 255, 0.1);
+    color: var(--accent);
     font-size: 1.25rem;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 0;
     transition: all 0.3s ease;
-    border: 1.5px solid var(--accent);
-    animation: floatBackButton 6s ease-in-out infinite;
+    border: 2px solid var(--accent);
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     opacity: 0;
     visibility: hidden;
 }
 
 .hub-back-button:hover {
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.25), rgba(52, 194, 217, 0.15));
-    border-color: #48D2E7;
-    box-shadow: 0 0 20px rgba(72, 210, 231, 0.4);
+    background: rgba(255, 0, 255, 0.15);
+    border-color: var(--magenta);
+    color: var(--magenta);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
 }
 
 .hub-back-button:hover .pill-glow {
     opacity: 1;
-    animation: glow 2s ease-in-out infinite;
 }
 
 .hub-back-button:focus-visible {
@@ -144,6 +171,7 @@ body {
 .hub-back-button i {
     position: relative;
     z-index: 2;
+    filter: drop-shadow(0 0 4px currentColor);
 }
 
 @keyframes floatBackButton {
@@ -261,61 +289,62 @@ body {
 /* Ensure circuit pads and traces are visible and animated (inherit from main-animations.css) */
 .hub-mesh .circuit-pad {
     opacity: 0.7;
-    filter: drop-shadow(0 0 8px rgba(72, 210, 231, 0.3));
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.3));
 }
 
 .hub-mesh .circuit-trace {
     opacity: 0.5;
 }
 
-/* Pill Connection Lines - Flash Animation (ENHANCED - Electric Current Effect) */
+/* Pill Connection Lines - Flash Animation (NEON CYBERPUNK) */
 .pill-line {
     transition: opacity 0.3s ease;
 }
 
 .pill-line.flash {
-    animation: electricCurrent 2s ease-out;
+    animation: neonCurrent 2s ease-out;
 }
 
-@keyframes electricCurrent {
+@keyframes neonCurrent {
     0% {
         opacity: 0;
         stroke-width: 2;
-        stroke: #48D2E7;
+        stroke: #00ffff;
     }
     10% {
-        opacity: 0.6;
-        stroke-width: 6;
-        stroke: #48D2E7;
+        opacity: 0.7;
+        stroke-width: 8;
+        stroke: #00ffff;
+        filter: drop-shadow(0 0 10px #00ffff);
     }
     20% {
         opacity: 1;
-        stroke-width: 12;
-        stroke: #6EE7FF;
-        filter: drop-shadow(0 0 20px #48D2E7) drop-shadow(0 0 40px #48D2E7);
+        stroke-width: 14;
+        stroke: #ff00ff;
+        filter: drop-shadow(0 0 30px #ff00ff) drop-shadow(0 0 60px #ff00ff);
     }
     35% {
         opacity: 1;
-        stroke-width: 14;
-        stroke: #FFFFFF;
-        filter: drop-shadow(0 0 30px #48D2E7) drop-shadow(0 0 50px #48D2E7);
+        stroke-width: 16;
+        stroke: #ffffff;
+        filter: drop-shadow(0 0 40px #00ffff) drop-shadow(0 0 80px #ff00ff);
     }
     50% {
         opacity: 0.95;
-        stroke-width: 12;
-        stroke: #6EE7FF;
-        filter: drop-shadow(0 0 25px #48D2E7) drop-shadow(0 0 45px #48D2E7);
+        stroke-width: 14;
+        stroke: #00ffff;
+        filter: drop-shadow(0 0 35px #00ffff) drop-shadow(0 0 60px #00ffff);
     }
     70% {
         opacity: 0.8;
-        stroke-width: 8;
-        stroke: #48D2E7;
-        filter: drop-shadow(0 0 15px #48D2E7);
+        stroke-width: 10;
+        stroke: #00ffff;
+        filter: drop-shadow(0 0 20px #00ffff);
     }
     100% {
         opacity: 0;
         stroke-width: 2;
-        stroke: #48D2E7;
+        stroke: #00ffff;
     }
 }
 
@@ -338,7 +367,7 @@ body {
     }
 }
 
-/* ========== HUB PILLS ========== */
+/* ========== HUB PILLS (CYBERPUNK) ========== */
 .hub-pills-container {
     position: absolute;
     width: 100%;
@@ -355,31 +384,35 @@ body {
     align-items: center;
     justify-content: center;
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
-    border: 1.5px solid var(--accent);
-    border-radius: 4px;
-    color: var(--fg);
-    font-size: 0.9rem;
+    background: rgba(0, 255, 255, 0.08);
+    border: 2px solid var(--accent);
+    border-radius: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
     font-weight: 600;
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
     pointer-events: auto;
     opacity: 0;
-    /* Angled corners for tech/PCB aesthetic */
+    /* Angled corners for cyberpunk aesthetic */
     clip-path: polygon(
-        0 6px, 6px 0,                        /* top-left cut */
-        calc(100% - 6px) 0, 100% 6px,        /* top-right cut */
-        100% calc(100% - 6px), calc(100% - 6px) 100%,  /* bottom-right cut */
-        6px 100%, 0 calc(100% - 6px)         /* bottom-left cut */
+        0 8px, 8px 0,                        /* top-left cut */
+        calc(100% - 8px) 0, 100% 8px,        /* top-right cut */
+        100% calc(100% - 8px), calc(100% - 8px) 100%,  /* bottom-right cut */
+        8px 100%, 0 calc(100% - 8px)         /* bottom-left cut */
     );
 }
 
 .hub-pill:hover {
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.25), rgba(52, 194, 217, 0.15));
-    border-color: #48D2E7;
-    box-shadow: 0 0 20px rgba(72, 210, 231, 0.4);
+    background: rgba(255, 0, 255, 0.15);
+    border-color: var(--magenta);
+    color: var(--magenta);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+    text-shadow: 0 0 10px var(--magenta);
 }
 
 .hub-pill:focus-visible {
@@ -410,7 +443,7 @@ body {
 .pill-glow {
     position: absolute;
     inset: -4px;
-    background: radial-gradient(circle, rgba(72, 210, 231, 0.3), transparent);
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
     border-radius: 50px;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -423,8 +456,8 @@ body {
 }
 
 @keyframes glow {
-    0%, 100% { box-shadow: 0 0 10px rgba(72, 210, 231, 0.4); }
-    50% { box-shadow: 0 0 20px rgba(72, 210, 231, 0.6); }
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
 }
 
 /* ========== HUB CARDS SECTION ========== */
@@ -460,7 +493,7 @@ body {
     margin: 0 auto 1.5rem;
     border-radius: 0.75rem;
     overflow: hidden;
-    border: 1px solid rgba(72, 210, 231, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.3);
 }
 
 .hub-card-image img {
@@ -509,7 +542,7 @@ body {
 
 .hub-card-link:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(72, 210, 231, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3);
 }
 
 .hub-card-link:focus-visible {
@@ -563,7 +596,7 @@ body {
         flex: 1;
         min-height: 100vh;
         padding: 0;
-        border-right: 1px solid rgba(72, 210, 231, 0.2);
+        border-right: 1px solid rgba(0, 255, 255, 0.2);
     }
 
     .hub-cards-section {
@@ -615,7 +648,7 @@ body {
     color: var(--fg);
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
-    border: 1px solid rgba(72, 210, 231, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.3);
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -649,7 +682,7 @@ body {
 
 .tooltip-copy-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(72, 210, 231, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 255, 255, 0.3);
 }
 
 /* Copy feedback toast */
@@ -662,7 +695,7 @@ body {
     color: var(--fg);
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
-    border: 1px solid rgba(72, 210, 231, 0.5);
+    border: 1px solid rgba(0, 255, 255, 0.5);
     font-size: 0.9rem;
     z-index: 300;
     backdrop-filter: blur(10px);

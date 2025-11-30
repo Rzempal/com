@@ -1,6 +1,9 @@
-/* fonts.css v0.003 – Fixed paths to /assets/fonts/ */
+/* fonts.css v0.004 – Cyberpunk: Orbitron + Share Tech Mono */
 
-/* ========== FONT FACE DECLARATIONS ========== */
+/* ========== GOOGLE FONTS IMPORT ========== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap');
+
+/* ========== POPPINS LOCAL FONTS (fallback) ========== */
 
 /* Poppins Regular (400) – Body Text */
 @font-face {
