@@ -1,0 +1,478 @@
+<!-- mockup-orange.html v0.001 Wariant A: Orange (#FF6B35) jako secondary color -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wariant A: Orange — Brutalism Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           WARIANT A: ORANGE (#FF6B35)
+           Primary: Cyan #48D2E7 | Secondary: Orange #FF6B35
+           ============================================ */
+        :root {
+            --color-bg: #0a0a0a;
+            --color-bg-alt: #1a1a1a;
+            --color-text: #ffffff;
+            --color-text-muted: #888888;
+            --color-accent: #48D2E7;
+            --color-accent-hover: #34c2d9;
+            --color-accent-dark: #0a0a0a;
+            --color-secondary: #FF6B35;
+            --color-secondary-dark: #ffffff;
+            --font-display: 'Anton', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --border-thick: 4px;
+            --transition-fast: 0.15s;
+        }
+
+        [data-theme="light"] {
+            --color-bg: #f5f5f5;
+            --color-bg-alt: #ffffff;
+            --color-text: #0a0a0a;
+            --color-text-muted: #555555;
+            --color-accent: #48D2E7;
+            --color-accent-hover: #34c2d9;
+            --color-accent-dark: #0a0a0a;
+            --color-secondary: #FF6B35;
+            --color-secondary-dark: #ffffff;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-mono);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.5;
+            cursor: crosshair;
+            transition: background var(--transition-fast), color var(--transition-fast);
+        }
+        ::selection { background: var(--color-accent); color: var(--color-bg); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
+        /* Navigation */
+        nav {
+            border-bottom: var(--border-thick) solid var(--color-text);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            background: var(--color-bg);
+            z-index: 100;
+        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            letter-spacing: 0.05em;
+        }
+        .logo:hover { color: var(--color-accent); }
+        .nav-links { display: flex; gap: 0; list-style: none; align-items: center; }
+        .nav-links a {
+            display: block;
+            padding: 0.6rem 1.25rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--color-text);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: var(--border-thick) solid transparent;
+            transition: all var(--transition-fast);
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--color-accent);
+            color: var(--color-accent-dark);
+            border-color: var(--color-text);
+        }
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--color-bg-alt);
+            border: var(--border-thick) solid var(--color-text);
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text);
+        }
+        .theme-toggle:hover { background: var(--color-secondary); color: var(--color-secondary-dark); }
+
+        /* Hero */
+        .hero {
+            min-height: 70vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: var(--border-thick) solid var(--color-text);
+        }
+        .hero-content {
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: var(--border-thick) solid var(--color-text);
+        }
+        .hero-tag {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            background: var(--color-secondary);
+            color: var(--color-secondary-dark);
+            margin-bottom: 1.5rem;
+            transform: rotate(-2deg);
+            width: fit-content;
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        h1 .accent { display: block; color: var(--color-accent); }
+        .hero-description {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 380px;
+            margin-bottom: 2rem;
+            color: var(--color-text-muted);
+        }
+        .hero-visual {
+            background: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .hero-image-wrapper { width: 75%; height: 75%; position: relative; }
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: var(--border-thick) solid var(--color-bg);
+            filter: grayscale(100%) contrast(1.2);
+            mix-blend-mode: multiply;
+        }
+        .glitch-box {
+            position: absolute;
+            top: 10%;
+            right: -15px;
+            padding: 0.75rem 1rem;
+            background: var(--color-bg);
+            border: var(--border-thick) solid var(--color-text);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transform: rotate(5deg);
+        }
+
+        /* Buttons */
+        .btn-brutal {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            color: var(--color-accent-dark);
+            background: var(--color-accent);
+            border: var(--border-thick) solid var(--color-text);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .btn-brutal:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--color-text);
+        }
+        .btn-brutal--secondary {
+            background: var(--color-secondary);
+            color: var(--color-secondary-dark);
+        }
+
+        /* Marquee */
+        .marquee {
+            overflow: hidden;
+            background: var(--color-accent);
+            padding: 0.75rem 0;
+            border-bottom: var(--border-thick) solid var(--color-text);
+        }
+        .marquee-track { display: flex; animation: marquee 25s linear infinite; }
+        .marquee-content { display: flex; gap: 3rem; padding: 0 1.5rem; white-space: nowrap; }
+        .marquee-content span {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-accent-dark);
+            text-transform: uppercase;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Cards */
+        .section { padding: 0; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: var(--border-thick) solid var(--color-text);
+        }
+        .section-title { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; }
+        .section-count { font-size: 0.8rem; text-transform: uppercase; color: var(--color-accent); }
+        .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+        .card {
+            border-right: var(--border-thick) solid var(--color-text);
+            border-bottom: var(--border-thick) solid var(--color-text);
+            padding: 2rem;
+            background: var(--color-bg);
+            transition: all var(--transition-fast);
+        }
+        .card:nth-child(2n) { border-right: none; }
+        .card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--color-accent);
+        }
+        .card-number { font-family: var(--font-display); font-size: 2.5rem; color: var(--color-accent); margin-bottom: 1rem; }
+        .card-title { font-family: var(--font-display); font-size: 1.25rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .card-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+        .card-description { font-size: 0.85rem; line-height: 1.6; color: var(--color-text-muted); }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-bottom: var(--border-thick) solid var(--color-text);
+        }
+        .stat-item {
+            padding: 2.5rem 1.5rem;
+            border-right: var(--border-thick) solid var(--color-text);
+            text-align: center;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-item:nth-child(odd) { background: var(--color-accent); color: var(--color-accent-dark); }
+        .stat-item:nth-child(even) { background: var(--color-secondary); color: var(--color-secondary-dark); }
+        .stat-value { font-family: var(--font-display); font-size: 3rem; line-height: 1; margin-bottom: 0.4rem; }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; }
+
+        /* CTA */
+        .cta {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            border-bottom: var(--border-thick) solid var(--color-text);
+        }
+        .cta-content {
+            padding: 4rem 3rem;
+            border-right: var(--border-thick) solid var(--color-text);
+        }
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+        .cta-title .accent { color: var(--color-secondary); }
+        .cta-description {
+            font-size: 0.9rem;
+            max-width: 450px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            color: var(--color-text-muted);
+        }
+        .cta-visual {
+            background: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cta-visual span {
+            font-family: var(--font-display);
+            font-size: 6rem;
+            color: var(--color-secondary-dark);
+            transform: rotate(-10deg);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .cta:hover .cta-visual span { transform: rotate(-20deg) scale(1.1); }
+
+        /* Footer */
+        footer { padding: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .footer-logo { font-family: var(--font-display); font-size: 1.25rem; color: var(--color-text); text-decoration: none; }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { font-size: 0.7rem; text-transform: uppercase; color: var(--color-text); text-decoration: none; }
+        .footer-links a:hover { color: var(--color-accent); }
+        .copyright { font-size: 0.7rem; text-transform: uppercase; color: var(--color-text-muted); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-content { border-right: none; border-bottom: var(--border-thick) solid var(--color-text); }
+            .hero-visual { min-height: 40vh; }
+            .cta { grid-template-columns: 1fr; }
+            .cta-content { border-right: none; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links a:not(.theme-toggle) { display: none; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .card { border-right: none; }
+            .stats { grid-template-columns: 1fr; }
+            .stat-item { border-right: none; }
+            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
+
+        /* Color Label */
+        .color-label {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-secondary);
+            color: var(--color-secondary-dark);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: var(--border-thick) solid var(--color-text);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="color-label">A: Orange #FF6B35</div>
+
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">ROBOTYKA</a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Start</a></li>
+                <li><a href="#">Doświadczenie</a></li>
+                <li><a href="#">Projekty</a></li>
+                <li><a href="#">Kontakt</a></li>
+                <li><button class="theme-toggle" onclick="toggleTheme()"><span class="theme-toggle-icon">◐</span><span>Light</span></button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-tag">10+ lat doświadczenia</span>
+                <h1>Symulacja <span class="accent">Robotów</span></h1>
+                <p class="hero-description">Inżynier robotyki specjalizujący się w symulacjach Process Simulate i programowaniu robotów.</p>
+                <a href="#" class="btn-brutal">Zobacz projekty</a>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <img src="https://michalrapala.com/assets/images/robotyka/profilowe.jpg" alt="Michał Rąpała">
+                    <div class="glitch-box">Offline / Online</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="marquee">
+            <div class="marquee-track">
+                <div class="marquee-content">
+                    <span>Process Simulate</span><span>★</span><span>KUKA</span><span>★</span><span>ABB</span><span>★</span><span>Fanuc</span><span>★</span><span>Automotive</span><span>★</span>
+                </div>
+                <div class="marquee-content">
+                    <span>Process Simulate</span><span>★</span><span>KUKA</span><span>★</span><span>ABB</span><span>★</span><span>Fanuc</span><span>★</span><span>Automotive</span><span>★</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Wybrane Projekty</h2>
+                <span class="section-count">[04] Projekty</span>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-number">01</span>
+                    <h3 class="card-title">BMW iX Flow</h3>
+                    <p class="card-category">Simulation Leader</p>
+                    <p class="card-description">Projekt symulacji linii spawalniczej z robotami KUKA.</p>
+                </div>
+                <div class="card">
+                    <span class="card-number">02</span>
+                    <h3 class="card-title">VW ID.4</h3>
+                    <p class="card-category">Robotics Engineer</p>
+                    <p class="card-description">Programowanie offline robotów ABB i Fanuc.</p>
+                </div>
+                <div class="card">
+                    <span class="card-number">03</span>
+                    <h3 class="card-title">Magna Body Shop</h3>
+                    <p class="card-category">Online Programming</p>
+                    <p class="card-description">Uruchomienie linii produkcyjnej on-site.</p>
+                </div>
+                <div class="card">
+                    <span class="card-number">04</span>
+                    <h3 class="card-title">Volvo EX90</h3>
+                    <p class="card-category">Simulation Engineer</p>
+                    <p class="card-description">Symulacja procesów zgrzewania i nitowania.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stat-item"><div class="stat-value">10+</div><div class="stat-label">Lat doświadczenia</div></div>
+            <div class="stat-item"><div class="stat-value">50+</div><div class="stat-label">Projektów</div></div>
+            <div class="stat-item"><div class="stat-value">8</div><div class="stat-label">Standardów OEM</div></div>
+            <div class="stat-item"><div class="stat-value">∞</div><div class="stat-label">Możliwości</div></div>
+        </section>
+
+        <section class="cta">
+            <div class="cta-content">
+                <h2 class="cta-title">Szukasz <span class="accent">Inżyniera?</span></h2>
+                <p class="cta-description">Projekty symulacyjne, programowanie offline/online, optymalizacja procesów.</p>
+                <a href="#" class="btn-brutal btn-brutal--secondary">Kontakt</a>
+            </div>
+            <div class="cta-visual"><span>!</span></div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#" class="footer-logo">ROBOTYKA</a>
+        <div class="footer-links"><a href="#">LinkedIn</a><a href="#">Email</a></div>
+        <p class="copyright">&copy; 2024 Michał Rąpała</p>
+    </footer>
+
+    <script>
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('theme');
+            return saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        }
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        document.addEventListener('DOMContentLoaded', () => applyTheme(getPreferredTheme()));
+    </script>
+</body>
+</html>
