@@ -1,4 +1,4 @@
-<!-- mockup-vibrant.html v0.001 Makieta UI Vibrant Block Maximalist z dark/light mode -->
+<!-- mockup-vibrant.html v0.002 Fix: kontrast tekstu w light mode -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
@@ -32,6 +32,11 @@
       --color-bg-alt: #ffffff;
       --color-text: #0a0a0a;
       --color-text-muted: rgba(10, 10, 10, 0.6);
+      --color-on-accent: #0a0a0a; /* ciemny tekst na kolorowych tłach */
+    }
+
+    :root {
+      --color-on-accent: #0a0a0a; /* ciemny tekst na kolorowych tłach */
     }
 
     /* ============================================
@@ -182,7 +187,7 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.2em;
-      color: var(--color-bg);
+      color: var(--color-on-accent);
       margin-bottom: 1rem;
     }
 
@@ -190,7 +195,7 @@
       font-family: var(--font-display);
       font-size: clamp(3rem, 10vw, 8rem);
       line-height: 0.9;
-      color: var(--color-bg);
+      color: var(--color-on-accent);
       text-transform: uppercase;
       font-weight: 900;
     }
@@ -198,7 +203,7 @@
     .hero-description {
       font-size: 1.125rem;
       font-weight: 500;
-      color: var(--color-bg);
+      color: var(--color-on-accent);
       max-width: 400px;
       margin-top: 2rem;
       opacity: 0.8;
@@ -317,14 +322,14 @@
       line-height: 0.9;
       text-transform: uppercase;
       font-weight: 900;
-      color: var(--color-bg);
+      color: var(--color-on-accent);
       margin-bottom: 1.5rem;
     }
 
     .cta-description {
       font-size: 1.25rem;
       font-weight: 600;
-      color: var(--color-bg);
+      color: var(--color-on-accent);
       max-width: 500px;
       margin-bottom: 2.5rem;
     }
@@ -371,13 +376,13 @@
 
     .btn-outline {
       background: transparent;
-      color: var(--color-bg);
-      border: 3px solid var(--color-bg);
+      color: var(--color-on-accent);
+      border: 3px solid var(--color-on-accent);
     }
 
     .btn-outline:hover {
-      background: var(--color-bg);
-      color: var(--color-text);
+      background: var(--color-on-accent);
+      color: var(--color-yellow);
     }
 
     .cta-buttons {
