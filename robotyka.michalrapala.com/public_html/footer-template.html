@@ -1,24 +1,14 @@
-<!-- footer-template.html linki w tym samym oknie 8 czerwca 2025 4:48 PM  -->
-<footer class="border-t border-slate-200 text-slate-600 py-8 text-center bg-white">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col items-center">
-            <!-- ZMIANA: Usunięto target="_blank" i powiązane atrybuty -->
-            <a href="https://michalrapala.com" class="inline-block mb-4 transition-transform hover:scale-105">
-                <img src="https://michalrapala.com/assets/images/global/logo_wykonanie_light.png" alt="Logo wykonawcy strony - Michał Rąpała" class="h-auto max-w-[200px] w-full rounded border-2 border-[#5A7BFF]/50 hover:border-[#5A7BFF] transition-colors">
-            </a>
-            <p class="text-sm">
-                &copy; <span id="currentYear"></span> Michał Rąpała AI Solutions. Wszelkie prawa zastrzeżone.
-            </p>
-            <p class="text-xs mt-1">
-                Strona stworzona z pasją i wsparciem AI.
-            </p>
-        </div>
+<!-- footer-template.html v0.001 Brutalism footer -->
+<footer class="footer-brutal">
+    <a href="index.html" class="footer-logo">ROBOTYKA</a>
+    <div class="footer-links">
+        <a href="https://www.linkedin.com/in/michal-rapala/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:kontakt@michalrapala.com">Email</a>
+        <a href="https://michalrapala.com" target="_blank" rel="noopener">Portfolio</a>
     </div>
+    <p class="copyright">&copy; <span id="currentYear"></span> Michał Rąpała</p>
 </footer>
 <script>
-    // Mały skrypt do dynamicznego wstawiania aktualnego roku w stopce
-    // Ten skrypt będzie działał tylko jeśli ten plik jest ładowany dynamicznie
-    // lub jeśli jest częścią strony, która ma już ten element
     document.addEventListener('DOMContentLoaded', () => {
         const yearSpan = document.getElementById('currentYear');
         if (yearSpan) {
