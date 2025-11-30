@@ -1,41 +1,40 @@
-<nav id="main-navbar" class="navbar-custom-bg fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-            <div class="flex-shrink-0">
-                <a href="index.html">
-                    <img class="h-10 w-auto" src="https://michalrapala.com/assets/images/global/logo_robotyka.png" alt="Rapala">
-                </a>
-            </div>
-            <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-4">
-                    <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-page="index.html" data-lang-key="navAboutMe">O mnie</a>
-                    <a href="doswiadczenie.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-page="doswiadczenie.html" data-lang-key="navExperience">Doświadczenie</a>
-                    <a href="projekty.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-page="projekty.html" data-lang-key="navProjects">Projekty</a>
-                    <a href="kontakt.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium" data-page="kontakt.html" data-lang-key="navContact">Kontakt</a>
-                </div>
-            </div>
-            <div class="hidden md:block">
-                <div id="language-switcher-desktop" class="ml-4 flex items-center md:ml-6">
-                    </div>
-            </div>
-            <div class="-mr-2 flex md:hidden">
-                <button type="button" id="hamburger-button" class="inline-flex items-center justify-center p-2 rounded-md focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
-                    <span class="sr-only">Otwórz menu główne</span>
-                    <i class="fas fa-bars fa-fw text-xl"></i> </button>
-            </div>
-        </div>
+<!-- navbar-template.html v0.001 Brutalism navigation -->
+<nav id="main-navbar" class="navbar-brutal">
+    <div class="container">
+        <a href="index.html" class="nav-logo">ROBOTYKA</a>
+        <ul class="nav-links-brutal">
+            <li class="nav-link-item"><a href="index.html" class="nav-link" data-page="index.html" data-lang-key="navAboutMe">O mnie</a></li>
+            <li class="nav-link-item"><a href="doswiadczenie.html" class="nav-link" data-page="doswiadczenie.html" data-lang-key="navExperience">Doświadczenie</a></li>
+            <li class="nav-link-item"><a href="projekty.html" class="nav-link" data-page="projekty.html" data-lang-key="navProjects">Projekty</a></li>
+            <li class="nav-link-item"><a href="kontakt.html" class="nav-link" data-page="kontakt.html" data-lang-key="navContact">Kontakt</a></li>
+            <li class="nav-link-item">
+                <div id="language-switcher-desktop"></div>
+            </li>
+            <li class="nav-link-item">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span class="theme-toggle-icon">◐</span>
+                    <span class="theme-toggle-text">Light</span>
+                </button>
+            </li>
+            <li>
+                <button type="button" id="hamburger-button" aria-controls="mobile-menu" aria-expanded="false">
+                    <i class="fas fa-bars fa-fw"></i>
+                </button>
+            </li>
+        </ul>
     </div>
 
-    <div class="md:hidden hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium" data-page="index.html" data-lang-key="navAboutMe">O mnie</a>
-            <a href="doswiadczenie.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium" data-page="doswiadczenie.html" data-lang-key="navExperience">Doświadczenie</a>
-            <a href="projekty.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium" data-page="projekty.html" data-lang-key="navProjects">Projekty</a>
-            <a href="kontakt.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium" data-page="kontakt.html" data-lang-key="navContact">Kontakt</a>
-        </div>
-        <div class="pt-4 pb-3 border-t">
-            <div id="language-switcher-mobile" class="flex items-center justify-center px-5 space-x-1">
-                 </div>
+    <div class="hidden" id="mobile-menu">
+        <a href="index.html" class="nav-link" data-page="index.html" data-lang-key="navAboutMe">O mnie</a>
+        <a href="doswiadczenie.html" class="nav-link" data-page="doswiadczenie.html" data-lang-key="navExperience">Doświadczenie</a>
+        <a href="projekty.html" class="nav-link" data-page="projekty.html" data-lang-key="navProjects">Projekty</a>
+        <a href="kontakt.html" class="nav-link" data-page="kontakt.html" data-lang-key="navContact">Kontakt</a>
+        <div id="language-switcher-mobile" style="padding: 1rem; display: flex; justify-content: center; gap: 0.5rem;"></div>
+        <div style="padding: 1rem; display: flex; justify-content: center;">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span class="theme-toggle-icon">◐</span>
+                <span class="theme-toggle-text">Light</span>
+            </button>
         </div>
     </div>
 </nav>

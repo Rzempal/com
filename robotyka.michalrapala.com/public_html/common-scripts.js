@@ -619,22 +619,65 @@ function initializeAnimateOnScroll() {
 }
 
 
+// ============================================
+// THEME TOGGLE FUNCTIONALITY
+// ============================================
+function getPreferredTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    updateToggleButtons(theme);
+    localStorage.setItem('theme', theme);
+}
+
+function updateToggleButtons(theme) {
+    const icons = document.querySelectorAll('.theme-toggle-icon');
+    const texts = document.querySelectorAll('.theme-toggle-text');
+    icons.forEach(icon => {
+        icon.textContent = theme === 'light' ? '◑' : '◐';
+    });
+    texts.forEach(text => {
+        text.textContent = theme === 'light' ? 'Dark' : 'Light';
+    });
+}
+
+window.toggleTheme = function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+};
+
+// Initialize theme immediately to prevent flash
+(function() {
+    applyTheme(getPreferredTheme());
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Apply theme after DOM is ready
+    applyTheme(getPreferredTheme());
+
     Promise.all([loadNavbar(), loadFooter()]).then(() => {
+        // Update theme toggle buttons after navbar loads
+        updateToggleButtons(getPreferredTheme());
+
         let currentLang = localStorage.getItem('preferredLang') || 'pl';
         const urlParams = new URLSearchParams(window.location.search);
         const langParam = urlParams.get('lang');
         if (langParam && ['pl', 'en', 'de', 'cs'].includes(langParam)) {
             currentLang = langParam;
         }
-        
+
         if (typeof renderProjectCards === 'function' && document.getElementById('project-cards-grid')) {
-            renderProjectCards(currentLang); 
+            renderProjectCards(currentLang);
         }
         if (typeof initializeProjectFiltersLocal === 'function' && document.getElementById('project-filters')) {
-            initializeProjectFiltersLocal(currentLang); 
+            initializeProjectFiltersLocal(currentLang);
         }
-        switchLanguage(currentLang); 
+        switchLanguage(currentLang);
         initializeAnimateOnScroll();
     });
 

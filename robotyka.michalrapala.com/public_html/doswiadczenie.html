@@ -1,321 +1,186 @@
-<!-- doswiadczenie.html v3 - dynamicznie ładowana stopka -->
+<!-- doswiadczenie.html v0.001 Brutalism Design -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robotyka - Michał Rąpała - Doświadczenie, Umiejętności i Certyfikaty</title>
-     <!-- Favicon - wieloformatowe wsparcie -->
+    <title>ROBOTYKA - Doświadczenie | Michał Rąpała</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="common-styles.css">
-
-    <style>
-        html {
-             scroll-behavior: smooth;
-        }
-        .header-background {
-            height: auto; 
-            min-height: 300px; 
-            padding-top: 2rem; 
-            padding-bottom: 2rem; 
-            background-color: #E0F5F7; 
-            border-radius: 0.75rem; 
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            overflow: hidden;
-            background-image: url('https://michalrapala.com/assets/images/robotyka/header_robotyka_light.png');
-            background-size: cover;
-            background-position: center;
-        }
-        .header-background::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.3); 
-            z-index: 1;
-            border-radius: 0.75rem; 
-        }
-        .header-inner-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            display: flex;
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            gap: 1.5rem; 
-        }
-        .header-inner-content p.hero-text {
-            color: white; 
-            font-size: 1.25rem; 
-            line-height: 1.6;
-        }
-        @media (min-width: 768px) { 
-            .header-inner-content p.hero-text {
-                font-size: 1.75rem; 
-            }
-        }
-        
-        .cta-button {
-            background-color: var(--primary-accent-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            border: 2px solid var(--primary-accent-color);
-        }
-        .cta-button:hover {
-            background-color: var(--primary-accent-hover-color);
-            border-color: var(--primary-accent-hover-color);
-        }
-
-        .main-container {
-             background-color: #FFFFFF; 
-             box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-             border-radius: 0.75rem;
-             margin-top: -2.5rem; 
-             position: relative;
-             z-index: 10;
-             border: 1px solid #E2E8F0; 
-        }
-        
-        h2 .section-title { 
-            font-size: 1.75rem; 
-            font-weight: 700; 
-            color: #1E293B; 
-        }
-        h2 i { 
-            color: var(--primary-accent-color); 
-        }
-        h2 { 
-            margin-bottom: 1.5rem; 
-            padding-bottom: 0.75rem; 
-            border-bottom: 1px solid #E2E8F0; 
-            display: flex; 
-            align-items: center; 
-        }
-
-        .card { 
-            background-color: #FFFFFF; 
-            border-radius: 0.75rem; 
-            padding: 1.5rem; 
-            margin-bottom: 1.5rem; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); 
-            border: 1px solid #E2E8F0; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-            display: block; 
-        }
-        .card:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04); 
-        }
-        .card h3 { 
-            color: #0F172A; 
-        }
-        #skills-content.card h4, #skills-content.card h5 {
-            color: #1E293B; 
-        }
-        #skills-content.card .tag {
-            background-color: #E2E8F0; 
-            color: #334155; 
-            padding: 0.35rem 0.85rem; 
-            border-radius: 9999px; 
-            font-size: 0.8rem; 
-            font-weight: 500; 
-            margin-right: 0.5rem; margin-bottom: 0.5rem; 
-            display: inline-block; 
-            border: 1px solid #CBD5E1; 
-        }
-        #skills-content.card hr {
-            border-color: #E2E8F0; 
-        }
-
-        #certs-content.card ul li {
-            color: #334155; 
-        }
-        #certs-content.card ul li i.fa-check-circle {
-            color: #22C55E; 
-        }
-        #certs-content.card ul li i.fa-star {
-            color: #F59E0B; 
-        }
-
-        .card p, .card li { 
-            color: #334155; 
-        }
-        .card .text-gray-400 { 
-             color: #64748B; 
-        }
-        .card .text-gray-300 {
-             color: #475569; 
-        }
-        .responsibilities-title { /* Usunięte, bo wprowadzenie jest teraz częścią exp1Intro */
-            /* font-weight: 500; */
-            /* color: #1E293B; */
-            /* margin-top: 0.75rem; */
-            /* margin-bottom: 0.5rem; */
-        }
-        /* Styl dla akapitu wprowadzającego do obowiązków */
-        .experience-intro-text {
-            color: #334155; /* text-slate-700 */
-            margin-bottom: 0.75rem; /* mb-3 */
-            line-height: 1.6;
-        }
-    </style>
 </head>
 <body data-page-name="Doswiadczenie">
 
     <div id="navbar-placeholder"></div>
 
-    <header class="container mx-auto p-4 md:px-10 mt-12 mb-12">
-        <div class="header-background animate-on-scroll aos-fade-in aos-duration-900ms">
-             <div class="header-inner-content">
-                 <p class="hero-text font-semibold animate-on-scroll aos-fade-in-up aos-delay-200ms" data-lang-key="heroExperienceText">Ponad dekada doświadczenia w automatyzacji procesów produkcyjnych.</p>
-                 <a href="projekty.html" class="cta-button animate-on-scroll aos-fade-in-up aos-delay-400ms" data-lang-key="heroCtaButton">Zobacz moje projekty</a>
-             </div>
+    <!-- HERO SECTION -->
+    <section class="hero-brutal" style="min-height: 50vh;">
+        <div class="hero-content animate-on-scroll aos-fade-in-left">
+            <span class="hero-tag">10+ lat w branży</span>
+            <h1 class="hero-title" data-lang-key="experienceTitle">
+                Doświadczenie <span class="accent">Zawodowe</span>
+            </h1>
+            <p class="hero-description" data-lang-key="heroExperienceText">Ponad dekada doświadczenia w automatyzacji procesów produkcyjnych.</p>
+            <a href="projekty.html" class="btn-brutal" data-lang-key="heroCtaButton">Zobacz moje projekty</a>
         </div>
-    </header>
+        <div class="hero-visual animate-on-scroll aos-fade-in-right">
+            <div class="hero-image-wrapper">
+                <img src="https://michalrapala.com/assets/images/robotyka/programowanie_online.jpg" alt="Programowanie robotów">
+                <div class="glitch-box">Engineering</div>
+            </div>
+        </div>
+    </section>
 
-    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
-        <main class="main-container animate-on-scroll aos-fade-in-up">
-             <div class="p-4 md:p-10">
-                <section id="experience" class="mb-12">
-                    <h2 class="animate-on-scroll aos-fade-in-right">
-                        <span class="flex items-center"><i class="fas fa-briefcase mr-3"></i><span class="section-title" data-lang-key="experienceTitle">Doświadczenie zawodowe</span></span>
-                    </h2>
-                    <div id="experience-content" class="pt-4">
-                        <div id="pdf-experience-cards" class="space-y-6">
-                            <div class="card animate-on-scroll aos-fade-in-up">
-                                <h3 data-lang-key="exp1Title" class="text-xl font-semibold mb-1">Senior Simulation Robotics Engineer</h3>
-                                <p data-lang-key="exp1Company" class="text-sm mb-1">Chropynska Polska | Maj 2023 – Obecnie</p>
-                                
-                                <p data-lang-key="exp1Intro" class="experience-intro-text text-sm mt-3"></p>
-                                
-                                <ul class="list-disc list-inside ml-4 mt-1 text-sm space-y-1">
-                                    <li data-lang-key="exp1RespNew1"></li>
-                                    <li data-lang-key="exp1RespNew2"></li>
-                                    <li data-lang-key="exp1RespNew3"></li>
-                                    <li data-lang-key="exp1RespNew4"></li>
-                                    <li data-lang-key="exp1RespNew5"></li>
-                                    <li data-lang-key="exp1RespNew6"></li>
-                                </ul>
-                            </div>
-                            <div class="card animate-on-scroll aos-fade-in-up aos-delay-100ms">
-                                <h3 data-lang-key="exp2Title" class="text-xl font-semibold mb-1">Unit Leader / Robotics Engineer</h3>
-                                <p data-lang-key="exp2Company" class="text-sm mb-1">QT Swiss Engineering | Maj 2014 – Kwiecień 2023 (ponad 10 lat)</p>
-                                <p data-lang-key="exp2Role1" class="text-sm mt-1"><span class="font-medium">Unit Leader:</span> Styczeń 2017 – Kwiecień 2023</p>
-                                <p data-lang-key="exp2Role2" class="text-sm mt-1"><span class="font-medium">Robotics Engineer:</span> Maj 2014 – Styczeń 2017</p>
-                                <p data-lang-key="exp2Desc" class="mt-2 text-sm">Odpowiedzialny za różnorodne projekty symulacyjne i programowanie robotów dla klientów z branży motoryzacyjnej.</p>
-                            </div>
-                        </div>
+    <!-- EXPERIENCE SECTION -->
+    <section class="section-brutal">
+        <div class="section-header">
+            <h2 class="section-title" data-lang-key="experienceTitle">Doświadczenie zawodowe</h2>
+            <span class="section-count">[02] Pozycje</span>
+        </div>
+        <div class="section-content">
+            <!-- Experience Card 1 -->
+            <div class="exp-card animate-on-scroll aos-fade-in-up">
+                <h3 data-lang-key="exp1Title">Senior Simulation Robotics Engineer</h3>
+                <p class="company" data-lang-key="exp1Company">Chropynska Polska | Maj 2023 – Obecnie</p>
+                <p data-lang-key="exp1Intro" style="margin-bottom: 1rem;"></p>
+                <ul>
+                    <li data-lang-key="exp1RespNew1"></li>
+                    <li data-lang-key="exp1RespNew2"></li>
+                    <li data-lang-key="exp1RespNew3"></li>
+                    <li data-lang-key="exp1RespNew4"></li>
+                    <li data-lang-key="exp1RespNew5"></li>
+                    <li data-lang-key="exp1RespNew6"></li>
+                </ul>
+            </div>
+
+            <!-- Experience Card 2 -->
+            <div class="exp-card animate-on-scroll aos-fade-in-up aos-delay-100ms">
+                <h3 data-lang-key="exp2Title">Unit Leader / Robotics Engineer</h3>
+                <p class="company" data-lang-key="exp2Company">QT Swiss Engineering | Maj 2014 – Kwiecień 2023 (ponad 10 lat)</p>
+                <p style="margin-top: 0.5rem;"><strong data-lang-key="exp2Role1">Unit Leader: Styczeń 2017 – Kwiecień 2023</strong></p>
+                <p><strong data-lang-key="exp2Role2">Robotics Engineer: Maj 2014 – Styczeń 2017</strong></p>
+                <p style="margin-top: 1rem;" data-lang-key="exp2Desc">Odpowiedzialny za różnorodne projekty symulacyjne i programowanie robotów dla klientów z branży motoryzacyjnej.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section-brutal">
+        <div class="section-header">
+            <h2 class="section-title" data-lang-key="skillsTitle">Umiejętności</h2>
+        </div>
+        <div class="section-content">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <!-- Technical Skills -->
+                <div class="exp-card animate-on-scroll aos-fade-in-up">
+                    <h3 data-lang-key="skillsSimTitle" style="color: var(--color-accent);">Oprogramowanie symulacyjne</h3>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="tag">ProcessSimulate (++)</span>
+                        <span class="tag">ProcessDesigner (++)</span>
+                        <span class="tag">DELMIAV5 (+)</span>
+                        <span class="tag">RobCad (+)</span>
                     </div>
-                </section>
+                </div>
 
-                <section id="skills" class="mb-12 animate-on-scroll aos-fade-in-up">
-                    <h2 class="animate-on-scroll aos-fade-in-right aos-delay-100ms">
-                        <span class="flex items-center"><i class="fas fa-cogs mr-3"></i><span class="section-title" data-lang-key="skillsTitle">Umiejętności</span></span>
-                    </h2>
-                    <div id="skills-content" class="card pt-4 animate-on-scroll aos-fade-in-up aos-delay-200ms">
-                        <h4 data-lang-key="skillsTechTitle" class="font-semibold text-md mb-3">Techniczne:</h4>
-                        <div class="mb-4">
-                            <h5 data-lang-key="skillsSimTitle" class="font-medium text-sm mb-2">Oprogramowanie symulacyjne:</h5>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag">ProcessSimulate (++)</span>
-                                <span class="tag">ProcessDesigner (++)</span>
-                                <span class="tag">DELMIAV5 (+)</span>
-                                <span class="tag">RobCad (+)</span>
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <h5 data-lang-key="skillsRobotTitle" class="font-medium text-sm mb-2">Programowanie robotów:</h5>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag">KUKA (Offline/Online, P1)</span>
-                                <span class="tag">Fanuc (Offline)</span>
-                                <span class="tag">ABB (Offline/Online)</span>
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <h5 data-lang-key="skillsStandardsTitle" class="font-medium text-sm mb-2">Standardy motoryzacyjne:</h5>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tag">VW</span> <span class="tag">Magna</span> <span class="tag">BMW</span>
-                                <span class="tag">JLR</span> <span class="tag">Volvo</span> <span class="tag">Audi</span>
-                                <span class="tag">Opel</span> <span class="tag">Daimler</span>
-                            </div>
-                        </div>
-                        <hr class="my-6">
-                        <h4 data-lang-key="skillsSoftTitle" class="font-semibold text-md mb-3">Umiejętności miękkie:</h4>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="tag" data-lang-key="skillProblemSolving">Rozwiązywanie problemów</span>
-                            <span class="tag" data-lang-key="skillConflictMgmt">Zarządzanie konfliktem</span>
-                            <span class="tag" data-lang-key="skillEmpathy">Empatia</span>
-                        </div>
-                         <hr class="my-6">
-                        <h4 data-lang-key="skillsTeamMgmtTitle" class="font-semibold text-md mb-3">Zarządzanie zespołem:</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="tag" data-lang-key="skillPlanning">Planowanie i harmonogramowanie</span>
-                            <span class="tag" data-lang-key="skillDelegation">Delegowanie zadań</span>
-                            <span class="tag" data-lang-key="skillPrioritization">Priorytetyzacja zadań</span>
-                            <span class="tag" data-lang-key="skillTimeMgmt">Zarządzanie czasem</span>
-                            <span class="tag" data-lang-key="skillMonitoring">Monitorowanie postępów</span>
-                        </div>
-                   </div>
-                </section>
-
-                <section id="certs" class="animate-on-scroll aos-fade-in-up">
-                    <h2 class="animate-on-scroll aos-fade-in-right aos-delay-100ms">
-                        <span class="flex items-center"><i class="fas fa-certificate mr-3"></i><span class="section-title" data-lang-key="certsTitle">Certyfikaty</span></span>
-                    </h2>
-                    <div id="certs-content" class="card pt-4 animate-on-scroll aos-fade-in-up aos-delay-200ms">
-                         <ul class="list-none space-y-3 text-base">
-                             <li data-lang-key="certKuka" class="flex items-center"><i class="fas fa-check-circle mr-3 text-lg"></i>KUKA Robot Programming 1</li>
-                             <li data-lang-key="certVass" class="flex items-center"><i class="fas fa-check-circle mr-3 text-lg"></i>VASS-AUDI AG</li>
-                             <li data-lang-key="certOnlineKuka" class="flex items-center"><i class="fas fa-star mr-3 text-lg"></i>Doświadczenie Online: KUKA</li>
-                             <li data-lang-key="certOnlineAbb" class="flex items-center"><i class="fas fa-star mr-3 text-lg"></i>Doświadczenie Online: ABB</li>
-                         </ul>
+                <!-- Robot Programming -->
+                <div class="exp-card animate-on-scroll aos-fade-in-up aos-delay-100ms">
+                    <h3 data-lang-key="skillsRobotTitle" style="color: var(--color-accent);">Programowanie robotów</h3>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="tag">KUKA (Offline/Online, P1)</span>
+                        <span class="tag">Fanuc (Offline)</span>
+                        <span class="tag">ABB (Offline/Online)</span>
                     </div>
-                </section>
-             </div>
-        </main>
-    </div>
+                </div>
 
-        <!-- Kontener na dynamicznie ładowaną stopkę -->
+                <!-- Standards -->
+                <div class="exp-card animate-on-scroll aos-fade-in-up aos-delay-200ms">
+                    <h3 data-lang-key="skillsStandardsTitle" style="color: var(--color-accent);">Standardy motoryzacyjne</h3>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="tag">VW</span>
+                        <span class="tag">Magna</span>
+                        <span class="tag">BMW</span>
+                        <span class="tag">JLR</span>
+                        <span class="tag">Volvo</span>
+                        <span class="tag">Audi</span>
+                        <span class="tag">Opel</span>
+                        <span class="tag">Daimler</span>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="exp-card animate-on-scroll aos-fade-in-up aos-delay-300ms">
+                    <h3 data-lang-key="skillsSoftTitle" style="color: var(--color-accent);">Umiejętności miękkie</h3>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="tag" data-lang-key="skillProblemSolving">Rozwiązywanie problemów</span>
+                        <span class="tag" data-lang-key="skillConflictMgmt">Zarządzanie konfliktem</span>
+                        <span class="tag" data-lang-key="skillEmpathy">Empatia</span>
+                    </div>
+                </div>
+
+                <!-- Team Management -->
+                <div class="exp-card animate-on-scroll aos-fade-in-up aos-delay-400ms">
+                    <h3 data-lang-key="skillsTeamMgmtTitle" style="color: var(--color-accent);">Zarządzanie zespołem</h3>
+                    <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="tag" data-lang-key="skillPlanning">Planowanie</span>
+                        <span class="tag" data-lang-key="skillDelegation">Delegowanie</span>
+                        <span class="tag" data-lang-key="skillPrioritization">Priorytetyzacja</span>
+                        <span class="tag" data-lang-key="skillTimeMgmt">Zarządzanie czasem</span>
+                        <span class="tag" data-lang-key="skillMonitoring">Monitorowanie</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section class="section-brutal">
+        <div class="section-header">
+            <h2 class="section-title" data-lang-key="certsTitle">Certyfikaty</h2>
+            <span class="section-count">[04] Certyfikaty</span>
+        </div>
+        <div class="section-content">
+            <div class="exp-card animate-on-scroll aos-fade-in-up">
+                <ul style="list-style: none;">
+                    <li style="padding: 0.75rem 0; border-bottom: 2px solid var(--color-bg-alt); display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--color-accent); font-size: 1.25rem;"></i>
+                        <span data-lang-key="certKuka">KUKA Robot Programming 1</span>
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 2px solid var(--color-bg-alt); display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-check-circle" style="color: var(--color-accent); font-size: 1.25rem;"></i>
+                        <span data-lang-key="certVass">VASS-AUDI AG</span>
+                    </li>
+                    <li style="padding: 0.75rem 0; border-bottom: 2px solid var(--color-bg-alt); display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-star" style="color: var(--color-secondary); font-size: 1.25rem;"></i>
+                        <span data-lang-key="certOnlineKuka">Doświadczenie Online: KUKA</span>
+                    </li>
+                    <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-star" style="color: var(--color-secondary); font-size: 1.25rem;"></i>
+                        <span data-lang-key="certOnlineAbb">Doświadczenie Online: ABB</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-brutal">
+        <div class="cta-content animate-on-scroll aos-fade-in-left">
+            <h2 class="cta-title">Zobacz <span class="accent">Projekty</span></h2>
+            <p class="cta-description">Sprawdź moje realizacje dla BMW, VW, Volvo i innych kluczowych graczy branży automotive.</p>
+            <a href="projekty.html" class="btn-brutal btn-brutal--secondary" data-lang-key="heroCtaButton">Zobacz projekty</a>
+        </div>
+        <div class="cta-visual animate-on-scroll aos-zoom-in">
+            <span>→</span>
+        </div>
+    </section>
+
     <div id="footer-placeholder"></div>
 
-    <!-- ZMIANA: Skrypt najpierw ładuje HTML, a potem osobny plik JS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('footer-template.html')
-                .then(response => {
-                    if (response.ok) return response.text();
-                    throw new Error('Nie udało się załadować szablonu stopki.');
-                })
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                    
-                    // Po wstawieniu HTML-a do DOM, dynamicznie tworzymy
-                    // i dodajemy tag <script> z naszym kodem.
-                    const script = document.createElement('script');
-                    script.src = 'footer-script.js';
-                    document.body.appendChild(script);
-                })
-                .catch(error => {
-                    console.error('Błąd ładowania stopki:', error);
-                    document.getElementById('footer-placeholder').innerHTML = '<p class="text-center p-4">&copy; Michał Rąpała</p>';
-                });
-        });
-    </script>
-
-    <script src="common-scripts.js" defer></script>
-
+    <script src="common-scripts.js"></script>
 </body>
 </html>

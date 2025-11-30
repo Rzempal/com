@@ -1,126 +1,74 @@
-<!--  kontakt.html v3 - dynamicznie ładowana stopka -->
+<!-- kontakt.html v0.001 Brutalism Design -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robotyka - Michał Rąpała - Kontakt</title>
-    <!-- Favicon - wieloformatowe wsparcie -->
+    <title>ROBOTYKA - Kontakt | Michał Rąpała</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="common-styles.css">
-
-    <style>
-        html {
-             scroll-behavior: smooth;
-        }
-        /* body, a, footer, etc. są stylizowane w common-styles.css */
-
-        .main-container {
-             background-color: #FFFFFF; 
-             box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
-             border-radius: 0.75rem;
-             margin-top: 2rem; 
-             position: relative;
-             z-index: 10;
-             border: 1px solid #E2E8F0; 
-        }
-        
-        h2 .section-title { 
-            font-size: 1.75rem; 
-            font-weight: 700; 
-            color: #1E293B; 
-        }
-        h2 i {
-            color: var(--primary-accent-color); 
-        }
-        h2 { 
-            margin-bottom: 1.5rem; 
-            padding-bottom: 0.75rem; 
-            border-bottom: 1px solid #E2E8F0; 
-            display: flex; 
-            align-items: center; 
-        }
-
-        .card { 
-            background-color: #FFFFFF; 
-            border-radius: 0.75rem; 
-            padding: 1.5rem; 
-            margin-bottom: 1.5rem; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid #E2E8F0; 
-        }
-        #contact-content a {
-            color: #334155; 
-            transition: color 0.3s ease;
-        }
-        #contact-content a:hover {
-            color: var(--primary-accent-color); 
-        }
-        #contact-content a i { 
-            color: var(--primary-accent-color);
-        }
-    </style>
 </head>
 <body data-page-name="Kontakt">
 
     <div id="navbar-placeholder"></div>
 
-    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
-        <main class="main-container">
-             <div class="p-4 md:p-10">
-                <section id="contact">
-                    <h2>
-                        <span class="flex items-center"><i class="fas fa-address-book mr-3"></i><span class="section-title" data-lang-key="contactTitle">Kontakt</span></span>
-                    </h2>
-                    <div id="contact-content" class="card pt-4">
-                         <div class="space-y-4">
-                             <a href="https://linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" class="flex items-center text-lg">
-                                 <i class="fab fa-linkedin w-6 mr-3 text-xl"></i> LinkedIn
-                             </a>
-                             <a href="mailto:robotyka@michalrapala.com" class="flex items-center text-lg">
-                                 <i class="fas fa-envelope w-6 mr-3 text-xl"></i>
-                                 <span data-lang-key="contactEmailText">robotyka@michalrapala.com</span>
-                             </a>
-                         </div>
-                    </div>
-                </section>
-             </div>
-        </main>
-    </div>
+    <!-- HERO SECTION -->
+    <section class="hero-brutal" style="min-height: 50vh;">
+        <div class="hero-content animate-on-scroll aos-fade-in-left">
+            <span class="hero-tag">Kontakt</span>
+            <h1 class="hero-title">
+                Porozmawiajmy <span class="accent">!</span>
+            </h1>
+            <p class="hero-description">Projekty symulacyjne, programowanie offline/online, optymalizacja procesów. Skontaktuj się, porozmawiajmy o Twoim projekcie.</p>
+        </div>
+        <div class="hero-visual animate-on-scroll aos-fade-in-right" style="background: var(--color-secondary);">
+            <span style="font-family: var(--font-display); font-size: 8rem; color: var(--color-secondary-dark); transform: rotate(-5deg);">@</span>
+        </div>
+    </section>
 
-       <!-- Kontener na dynamicznie ładowaną stopkę -->
+    <!-- CONTACT SECTION -->
+    <section class="section-brutal">
+        <div class="section-header">
+            <h2 class="section-title" data-lang-key="contactTitle">Kontakt</h2>
+        </div>
+        <div class="section-content">
+            <div class="contact-card animate-on-scroll aos-fade-in-up">
+                <a href="https://linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="mailto:robotyka@michalrapala.com">
+                    <i class="fas fa-envelope"></i>
+                    <span data-lang-key="contactEmailText">robotyka@michalrapala.com</span>
+                </a>
+                <a href="https://michalrapala.com" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-globe"></i>
+                    <span>michalrapala.com</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-brutal">
+        <div class="cta-content animate-on-scroll aos-fade-in-left">
+            <h2 class="cta-title">Zobacz moje <span class="accent">Projekty</span></h2>
+            <p class="cta-description">Sprawdź realizacje dla BMW, VW, Volvo, Magna i innych kluczowych graczy branży automotive.</p>
+            <a href="projekty.html" class="btn-brutal" data-lang-key="heroCtaButton">Zobacz projekty</a>
+        </div>
+        <div class="cta-visual animate-on-scroll aos-zoom-in">
+            <span>→</span>
+        </div>
+    </section>
+
     <div id="footer-placeholder"></div>
 
-    <!-- ZMIANA: Skrypt najpierw ładuje HTML, a potem osobny plik JS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('footer-template.html')
-                .then(response => {
-                    if (response.ok) return response.text();
-                    throw new Error('Nie udało się załadować szablonu stopki.');
-                })
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                    
-                    // Po wstawieniu HTML-a do DOM, dynamicznie tworzymy
-                    // i dodajemy tag <script> z naszym kodem.
-                    const script = document.createElement('script');
-                    script.src = 'footer-script.js';
-                    document.body.appendChild(script);
-                })
-                .catch(error => {
-                    console.error('Błąd ładowania stopki:', error);
-                    document.getElementById('footer-placeholder').innerHTML = '<p class="text-center p-4">&copy; Michał Rąpała</p>';
-                });
-        });
-    </script>
-
-    <script src="common-scripts.js" defer></script>
-
+    <script src="common-scripts.js"></script>
 </body>
 </html>
