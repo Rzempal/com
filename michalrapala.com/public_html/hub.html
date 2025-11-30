@@ -1,4 +1,4 @@
-<!-- hub.html v0.037 – Mobile card: close on notch -->
+<!-- hub.html v0.038 – Back button moved inside PCB section -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -53,16 +53,16 @@
         </div>
     </nav>
 
-    <!-- ========== BACK BUTTON ========== -->
-    <button class="hub-back-button" id="backButton" aria-label="Wróć do Gate">
-        <i class="fas fa-arrow-left"></i>
-    </button>
-
     <!-- ========== HUB CONTAINER ========== -->
     <div class="hub-wrapper">
 
         <!-- Neural Mesh Background (same as Gate) + Pills -->
         <section class="hub-mesh-section" id="hubMeshSection">
+            <!-- Back Button (inside PCB section) -->
+            <button class="hub-back-button" id="backButton" aria-label="Wróć do Gate">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
             <!-- SVG Circuit Board Background -->
             <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <defs>

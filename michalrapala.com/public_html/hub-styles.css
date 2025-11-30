@@ -1,4 +1,4 @@
-/* hub-styles.css v0.030 – back btn bottom-left, navbar z-index fix */
+/* hub-styles.css v0.031 – back btn inside PCB section, bottom-left of PCB */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -118,10 +118,13 @@ body {
 }
 
 /* ========== BACK BUTTON (FULL CYBERPUNK) ========== */
+/* Positioned inside hub-mesh-section, at bottom-left of PCB area */
 .hub-back-button {
-    position: fixed;
-    bottom: 1.5rem;
-    left: 1.5rem;
+    position: absolute;
+    /* PCB is centered square (min viewport dimension) */
+    /* Position at bottom-left corner of that square */
+    bottom: calc(50% - min(42vw, 42vh));
+    left: calc(50% - min(42vw, 42vh));
     z-index: 100;
     display: flex;
     align-items: center;
@@ -212,8 +215,6 @@ body {
     }
 
     .hub-back-button {
-        bottom: 1rem;
-        left: 1rem;
         width: 2.6rem;
         height: 2.6rem;
         font-size: 1.15rem;
@@ -250,8 +251,6 @@ body {
     }
 
     .hub-back-button {
-        bottom: 1rem;
-        left: 1rem;
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1.1rem;
