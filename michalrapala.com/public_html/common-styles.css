@@ -1,4 +1,4 @@
-/* common-styles.css v0.038 – CTA buttons w stylu Initialize_ */
+/* common-styles.css v0.039 – CTA 2 cuts like Initialize_ */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1098,12 +1098,8 @@ body.card-open {
     box-shadow: var(--glow-cyan);
     position: relative;
     overflow: hidden;
-    clip-path: polygon(
-        0 8px, 8px 0,
-        calc(100% - 8px) 0, 100% 8px,
-        100% calc(100% - 8px), calc(100% - 8px) 100%,
-        8px 100%, 0 calc(100% - 8px)
-    );
+    /* 2 cuts like Initialize_: top-left, bottom-right */
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 }
 
 /* Shine effect like Initialize_ */
