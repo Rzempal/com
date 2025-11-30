@@ -81,7 +81,7 @@
             <div class="stat-label">Lat doświadczenia</div>
         </div>
         <div class="stat-item animate-on-scroll aos-fade-in-up aos-delay-100ms">
-            <div class="stat-value">50+</div>
+            <div class="stat-value">15+</div>
             <div class="stat-label">Projektów</div>
         </div>
         <div class="stat-item animate-on-scroll aos-fade-in-up aos-delay-200ms">
@@ -100,18 +100,16 @@
             <h2 class="section-title" data-lang-key="aboutMeTitle">O mnie</h2>
         </div>
         <div class="section-content">
-            <div class="grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div class="about-grid" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start;">
                 <div class="animate-on-scroll aos-fade-in-left">
                     <p data-lang-key="aboutMeTextNew1" style="margin-bottom: 1.5rem;"></p>
-                    <p data-lang-key="aboutMeTextNew2"></p>
+                    <p data-lang-key="aboutMeTextNew2" style="margin-bottom: 1.5rem;"></p>
+                    <p data-lang-key="aboutMeTextNew3" style="margin-bottom: 1.5rem;"></p>
+                    <p data-lang-key="aboutMeTextNew4"></p>
                 </div>
                 <div class="animate-on-scroll aos-fade-in-right">
                     <img src="https://michalrapala.com/assets/images/robotyka/laptop.png" alt="Robotyka - Symulacja" style="width: 100%; border: var(--border-thick) solid var(--color-text); filter: grayscale(50%);">
                 </div>
-            </div>
-            <div style="margin-top: 2rem;" class="animate-on-scroll aos-fade-in-up">
-                <p data-lang-key="aboutMeTextNew3" style="margin-bottom: 1rem;"></p>
-                <p data-lang-key="aboutMeTextNew4"></p>
             </div>
         </div>
     </section>
@@ -133,8 +131,11 @@
     <script src="common-scripts.js"></script>
     <style>
         @media (max-width: 768px) {
-            .section-content .grid {
+            .about-grid {
                 grid-template-columns: 1fr !important;
+            }
+            .about-grid > div:last-child {
+                order: -1;
             }
         }
     </style>
