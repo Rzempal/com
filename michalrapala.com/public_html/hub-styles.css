@@ -1,4 +1,4 @@
-/* hub-styles.css v0.031 – back btn inside PCB section, bottom-left of PCB */
+/* hub-styles.css v0.032 – desktop status full navbar height */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -71,6 +71,18 @@ body {
     background: rgba(0, 255, 255, 0.05);
     border: 1px solid rgba(0, 255, 255, 0.2);
     animation: flicker 4s infinite;
+}
+
+/* Desktop: status stretches full navbar height */
+@media (min-width: 1025px) {
+    .cyber-nav-status {
+        /* Stretch to full navbar height using negative margins */
+        margin: -0.75rem 0;
+        padding: 0.75rem 1rem;
+        /* Only left/right borders, top/bottom blend with navbar edge */
+        border-top: none;
+        border-bottom: none;
+    }
 }
 
 .status-dot {

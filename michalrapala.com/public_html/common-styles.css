@@ -1,4 +1,4 @@
-/* common-styles.css v0.046 – desktop close btn aligned with SYS:// */
+/* common-styles.css v0.047 – close btn at AB midpoint (28px) */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1440,10 +1440,10 @@ body.card-open {
         display: none;
     }
 
-    /* Desktop: close button next to SYS://, arrow points right */
+    /* Desktop: close button at middle of segment AB (A=0, B=56px → middle=28px) */
     .card-close {
         position: absolute;
-        top: 1.5rem; /* aligned with topbar content */
+        top: calc(28px - 1rem); /* center 2rem button at y=28px */
         left: 100px; /* after notch indent (90px) + gap */
         width: 2rem;
         height: 2rem;
@@ -1454,14 +1454,14 @@ body.card-open {
         transform: rotate(-90deg); /* chevron-down → points right (>) */
     }
 
-    /* Topbar: next to close button */
+    /* Topbar: aligned with close button */
     .card-topbar {
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
         gap: 0.75rem;
-        padding-left: calc(100px + 2.75rem); /* after close button (100px + btn width + gap) */
-        padding-top: 1.5rem; /* align with close button */
+        padding-left: calc(100px + 2.75rem); /* after close button */
+        padding-top: calc(28px - 1rem); /* align with close button center */
         padding-bottom: 1rem;
         margin-top: 0;
     }
