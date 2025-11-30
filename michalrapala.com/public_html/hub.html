@@ -1,4 +1,4 @@
-<!-- hub.html v0.035 – Status text update, CTA style -->
+<!-- hub.html v0.036 – Full cyberpunk cards -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -380,16 +380,29 @@
 
     <!-- ========== CARD SHEET (single reusable container) ========== -->
     <aside id="card-sheet" class="card-sheet" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+        <!-- Scanlines overlay -->
+        <div class="card-scanlines" aria-hidden="true"></div>
+
+        <!-- Corner markers -->
+        <div class="card-corner card-corner-tl" aria-hidden="true"></div>
+        <div class="card-corner card-corner-br" aria-hidden="true"></div>
+
         <header class="card-topbar">
             <div class="card-grabber" aria-hidden="true"></div>
+            <div class="card-terminal-header">
+                <span class="card-terminal-dot"></span>
+                <span class="card-terminal-prefix">SYS://</span>
+                <h2 id="card-title" class="card-title"></h2>
+            </div>
             <button class="card-close" aria-label="Zwiń" title="Zwiń (Esc)">
-                <i class="fas fa-arrow-right"></i>
+                <i class="fas fa-times"></i>
             </button>
-            <h2 id="card-title" class="card-title"></h2>
         </header>
 
         <div class="card-media">
-            <img id="card-logo" class="card-logo-img" alt="" />
+            <div class="card-media-frame">
+                <img id="card-logo" class="card-logo-img" alt="" />
+            </div>
         </div>
 
         <div id="card-content" class="card-content"></div>
@@ -399,27 +412,36 @@
     <template id="template-robotyka">
         <div class="card-body">
             <p class="card-lead">
-                Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+                > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
             </p>
-            <a href="https://robotyka.michalrapala.com" class="card-cta">Dowiedz się więcej</a>
+            <a href="https://robotyka.michalrapala.com" class="card-cta">
+                <span class="cta-text">Access_Module</span>
+                <span class="cta-cursor">_</span>
+            </a>
         </div>
     </template>
 
     <template id="template-aplikacje">
         <div class="card-body">
             <p class="card-lead">
-                Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
+                > Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
             </p>
-            <a href="https://michalrapala.app" class="card-cta">Zobacz aplikacje</a>
+            <a href="https://michalrapala.app" class="card-cta">
+                <span class="cta-text">Access_Module</span>
+                <span class="cta-cursor">_</span>
+            </a>
         </div>
     </template>
 
     <template id="template-www">
         <div class="card-body">
             <p class="card-lead">
-                Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
+                > Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
             </p>
-            <a href="https://twoja-strona.online" class="card-cta">Poznaj ofertę</a>
+            <a href="https://twoja-strona.online" class="card-cta">
+                <span class="cta-text">Access_Module</span>
+                <span class="cta-cursor">_</span>
+            </a>
         </div>
     </template>
 
