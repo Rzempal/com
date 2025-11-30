@@ -1,16 +1,16 @@
-/* common-styles.css v0.001 Brutalism Design System */
+/* common-styles.css v0.002 Brutalism Design System */
 
 /* ============================================
    CSS CUSTOM PROPERTIES - DARK MODE (default)
-   Primary: Cyan #48D2E7 | Secondary: Orange #FF6B35
+   Primary: Green #10B981 | Secondary: Orange #FF6B35
    ============================================ */
 :root {
     --color-bg: #0a0a0a;
     --color-bg-alt: #1a1a1a;
     --color-text: #ffffff;
     --color-text-muted: #888888;
-    --color-accent: #48D2E7;
-    --color-accent-hover: #34c2d9;
+    --color-accent: #10B981;
+    --color-accent-hover: #059669;
     --color-accent-dark: #0a0a0a;
     --color-secondary: #FF6B35;
     --color-secondary-dark: #ffffff;
@@ -28,8 +28,8 @@
     --color-bg-alt: #ffffff;
     --color-text: #0a0a0a;
     --color-text-muted: #555555;
-    --color-accent: #48D2E7;
-    --color-accent-hover: #34c2d9;
+    --color-accent: #10B981;
+    --color-accent-hover: #059669;
     --color-accent-dark: #0a0a0a;
     --color-secondary: #FF6B35;
     --color-secondary-dark: #ffffff;
