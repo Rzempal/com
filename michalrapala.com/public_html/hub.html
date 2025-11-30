@@ -1,4 +1,4 @@
-<!-- hub.html v0.036 – Full cyberpunk cards -->
+<!-- hub.html v0.037 – Mobile card: close on notch -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -387,6 +387,11 @@
         <div class="card-corner card-corner-tl" aria-hidden="true"></div>
         <div class="card-corner card-corner-br" aria-hidden="true"></div>
 
+        <!-- Close button (on notch for mobile) -->
+        <button class="card-close" aria-label="Zwiń" title="Zwiń (Esc)">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+
         <header class="card-topbar">
             <div class="card-grabber" aria-hidden="true"></div>
             <div class="card-terminal-header">
@@ -394,9 +399,6 @@
                 <span class="card-terminal-prefix">SYS://</span>
                 <h2 id="card-title" class="card-title"></h2>
             </div>
-            <button class="card-close" aria-label="Zwiń" title="Zwiń (Esc)">
-                <i class="fas fa-times"></i>
-            </button>
         </header>
 
         <div class="card-media">
