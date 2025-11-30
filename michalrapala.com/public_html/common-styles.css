@@ -1,4 +1,4 @@
-/* common-styles.css v0.037 – Cyberpunk: Neon colors, Orbitron fonts, CRT scanlines */
+/* common-styles.css v0.038 – CTA buttons w stylu Initialize_ */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1080,20 +1080,52 @@ body.card-open {
 }
 
 .card-cta {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: var(--surface);
-    border-radius: 0.5rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 0;
+    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-family: var(--font-body);
+    box-shadow: var(--glow-cyan);
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(
+        0 8px, 8px 0,
+        calc(100% - 8px) 0, 100% 8px,
+        100% calc(100% - 8px), calc(100% - 8px) 100%,
+        8px 100%, 0 calc(100% - 8px)
+    );
+}
+
+/* Shine effect like Initialize_ */
+.card-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.4s ease;
+}
+
+.card-cta:hover::before {
+    left: 100%;
 }
 
 .card-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(72, 210, 231, 0.3);
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
 }
 
 .card-cta:focus-visible {

@@ -1,4 +1,4 @@
-/* hub-styles.css v0.026 – Navbar: ikony left, status right */
+/* hub-styles.css v0.027 – CTA Initialize_ style, status center on card-open */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -714,13 +714,35 @@ body {
     }
 }
 
-/* ========== DESKTOP: TOP BAR ANIMATIONS WHEN CARD OPEN (≥1025px) ========== */
+/* ========== DESKTOP: NAVBAR ANIMATIONS WHEN CARD OPEN (≥1025px) ========== */
 @media (min-width: 1025px) {
+    /* Navbar content needs relative positioning for absolute child */
+    .cyber-nav-content {
+        position: relative;
+    }
+
+    /* Hide social links when card is open */
+    body.card-open .cyber-nav-links {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
     /* Center status indicator when card is open */
-    body.card-open .top-info-bar-status {
+    body.card-open .cyber-nav-status {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        transition: all 0.6s ease;
+    }
+
+    /* Default state transition */
+    .cyber-nav-links {
+        transition: opacity 0.4s ease;
+    }
+
+    .cyber-nav-status {
+        transition: all 0.6s ease;
     }
 }
 
