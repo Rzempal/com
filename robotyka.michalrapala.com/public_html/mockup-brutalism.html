@@ -1,4 +1,4 @@
-<!-- mockup-brutalism.html v0.002 Kolorystyka oparta na oryginalnym cyanie #48D2E7 -->
+<!-- mockup-brutalism.html v0.003 Light mode również z cyan, usunięta magenta -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -19,7 +19,7 @@
             --color-text: #ffffff;
             --color-text-muted: #888888;
             --color-accent: #48D2E7;
-            --color-accent-alt: #ff3366;
+            --color-accent-hover: #34c2d9;
             --color-accent-dark: #0a0a0a;
             --font-display: 'Anton', sans-serif;
             --font-mono: 'Space Mono', monospace;
@@ -35,9 +35,9 @@
             --color-bg-alt: #ffffff;
             --color-text: #0a0a0a;
             --color-text-muted: #555555;
-            --color-accent: #0a0a0a;
-            --color-accent-alt: #ff3366;
-            --color-accent-dark: #ffffff;
+            --color-accent: #48D2E7;
+            --color-accent-hover: #34c2d9;
+            --color-accent-dark: #0a0a0a;
         }
 
         /* ============================================
@@ -156,8 +156,8 @@
         }
 
         .theme-toggle:hover {
-            background: var(--color-accent-alt);
-            color: var(--color-bg);
+            background: var(--color-accent);
+            color: var(--color-accent-dark);
         }
 
         .theme-toggle-icon {
@@ -189,8 +189,8 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            background: var(--color-accent-alt);
-            color: #ffffff;
+            background: var(--color-accent);
+            color: var(--color-accent-dark);
             margin-bottom: 1.5rem;
             transform: rotate(-2deg);
             width: fit-content;
@@ -288,8 +288,8 @@
         }
 
         .btn-brutal--alt {
-            background: var(--color-accent-alt);
-            color: #ffffff;
+            background: var(--color-accent);
+            color: var(--color-accent-dark);
         }
 
         .btn-brutal--outline {
@@ -400,7 +400,7 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--color-accent-alt);
+            color: var(--color-accent);
             margin-bottom: 1rem;
         }
 
@@ -475,7 +475,7 @@
         }
 
         .cta-title .accent {
-            color: var(--color-accent-alt);
+            color: var(--color-accent);
         }
 
         .cta-description {
@@ -487,7 +487,7 @@
         }
 
         .cta-visual {
-            background: var(--color-accent-alt);
+            background: var(--color-accent);
             display: flex;
             align-items: center;
             justify-content: center;
