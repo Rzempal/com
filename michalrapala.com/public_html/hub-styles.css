@@ -1,4 +1,4 @@
-/* hub-styles.css v0.028 – Pills 2 cuts, mobile navbar animation */
+/* hub-styles.css v0.029 – navbar: no border, width = PCB */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -15,7 +15,7 @@ body {
     background-color: rgba(10, 10, 15, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    /* border-bottom removed */
     padding: 0.75rem 1.5rem;
 }
 
@@ -23,7 +23,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1400px;
+    /* Match PCB board width (square 1000x1000, fits viewport height) */
+    max-width: min(100vw, 100vh);
     margin: 0 auto;
     gap: 1rem;
 }

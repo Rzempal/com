@@ -1,4 +1,4 @@
-/* common-styles.css v0.043 – drop-shadow border solution complete */
+/* common-styles.css v0.044 – mobile: grabber removed, close button fixed */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1132,23 +1132,9 @@ body.card-open {
     text-shadow: 0 0 10px var(--magenta);
 }
 
-/* Card Grabber (mobile only - visual hint) */
+/* Card Grabber - REMOVED (nie pasuje do stylu cyberpunk) */
 .card-grabber {
-    position: absolute;
-    top: 28px;
-    left: 30%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 4px;
-    background: var(--muted);
-    opacity: 0.5;
-    border-radius: 10px;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-.card-sheet.is-dragging .card-grabber {
-    opacity: 0.7;
+    display: none;
 }
 
 /* Mobile: entire sheet is draggable */
@@ -1382,15 +1368,10 @@ body.card-open {
     /* Note: border handled by filter: drop-shadow() on parent */
     /* drop-shadow follows clip-path, unlike border/box-shadow! */
 
-    .card-grabber {
-        display: block;
-    }
-
-    /* Mobile: close button on notch area */
+    /* Mobile: close button on notch area (80px wide flat part) */
     .card-close {
-        top: 8px;
-        right: calc(100% - 80px - 1.125rem);
-        /* right edge of notch is at 80px, center button there */
+        top: 10px;
+        right: 20px;
     }
 
     /* Mobile: topbar left-aligned, below notch */
