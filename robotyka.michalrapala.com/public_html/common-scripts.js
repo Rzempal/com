@@ -463,8 +463,8 @@ function initializeNavbarFeatures() {
         hamburgerButton.addEventListener('click', () => {
             const isExpanded = hamburgerButton.getAttribute('aria-expanded') === 'true' || false;
             hamburgerButton.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.toggle('show');
+            if (!mobileMenu.classList.contains('show')) {
                 if(hamburgerIcon) {
                     hamburgerIcon.classList.remove('fa-times');
                     hamburgerIcon.classList.add('fa-bars');
