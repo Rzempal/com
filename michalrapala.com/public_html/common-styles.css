@@ -1,4 +1,4 @@
-/* common-styles.css v0.049 – desktop: close btn inline with terminal header */
+/* common-styles.css v0.050 – desktop: close btn flexbox aligned with [●] */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1368,13 +1368,14 @@ body.card-open {
     /* Note: border handled by filter: drop-shadow() on parent */
     /* drop-shadow follows clip-path, unlike border/box-shadow! */
 
-    /* Mobile: close button on notch area (80px wide flat part) */
+    /* Mobile: close button on notch area (absolute, outside normal flow) */
     .card-close {
+        position: absolute;
         top: 10px;
         right: 20px;
     }
 
-    /* Mobile: topbar left-aligned, below notch */
+    /* Mobile: topbar below notch */
     .card-topbar {
         justify-content: flex-start;
         padding-left: 1.5rem;
@@ -1437,30 +1438,28 @@ body.card-open {
         display: none;
     }
 
-    /* Desktop: close button in topbar, fixed position */
+    /* Desktop: close button in normal flow, flexbox aligns it */
     .card-close {
-        position: absolute;
-        top: 1rem; /* align with topbar content */
-        left: 1.5rem;
+        position: relative; /* Back to flow - flexbox will align */
         width: 2rem;
         height: 2rem;
         font-size: 0.85rem;
         flex-shrink: 0;
+        margin: 0;
     }
 
     .card-close i {
         transform: rotate(-90deg); /* chevron-down → points right (>) */
     }
 
-    /* Topbar: close button + title in row */
-    /* Layout: [Close >] [●] [SYS://] [Tytuł] */
+    /* Topbar: [Close >] [●] [SYS://] [Tytuł] - all flex children aligned */
     .card-topbar {
+        display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
+        align-items: center; /* Kluczowe: centruje wszystkie dzieci w pionie */
         gap: 0.75rem;
         padding: 1rem 1.5rem;
-        padding-left: calc(1.5rem + 2rem + 0.75rem); /* space for close btn */
         margin-top: 0;
     }
 
