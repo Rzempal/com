@@ -1,17 +1,17 @@
-<!-- hub.html v0.030 – Desktop card: fixed slide-in animation -->
+<!-- hub.html v0.038 – Back button moved inside PCB section -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>michalrapala.com</title>
+    <title>RAPALA//SYS - Hub</title>
 
-    <!-- ========== PRELOAD: Poppins Fonts ========== -->
+    <!-- ========== PRELOAD: Fonts ========== -->
     <link rel="preload" href="/assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/fonts/poppins-500.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- ========== TAILWIND CSS ========== -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -26,53 +26,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
 
-    <!-- ========== TOP INFO BAR (FIXED) ========== -->
-     <div class="top-info-bar">
-            <div class="top-info-bar-content">
-                <div class="top-info-bar-contact">
-                    <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" data-copy-text="linkedin.com/in/michal-rapala">
-                        <i class="fab fa-linkedin fa-fw"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/Rzempal" target="_blank" rel="noopener noreferrer" data-copy-text="github.com/Rzempal">
-                        <i class="fab fa-github fa-fw"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="mailto:kontakt@michalrapala.com" data-copy-text="kontakt@michalrapala.com">
-                        <i class="fas fa-envelope fa-fw"></i>
-                        <span>kontakt@michalrapala.com</span>
-                    </a>
-                </div>
-                <div class="top-info-bar-status">
-                    <div class="status-indicator"></div>
-                    <span>Otwarty na nowe projekty</span>
-                </div>
+    <!-- ========== CYBERPUNK NAVBAR ========== -->
+    <nav class="cyber-nav">
+        <div class="cyber-nav-content">
+            <!-- Left: Social Links -->
+            <div class="cyber-nav-links">
+                <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer" class="cyber-nav-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/Rzempal" target="_blank" rel="noopener noreferrer" class="cyber-nav-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:kontakt@michalrapala.com" class="cyber-nav-link" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
-            <!-- Tooltip container -->
-            <div class="top-bar-tooltip" id="topBarTooltip" hidden>
-                <span class="tooltip-text" id="tooltipText"></span>
-                <button class="tooltip-copy-btn" id="tooltipCopyBtn">Kopiuj</button>
-            </div>
-       </div>
 
-    <!-- ========== BACK BUTTON ========== -->
-    <button class="hub-back-button" id="backButton" aria-label="Wróć do Gate">
-        <span class="pill-glow"></span>
-        <i class="fas fa-arrow-left"></i>
-    </button>
+            <!-- Right: Status -->
+            <div class="cyber-nav-status">
+                <span class="status-dot"></span>
+                <span class="status-text">Otwarty na nowe projekty.</span>
+            </div>
+        </div>
+    </nav>
 
     <!-- ========== HUB CONTAINER ========== -->
     <div class="hub-wrapper">
 
         <!-- Neural Mesh Background (same as Gate) + Pills -->
         <section class="hub-mesh-section" id="hubMeshSection">
+            <!-- Back Button (inside PCB section) -->
+            <button class="hub-back-button" id="backButton" aria-label="Wróć do Gate">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
             <!-- SVG Circuit Board Background -->
             <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <defs>
                     <linearGradient id="meshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color: #48D2E7; stop-opacity: 0.3" />
-                        <stop offset="100%" style="stop-color: #22d3ee; stop-opacity: 0.1" />
+                        <stop offset="0%" style="stop-color: #00ffff; stop-opacity: 0.4" />
+                        <stop offset="100%" style="stop-color: #ff00ff; stop-opacity: 0.2" />
                     </linearGradient>
 
                     <!-- Filter for Glow -->
@@ -96,18 +92,18 @@
 
                     <!-- Gradients for Connector Lines (node → pill fade) -->
                     <linearGradient id="connectorGradient1" x1="500" y1="500" x2="448" y2="470" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#48D2E7" stop-opacity="0.7" />
-                        <stop offset="100%" stop-color="#48D2E7" stop-opacity="0.2" />
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
                     </linearGradient>
 
                     <linearGradient id="connectorGradient2" x1="850" y1="350" x2="798" y2="320" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#48D2E7" stop-opacity="0.7" />
-                        <stop offset="100%" stop-color="#48D2E7" stop-opacity="0.2" />
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
                     </linearGradient>
 
                     <linearGradient id="connectorGradient3" x1="450" y1="750" x2="502" y2="720" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#48D2E7" stop-opacity="0.7" />
-                        <stop offset="100%" stop-color="#48D2E7" stop-opacity="0.2" />
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
                     </linearGradient>
 
                     <!-- Solder Mask Texture (subtle green-teal overlay) -->
@@ -123,23 +119,23 @@
                     <!-- Ground Plane Pattern (hatched copper fill) -->
                     <pattern id="groundPlane" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                         <rect width="20" height="20" fill="none"/>
-                        <path d="M 0 0 L 20 20 M 20 0 L 0 20" stroke="#48D2E7" stroke-width="0.5" opacity="0.15"/>
+                        <path d="M 0 0 L 20 20 M 20 0 L 0 20" stroke="#00ffff" stroke-width="0.5" opacity="0.15"/>
                     </pattern>
                 </defs>
 
-                <!-- PCB Substrate (dark teal-green base - classic PCB color) -->
-                <rect x="0" y="0" width="1000" height="1000" fill="#0d2626" opacity="0.85"/>
+                <!-- PCB Substrate (deep black - cyberpunk) -->
+                <rect x="0" y="0" width="1000" height="1000" fill="#0a0a0f" opacity="0.9"/>
 
                 <!-- Zone Fills (Ground Planes) - Background layer -->
                 <g class="zone-fills" opacity="0.3" filter="url(#solderMask)">
                     <!-- Top-left ground zone -->
-                    <rect x="30" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#48D2E7" stroke-width="0.5" opacity="0.2" rx="5"/>
+                    <rect x="30" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#00ffff" stroke-width="0.5" opacity="0.2" rx="5"/>
 
                     <!-- Top-right ground zone -->
-                    <rect x="570" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#48D2E7" stroke-width="0.5" opacity="0.2" rx="5"/>
+                    <rect x="570" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#00ffff" stroke-width="0.5" opacity="0.2" rx="5"/>
 
                     <!-- Bottom ground zone -->
-                    <rect x="30" y="670" width="940" height="300" fill="url(#groundPlane)" stroke="#48D2E7" stroke-width="0.5" opacity="0.2" rx="5"/>
+                    <rect x="30" y="670" width="940" height="300" fill="url(#groundPlane)" stroke="#00ffff" stroke-width="0.5" opacity="0.2" rx="5"/>
                 </g>
 
                 <!-- Circuit Board Traces (PCB paths) - Variable width for realism -->
@@ -166,19 +162,19 @@
                 <!-- Mounting Holes (4 corners for PCB mounting) -->
                 <g class="mounting-holes">
                     <!-- Top-left -->
-                    <circle cx="60" cy="60" r="15" fill="none" stroke="#48D2E7" stroke-width="2" opacity="0.6"/>
+                    <circle cx="60" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
                     <circle cx="60" cy="60" r="8" fill="#0a1120" opacity="0.9"/>
 
                     <!-- Top-right -->
-                    <circle cx="940" cy="60" r="15" fill="none" stroke="#48D2E7" stroke-width="2" opacity="0.6"/>
+                    <circle cx="940" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
                     <circle cx="940" cy="60" r="8" fill="#0a1120" opacity="0.9"/>
 
                     <!-- Bottom-left -->
-                    <circle cx="60" cy="940" r="15" fill="none" stroke="#48D2E7" stroke-width="2" opacity="0.6"/>
+                    <circle cx="60" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
                     <circle cx="60" cy="940" r="8" fill="#0a1120" opacity="0.9"/>
 
                     <!-- Bottom-right -->
-                    <circle cx="940" cy="940" r="15" fill="none" stroke="#48D2E7" stroke-width="2" opacity="0.6"/>
+                    <circle cx="940" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
                     <circle cx="940" cy="940" r="8" fill="#0a1120" opacity="0.9"/>
                 </g>
 
@@ -205,43 +201,43 @@
                 <g class="smd-components">
                     <!-- Resistors (0805 size - 8x5 units) -->
                     <g class="resistor" data-ref="R1">
-                        <rect x="270" y="147" width="20" height="6" fill="#1a2332" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="280" y="142" font-size="6" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">R1</text>
+                        <rect x="270" y="147" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
+                        <text x="280" y="142" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R1</text>
                     </g>
                     <g class="resistor" data-ref="R2">
-                        <rect x="370" y="297" width="20" height="6" fill="#1a2332" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="380" y="292" font-size="6" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">R2</text>
+                        <rect x="370" y="297" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
+                        <text x="380" y="292" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R2</text>
                     </g>
                     <g class="resistor" data-ref="R3">
-                        <rect x="720" y="347" width="20" height="6" fill="#1a2332" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="730" y="342" font-size="6" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">R3</text>
+                        <rect x="720" y="347" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
+                        <text x="730" y="342" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R3</text>
                     </g>
                     <g class="resistor" data-ref="R4">
-                        <rect x="220" y="447" width="20" height="6" fill="#1a2332" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="230" y="442" font-size="6" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">R4</text>
+                        <rect x="220" y="447" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
+                        <text x="230" y="442" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R4</text>
                     </g>
 
                     <!-- Capacitors (0603 size - 6x3 units) -->
                     <g class="capacitor" data-ref="C1">
-                        <rect x="120" y="148" width="15" height="4" fill="#2a3545" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="127" y="144" font-size="5" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">C1</text>
+                        <rect x="120" y="148" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
+                        <text x="127" y="144" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C1</text>
                     </g>
                     <g class="capacitor" data-ref="C2">
-                        <rect x="420" y="347" width="15" height="4" fill="#2a3545" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="427" y="343" font-size="5" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">C2</text>
+                        <rect x="420" y="347" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
+                        <text x="427" y="343" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C2</text>
                     </g>
                     <g class="capacitor" data-ref="C3">
-                        <rect x="580" y="520" width="15" height="4" fill="#2a3545" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="587" y="516" font-size="5" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">C3</text>
+                        <rect x="580" y="520" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
+                        <text x="587" y="516" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C3</text>
                     </g>
                     <g class="capacitor" data-ref="C4">
-                        <rect x="320" y="747" width="15" height="4" fill="#2a3545" stroke="#48D2E7" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="327" y="743" font-size="5" fill="#48D2E7" opacity="0.5" text-anchor="middle" font-family="monospace">C4</text>
+                        <rect x="320" y="747" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
+                        <text x="327" y="743" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C4</text>
                     </g>
                 </g>
 
                 <!-- Connection Pads (vias/pads at intersections) -->
-                <g class="circuit-pads" fill="#48D2E7" stroke="#48D2E7" stroke-width="1.5" opacity="0.7">
+                <g class="circuit-pads" fill="#00ffff" stroke="#00ffff" stroke-width="1.5" opacity="0.7">
                     <!-- Pads at key positions -->
                     <circle class="circuit-pad" cx="150" cy="150" r="8" data-pad="0" />
                     <circle class="circuit-pad" cx="300" cy="150" r="6" data-pad="1" />
@@ -282,7 +278,7 @@
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
-                <g class="pill-connection-lines" stroke="#48D2E7" stroke-width="6" fill="none" stroke-linecap="round">
+                <g class="pill-connection-lines" stroke="#00ffff" stroke-width="6" fill="none" stroke-linecap="round">
                     <!-- Line to Pill 1 (Robotyka - center) - follows existing horizontal trace (line 2) -->
                     <path id="pill-line-robotyka-left" class="pill-line" d="M 150 500 L 500 500" filter="url(#glowStrong)" opacity="0" />
                     <path id="pill-line-robotyka-right" class="pill-line" d="M 900 550 L 550 550 L 500 500" filter="url(#glowStrong)" opacity="0" />
@@ -295,8 +291,8 @@
                 </g>
 
                 <!-- Central Pad (main junction) -->
-                <circle cx="500" cy="500" r="12" fill="#48D2E7" stroke="#48D2E7" stroke-width="2" filter="url(#glow)" opacity="0.9" class="center-pad"/>
-                <circle cx="500" cy="500" r="18" fill="none" stroke="#48D2E7" stroke-width="1.5" opacity="0.5" class="center-pad-ring"/>
+                <circle cx="500" cy="500" r="12" fill="#00ffff" stroke="#00ffff" stroke-width="2" filter="url(#glow)" opacity="0.9" class="center-pad"/>
+                <circle cx="500" cy="500" r="18" fill="none" stroke="#00ffff" stroke-width="1.5" opacity="0.5" class="center-pad-ring"/>
 
                 <!-- Silk Screen Layer (white markings - professional PCB annotations) -->
                 <g class="silk-screen" fill="#ffffff" opacity="0.8" font-family="monospace">
@@ -362,20 +358,17 @@
             <div class="hub-pills-container">
                 <!-- Pill 1: Robotyka (Center - pinned to node 500, 500) -->
                 <button class="hub-pill hub-pill-1" data-card="robotyka" data-neuron="2" data-node-x="500" data-node-y="500" aria-label="Robotyka">
-                    <span class="pill-glow"></span>
-                    <span class="pill-text">Robotyka</span>
+                    <span class="pill-text">Robotyka_</span>
                 </button>
 
                 <!-- Pill 2: Aplikacje (Top-Right - pinned to node 850, 350) -->
-                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="850" data-node-y="350" aria-label="Aplikacje webowe">
-                    <span class="pill-glow"></span>
-                    <span class="pill-text">Aplikacje webowe</span>
+                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="850" data-node-y="350" aria-label="Aplikacje">
+                    <span class="pill-text">Apps_</span>
                 </button>
 
                 <!-- Pill 3: Strony (Bottom-Center - pinned to node 450, 750) -->
-                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750" aria-label="Strony internetowe">
-                    <span class="pill-glow"></span>
-                    <span class="pill-text">Strony internetowe</span>
+                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750" aria-label="Strony WWW">
+                    <span class="pill-text">WWW_</span>
                 </button>
             </div>
         </section>
@@ -387,16 +380,31 @@
 
     <!-- ========== CARD SHEET (single reusable container) ========== -->
     <aside id="card-sheet" class="card-sheet" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+        <!-- Scanlines overlay -->
+        <div class="card-scanlines" aria-hidden="true"></div>
+
+        <!-- Corner markers -->
+        <div class="card-corner card-corner-tl" aria-hidden="true"></div>
+        <div class="card-corner card-corner-br" aria-hidden="true"></div>
+
+        <!-- Close button (on notch for mobile) -->
+        <button class="card-close" aria-label="Zwiń" title="Zwiń (Esc)">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+
         <header class="card-topbar">
             <div class="card-grabber" aria-hidden="true"></div>
-            <button class="card-close" aria-label="Zwiń" title="Zwiń (Esc)">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-            <h2 id="card-title" class="card-title"></h2>
+            <div class="card-terminal-header">
+                <span class="card-terminal-dot"></span>
+                <span class="card-terminal-prefix">SYS://</span>
+                <h2 id="card-title" class="card-title"></h2>
+            </div>
         </header>
 
         <div class="card-media">
-            <img id="card-logo" class="card-logo-img" alt="" />
+            <div class="card-media-frame">
+                <img id="card-logo" class="card-logo-img" alt="" />
+            </div>
         </div>
 
         <div id="card-content" class="card-content"></div>
@@ -406,27 +414,36 @@
     <template id="template-robotyka">
         <div class="card-body">
             <p class="card-lead">
-                Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+                > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
             </p>
-            <a href="https://robotyka.michalrapala.com" class="card-cta">Dowiedz się więcej</a>
+            <a href="https://robotyka.michalrapala.com" class="card-cta">
+                <span class="cta-text">Access_Module</span>
+                <span class="cta-cursor">_</span>
+            </a>
         </div>
     </template>
 
     <template id="template-aplikacje">
         <div class="card-body">
             <p class="card-lead">
-                Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
+                > Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding
             </p>
-            <a href="https://michalrapala.app" class="card-cta">Zobacz aplikacje</a>
+            <a href="https://michalrapala.app" class="card-cta">
+                <span class="cta-text">Access_Module</span>
+                <span class="cta-cursor">_</span>
+            </a>
         </div>
     </template>
 
     <template id="template-www">
         <div class="card-body">
             <p class="card-lead">
-                Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
+                > Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.
             </p>
-            <a href="https://twoja-strona.online" class="card-cta">Poznaj ofertę</a>
+            <a href="https://twoja-strona.online" class="card-cta">
+                <span class="cta-text">Access_Module</span>
+                <span class="cta-cursor">_</span>
+            </a>
         </div>
     </template>
 

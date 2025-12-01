@@ -1,122 +1,117 @@
+<!-- kontakt.html v0.001 Vibrant Block Maximalist - twoja-strona.online -->
 <!DOCTYPE html>
-<html lang="pl">
-
+<html lang="pl" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt - Michał Rąpała AI Solutions</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Favicon - wieloformatowe wsparcie -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt - twoja-strona.online</title>
+  <meta name="description" content="Skontaktuj się w sprawie stworzenia strony internetowej.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="navbar-container"></div>
+  <div id="navbar-container"></div>
 
-    <header class="header-area subpage-header py-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="header-title text-3xl sm:text-4xl fade-in-element">Skontaktuj się</h1>
-            <p class="header-description mt-2 fade-in-element" style="transition-delay: 0.1s;">Masz pytania lub chcesz omówić projekt? Jestem do Twojej dyspozycji!</p>
-        </div>
-    </header>
+  <!-- SUBPAGE HERO -->
+  <header class="subpage-hero">
+    <h1>Kontakt</h1>
+    <p>Masz pytania lub chcesz omówić projekt? Jestem do Twojej dyspozycji!</p>
+  </header>
 
-    <div class="container mx-auto p-0 md:px-10 max-w-5xl">
-        <main class="main-container">
-
-            <section id="contact-section" class="section fade-in-element">
-                <h2 class="section-title sr-only">Kontakt</h2>
-                <p class="text-center max-w-2xl mx-auto mb-12 text-slate-600 text-lg">
-                    Najlepszym sposobem na kontakt jest wysłanie wiadomości e-mail. Staram się odpowiadać jak najszybciej, zazwyczaj w ciągu 24-48 godzin.
-                </p>
-                <div class="text-center space-y-6 max-w-lg mx-auto">
-                    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg border border-[var(--color-border)] fade-in-element" style="transition-delay: 0.2s;">
-                        <i class="fas fa-envelope text-4xl text-[var(--color-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-semibold text-slate-800 mb-2">Adres e-mail:</h3>
-                        <a href="mailto:strony@michalrapala.com" class="text-xl sm:text-2xl block text-[var(--color-primary)] hover:text-[var(--color-primary-darker)] transition-colors font-semibold break-all">
-                            strony@michalrapala.com
-                        </a>
-                        <a href="mailto:strony@michalrapala.com" class="cta-button mt-6 inline-block">
-                            Wyślij e-mail teraz
-                        </a>
-                    </div>
-                </div>
-                 <div class="mt-16 text-center fade-in-element" style="transition-delay: 0.3s;">
-                    <p class="text-slate-500">Dziękuję za zainteresowanie!</p>
-                </div>
-            </section>
-        </main>
+  <!-- CONTACT BLOCK -->
+  <section class="contact-block">
+    <div class="container">
+      <h2 class="fade-in-element">Napisz do mnie</h2>
+      <a href="mailto:strony@michalrapala.com" class="contact-email fade-in-element">strony@michalrapala.com</a>
+      <div class="fade-in-element">
+        <a href="mailto:strony@michalrapala.com" class="btn btn-white">Wyślij e-mail</a>
+      </div>
     </div>
+  </section>
 
-    <div id="footer-container"></div>
+  <!-- INFO -->
+  <section class="section">
+    <div class="container text-center">
+      <div class="section-header fade-in-element">
+        <span class="section-tag">Info</span>
+        <h2 class="section-title">Jak to działa?</h2>
+        <p class="section-description">Najlepszym sposobem na kontakt jest wysłanie wiadomości e-mail. Staram się odpowiadać jak najszybciej, zazwyczaj w ciągu 24-48 godzin.</p>
+      </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbarContainer = document.getElementById('navbar-container');
-            const footerContainer = document.getElementById('footer-container');
-            async function loadTemplate(url, containerElement) {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error(`Nie udało się załadować ${url}: ${response.statusText}`);
-                    const html = await response.text();
-                    containerElement.innerHTML = html;
-                    if (containerElement.id === 'navbar-container') initializeMobileMenu();
-                    if (containerElement.id === 'footer-container') {
-                        const yearSpan = document.getElementById('currentYear');
-                        if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-                    }
-                } catch (error) {
-                    console.error('Błąd ładowania szablonu:', error);
-                    containerElement.innerHTML = `<p class="text-red-500 text-center">Błąd ładowania komponentu.</p>`;
-                }
+      <div class="blocks-grid" style="max-width: 800px; margin: 0 auto;">
+        <div class="block block-pink fade-in-element">
+          <span class="block-number">01</span>
+          <h3 class="block-title">Napisz</h3>
+          <p class="block-description">Opisz swój pomysł lub zadaj pytanie przez e-mail.</p>
+        </div>
+        <div class="block block-blue fade-in-element">
+          <span class="block-number">02</span>
+          <h3 class="block-title">Odpowiem</h3>
+          <p class="block-description">Odezwę się z propozycją lub odpowiedziami na Twoje pytania.</p>
+        </div>
+        <div class="block block-green fade-in-element">
+          <span class="block-number">03</span>
+          <h3 class="block-title">Działamy</h3>
+          <p class="block-description">Po ustaleniu szczegółów rozpoczynamy współpracę.</p>
+        </div>
+      </div>
+
+      <p class="fade-in-element mt-4" style="color: var(--color-text-muted);">Dziękuję za zainteresowanie!</p>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbarContainer = document.getElementById('navbar-container');
+      const footerContainer = document.getElementById('footer-container');
+
+      async function loadTemplate(url, containerElement) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`Nie udało się załadować ${url}`);
+          const html = await response.text();
+          containerElement.innerHTML = html;
+          if (containerElement.id === 'navbar-container') initializeMobileMenu();
+        } catch (error) {
+          console.error('Błąd ładowania szablonu:', error);
+        }
+      }
+
+      function initializeMobileMenu() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            const iconMenu = menuToggle.querySelector('.icon-menu');
+            const iconClose = menuToggle.querySelector('.icon-close');
+            if (iconMenu && iconClose) {
+              iconMenu.classList.toggle('hidden', isOpen);
+              iconClose.classList.toggle('hidden', !isOpen);
             }
-            function initializeMobileMenu() {
-                const menuToggle = document.getElementById('menu-toggle');
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (menuToggle && mobileMenu) {
-                    menuToggle.addEventListener('click', () => {
-                        const isOpen = mobileMenu.classList.toggle('hidden');
-                        mobileMenu.classList.toggle('open', !isOpen);
-                        const icons = menuToggle.querySelectorAll('svg');
-                        icons[0].classList.toggle('hidden', !isOpen);
-                        icons[1].classList.toggle('hidden', isOpen);
-                        menuToggle.setAttribute('aria-expanded', String(!isOpen));
-                    });
-                    mobileMenu.querySelectorAll('a').forEach(link => {
-                        link.addEventListener('click', () => {
-                            if (!mobileMenu.classList.contains('hidden')) {
-                                mobileMenu.classList.add('hidden');
-                                mobileMenu.classList.remove('open');
-                                const icons = menuToggle.querySelectorAll('svg');
-                                icons[0].classList.remove('hidden');
-                                icons[1].classList.add('hidden');
-                                menuToggle.setAttribute('aria-expanded', 'false');
-                            }
-                        });
-                    });
-                }
-            }
-            if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
-            if (footerContainer) loadTemplate('footer-template.html', footerContainer);
-        });
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
+      }
 
-        const animatedElements = document.querySelectorAll('.fade-in-element');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        animatedElements.forEach(element => { observer.observe(element); });
-    </script>
+      if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
+      if (footerContainer) loadTemplate('footer-template.html', footerContainer);
+    });
+
+    const animatedElements = document.querySelectorAll('.fade-in-element');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    animatedElements.forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>

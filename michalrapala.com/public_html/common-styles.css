@@ -1,19 +1,34 @@
-/* common-styles.css v0.036 – Mobile: slower unblur animations (0.8s bar, 1s status) */
+/* common-styles.css v0.047 – close btn at AB midpoint (28px) */
 
-/* ========== ZMIENNE KOLORÓW ========== */
+/* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
-    --bg: #0f172a;           /* Ciemne tło */
-    --fg: #f9fafb;           /* Jasny tekst */
-    --muted: #d1d5db;        /* Tekst drugoplanowy */
-    --accent: #48D2E7;       /* Cyan (główny) */
-    --accent-2: #34c2d9;     /* Cyan hover */
-    --surface: #1e293b;      /* Powierzchnia karty */
-    --shadow: rgba(0, 0, 0, 0.3);
-    --border: rgba(255, 255, 255, 0.1);
+    /* Tła */
+    --bg: #0a0a0f;           /* Deep black z odcieniem niebieskiego */
+    --bg-alt: #12121a;       /* Alternatywne tło */
+    --fg: #ffffff;           /* Biały tekst */
+    --muted: rgba(255, 255, 255, 0.5);  /* Tekst drugoplanowy */
+    --surface: #1a1a24;      /* Powierzchnia karty */
+    --shadow: rgba(0, 0, 0, 0.5);
+    --border: rgba(0, 255, 255, 0.2);
 
-    /* Fonty – Poppins (Logo Match) + System Fallback */
-    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    /* Neonowe kolory */
+    --accent: #00ffff;       /* Neon Cyan */
+    --accent-2: #00cccc;     /* Cyan hover */
+    --magenta: #ff00ff;      /* Neon Magenta */
+    --yellow: #ffff00;       /* Neon Yellow */
+    --hot-pink: #ff1493;     /* Hot Pink */
+    --green: #00ff00;        /* Neon Green (status) */
+
+    /* Glow effects */
+    --glow-cyan: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 40px var(--accent);
+    --glow-magenta: 0 0 10px var(--magenta), 0 0 20px var(--magenta), 0 0 40px var(--magenta);
+    --glow-cyan-strong: 0 0 20px var(--accent), 0 0 40px var(--accent), 0 0 60px var(--accent);
+
+    /* Fonty – Cyberpunk */
+    --font-display: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-heading: 'Orbitron', 'Poppins', sans-serif;
+    --font-body: 'Share Tech Mono', 'Poppins', monospace;
 }
 
 /* ========== RESET + BOX-SIZING ========== */
@@ -38,6 +53,125 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+}
+
+/* ========== CRT SCANLINES OVERLAY ========== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* ========== GRID BACKGROUND ========== */
+.grid-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.grid-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(255, 0, 255, 0.05) 50%,
+        rgba(0, 255, 255, 0.08) 100%
+    );
+}
+
+/* ========== NEON TEXT UTILITIES ========== */
+.neon-cyan {
+    color: var(--accent);
+    text-shadow: var(--glow-cyan);
+}
+
+.neon-magenta {
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta);
+}
+
+.neon-glow {
+    text-shadow: var(--glow-cyan);
+}
+
+/* ========== GLITCH EFFECT ========== */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--magenta);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--accent);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip: rect(36px, 9999px, 97px, 0); }
+    25% { clip: rect(7px, 9999px, 75px, 0); }
+    50% { clip: rect(50px, 9999px, 68px, 0); }
+    75% { clip: rect(62px, 9999px, 15px, 0); }
+    100% { clip: rect(24px, 9999px, 14px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip: rect(65px, 9999px, 89px, 0); }
+    25% { clip: rect(4px, 9999px, 44px, 0); }
+    50% { clip: rect(99px, 9999px, 12px, 0); }
+    75% { clip: rect(23px, 9999px, 77px, 0); }
+    100% { clip: rect(56px, 9999px, 34px, 0); }
+}
+
+/* ========== FLICKER ANIMATION ========== */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.3; }
+    94% { opacity: 1; }
+    95% { opacity: 0.5; }
+    96% { opacity: 1; }
 }
 
 /* ========== TYPOGRAFIA ========== */
@@ -112,7 +246,7 @@ button {
     padding: 0 1rem;
 }
 
-/* ========== GATE: Ekran Wejściowy ========== */
+/* ========== GATE: Ekran Wejściowy (Cyberpunk) ========== */
 .gate {
     position: relative;
     width: 100%;
@@ -150,11 +284,13 @@ button {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     opacity: 0.6;
+    stroke: var(--accent);
 }
 
 .mesh-node {
     opacity: 0.7;
-    filter: drop-shadow(0 0 8px rgba(72, 210, 231, 0.3));
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+    fill: var(--accent);
 }
 
 .gate__content {
@@ -162,7 +298,50 @@ button {
     z-index: 2;
     text-align: center;
     padding: 2rem;
-    max-width: 600px;
+    max-width: 700px;
+}
+
+/* Gate Status Bar */
+.gate__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    margin-bottom: 2rem;
+    animation: flicker 3s infinite;
+}
+
+.gate__status-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: statusPulse 2s infinite;
+}
+
+.gate__status-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+}
+
+/* Gate Tag */
+.gate__tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border: 1px solid var(--magenta);
+    color: var(--magenta);
+    margin-bottom: 2rem;
+    animation: flicker 3s infinite;
 }
 
 .gate__logo {
@@ -172,61 +351,125 @@ button {
     height: auto;
     margin: 0 auto 1.5rem;
     cursor: pointer;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
 }
 
 .gate__logo:hover {
     opacity: 0.9;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+}
+
+/* Gate Title (Cyberpunk) */
+.gate__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.gate__title .line-1 {
+    display: block;
+    color: var(--fg);
+}
+
+.gate__title .line-2 {
+    display: block;
+    color: var(--accent);
+    text-shadow: var(--glow-cyan);
+}
+
+.gate__title .line-3 {
+    display: block;
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta);
 }
 
 .gate__subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-size: clamp(0.9rem, 2vw, 1rem);
     color: var(--muted);
     margin-bottom: 2.5rem;
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
     font-weight: 400;
+    line-height: 1.8;
 }
 
-.gate__enter {
+/* Cyber Button */
+.gate__enter,
+.btn-cyber {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     position: relative;
     gap: 0.75rem;
-    padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.15), rgba(52, 194, 217, 0.1));
-    color: var(--fg);
-    border: 1.5px solid var(--accent);
-    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
     font-weight: 600;
-    font-size: 1rem;
-    font-family: var(--font-body);
-    opacity: 1;
-    transform: translateY(0);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    animation: floatEnterButton 6s ease-in-out infinite;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    overflow: hidden;
 }
 
-.gate__enter:hover {
-    background: linear-gradient(135deg, rgba(72, 210, 231, 0.25), rgba(52, 194, 217, 0.15));
-    border-color: #48D2E7;
-    box-shadow: 0 0 20px rgba(72, 210, 231, 0.4);
+.gate__enter,
+.btn-cyber-primary {
+    color: var(--bg);
+    background: var(--accent);
+    box-shadow: var(--glow-cyan);
 }
 
-.gate__enter:hover .pill-glow {
-    opacity: 1;
-    animation: glow 2s ease-in-out infinite;
+.gate__enter:hover,
+.btn-cyber-primary:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
 }
 
-.gate__enter:focus-visible {
+.btn-cyber-secondary {
+    color: var(--accent);
+    background: transparent;
+    border: 2px solid var(--accent);
+}
+
+.btn-cyber-secondary:hover {
+    color: var(--bg);
+    background: var(--accent);
+}
+
+/* Button shine effect */
+.gate__enter::before,
+.btn-cyber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.4s ease;
+}
+
+.gate__enter:hover::before,
+.btn-cyber:hover::before {
+    left: 100%;
+}
+
+.gate__enter:focus-visible,
+.btn-cyber:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
 }
 
 @keyframes floatEnterButton {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-6px); }
 }
 
 /* Pill-style elements (text and glow) */
@@ -686,16 +929,21 @@ body.card-open {
     to { opacity: 1; transform: scale(1); }
 }
 
-/* Card Sheet - Base */
+/* Card Sheet - Base (CYBERPUNK) */
 .card-sheet {
     position: fixed;
-    background: var(--surface);
+    /* Dark gradient background */
+    background: linear-gradient(135deg, #0a0a0f 0%, #0f1419 50%, #0a0a0f 100%);
     color: var(--fg);
     z-index: 1000;
     display: flex;
     flex-direction: column;
     overflow: visible;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    /* drop-shadow follows clip-path! Unlike border/box-shadow */
+    filter:
+        drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
+        drop-shadow(0 0 8px rgba(0, 255, 255, 0.4))
+        drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
@@ -703,36 +951,190 @@ body.card-open {
 
 .card-sheet:not([hidden]) {
     pointer-events: auto;
+    animation: cardGlitchIn 0.4s ease-out;
 }
 
-/* Card Topbar */
+/* Glitch-in animation - preserves drop-shadow at end */
+@keyframes cardGlitchIn {
+    0% {
+        opacity: 0;
+        filter: hue-rotate(90deg) saturate(2)
+            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
+            drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+    }
+    20% {
+        opacity: 0.8;
+        filter: hue-rotate(-20deg) saturate(1.5)
+            drop-shadow(0 0 2px rgba(255, 0, 255, 0.9))
+            drop-shadow(0 0 15px rgba(255, 0, 255, 0.5));
+        transform: translateX(2px);
+    }
+    40% {
+        filter: hue-rotate(10deg) saturate(1.2)
+            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
+            drop-shadow(0 0 10px rgba(0, 255, 255, 0.4));
+        transform: translateX(-2px);
+    }
+    60% {
+        filter: hue-rotate(0deg) saturate(1)
+            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
+            drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+        transform: translateX(1px);
+    }
+    100% {
+        opacity: 1;
+        filter:
+            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
+            drop-shadow(0 0 8px rgba(0, 255, 255, 0.4))
+            drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
+        transform: translateX(0);
+    }
+}
+
+/* Scanlines overlay */
+.card-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, 0.015) 2px,
+        rgba(0, 255, 255, 0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Corner markers (targeting reticle style) */
+.card-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.card-corner::before,
+.card-corner::after {
+    content: '';
+    position: absolute;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+}
+
+.card-corner-tl {
+    top: 8px;
+    left: 8px;
+}
+
+.card-corner-tl::before {
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 2px;
+}
+
+.card-corner-tl::after {
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 15px;
+}
+
+.card-corner-br {
+    bottom: 8px;
+    right: 8px;
+}
+
+.card-corner-br::before {
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 2px;
+}
+
+.card-corner-br::after {
+    bottom: 0;
+    right: 0;
+    width: 2px;
+    height: 15px;
+}
+
+/* Border glow pulse animation */
+@keyframes borderGlowPulse {
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(0, 255, 255, 0.15),
+            0 0 40px rgba(0, 255, 255, 0.1),
+            inset 0 0 60px rgba(0, 255, 255, 0.03);
+    }
+    50% {
+        box-shadow:
+            0 0 30px rgba(0, 255, 255, 0.25),
+            0 0 60px rgba(0, 255, 255, 0.15),
+            inset 0 0 80px rgba(0, 255, 255, 0.05);
+    }
+}
+
+.card-sheet:not([hidden]) {
+    animation: cardGlitchIn 0.4s ease-out;
+    /* Note: borderGlowPulse removed - box-shadow doesn't follow clip-path */
+    /* drop-shadow in base styles provides consistent border glow */
+}
+
+/* Card Topbar (TERMINAL STYLE) */
 .card-topbar {
     display: flex;
     align-items: center;
-    padding: 0.5rem 1.5rem 1rem;
-    padding-top: 3.5rem;
-    padding-right: 1.5rem;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    padding-top: 2.5rem;
     position: relative;
     flex-shrink: 0;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    background: rgba(0, 255, 255, 0.02);
+    z-index: 5;
 }
 
-/* Card Grabber (mobile only - visual hint) */
+/* Terminal header container */
+.card-terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Terminal dot (pulsing) */
+.card-terminal-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: terminalDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes terminalDotPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--green); }
+    50% { opacity: 0.6; box-shadow: 0 0 20px var(--green); }
+}
+
+/* Terminal prefix SYS:// */
+.card-terminal-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px var(--magenta);
+}
+
+/* Card Grabber - REMOVED (nie pasuje do stylu cyberpunk) */
 .card-grabber {
-    position: absolute;
-    top: 28px;
-    left: 30%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 4px;
-    background: var(--muted);
-    opacity: 0.5;
-    border-radius: 10px;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-
-.card-sheet.is-dragging .card-grabber {
-    opacity: 0.7;
+    display: none;
 }
 
 /* Mobile: entire sheet is draggable */
@@ -753,73 +1155,107 @@ body.card-open {
     }
 }
 
-/* Card Title */
+/* Card Title (CYBERPUNK) */
 .card-title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--fg);
+    color: var(--accent);
     margin: 0;
-    letter-spacing: -0.01em;
-    flex: 1;
-    padding-top: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--accent);
 }
 
-/* Card Close Button */
+/* Card Close Button (CYBERPUNK) */
 .card-close {
     position: absolute;
-    top: 0.75rem;
-    right: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    background: rgba(30, 41, 59, 0.95);
-    color: var(--accent);
-    font-size: 1.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.9rem;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    flex-shrink: 0;
+    transition: all 0.3s ease;
     z-index: 10;
-    backdrop-filter: blur(10px);
+    /* 2 cuts like Initialize_ */
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+    box-shadow: var(--glow-cyan);
 }
 
 .card-close:hover {
-    background: rgba(72, 210, 231, 0.1);
-    box-shadow: 0 0 12px rgba(72, 210, 231, 0.3);
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
 }
 
 .card-close:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    outline-offset: 4px;
 }
 
-/* Card Media */
+/* Card Media (CYBERPUNK) */
 .card-media {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 1.5rem;
     flex-shrink: 0;
+    z-index: 5;
+}
+
+/* Neon frame around logo */
+.card-media-frame {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.02);
+    /* 2 cuts */
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.card-media-frame::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, var(--accent), transparent, var(--magenta));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.card-media-frame:hover::before {
+    opacity: 0.3;
 }
 
 .card-logo-img {
     max-width: 100%;
-    max-height: 200px;
+    max-height: 180px;
     height: auto;
     object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+    transition: filter 0.3s ease;
 }
 
-/* Card Content */
+.card-media-frame:hover .card-logo-img {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+}
+
+/* Card Content (CYBERPUNK) */
 .card-content {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 0 1.5rem 1.25rem;
+    padding: 1rem 1.5rem 1.5rem;
     -webkit-overflow-scrolling: touch;
+    z-index: 5;
 }
 
 .card-body {
@@ -828,34 +1264,83 @@ body.card-open {
     text-align: center;
 }
 
+/* Terminal-style lead text */
 .card-lead {
-    font-size: 1rem;
-    line-height: 1.8;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.9;
     color: var(--muted);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-align: left;
+    padding-left: 0.5rem;
+    border-left: 2px solid rgba(0, 255, 255, 0.3);
 }
 
 .card-cta {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: var(--surface);
-    border-radius: 0.5rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 0;
+    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-family: var(--font-body);
+    box-shadow: var(--glow-cyan);
+    position: relative;
+    overflow: hidden;
+    /* 2 cuts like Initialize_: top-left, bottom-right */
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+/* Shine effect like Initialize_ */
+.card-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.4s ease;
+}
+
+.card-cta:hover::before {
+    left: 100%;
 }
 
 .card-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(72, 210, 231, 0.3);
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
 }
 
 .card-cta:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
+}
+
+/* CTA text and blinking cursor */
+.cta-text {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-cursor {
+    position: relative;
+    z-index: 2;
+    animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* ========== MOBILE: Bottom Sheet (<1025px) ========== */
@@ -866,7 +1351,8 @@ body.card-open {
         right: 0;
         max-height: 92vh;
         max-height: calc(92vh - env(safe-area-inset-top));
-        /* GSAP controls transform via inline styles */
+        /* Remove default border - use pseudo-element instead */
+        border: none;
         /* Notch shape: A=80px (notch), B=80px (diagonal), C=reszta */
         clip-path: polygon(
             100% 0,                      /* P1: prawy górny skrajny (wyżej) */
@@ -879,36 +1365,27 @@ body.card-open {
         border-radius: 0 0 0 16px;
     }
 
-    /* Mobile card open state - GSAP controls transform animation */
-    /* .is-open class is semantic only */
+    /* Note: border handled by filter: drop-shadow() on parent */
+    /* drop-shadow follows clip-path, unlike border/box-shadow! */
 
-    .card-grabber {
-        display: block;
+    /* Mobile: close button on notch area (80px wide flat part) */
+    .card-close {
+        top: 10px;
+        right: 20px;
     }
 
-    /* Mobile: arrow points down (card hides downward) */
-    .card-close i {
-        transform: rotate(90deg);
-    }
-
-    /* Mobile: topbar centered */
+    /* Mobile: topbar left-aligned, below notch */
     .card-topbar {
-        justify-content: center;
-        padding-left: 1rem;
+        justify-content: flex-start;
+        padding-left: 1.5rem;
         padding-right: 1rem;
+        padding-top: 1rem;
+        margin-top: 50px; /* below notch diagonal */
     }
 
-    /* Mobile: title centered */
+    /* Mobile: title smaller */
     .card-title {
-        text-align: center;
-        width: 100%;
-    }
-
-    /* Mobile: all content centered */
-    .card-media,
-    .card-content {
-        align-items: center;
-        text-align: center;
+        font-size: 0.9rem;
     }
 
     .card-logo-img {
@@ -963,23 +1440,30 @@ body.card-open {
         display: none;
     }
 
-    /* Arrow button - smaller to match top bar text height */
+    /* Desktop: close button at middle of segment AB (A=0, B=56px → middle=28px) */
     .card-close {
-        position: static;
+        position: absolute;
+        top: calc(28px - 1rem); /* center 2rem button at y=28px */
+        left: 100px; /* after notch indent (90px) + gap */
         width: 2rem;
         height: 2rem;
-        font-size: 1rem;
-        border: none;
-        flex-shrink: 0;
+        font-size: 0.85rem;
     }
 
-    /* Topbar: tytuł obok strzałki (flexbox alignment) */
+    .card-close i {
+        transform: rotate(-90deg); /* chevron-down → points right (>) */
+    }
+
+    /* Topbar: aligned with close button */
     .card-topbar {
+        flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        gap: 0.5rem;
-        padding-left: 1.5rem;
-        padding-top: 0.5rem;
+        gap: 0.75rem;
+        padding-left: calc(100px + 2.75rem); /* after close button */
+        padding-top: calc(28px - 1rem); /* align with close button center */
+        padding-bottom: 1rem;
+        margin-top: 0;
     }
 
     .card-title {
