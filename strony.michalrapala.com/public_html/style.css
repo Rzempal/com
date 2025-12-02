@@ -263,9 +263,9 @@ body {
   color: var(--color-on-accent);
   max-width: 450px;
   margin-top: 2rem;
-  opacity: 0.85;
   border-left: 4px solid var(--color-black);
   padding-left: 1rem;
+  opacity: 0.85;
 }
 
 .hero-right {
