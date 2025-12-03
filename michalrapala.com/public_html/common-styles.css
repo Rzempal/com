@@ -1,4 +1,4 @@
-/* common-styles.css v0.047 – close btn at AB midpoint (28px) */
+/* common-styles.css v0.055 – Mobile: close button in notch area (topbar position: static) */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -23,6 +23,9 @@
     --glow-cyan: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 40px var(--accent);
     --glow-magenta: 0 0 10px var(--magenta), 0 0 20px var(--magenta), 0 0 40px var(--magenta);
     --glow-cyan-strong: 0 0 20px var(--accent), 0 0 40px var(--accent), 0 0 60px var(--accent);
+
+    /* Layout - shared header height (navbar & card topbar) */
+    --header-height: 3.75rem; /* 0.75rem padding + 2.25rem content + 0.75rem padding */
 
     /* Fonty – Cyberpunk */
     --font-display: 'Orbitron', sans-serif;
@@ -332,7 +335,8 @@ button {
 
 /* Gate Tag */
 .gate__tag {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 0.5rem 1rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -1368,14 +1372,16 @@ body.card-open {
     /* Note: border handled by filter: drop-shadow() on parent */
     /* drop-shadow follows clip-path, unlike border/box-shadow! */
 
-    /* Mobile: close button on notch area (80px wide flat part) */
+    /* Mobile: close button on notch area (absolute, outside normal flow) */
     .card-close {
+        position: absolute;
         top: 10px;
         right: 20px;
     }
 
-    /* Mobile: topbar left-aligned, below notch */
+    /* Mobile: topbar below notch */
     .card-topbar {
+        position: static; /* Close button positions relative to card-sheet, not topbar */
         justify-content: flex-start;
         padding-left: 1.5rem;
         padding-right: 1rem;
@@ -1420,17 +1426,14 @@ body.card-open {
         /* left is set dynamically by JS based on status text position */
         width: clamp(380px, 35vw, 450px);
         opacity: 0;
-        /* Notch shape (left side, counter-clockwise): notch indent 90px wide */
-        clip-path: polygon(
-            0 0,                         /* A: lewy górny */
-            0 56px,                      /* B: w dół, przed notchem (dynamically updated) */
-            90px 116px,                  /* C: diagonal w prawo i w dół (B + 60px) */
-            90px 100%,                   /* D: w dół do końca */
-            100% 100%,                   /* E: prawy dolny */
-            100% 0                       /* F: prawy górny */
-        );
-        border-radius: 0 0 0 24px;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        /* Simple rectangle - no notch on desktop */
+        clip-path: none;
+        border-radius: 0;
+    }
+
+    /* Hide top-left corner accent on desktop */
+    .card-corner-tl {
+        display: none;
     }
 
     /* Desktop card open state - GSAP controls transform/opacity animation */
@@ -1440,29 +1443,30 @@ body.card-open {
         display: none;
     }
 
-    /* Desktop: close button at middle of segment AB (A=0, B=56px → middle=28px) */
+    /* Desktop: close button in normal flow, flexbox aligns it */
     .card-close {
-        position: absolute;
-        top: calc(28px - 1rem); /* center 2rem button at y=28px */
-        left: 100px; /* after notch indent (90px) + gap */
-        width: 2rem;
-        height: 2rem;
+        position: relative; /* Back to flow - flexbox will align */
+        width: 2.25rem;  /* Match nav links height for border alignment */
+        height: 2.25rem;
         font-size: 0.85rem;
+        flex-shrink: 0;
+        margin: 0;
     }
 
     .card-close i {
         transform: rotate(-90deg); /* chevron-down → points right (>) */
     }
 
-    /* Topbar: aligned with close button */
+    /* Topbar: [Close >] [●] [SYS://] [Tytuł] - all flex children aligned */
+    /* Uses --header-height for exact border alignment with navbar */
     .card-topbar {
+        display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
+        height: var(--header-height); /* Same as navbar */
         gap: 0.75rem;
-        padding-left: calc(100px + 2.75rem); /* after close button */
-        padding-top: calc(28px - 1rem); /* align with close button center */
-        padding-bottom: 1rem;
+        padding: 0 1.5rem; /* Horizontal only - height is explicit */
         margin-top: 0;
     }
 
@@ -1470,13 +1474,13 @@ body.card-open {
         padding-top: 0;
         text-align: left;
         font-size: 0.9rem;
-        line-height: 1;
+        line-height: 1.2;
     }
 
-    /* Zawartość wysrodkowana między CD (90px) a prawą krawędzią */
+    /* Content - no notch offset needed */
     .card-media,
     .card-content {
-        margin-left: 90px;
+        margin-left: 0;
         margin-right: 0;
         display: flex;
         flex-direction: column;

@@ -1,4 +1,4 @@
-// main-script.js v0.052 – Mobile: status highlight (unblur) after 1s delay
+// main-script.js v0.054 – Revert card animation speed (desktop: 1.2s, mobile: 0.5s)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
