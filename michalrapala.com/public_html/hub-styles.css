@@ -1,4 +1,4 @@
-/* hub-styles.css v0.032 – desktop status full navbar height */
+/* hub-styles.css v0.033 – desktop status align-self stretch to navbar edges */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -76,10 +76,13 @@ body {
 /* Desktop: status stretches full navbar height */
 @media (min-width: 1025px) {
     .cyber-nav-status {
-        /* Stretch to full navbar height using negative margins */
-        margin: -0.75rem 0;
-        padding: 0.75rem 1rem;
-        /* Only left/right borders, top/bottom blend with navbar edge */
+        /* Stretch to EXACT navbar edges */
+        align-self: stretch;
+        margin: -0.75rem 0; /* Pull into navbar padding */
+        padding: 0 1rem; /* Remove top/bottom padding, keep left/right */
+        display: flex;
+        align-items: center; /* Center content vertically */
+        /* Only left/right borders */
         border-top: none;
         border-bottom: none;
     }
