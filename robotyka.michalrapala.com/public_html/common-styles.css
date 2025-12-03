@@ -827,7 +827,7 @@ p {
 .copyright a {
   color: inherit;           /* Dziedziczy kolor tekstu rodzica */
   text-decoration: none;    /* Usuwa podkreślenie */
-  font-weight: 700;         /* Pogrubienie (opcjonalne, ale wygląda lepiej) */
+  /*font-weight: 700;          Pogrubienie (opcjonalne, ale wygląda lepiej) */
   transition: color var(--transition); /* Płynne przejście koloru */
 }
 
