@@ -1,4 +1,4 @@
-/* common-styles.css v0.051 – desktop topbar height matches navbar for border align */
+/* common-styles.css v0.052 – desktop close btn 2.25rem matches nav links for border align */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1441,8 +1441,8 @@ body.card-open {
     /* Desktop: close button in normal flow, flexbox aligns it */
     .card-close {
         position: relative; /* Back to flow - flexbox will align */
-        width: 2rem;
-        height: 2rem;
+        width: 2.25rem;  /* Match nav links height for border alignment */
+        height: 2.25rem;
         font-size: 0.85rem;
         flex-shrink: 0;
         margin: 0;
