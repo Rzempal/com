@@ -823,7 +823,18 @@ p {
     letter-spacing: 0.1em;
     color: var(--color-text-muted);
 }
+/* Styl podstawowy linku w copyright */
+.copyright a {
+  color: inherit;           /* Dziedziczy kolor tekstu rodzica */
+  text-decoration: none;    /* Usuwa podkreślenie */
+  font-weight: 700;         /* Pogrubienie (opcjonalne, ale wygląda lepiej) */
+  transition: color var(--transition); /* Płynne przejście koloru */
+}
 
+/* Efekt po najechaniu myszką */
+.copyright a:hover {
+  color: var(--color-accent);
+}
 @media (max-width: 768px) {
     .footer-brutal {
         flex-direction: column;
