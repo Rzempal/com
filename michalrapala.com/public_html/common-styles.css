@@ -1,4 +1,4 @@
-/* common-styles.css v0.053 – shared --header-height for exact border alignment */
+/* common-styles.css v0.054 – gate__tag: inline-flex for consistent alignment with gate__status */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -335,7 +335,8 @@ button {
 
 /* Gate Tag */
 .gate__tag {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 0.5rem 1rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
