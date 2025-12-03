@@ -1,4 +1,4 @@
-/* hub-styles.css v0.035 – status: border-bottom instead of right, aligns with topbar */
+/* hub-styles.css v0.036 – navbar uses --header-height for exact border alignment */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -12,17 +12,18 @@ body {
     left: 0;
     right: 0;
     z-index: 40;
+    height: var(--header-height); /* Explicit height for border alignment */
     background-color: rgba(10, 10, 15, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    /* border-bottom removed */
-    padding: 0.75rem 1.5rem;
+    padding: 0 1.5rem; /* Horizontal only - height is explicit */
 }
 
 .cyber-nav-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100%; /* Fill navbar height */
     /* Match PCB board width (square 1000x1000, fits viewport height) */
     max-width: min(100vw, 100vh);
     margin: 0 auto;
@@ -76,16 +77,14 @@ body {
 /* Desktop: status stretches full navbar height */
 @media (min-width: 1025px) {
     .cyber-nav-status {
-        /* Stretch to EXACT navbar edges */
-        align-self: stretch;
-        margin: -0.75rem 0; /* Pull into navbar padding */
-        padding: 0 1rem; /* Remove top/bottom padding, keep left/right */
+        align-self: stretch; /* Fill navbar height (now explicit via --header-height) */
+        padding: 0 1rem;
         display: flex;
-        align-items: center; /* Center content vertically */
-        /* Only left border + bottom border (aligns with card topbar) */
+        align-items: center;
+        /* Only left border + bottom border */
         border-top: none;
         border-right: none;
-        border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        border-bottom: 1px solid var(--border);
     }
 }
 

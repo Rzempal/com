@@ -1,4 +1,4 @@
-/* common-styles.css v0.052 – desktop close btn 2.25rem matches nav links for border align */
+/* common-styles.css v0.053 – shared --header-height for exact border alignment */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -23,6 +23,9 @@
     --glow-cyan: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 40px var(--accent);
     --glow-magenta: 0 0 10px var(--magenta), 0 0 20px var(--magenta), 0 0 40px var(--magenta);
     --glow-cyan-strong: 0 0 20px var(--accent), 0 0 40px var(--accent), 0 0 60px var(--accent);
+
+    /* Layout - shared header height (navbar & card topbar) */
+    --header-height: 3.75rem; /* 0.75rem padding + 2.25rem content + 0.75rem padding */
 
     /* Fonty – Cyberpunk */
     --font-display: 'Orbitron', sans-serif;
@@ -1453,14 +1456,15 @@ body.card-open {
     }
 
     /* Topbar: [Close >] [●] [SYS://] [Tytuł] - all flex children aligned */
-    /* Height matches navbar (0.75rem padding) so borders align */
+    /* Uses --header-height for exact border alignment with navbar */
     .card-topbar {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center; /* Kluczowe: centruje wszystkie dzieci w pionie */
+        align-items: center;
+        height: var(--header-height); /* Same as navbar */
         gap: 0.75rem;
-        padding: 0.75rem 1.5rem; /* Match navbar padding for border alignment */
+        padding: 0 1.5rem; /* Horizontal only - height is explicit */
         margin-top: 0;
     }
 
