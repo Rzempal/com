@@ -1,4 +1,4 @@
-// main-script.js v0.053 – Slower card slide-out animation (desktop: 1.8s, mobile: 0.75s)
+// main-script.js v0.054 – Revert card animation speed (desktop: 1.2s, mobile: 0.5s)
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -927,13 +927,13 @@ function openCard(id) {
       // Animate from off-screen right to target position
       gsap.fromTo(sheet,
         { left: viewportWidth, opacity: 0 },
-        { left: targetLeft, opacity: 1, duration: 1.8, ease: 'power2.out', force3D: true }
+        { left: targetLeft, opacity: 1, duration: 1.2, ease: 'power2.out', force3D: true }
       );
     } else {
       // Mobile: slide from bottom
       gsap.fromTo(sheet,
         { y: '100%', opacity: 0 },
-        { y: '0%', opacity: 1, duration: 0.75, ease: 'power2.out', force3D: true }
+        { y: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
       );
     }
   } else {
