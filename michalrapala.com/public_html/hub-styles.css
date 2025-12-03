@@ -1,4 +1,4 @@
-/* hub-styles.css v0.033 – desktop status align-self stretch to navbar edges */
+/* hub-styles.css v0.034 – status keeps full height when card open (top:0 bottom:0) */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -777,6 +777,8 @@ body {
     /* Center status indicator when card is open */
     body.card-open .cyber-nav-status {
         position: absolute;
+        top: 0;
+        bottom: 0; /* Stretch to full navbar height */
         left: 50%;
         transform: translateX(-50%);
         transition: all 0.6s ease;
