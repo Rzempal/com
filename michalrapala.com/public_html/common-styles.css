@@ -1,4 +1,4 @@
-/* common-styles.css v0.054 – gate__tag: inline-flex for consistent alignment with gate__status */
+/* common-styles.css v0.055 – Mobile: close button in notch area (topbar position: static) */
 
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
@@ -1381,6 +1381,7 @@ body.card-open {
 
     /* Mobile: topbar below notch */
     .card-topbar {
+        position: static; /* Close button positions relative to card-sheet, not topbar */
         justify-content: flex-start;
         padding-left: 1.5rem;
         padding-right: 1rem;
