@@ -1,4 +1,4 @@
-/* hub-styles.css v0.034 – status keeps full height when card open (top:0 bottom:0) */
+/* hub-styles.css v0.035 – status: border-bottom instead of right, aligns with topbar */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -82,9 +82,10 @@ body {
         padding: 0 1rem; /* Remove top/bottom padding, keep left/right */
         display: flex;
         align-items: center; /* Center content vertically */
-        /* Only left/right borders */
+        /* Only left border + bottom border (aligns with card topbar) */
         border-top: none;
-        border-bottom: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.2);
     }
 }
 
