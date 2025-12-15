@@ -1,11 +1,11 @@
-<!-- cennik-kalkulator.html v0.001 Vibrant Block Maximalist - twoja-strona.online -->
+<!-- cennik-kalkulator.html v0.002 Refaktoryzacja WaaS - Pakiety abonamentowe + kalkulator -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cennik i kalkulator - twoja-strona.online</title>
-  <meta name="description" content="Cennik stron internetowych i kalkulator wyceny online.">
+  <meta name="description" content="Pakiety abonamentowe WaaS i kalkulator wyceny z modelem Setup + Abonament.">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
@@ -17,49 +17,88 @@
   <!-- SUBPAGE HERO -->
   <header class="subpage-hero">
     <h1>Cennik i kalkulator</h1>
-    <p>Transparentne ceny i narzędzie do szybkiej estymacji kosztów.</p>
+    <p>Transparentne ceny Setup + Abonament. Narzędzie do szybkiej estymacji kosztów WaaS.</p>
   </header>
 
-  <!-- PAKIETY CENOWE -->
+  <!-- PAKIETY WAAS -->
   <section class="section">
     <div class="container">
       <div class="section-header fade-in-element">
-        <span class="section-tag">Pakiety</span>
+        <span class="section-tag">Pakiety WaaS</span>
         <h2 class="section-title">Wybierz pakiet</h2>
-        <p class="section-description">Konkurencyjne ceny dzięki optymalizacji procesu tworzenia.</p>
+        <p class="section-description">Konkurencyjne ceny dzięki optymalizacji procesu. Płacisz za setup, zyskujesz spokój z abonamentem.</p>
       </div>
 
-      <div class="pricing-grid" style="max-width: 800px; margin: 0 auto;">
+      <div class="cards-grid" style="max-width: 1200px; margin: 0 auto;">
+        <!-- Pakiet 1: WIZYTÓWKA (Starter) -->
         <div class="pricing-card fade-in-element">
-          <h3 class="pricing-card-title">Pakiet Start</h3>
-          <p class="pricing-card-price">od 499 zł</p>
-          <p class="pricing-card-note">Idealny na stronę-wizytówkę</p>
+          <h3 class="pricing-card-title" style="color: var(--color-yellow);">Wizytówka (Starter)</h3>
+          <p class="pricing-card-note" style="margin-bottom: 1.5rem;">Obecność w sieci</p>
+
+          <div style="border-top: 2px solid var(--color-text-muted); padding-top: 1rem; margin-bottom: 1rem;">
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Setup (jednorazowo)</p>
+            <p class="pricing-card-price" style="font-size: 2rem; margin-bottom: 1rem;">500-700 zł</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Abonament miesięczny</p>
+            <p class="pricing-card-price" style="font-size: 2rem; color: var(--color-yellow);">50-80 zł/mc</p>
+          </div>
+
           <ul>
-            <li>Hosting i domena na rok*</li>
-            <li>Strona One Page</li>
-            <li>Responsywny design</li>
+            <li>Strona One-page</li>
+            <li>Domena + Hosting + SSL</li>
             <li>Formularz kontaktowy</li>
+            <li>Aktualizacje bezpieczeństwa</li>
           </ul>
           <a href="kontakt.html" class="btn btn-primary" style="width: 100%;">Zapytaj o pakiet</a>
         </div>
 
-        <div class="pricing-card fade-in-element">
-          <h3 class="pricing-card-title">Pakiet Standard</h3>
-          <p class="pricing-card-price">od 899 zł</p>
-          <p class="pricing-card-note">Dla małych firm</p>
+        <!-- Pakiet 2: FIRMA (Core - REKOMENDOWANY) -->
+        <div class="pricing-card fade-in-element" style="border: 3px solid var(--color-purple); position: relative; transform: scale(1.05);">
+          <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--color-purple); padding: 0.5rem 1.5rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 900; text-transform: uppercase; color: #ffffff; letter-spacing: 0.1em;">
+            Najpopularniejszy
+          </div>
+          <h3 class="pricing-card-title" style="color: var(--color-purple);">Firma (Core)</h3>
+          <p class="pricing-card-note" style="margin-bottom: 1.5rem;">Wizerunek + oszczędność czasu</p>
+
+          <div style="border-top: 2px solid var(--color-text-muted); padding-top: 1rem; margin-bottom: 1rem;">
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Setup (jednorazowo)</p>
+            <p class="pricing-card-price" style="font-size: 2rem; margin-bottom: 1rem;">1500-2000 zł</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Abonament miesięczny</p>
+            <p class="pricing-card-price" style="font-size: 2rem; color: var(--color-purple);">150 zł/mc</p>
+          </div>
+
           <ul>
-            <li>Hosting i domena na rok*</li>
-            <li>Strona do 3-4 podstron</li>
-            <li>Responsywny design</li>
-            <li>Formularz kontaktowy</li>
-            <li>Mapa Google + Social Media</li>
+            <li>Do 5 podstron</li>
+            <li><strong>1h prac w cenie/mc</strong></li>
+            <li>Raporty miesięczne</li>
+            <li>Wsparcie techniczne</li>
+          </ul>
+          <a href="kontakt.html" class="btn btn-primary" style="width: 100%;">Zapytaj o pakiet</a>
+        </div>
+
+        <!-- Pakiet 3: SPRZEDAŻ (Growth) -->
+        <div class="pricing-card fade-in-element">
+          <h3 class="pricing-card-title" style="color: var(--color-green);">Sprzedaż (Growth)</h3>
+          <p class="pricing-card-note" style="margin-bottom: 1.5rem;">Pozyskiwanie leadów</p>
+
+          <div style="border-top: 2px solid var(--color-text-muted); padding-top: 1rem; margin-bottom: 1rem;">
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Setup (jednorazowo)</p>
+            <p class="pricing-card-price" style="font-size: 2rem; margin-bottom: 1rem;">Indywidualnie</p>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">Abonament miesięczny</p>
+            <p class="pricing-card-price" style="font-size: 2rem; color: var(--color-green);">od 250 zł/mc</p>
+          </div>
+
+          <ul>
+            <li>Landing sprzedażowy</li>
+            <li>Integracja z CRM</li>
+            <li>Zaawansowane SEO</li>
+            <li>Google Ads / Analytics</li>
           </ul>
           <a href="kontakt.html" class="btn btn-primary" style="width: 100%;">Zapytaj o pakiet</a>
         </div>
       </div>
 
       <p class="text-center mt-4 fade-in-element" style="color: var(--color-text-muted); font-size: 0.875rem;">
-        * Koszt odnowienia hostingu i domeny na kolejny rok: 200 zł.
+        * Model WaaS (Website as a Service) - płacisz za setup, zyskujesz święty spokój z abonamentem.
       </p>
     </div>
   </section>
@@ -70,11 +109,27 @@
       <div class="section-header fade-in-element">
         <span class="section-tag">Kalkulator</span>
         <h2 class="section-title">Wycena online</h2>
-        <p class="section-description">Oszacuj koszt Twojej strony internetowej. Pamiętaj, że jest to wycena orientacyjna.</p>
+        <p class="section-description">Oszacuj koszt Setup + Abonament. Pamiętaj, że jest to wycena orientacyjna.</p>
       </div>
 
       <div class="calculator-container fade-in-element" style="max-width: 800px; margin: 0 auto;">
         <form id="pricingCalculatorForm">
+
+          <!-- WYBÓR MODELU -->
+          <div class="form-group" style="background: var(--color-bg); padding: 1.5rem; border: 2px solid var(--color-yellow); margin-bottom: 2rem;">
+            <label style="margin-bottom: 1rem;">Wybierz model współpracy:</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <label style="display: flex; align-items: center; padding: 1rem; background: var(--color-bg-alt); border: 2px solid var(--color-text); cursor: pointer; transition: all var(--transition); text-transform: none; letter-spacing: normal; font-weight: 500;">
+                <input type="radio" id="modelOneTime" name="businessModel" value="onetime" style="width: 20px; height: 20px; margin-right: 0.75rem; accent-color: var(--color-yellow);">
+                <span>Jednorazowy projekt</span>
+              </label>
+              <label style="display: flex; align-items: center; padding: 1rem; background: var(--color-bg-alt); border: 2px solid var(--color-yellow); cursor: pointer; transition: all var(--transition); text-transform: none; letter-spacing: normal; font-weight: 700;">
+                <input type="radio" id="modelWaaS" name="businessModel" value="waas" checked style="width: 20px; height: 20px; margin-right: 0.75rem; accent-color: var(--color-yellow);">
+                <span>Stała opieka (WaaS) ⭐</span>
+              </label>
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="siteType">Rodzaj strony:</label>
             <select id="siteType" name="siteType">
@@ -105,16 +160,7 @@
               <label><input type="checkbox" id="featBasicSeo" name="features" value="basicSeo"><span>Optymalizacja SEO</span></label>
               <label><input type="checkbox" id="featAiContent" name="features" value="aiContent"><span>Wsparcie AI w treści</span></label>
               <label><input type="checkbox" id="featGallery" name="features" value="gallery"><span>Galeria zdjęć</span></label>
-              <label><input type="checkbox" id="featGenerativeGraphics" name="features" value="generativeGraphics"><span>Grafiki AI (3-5 szt.)</span></label>
             </div>
-          </div>
-
-          <div class="form-group" style="border-top: 2px dashed var(--color-text-muted); padding-top: 2rem; margin-top: 2rem;">
-            <label style="margin-bottom: 1rem;">Rabat:</label>
-            <label class="checkbox-group" style="display: flex; background: var(--color-green); color: var(--color-on-accent); border-color: var(--color-green);">
-              <input type="checkbox" id="featBannerDiscount" name="bannerDiscount">
-              <span>Zgoda na banner "Projekt i wykonanie..." w stopce <strong>(Rabat -20%)</strong></span>
-            </label>
           </div>
 
           <button type="button" id="calculatePriceBtn" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
@@ -126,18 +172,19 @@
           <h3 id="calculatorResultTitle">Twoja orientacyjna wycena:</h3>
           <p id="suggestedPackageText" class="suggested-package"></p>
 
-          <div id="priceBreakdown" style="margin: 1rem 0;">
-            <p style="font-size: 0.875rem;">Cena bazowa: <span id="subtotalPrice">0 zł</span></p>
-            <p id="discountInfo" class="hidden" style="font-size: 0.875rem; color: var(--color-green);">Rabat za banner (20%): -<span id="discountAmount">0 zł</span></p>
+          <div style="margin: 1.5rem 0; padding: 1.5rem; background: rgba(0,0,0,0.2); border-radius: 4px;">
+            <div style="margin-bottom: 1rem;">
+              <p style="font-size: 0.875rem; margin-bottom: 0.25rem;">Inwestycja na start:</p>
+              <p id="setupPriceValue" style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 900; color: var(--color-on-accent);"></p>
+            </div>
+            <div id="monthlySection">
+              <p style="font-size: 0.875rem; margin-bottom: 0.25rem;">Twój święty spokój:</p>
+              <p id="monthlyPriceValue" style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 900; color: var(--color-on-accent);"></p>
+            </div>
           </div>
 
-          <p id="estimatedPriceValue" class="estimated-price-value"></p>
-          <p id="customQuoteNote" class="custom-quote-note hidden"></p>
           <p class="price-note">
             To tylko orientacyjna wycena. <a href="kontakt.html">Skontaktuj się</a> po dokładną ofertę.
-          </p>
-          <p id="generativeGraphicsNote" class="hidden" style="font-size: 0.75rem; margin-top: 1rem;">
-            Cena za pakiet grafik generatywnych AI (3-5 szt.) została wliczona.
           </p>
         </div>
       </div>
@@ -203,23 +250,12 @@
       const designComplexityValueSpan = document.getElementById('designComplexityValue');
       const calculatePriceBtn = document.getElementById('calculatePriceBtn');
       const calculatorResultDiv = document.getElementById('calculatorResult');
-      const calculatorResultTitle = document.getElementById('calculatorResultTitle');
       const suggestedPackageTextP = document.getElementById('suggestedPackageText');
-
-      const subtotalPriceSpan = document.getElementById('subtotalPrice');
-      const discountInfoP = document.getElementById('discountInfo');
-      const discountAmountSpan = document.getElementById('discountAmount');
-      const estimatedPriceValueP = document.getElementById('estimatedPriceValue');
-
-      const customQuoteNoteP = document.getElementById('customQuoteNote');
-      const pricingCalculatorForm = document.getElementById('pricingCalculatorForm');
-      const bannerDiscountCheckbox = document.getElementById('featBannerDiscount');
-      const generativeGraphicsCheckbox = document.getElementById('featGenerativeGraphics');
-      const generativeGraphicsNoteP = document.getElementById('generativeGraphicsNote');
-
-      const packageStartPrice = 499;
-      const packageStandardPrice = 899;
-      const generativeGraphicsPrice = 250;
+      const setupPriceValueP = document.getElementById('setupPriceValue');
+      const monthlyPriceValueP = document.getElementById('monthlyPriceValue');
+      const monthlySectionDiv = document.getElementById('monthlySection');
+      const modelOneTimeRadio = document.getElementById('modelOneTime');
+      const modelWaaSRadio = document.getElementById('modelWaaS');
 
       function updateDesignComplexityDisplay() {
         if(designComplexityInput && designComplexityValueSpan) {
@@ -253,8 +289,10 @@
         if (!siteTypeSelect || !designComplexityInput || !numSubpagesInput || !calculatorResultDiv) {
           return;
         }
+
         const featureCheckboxes = document.querySelectorAll('input[name="features"]');
-        let basePrice = 0;
+        const isWaaS = modelWaaSRadio.checked;
+        let baseSetup = 0;
         const siteType = siteTypeSelect.value;
         const designLevel = parseInt(designComplexityInput.value);
         let isContactFormSelected = false;
@@ -269,113 +307,85 @@
               case 'featBasicSeo': featureCost += 150; break;
               case 'featAiContent': featureCost += 200; break;
               case 'featGallery': featureCost += 100; break;
-              case 'featGenerativeGraphics': featureCost += generativeGraphicsPrice; break;
             }
           }
         });
 
-        generativeGraphicsNoteP.classList.toggle('hidden', !generativeGraphicsCheckbox.checked);
-
+        // Kalkulacja Setup Fee
         if (siteType === 'onepage') {
-          basePrice = 350;
-          if (isContactFormSelected) basePrice += 50;
+          baseSetup = 350;
+          if (isContactFormSelected) baseSetup += 50;
         } else {
-          basePrice = 600;
+          baseSetup = 600;
           const numSubpages = parseInt(numSubpagesInput.value);
           if (numSubpages >= 2 && numSubpages <= 10) {
-            basePrice += (numSubpages -1) * 80;
+            baseSetup += (numSubpages - 1) * 80;
           } else if (numSubpages < 2 && numSubpages > 0) {
-            basePrice += 1 * 80;
+            baseSetup += 1 * 80;
           } else if (numSubpages === 0 && siteType === 'multipage') {
-            basePrice += 1 * 80;
+            baseSetup += 1 * 80;
           }
         }
 
         const designCostModifiers = [0, 50, 150, 250, 400];
-        basePrice += designCostModifiers[designLevel - 1];
-        basePrice += featureCost;
+        baseSetup += designCostModifiers[designLevel - 1];
+        baseSetup += featureCost;
 
-        if (basePrice < 299 && siteType === 'onepage') basePrice = 299;
-        else if (basePrice < 499 && siteType === 'multipage') basePrice = 499;
+        if (baseSetup < 299 && siteType === 'onepage') baseSetup = 299;
+        else if (baseSetup < 499 && siteType === 'multipage') baseSetup = 499;
 
-        let calculatedPrice = Math.round(basePrice / 10) * 10;
+        let setupPrice = Math.round(baseSetup / 10) * 10;
 
-        subtotalPriceSpan.textContent = `${calculatedPrice} zł`;
-        let finalPrice = calculatedPrice;
-        let discountApplied = 0;
-
-        if (bannerDiscountCheckbox.checked) {
-          discountApplied = Math.round(calculatedPrice * 0.20 / 10) * 10;
-          finalPrice = calculatedPrice - discountApplied;
-          discountAmountSpan.textContent = `${discountApplied} zł`;
-          discountInfoP.classList.remove('hidden');
-        } else {
-          discountInfoP.classList.add('hidden');
-        }
-
-        let suggestedPackage = "";
-        let displayPriceText = `~ ${finalPrice} - ${finalPrice + 200} zł`;
-        let customNote = "";
-
-        const priceBeforeDiscountForPackageSuggestion = calculatedPrice;
-
-        const isLikeStartPackage = siteType === 'onepage' &&
-                                  (designLevel <= 3) &&
-                                  document.getElementById('featContactForm')?.checked &&
-                                  (featureCost - (generativeGraphicsCheckbox.checked ? generativeGraphicsPrice : 0)) <= (50 + 70);
-
-        if (isLikeStartPackage && priceBeforeDiscountForPackageSuggestion <= (packageStartPrice + 150) && priceBeforeDiscountForPackageSuggestion >= (packageStartPrice - 100) ) {
-          suggestedPackage = "Najbardziej zbliżony: Pakiet Start";
-          displayPriceText = `od ${packageStartPrice} zł (przed ewentualnym rabatem)`;
-          if(bannerDiscountCheckbox.checked) {
-            const discountedStart = Math.round(packageStartPrice * 0.8 / 10) * 10;
-            displayPriceText = `od ${discountedStart} zł (po rabacie)`;
-          }
-        } else {
-          const numSubpagesVal = (siteType === 'multipage') ? parseInt(numSubpagesInput.value) : 0;
-          const isLikeStandardPackage = siteType === 'multipage' &&
-                                       (numSubpagesVal >= 2 && numSubpagesVal <= 4) &&
-                                       (designLevel >= 2 && designLevel <= 4) &&
-                                       document.getElementById('featContactForm')?.checked &&
-                                       (document.getElementById('featGoogleMaps')?.checked || document.getElementById('featSocialMedia')?.checked) &&
-                                       (featureCost - (generativeGraphicsCheckbox.checked ? generativeGraphicsPrice : 0)) <= (50 + 70 + 50 + 150);
-
-          if (isLikeStandardPackage && priceBeforeDiscountForPackageSuggestion <= (packageStandardPrice + 250) && priceBeforeDiscountForPackageSuggestion >= (packageStandardPrice - 150)) {
-            suggestedPackage = "Najbardziej zbliżony: Pakiet Standard";
-            displayPriceText = `od ${packageStandardPrice} zł (przed ewentualnym rabatem)`;
-            if(bannerDiscountCheckbox.checked) {
-              const discountedStandard = Math.round(packageStandardPrice * 0.8 / 10) * 10;
-              displayPriceText = `od ${discountedStandard} zł (po rabacie)`;
-            }
+        // Kalkulacja Monthly Retainer (tylko dla WaaS)
+        let monthlyPrice = 0;
+        if (isWaaS) {
+          if (siteType === 'onepage') {
+            monthlyPrice = 60; // Base dla wizytówki
           } else {
-            displayPriceText = `~ ${finalPrice} zł`;
-            if (finalPrice > 200) {
-              displayPriceText = `~ ${finalPrice} - ${finalPrice + 200} zł`;
-            }
-
-            if (priceBeforeDiscountForPackageSuggestion > packageStandardPrice + 100 || (siteType === 'multipage' && numSubpagesVal > 5) || designLevel > 4 || featureCost > 300) {
-              suggestedPackage = "Konfiguracja niestandardowa";
-              customNote = "Twoja konfiguracja wykracza poza standardowe pakiety. Zapraszam do kontaktu po indywidualną wycenę.";
-            } else if (priceBeforeDiscountForPackageSuggestion < packageStartPrice - 50 && siteType === 'onepage') {
-              suggestedPackage = "Prosta konfiguracja";
-              customNote = "Dla tak prostej strony cena może być niższa. Skontaktuj się po szczegóły.";
+            const numSubpages = parseInt(numSubpagesInput.value);
+            if (numSubpages <= 3) {
+              monthlyPrice = 100;
+            } else if (numSubpages <= 5) {
+              monthlyPrice = 150;
             } else {
-              suggestedPackage = "Wycena indywidualna";
+              monthlyPrice = 200;
             }
           }
-        }
-        if (calculatorResultTitle) calculatorResultTitle.textContent = "Twoja orientacyjna wycena:";
-        if (suggestedPackageTextP) suggestedPackageTextP.textContent = suggestedPackage;
-        if (estimatedPriceValueP) estimatedPriceValueP.textContent = displayPriceText;
 
-        if (customQuoteNoteP) {
-          if (customNote) {
-            customQuoteNoteP.textContent = customNote;
-            customQuoteNoteP.classList.remove('hidden');
-          } else {
-            customQuoteNoteP.classList.add('hidden');
-          }
+          // Dodatkowe funkcje zwiększają abonament
+          if (featureCost > 300) monthlyPrice += 50;
+          else if (featureCost > 150) monthlyPrice += 30;
+
+          monthlyPrice = Math.round(monthlyPrice / 10) * 10;
         }
+
+        // Sugestia pakietu
+        let suggestedPackage = "";
+        if (isWaaS) {
+          if (siteType === 'onepage' && setupPrice >= 400 && setupPrice <= 800 && monthlyPrice <= 100) {
+            suggestedPackage = "Najbardziej zbliżony: Pakiet Wizytówka (Starter)";
+          } else if (siteType === 'multipage' && setupPrice >= 1200 && setupPrice <= 2200 && monthlyPrice >= 100 && monthlyPrice <= 180) {
+            suggestedPackage = "Najbardziej zbliżony: Pakiet Firma (Core) ⭐";
+          } else if (setupPrice > 2000 || monthlyPrice > 180) {
+            suggestedPackage = "Najbardziej zbliżony: Pakiet Sprzedaż (Growth)";
+          } else {
+            suggestedPackage = "Wycena indywidualna";
+          }
+        } else {
+          suggestedPackage = "Model jednorazowy (bez abonamentu)";
+        }
+
+        // Wyświetlanie wyników
+        if (suggestedPackageTextP) suggestedPackageTextP.textContent = suggestedPackage;
+        if (setupPriceValueP) setupPriceValueP.textContent = `${setupPrice} zł`;
+
+        if (isWaaS) {
+          if (monthlyPriceValueP) monthlyPriceValueP.textContent = `${monthlyPrice} zł/mc`;
+          if (monthlySectionDiv) monthlySectionDiv.style.display = 'block';
+        } else {
+          if (monthlySectionDiv) monthlySectionDiv.style.display = 'none';
+        }
+
         if (calculatorResultDiv) calculatorResultDiv.classList.remove('hidden');
         if (calculatorResultDiv) calculatorResultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
@@ -386,17 +396,10 @@
         updateDesignComplexityDisplay();
       }
       if (calculatePriceBtn) calculatePriceBtn.addEventListener('click', calculateAndDisplayPrice);
-      if (bannerDiscountCheckbox) bannerDiscountCheckbox.addEventListener('change', calculateAndDisplayPrice);
-      if (generativeGraphicsCheckbox) generativeGraphicsCheckbox.addEventListener('change', calculateAndDisplayPrice);
+      if (modelOneTimeRadio) modelOneTimeRadio.addEventListener('change', calculateAndDisplayPrice);
+      if (modelWaaSRadio) modelWaaSRadio.addEventListener('change', calculateAndDisplayPrice);
 
       if (siteTypeSelect) toggleSubpagesInput();
-
-      if (pricingCalculatorForm) {
-        pricingCalculatorForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          calculateAndDisplayPrice();
-        });
-      }
     });
 
     const animatedElements = document.querySelectorAll('.fade-in-element');
