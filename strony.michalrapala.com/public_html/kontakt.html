@@ -1,11 +1,11 @@
-<!-- kontakt.html v0.001 Vibrant Block Maximalist - twoja-strona.online -->
+<!-- kontakt.html v0.002 Formularz z wyborem modelu WaaS -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kontakt - twoja-strona.online</title>
-  <meta name="description" content="Skontaktuj się w sprawie stworzenia strony internetowej.">
+  <meta name="description" content="Skontaktuj się - wybierz model współpracy WaaS lub projekt jednorazowy.">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/favicon.png">
@@ -20,41 +20,109 @@
     <p>Masz pytania lub chcesz omówić projekt? Jestem do Twojej dyspozycji!</p>
   </header>
 
-  <!-- CONTACT BLOCK -->
-  <section class="contact-block">
+  <!-- FORMULARZ KONTAKTOWY -->
+  <section class="section">
     <div class="container">
-      <h2 class="fade-in-element">Napisz do mnie</h2>
-      <a href="mailto:strony@michalrapala.com" class="contact-email fade-in-element">strony@michalrapala.com</a>
-      <div class="fade-in-element">
-        <a href="mailto:strony@michalrapala.com" class="btn btn-white">Wyślij e-mail</a>
+      <div class="section-header fade-in-element">
+        <span class="section-tag">Formularz</span>
+        <h2 class="section-title">Napisz do mnie</h2>
+        <p class="section-description">Wypełnij formularz, a odezwę się najszybciej jak to możliwe (zazwyczaj w ciągu 24-48h).</p>
+      </div>
+
+      <div style="max-width: 800px; margin: 0 auto;">
+        <form id="contactForm" class="fade-in-element" style="background: var(--color-bg-alt); border: 3px solid var(--color-text); padding: 2.5rem;">
+
+          <!-- Imię -->
+          <div class="form-group" style="margin-bottom: 2rem;">
+            <label style="display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; font-size: 0.875rem;">Imię *</label>
+            <input type="text" id="name" name="name" required
+                   style="width: 100%; padding: 1rem; background: var(--color-bg); border: 2px solid var(--color-text); color: var(--color-text); font-size: 1rem; transition: border-color var(--transition);"
+                   onfocus="this.style.borderColor='var(--color-yellow)'"
+                   onblur="this.style.borderColor='var(--color-text)'">
+          </div>
+
+          <!-- Email -->
+          <div class="form-group" style="margin-bottom: 2rem;">
+            <label style="display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; font-size: 0.875rem;">Email *</label>
+            <input type="email" id="email" name="email" required
+                   style="width: 100%; padding: 1rem; background: var(--color-bg); border: 2px solid var(--color-text); color: var(--color-text); font-size: 1rem; transition: border-color var(--transition);"
+                   onfocus="this.style.borderColor='var(--color-yellow)'"
+                   onblur="this.style.borderColor='var(--color-text)'">
+          </div>
+
+          <!-- Model współpracy -->
+          <div class="form-group" style="margin-bottom: 2rem; background: var(--color-bg); padding: 1.5rem; border: 2px solid var(--color-yellow);">
+            <label style="display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; font-size: 0.875rem;">Interesuje mnie: *</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <label style="display: flex; align-items: center; padding: 1rem; background: var(--color-bg-alt); border: 2px solid var(--color-text); cursor: pointer; transition: all var(--transition);">
+                <input type="radio" id="modelOneTime" name="businessModel" value="onetime"
+                       style="width: 20px; height: 20px; margin-right: 0.75rem; accent-color: var(--color-yellow);">
+                <span style="font-size: 0.875rem; font-weight: 500;">Jednorazowy projekt</span>
+              </label>
+              <label style="display: flex; align-items: center; padding: 1rem; background: var(--color-bg-alt); border: 2px solid var(--color-green); cursor: pointer; transition: all var(--transition);">
+                <input type="radio" id="modelWaaS" name="businessModel" value="waas" checked
+                       style="width: 20px; height: 20px; margin-right: 0.75rem; accent-color: var(--color-yellow);">
+                <span style="font-size: 0.875rem; font-weight: 700;">Stała opieka (WaaS) ⭐</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Wiadomość -->
+          <div class="form-group" style="margin-bottom: 2rem;">
+            <label style="display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; font-size: 0.875rem;">Wiadomość *</label>
+            <textarea id="message" name="message" rows="6" required
+                      style="width: 100%; padding: 1rem; background: var(--color-bg); border: 2px solid var(--color-text); color: var(--color-text); font-size: 1rem; font-family: var(--font-body); resize: vertical; transition: border-color var(--transition);"
+                      onfocus="this.style.borderColor='var(--color-yellow)'"
+                      onblur="this.style.borderColor='var(--color-text)'"
+                      placeholder="Opisz krótko swój projekt lub zadaj pytanie..."></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            Wyślij wiadomość
+          </button>
+
+          <!-- Info -->
+          <p style="margin-top: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); text-align: center;">
+            * Pola wymagane. Twoje dane są bezpieczne i nie będą udostępniane osobom trzecim.
+          </p>
+        </form>
+
+        <!-- Alternatywny kontakt email -->
+        <div class="fade-in-element" style="margin-top: 2rem; text-align: center; padding: 2rem; background: var(--color-blue); border: 2px solid var(--color-text);">
+          <p style="font-size: 0.875rem; color: #ffffff; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">Lub napisz bezpośrednio:</p>
+          <a href="mailto:strony@michalrapala.com" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--color-yellow); text-decoration: none; transition: color var(--transition);">
+            strony@michalrapala.com
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- INFO -->
-  <section class="section">
+  <section class="section" style="background: var(--color-bg-alt);">
     <div class="container text-center">
       <div class="section-header fade-in-element">
         <span class="section-tag">Info</span>
         <h2 class="section-title">Jak to działa?</h2>
-        <p class="section-description">Najlepszym sposobem na kontakt jest wysłanie wiadomości e-mail. Staram się odpowiadać jak najszybciej, zazwyczaj w ciągu 24-48 godzin.</p>
+        <p class="section-description">Najlepszym sposobem na kontakt jest wypełnienie formularza powyżej. Staram się odpowiadać jak najszybciej.</p>
       </div>
 
       <div class="blocks-grid" style="max-width: 800px; margin: 0 auto;">
         <div class="block block-pink fade-in-element">
           <span class="block-number">01</span>
           <h3 class="block-title">Napisz</h3>
-          <p class="block-description">Opisz swój pomysł lub zadaj pytanie przez e-mail.</p>
+          <p class="block-description">Wypełnij formularz lub wyślij e-mail z opisem projektu.</p>
         </div>
         <div class="block block-blue fade-in-element">
           <span class="block-number">02</span>
           <h3 class="block-title">Odpowiem</h3>
-          <p class="block-description">Odezwę się z propozycją lub odpowiedziami na Twoje pytania.</p>
+          <p class="block-description">Odezwę się z propozycją lub odpowiedziami na pytania (24-48h).</p>
         </div>
         <div class="block block-green fade-in-element">
           <span class="block-number">03</span>
           <h3 class="block-title">Działamy</h3>
-          <p class="block-description">Po ustaleniu szczegółów rozpoczynamy współpracę.</p>
+          <p class="block-description">Po ustaleniu szczegółów rozpoczynamy współpracę w wybranym modelu.</p>
         </div>
       </div>
 
@@ -100,6 +168,33 @@
 
       if (navbarContainer) loadTemplate('navbar-template.html', navbarContainer);
       if (footerContainer) loadTemplate('footer-template.html', footerContainer);
+
+      // FORMULARZ CONTACT - Basic client-side handling
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(contactForm);
+          const name = formData.get('name');
+          const email = formData.get('email');
+          const businessModel = formData.get('businessModel');
+          const message = formData.get('message');
+
+          const modelText = businessModel === 'waas' ? 'Stała opieka (WaaS)' : 'Jednorazowy projekt';
+
+          // Mailto fallback (może być zastąpione backend API w przyszłości)
+          const subject = encodeURIComponent(`Kontakt: ${modelText} - ${name}`);
+          const body = encodeURIComponent(
+            `Imię: ${name}\nEmail: ${email}\nModel: ${modelText}\n\nWiadomość:\n${message}`
+          );
+
+          window.location.href = `mailto:strony@michalrapala.com?subject=${subject}&body=${body}`;
+
+          // Opcjonalnie: pokazanie komunikatu sukcesu
+          alert('Przekierowuję do klienta email. Jeśli nie otworzy się automatycznie, napisz na: strony@michalrapala.com');
+        });
+      }
     });
 
     const animatedElements = document.querySelectorAll('.fade-in-element');
