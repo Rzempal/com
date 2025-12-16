@@ -1,4 +1,4 @@
-/* style.css v0.011 Light mode: --color-yellow-text dla wszystkich tekstów na szarym */
+/* style.css v0.012 Hero-badge jako klikalny link z hover effect */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -432,8 +432,16 @@ body {
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
+  text-decoration: none;
   animation: spin 25s linear infinite;
   line-height: 1.2;
+  transition: transform var(--transition), background var(--transition);
+}
+
+.hero-badge:hover {
+  background: var(--color-pink);
+  transform: scale(1.1);
+  animation-play-state: paused;
 }
 
 @keyframes spin {
