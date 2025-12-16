@@ -51,7 +51,7 @@
   --color-text: #0a0a0a;
   --color-text-muted: rgba(10, 10, 10, 0.6);
   --color-on-accent: #0a0a0a;
-  --color-yellow: #b8860b; /* Dark goldenrod - lepszy kontrast na jasnym tle */
+  --color-yellow: #d4a000; /* Żywy złoty - kompromis między kontrastem a krzykliwością */
 }
 
 /* ============================================
