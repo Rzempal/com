@@ -1,4 +1,4 @@
-/* style.css v0.003 Light Mode: ciemny szary tła dla lepszej widoczności vibrant kolorów */
+/* style.css v0.004 Light Mode: 2 odcienie jasnego szarego (#d0d0d0, #e8e8e8) */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -25,8 +25,8 @@
    ZMIENNE KOLORÓW - LIGHT MODE
 ============================================ */
 [data-theme="light"] {
-  --color-bg: #2a2a2a;
-  --color-bg-alt: #e0e0e0;
+  --color-bg: #d0d0d0;
+  --color-bg-alt: #e8e8e8;
   --color-text: #0a0a0a;
   --color-text-muted: rgba(10, 10, 10, 0.6);
   --color-on-accent: #0a0a0a;
