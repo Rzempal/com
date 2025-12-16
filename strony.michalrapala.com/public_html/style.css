@@ -1,4 +1,4 @@
-/* style.css v0.008 Navbar animations: scroll-collapse, staggered mobile menu, underline hover */
+/* style.css v0.009 Light mode: ciemniejszy żółty dla lepszego kontrastu */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -51,6 +51,7 @@
   --color-text: #0a0a0a;
   --color-text-muted: rgba(10, 10, 10, 0.6);
   --color-on-accent: #0a0a0a;
+  --color-yellow: #b8860b; /* Dark goldenrod - lepszy kontrast na jasnym tle */
 }
 
 /* ============================================
