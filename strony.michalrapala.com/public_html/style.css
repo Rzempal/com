@@ -1,4 +1,4 @@
-/* style.css v0.005 Usunięcie separatorów (border-bottom) z mobile menu */
+/* style.css v0.006 Mobile menu: wyrównanie kategorii do prawej (text-align: right) */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -192,6 +192,7 @@ body {
   color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  text-align: right;
   transition: background var(--transition), color var(--transition);
 }
 
