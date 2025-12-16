@@ -12,11 +12,21 @@ Production-tested navbar animations from ArchiKunszt project. Smooth, accessible
 | Category | Effect | Trigger |
 |----------|--------|---------|
 | Desktop scroll | Logo/nav/CTA slide out + fade | `window.scrollY > 50` |
-| Desktop expand | Reverse slide-in on hamburger click | User click |
+| Desktop expand | Reverse slide-in on hamburger click | User click (when scrolled) |
 | Mobile panel | Full-screen slide from left | Menu toggle |
 | Mobile links | Staggered slide from right | Panel open |
 | Mobile CTAs | Staggered slide from bottom | Panel open |
 | Nav link hover | Underline grows left-to-right | Hover |
+
+## Key Behavior: Scroll + Hamburger Expand
+
+**Flow:**
+1. **Top of page** → Full navbar visible (logo text + nav links + CTA)
+2. **User scrolls down** → Elements collapse/hide, hamburger appears
+3. **User clicks hamburger** → Elements expand back (without scrolling to top)
+4. **User scrolls back to top** → Hamburger hides, expanded state resets
+
+This allows quick menu access while scrolled without returning to top.
 
 ## Core Easing Function
 
