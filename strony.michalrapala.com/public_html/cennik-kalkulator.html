@@ -1,4 +1,4 @@
-<!-- cennik-kalkulator.html v0.004 Theme toggle przeniesiony do footera -->
+<!-- cennik-kalkulator.html v0.005 Navbar animations: scroll-collapse, staggered mobile menu -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
@@ -218,6 +218,8 @@
           containerElement.innerHTML = html;
           if (containerElement.id === 'navbar-container') {
             initializeMobileMenu();
+            initializeNavbarScroll();
+            initializeDesktopHamburger();
           }
           if (containerElement.id === 'footer-container') {
             initializeThemeToggle();
@@ -242,6 +244,47 @@
             menuToggle.setAttribute('aria-expanded', String(isOpen));
           });
         }
+      }
+
+      function initializeNavbarScroll() {
+        const navMain = document.getElementById('nav-main');
+        if (!navMain) return;
+        const handleScroll = () => {
+          const scrolled = window.scrollY > 50;
+          const isExpanded = navMain.classList.contains('nav-expanded');
+          if (scrolled && !isExpanded) {
+            navMain.classList.add('nav-collapsed');
+          } else if (!scrolled) {
+            navMain.classList.remove('nav-collapsed', 'nav-expanded');
+            const desktopHamburger = document.getElementById('desktop-hamburger');
+            if (desktopHamburger) {
+              const iconMenu = desktopHamburger.querySelector('.icon-menu');
+              const iconClose = desktopHamburger.querySelector('.icon-close');
+              if (iconMenu && iconClose) {
+                iconMenu.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+              }
+              desktopHamburger.setAttribute('aria-expanded', 'false');
+            }
+          }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      function initializeDesktopHamburger() {
+        const desktopHamburger = document.getElementById('desktop-hamburger');
+        const navMain = document.getElementById('nav-main');
+        if (!desktopHamburger || !navMain) return;
+        desktopHamburger.addEventListener('click', () => {
+          const isExpanded = navMain.classList.toggle('nav-expanded');
+          const iconMenu = desktopHamburger.querySelector('.icon-menu');
+          const iconClose = desktopHamburger.querySelector('.icon-close');
+          if (iconMenu && iconClose) {
+            iconMenu.classList.toggle('hidden', isExpanded);
+            iconClose.classList.toggle('hidden', !isExpanded);
+          }
+          desktopHamburger.setAttribute('aria-expanded', String(isExpanded));
+        });
       }
 
       function initializeThemeToggle() {

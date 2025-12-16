@@ -1,4 +1,4 @@
-/* style.css v0.007 Dark mode mobile-menu mix-blend effect + theme-toggle w footerze */
+/* style.css v0.008 Navbar animations: scroll-collapse, staggered mobile menu, underline hover */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -19,6 +19,27 @@
   --font-body: 'Segoe UI', system-ui, sans-serif;
   --transition: 0.3s ease;
   --container-max: 1200px;
+  /* Navbar animations */
+  --navbar-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --navbar-duration: 0.5s;
+}
+
+/* ============================================
+   NAVBAR KEYFRAME ANIMATIONS
+============================================ */
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 /* ============================================
@@ -119,6 +140,101 @@ body {
   transform: scale(1.05);
 }
 
+/* Nav link underline hover effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Desktop scroll-triggered collapse */
+.logo-text {
+  display: inline;
+  transition: max-width var(--navbar-duration) var(--navbar-easing),
+              opacity var(--navbar-duration) var(--navbar-easing),
+              transform var(--navbar-duration) var(--navbar-easing);
+  max-width: 300px;
+  opacity: 1;
+  transform: translateX(0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nav-collapsed .logo-text {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-1rem);
+}
+
+.nav-links {
+  transition: max-width var(--navbar-duration) var(--navbar-easing),
+              opacity var(--navbar-duration) var(--navbar-easing),
+              transform var(--navbar-duration) var(--navbar-easing);
+  max-width: 600px;
+  opacity: 1;
+  transform: translateX(0);
+  overflow: hidden;
+}
+
+.nav-collapsed .nav-links {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(2rem);
+}
+
+/* Desktop hamburger - hidden by default, appears on scroll */
+.desktop-hamburger {
+  display: none;
+  background: transparent;
+  border: 2px solid #ffffff;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--navbar-duration) var(--navbar-easing),
+              transform var(--navbar-duration) var(--navbar-easing);
+  opacity: 0;
+  transform: translateX(1rem);
+  pointer-events: none;
+}
+
+.desktop-hamburger svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+}
+
+.nav-collapsed .desktop-hamburger {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Show expanded state when hamburger clicked */
+.nav-expanded .logo-text,
+.nav-expanded .nav-links {
+  max-width: 600px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-expanded .desktop-hamburger {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
 /* Theme Toggle - poza mix-blend-mode */
 .theme-toggle {
   background: transparent;
@@ -205,6 +321,28 @@ body {
 [data-theme="dark"] .mobile-menu {
   background: rgba(128, 128, 128, 0.85);
 }
+
+/* Mobile menu panel animation */
+.mobile-menu.open {
+  animation: slideInFromLeft 0.35s var(--navbar-easing) forwards;
+}
+
+/* Mobile menu staggered links */
+.mobile-menu a {
+  opacity: 0;
+  animation: slideInFromRight 0.4s var(--navbar-easing) forwards;
+  animation-play-state: paused;
+}
+
+.mobile-menu.open a {
+  animation-play-state: running;
+}
+
+.mobile-menu a:nth-child(1) { animation-delay: 0.1s; }
+.mobile-menu a:nth-child(2) { animation-delay: 0.175s; }
+.mobile-menu a:nth-child(3) { animation-delay: 0.25s; }
+.mobile-menu a:nth-child(4) { animation-delay: 0.325s; }
+.mobile-menu a:nth-child(5) { animation-delay: 0.4s; }
 
 /* ============================================
    HERO SECTION
@@ -1215,6 +1353,13 @@ body {
   }
 }
 
+/* Desktop navbar scroll animations - only on larger screens */
+@media (min-width: 769px) {
+  .desktop-hamburger {
+    display: flex;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-main {
     padding: 1rem 0;
@@ -1222,6 +1367,18 @@ body {
 
   .nav-links {
     display: none;
+  }
+
+  /* Disable scroll-collapse on mobile */
+  .nav-collapsed .logo-text,
+  .nav-collapsed .nav-links {
+    max-width: initial;
+    opacity: 1;
+    transform: none;
+  }
+
+  .desktop-hamburger {
+    display: none !important;
   }
 
   .menu-toggle {
