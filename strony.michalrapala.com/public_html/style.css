@@ -1,4 +1,4 @@
-/* style.css v0.009 Light mode: ciemniejszy żółty dla lepszego kontrastu */
+/* style.css v0.011 Light mode: --color-yellow-text dla wszystkich tekstów na szarym */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -10,6 +10,7 @@
   --color-text-muted: rgba(255, 255, 255, 0.6);
   --color-on-accent: #0a0a0a;
   --color-yellow: #ffe600;
+  --color-yellow-text: #ffe600; /* W dark mode taki sam */
   --color-pink: #ff3d8b;
   --color-blue: #0066ff;
   --color-green: #00e676;
@@ -51,7 +52,8 @@
   --color-text: #0a0a0a;
   --color-text-muted: rgba(10, 10, 10, 0.6);
   --color-on-accent: #0a0a0a;
-  --color-yellow: #e6b800; /* Jaśniejszy złoty - bardziej krzykliwy */
+  --color-yellow: #ffe600; /* Krzykliwy - dla borderów, tła, akcentów */
+  --color-yellow-text: #c49b00; /* Ciemniejszy - dla tekstu na szarym tle */
 }
 
 /* ============================================
@@ -496,7 +498,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
   margin-bottom: 1rem;
   display: block;
 }
@@ -859,7 +861,7 @@ body {
 }
 
 .marquee-content span:nth-child(odd) {
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
 }
 
 .marquee-content span:nth-child(even) {
@@ -931,7 +933,7 @@ body {
   font-size: 1.5rem;
   font-weight: 900;
   text-transform: uppercase;
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
   margin-bottom: 1rem;
 }
 
@@ -1156,7 +1158,7 @@ body {
 }
 
 .footer-links a:hover {
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
 }
 
 .copyright {
@@ -1204,7 +1206,7 @@ body {
 
 /* Efekt po najechaniu myszką */
 .copyright a:hover {
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
 }
 /* ============================================
    PROCESS STEPS
@@ -1234,7 +1236,7 @@ body {
   font-family: var(--font-display);
   font-size: 4rem;
   font-weight: 900;
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
   line-height: 1;
   margin-bottom: 1rem;
 }
