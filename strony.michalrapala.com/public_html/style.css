@@ -1,4 +1,4 @@
-/* style.css v0.006 Mobile menu: wyrównanie kategorii do prawej (text-align: right) */
+/* style.css v0.011 Light mode: --color-yellow-text dla wszystkich tekstów na szarym */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -10,6 +10,7 @@
   --color-text-muted: rgba(255, 255, 255, 0.6);
   --color-on-accent: #0a0a0a;
   --color-yellow: #ffe600;
+  --color-yellow-text: #ffe600; /* W dark mode taki sam */
   --color-pink: #ff3d8b;
   --color-blue: #0066ff;
   --color-green: #00e676;
@@ -19,6 +20,27 @@
   --font-body: 'Segoe UI', system-ui, sans-serif;
   --transition: 0.3s ease;
   --container-max: 1200px;
+  /* Navbar animations */
+  --navbar-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --navbar-duration: 0.5s;
+}
+
+/* ============================================
+   NAVBAR KEYFRAME ANIMATIONS
+============================================ */
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 /* ============================================
@@ -30,6 +52,8 @@
   --color-text: #0a0a0a;
   --color-text-muted: rgba(10, 10, 10, 0.6);
   --color-on-accent: #0a0a0a;
+  --color-yellow: #ffe600; /* Krzykliwy - dla borderów, tła, akcentów */
+  --color-yellow-text: #c49b00; /* Ciemniejszy - dla tekstu na szarym tle */
 }
 
 /* ============================================
@@ -119,6 +143,101 @@ body {
   transform: scale(1.05);
 }
 
+/* Nav link underline hover effect */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Desktop scroll-triggered collapse */
+.logo-text {
+  display: inline;
+  transition: max-width var(--navbar-duration) var(--navbar-easing),
+              opacity var(--navbar-duration) var(--navbar-easing),
+              transform var(--navbar-duration) var(--navbar-easing);
+  max-width: 300px;
+  opacity: 1;
+  transform: translateX(0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nav-collapsed .logo-text {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-1rem);
+}
+
+.nav-links {
+  transition: max-width var(--navbar-duration) var(--navbar-easing),
+              opacity var(--navbar-duration) var(--navbar-easing),
+              transform var(--navbar-duration) var(--navbar-easing);
+  max-width: 600px;
+  opacity: 1;
+  transform: translateX(0);
+  overflow: hidden;
+}
+
+.nav-collapsed .nav-links {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(2rem);
+}
+
+/* Desktop hamburger - hidden by default, appears on scroll */
+.desktop-hamburger {
+  display: none;
+  background: transparent;
+  border: 2px solid #ffffff;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--navbar-duration) var(--navbar-easing),
+              transform var(--navbar-duration) var(--navbar-easing);
+  opacity: 0;
+  transform: translateX(1rem);
+  pointer-events: none;
+}
+
+.desktop-hamburger svg {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+}
+
+.nav-collapsed .desktop-hamburger {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Show expanded state when hamburger clicked */
+.nav-expanded .logo-text,
+.nav-expanded .nav-links {
+  max-width: 600px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav-expanded .desktop-hamburger {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
 /* Theme Toggle - poza mix-blend-mode */
 .theme-toggle {
   background: transparent;
@@ -200,6 +319,33 @@ body {
   background: var(--color-yellow);
   color: var(--color-on-accent);
 }
+
+/* Dark mode mobile-menu - efekt mix-blend */
+[data-theme="dark"] .mobile-menu {
+  background: rgba(128, 128, 128, 0.85);
+}
+
+/* Mobile menu panel animation */
+.mobile-menu.open {
+  animation: slideInFromLeft 0.35s var(--navbar-easing) forwards;
+}
+
+/* Mobile menu staggered links */
+.mobile-menu a {
+  opacity: 0;
+  animation: slideInFromRight 0.4s var(--navbar-easing) forwards;
+  animation-play-state: paused;
+}
+
+.mobile-menu.open a {
+  animation-play-state: running;
+}
+
+.mobile-menu a:nth-child(1) { animation-delay: 0.1s; }
+.mobile-menu a:nth-child(2) { animation-delay: 0.175s; }
+.mobile-menu a:nth-child(3) { animation-delay: 0.25s; }
+.mobile-menu a:nth-child(4) { animation-delay: 0.325s; }
+.mobile-menu a:nth-child(5) { animation-delay: 0.4s; }
 
 /* ============================================
    HERO SECTION
@@ -352,7 +498,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
   margin-bottom: 1rem;
   display: block;
 }
@@ -715,7 +861,7 @@ body {
 }
 
 .marquee-content span:nth-child(odd) {
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
 }
 
 .marquee-content span:nth-child(even) {
@@ -787,7 +933,7 @@ body {
   font-size: 1.5rem;
   font-weight: 900;
   text-transform: uppercase;
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
   margin-bottom: 1rem;
 }
 
@@ -1012,13 +1158,44 @@ body {
 }
 
 .footer-links a:hover {
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
 }
 
 .copyright {
   font-size: 0.75rem;
   color: var(--color-text-muted);
 }
+
+/* Footer Theme Toggle */
+.footer-theme-toggle {
+  background: transparent;
+  border: 2px solid var(--color-text);
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 1.5rem auto;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.footer-theme-toggle:hover {
+  border-color: var(--color-yellow);
+  transform: scale(1.1);
+}
+
+.footer-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-text);
+}
+
+.footer-theme-toggle .icon-sun { display: block; }
+.footer-theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .footer-theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .footer-theme-toggle .icon-moon { display: block; }
 /* Styl podstawowy linku w copyright */
 .copyright a {
   color: inherit;           /* Dziedziczy kolor tekstu rodzica */
@@ -1029,7 +1206,7 @@ body {
 
 /* Efekt po najechaniu myszką */
 .copyright a:hover {
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
 }
 /* ============================================
    PROCESS STEPS
@@ -1059,7 +1236,7 @@ body {
   font-family: var(--font-display);
   font-size: 4rem;
   font-weight: 900;
-  color: var(--color-yellow);
+  color: var(--color-yellow-text);
   line-height: 1;
   margin-bottom: 1rem;
 }
@@ -1179,6 +1356,13 @@ body {
   }
 }
 
+/* Desktop navbar scroll animations - only on larger screens */
+@media (min-width: 769px) {
+  .desktop-hamburger {
+    display: flex;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-main {
     padding: 1rem 0;
@@ -1186,6 +1370,18 @@ body {
 
   .nav-links {
     display: none;
+  }
+
+  /* Disable scroll-collapse on mobile */
+  .nav-collapsed .logo-text,
+  .nav-collapsed .nav-links {
+    max-width: initial;
+    opacity: 1;
+    transform: none;
+  }
+
+  .desktop-hamburger {
+    display: none !important;
   }
 
   .menu-toggle {
