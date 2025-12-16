@@ -1,4 +1,4 @@
-/* style.css v0.004 Light Mode: 2 odcienie jasnego szarego (#d0d0d0, #e8e8e8) */
+/* style.css v0.005 Usunięcie separatorów (border-bottom) z mobile menu */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -192,12 +192,7 @@ body {
   color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border-bottom: 1px solid var(--color-text-muted);
   transition: background var(--transition), color var(--transition);
-}
-
-.mobile-menu a:last-child {
-  border-bottom: none;
 }
 
 .mobile-menu a:hover {
