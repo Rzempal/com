@@ -1,4 +1,4 @@
-/* style.css v0.006 Mobile menu: wyrównanie kategorii do prawej (text-align: right) */
+/* style.css v0.007 Dark mode mobile-menu mix-blend effect + theme-toggle w footerze */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -199,6 +199,11 @@ body {
 .mobile-menu a:hover {
   background: var(--color-yellow);
   color: var(--color-on-accent);
+}
+
+/* Dark mode mobile-menu - efekt mix-blend */
+[data-theme="dark"] .mobile-menu {
+  background: rgba(128, 128, 128, 0.85);
 }
 
 /* ============================================
@@ -1019,6 +1024,37 @@ body {
   font-size: 0.75rem;
   color: var(--color-text-muted);
 }
+
+/* Footer Theme Toggle */
+.footer-theme-toggle {
+  background: transparent;
+  border: 2px solid var(--color-text);
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 1.5rem auto;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.footer-theme-toggle:hover {
+  border-color: var(--color-yellow);
+  transform: scale(1.1);
+}
+
+.footer-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-text);
+}
+
+.footer-theme-toggle .icon-sun { display: block; }
+.footer-theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .footer-theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .footer-theme-toggle .icon-moon { display: block; }
 /* Styl podstawowy linku w copyright */
 .copyright a {
   color: inherit;           /* Dziedziczy kolor tekstu rodzica */

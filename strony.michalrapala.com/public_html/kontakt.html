@@ -1,4 +1,4 @@
-<!-- kontakt.html v0.003 Fix: initializeThemeToggle() dla działającego light/dark toggle -->
+<!-- kontakt.html v0.004 Theme toggle przeniesiony do footera -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
@@ -145,6 +145,8 @@
           containerElement.innerHTML = html;
           if (containerElement.id === 'navbar-container') {
             initializeMobileMenu();
+          }
+          if (containerElement.id === 'footer-container') {
             initializeThemeToggle();
           }
         } catch (error) {

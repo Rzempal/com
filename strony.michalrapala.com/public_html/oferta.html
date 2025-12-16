@@ -1,4 +1,4 @@
-<!-- oferta.html v0.004 Fix: initializeThemeToggle() dla działającego light/dark toggle -->
+<!-- oferta.html v0.005 Theme toggle przeniesiony do footera -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
@@ -159,6 +159,8 @@
           containerElement.innerHTML = html;
           if (containerElement.id === 'navbar-container') {
             initializeMobileMenu();
+          }
+          if (containerElement.id === 'footer-container') {
             initializeThemeToggle();
           }
         } catch (error) {
