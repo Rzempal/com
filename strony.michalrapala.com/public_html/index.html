@@ -1,4 +1,4 @@
-<!-- index.html v0.011 Czarny pasek pod navbar -->
+<!-- index.html v0.012 Większy próg scrollowania dla collapse navbar -->
 <!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 <head>
@@ -165,7 +165,7 @@
         let isExpanded = false;
 
         const handleScroll = () => {
-          const scrolled = window.scrollY > 50;
+          const scrolled = window.scrollY > 150;
           if (scrolled && !isExpanded) {
             navMain.classList.add('nav-collapsed');
           } else if (!scrolled) {
