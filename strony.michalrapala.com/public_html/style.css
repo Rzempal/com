@@ -1,4 +1,4 @@
-/* style.css v0.019 Statyczny top-bar + fix hover badge */
+/* style.css v0.020 Usunięty top-bar - navbar tylko mix-blend */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -96,13 +96,6 @@ body {
   z-index: 1000;
   padding: 1.5rem 0;
   mix-blend-mode: difference;
-}
-
-/* Czarny pasek na górze strony - statyczny */
-.top-bar {
-  background: var(--color-bg);
-  padding: 1rem 0;
-  border-bottom: 3px solid var(--color-text);
 }
 
 .nav-main .container {
