@@ -1,4 +1,4 @@
-/* style.css v0.013 Hamburger border 3px - wyrównanie z kontenerami */
+/* style.css v0.021 Większy wykrzyknik - trapez szersza góra, węższa dół */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -435,13 +435,55 @@ body {
   text-decoration: none;
   animation: spin 25s linear infinite;
   line-height: 1.2;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wykrzyknik - trapez (góra) - szeroka góra, wąski dół */
+.hero-badge::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  width: 45px;
+  height: 90px;
+  background: var(--color-blue);
+  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%);
+  transition: transform var(--transition), background var(--transition);
+  transform-origin: top center;
+}
+
+/* Wykrzyknik - kropka (dół) */
+.hero-badge::after {
+  content: '';
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 30px;
+  height: 30px;
+  background: var(--color-blue);
+  border-radius: 50%;
   transition: transform var(--transition), background var(--transition);
 }
 
 .hero-badge:hover {
   background: var(--color-pink);
-  transform: scale(1.1);
+  scale: 1.1;
   animation-play-state: paused;
+  color: transparent;
+}
+
+.hero-badge:hover::before {
+  transform: translateX(-50%) scaleY(1);
+  background: var(--color-blue);
+}
+
+.hero-badge:hover::after {
+  transform: translateX(-50%) scale(1);
+  background: var(--color-blue);
 }
 
 @keyframes spin {
