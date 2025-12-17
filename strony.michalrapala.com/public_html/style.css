@@ -1,4 +1,4 @@
-/* style.css v0.021 Większy wykrzyknik - trapez szersza góra, węższa dół */
+/* style.css v0.023 Czarny pasek pod navbar */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -878,6 +878,14 @@ body {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* ============================================
+   NAV BACKDROP (czarny pasek pod navbar)
+============================================ */
+.nav-backdrop {
+  height: 80px;
+  background: var(--color-bg);
 }
 
 /* ============================================
