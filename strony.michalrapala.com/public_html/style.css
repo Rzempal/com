@@ -1,4 +1,4 @@
-/* style.css v0.020 Usunięty top-bar - navbar tylko mix-blend */
+/* style.css v0.021 Większy wykrzyknik - trapez szersza góra, węższa dół */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -440,17 +440,17 @@ body {
   overflow: hidden;
 }
 
-/* Wykrzyknik - trapez (góra) */
+/* Wykrzyknik - trapez (góra) - szeroka góra, wąski dół */
 .hero-badge::before {
   content: '';
   position: absolute;
-  top: 25px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%) scaleY(0);
-  width: 30px;
-  height: 70px;
+  width: 45px;
+  height: 90px;
   background: var(--color-blue);
-  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 25% 100%);
   transition: transform var(--transition), background var(--transition);
   transform-origin: top center;
 }
@@ -459,11 +459,11 @@ body {
 .hero-badge::after {
   content: '';
   position: absolute;
-  bottom: 25px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%) scale(0);
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   background: var(--color-blue);
   border-radius: 50%;
   transition: transform var(--transition), background var(--transition);
