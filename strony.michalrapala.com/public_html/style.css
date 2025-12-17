@@ -104,9 +104,10 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 80px;
   background: var(--color-bg);
   z-index: 999;
+  border-bottom: 3px solid var(--color-text);
 }
 
 .nav-main .container {
