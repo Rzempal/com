@@ -1,4 +1,4 @@
-/* style.css v0.016 Navbar zawsze z tłem mix-blend, hero stripes 50px */
+/* style.css v0.017 Hero-badge hover: wykrzyknik efekt */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -436,6 +436,37 @@ body {
   text-decoration: none;
   animation: spin 25s linear infinite;
   line-height: 1.2;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Wykrzyknik - trapez (góra) */
+.hero-badge::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  width: 30px;
+  height: 70px;
+  background: var(--color-blue);
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  transition: transform var(--transition), background var(--transition);
+  transform-origin: top center;
+}
+
+/* Wykrzyknik - kropka (dół) */
+.hero-badge::after {
+  content: '';
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 24px;
+  height: 24px;
+  background: var(--color-blue);
+  border-radius: 50%;
   transition: transform var(--transition), background var(--transition);
 }
 
@@ -443,6 +474,17 @@ body {
   background: var(--color-pink);
   transform: scale(1.1);
   animation-play-state: paused;
+  color: transparent;
+}
+
+.hero-badge:hover::before {
+  transform: translateX(-50%) scaleY(1);
+  background: var(--color-blue);
+}
+
+.hero-badge:hover::after {
+  transform: translateX(-50%) scale(1);
+  background: var(--color-blue);
 }
 
 @keyframes spin {
