@@ -1,4 +1,4 @@
-/* style.css v0.014 Hero stripes 25px, desktop menu background fade-in */
+/* style.css v0.015 Desktop menu - mix-blend background jak mobile */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -101,14 +101,9 @@ body {
               mix-blend-mode 0s;
 }
 
-/* Desktop expanded - background fade-in */
+/* Desktop expanded - background z efektem mix-blend */
 .nav-main.nav-expanded {
-  mix-blend-mode: normal;
-  background: var(--color-bg);
-}
-
-[data-theme="dark"] .nav-main.nav-expanded {
-  background: rgba(128, 128, 128, 0.95);
+  background: rgba(128, 128, 128, 0.85);
 }
 
 .nav-main .container {
