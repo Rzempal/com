@@ -1,4 +1,4 @@
-/* style.css v0.021 Większy wykrzyknik - trapez szersza góra, węższa dół */
+/* style.css v0.022 Top marquee z czarnym tłem */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -878,6 +878,20 @@ body {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* ============================================
+   TOP MARQUEE (góra strony głównej)
+============================================ */
+.top-marquee {
+  background: var(--color-bg);
+  padding: 0.75rem 0;
+  overflow: hidden;
+  border-bottom: 3px solid var(--color-text);
+}
+
+.top-marquee .marquee-content span {
+  font-size: 1rem;
 }
 
 /* ============================================
