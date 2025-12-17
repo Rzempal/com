@@ -1,4 +1,4 @@
-/* style.css v0.013 Hamburger border 3px - wyrównanie z kontenerami */
+/* style.css v0.014 Hero stripes 25px, desktop menu background fade-in */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -96,6 +96,19 @@ body {
   z-index: 1000;
   padding: 1.5rem 0;
   mix-blend-mode: difference;
+  background: transparent;
+  transition: background var(--navbar-duration) var(--navbar-easing),
+              mix-blend-mode 0s;
+}
+
+/* Desktop expanded - background fade-in */
+.nav-main.nav-expanded {
+  mix-blend-mode: normal;
+  background: var(--color-bg);
+}
+
+[data-theme="dark"] .nav-main.nav-expanded {
+  background: rgba(128, 128, 128, 0.95);
 }
 
 .nav-main .container {
@@ -371,7 +384,7 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 50px;
+  width: 25px;
   background: repeating-linear-gradient(
     -45deg,
     var(--color-bg),
