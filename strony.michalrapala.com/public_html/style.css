@@ -1,4 +1,4 @@
-/* style.css v0.018 Czarny pasek na górze strony zamiast tła navbara */
+/* style.css v0.019 Statyczny top-bar + fix hover badge */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -98,15 +98,10 @@ body {
   mix-blend-mode: difference;
 }
 
-/* Czarny pasek na górze strony - tło dla navbara */
-.nav-top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
+/* Czarny pasek na górze strony - statyczny */
+.top-bar {
   background: var(--color-bg);
-  z-index: 999;
+  padding: 1rem 0;
   border-bottom: 3px solid var(--color-text);
 }
 
@@ -483,7 +478,7 @@ body {
 
 .hero-badge:hover {
   background: var(--color-pink);
-  transform: scale(1.1);
+  scale: 1.1;
   animation-play-state: paused;
   color: transparent;
 }
