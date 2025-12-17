@@ -1,4 +1,4 @@
-/* style.css v0.015 Desktop menu - mix-blend background jak mobile */
+/* style.css v0.016 Navbar zawsze z tłem mix-blend, hero stripes 50px */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -96,13 +96,6 @@ body {
   z-index: 1000;
   padding: 1.5rem 0;
   mix-blend-mode: difference;
-  background: transparent;
-  transition: background var(--navbar-duration) var(--navbar-easing),
-              mix-blend-mode 0s;
-}
-
-/* Desktop expanded - background z efektem mix-blend */
-.nav-main.nav-expanded {
   background: rgba(128, 128, 128, 0.85);
 }
 
@@ -379,7 +372,7 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 25px;
+  width: 50px;
   background: repeating-linear-gradient(
     -45deg,
     var(--color-bg),
