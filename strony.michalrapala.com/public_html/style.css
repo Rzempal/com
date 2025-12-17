@@ -1,4 +1,4 @@
-/* style.css v0.011 Light mode: --color-yellow-text dla wszystkich tekstów na szarym */
+/* style.css v0.013 Hamburger border 3px - wyrównanie z kontenerami */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -198,11 +198,11 @@ body {
 .desktop-hamburger {
   display: none;
   background: transparent;
-  border: 2px solid #ffffff;
+  border: 3px solid #ffffff;
   padding: 0.5rem;
   cursor: pointer;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   align-items: center;
   justify-content: center;
   transition: opacity var(--navbar-duration) var(--navbar-easing),
@@ -271,11 +271,11 @@ body {
 .menu-toggle {
   display: none;
   background: transparent;
-  border: 2px solid #ffffff;
+  border: 3px solid #ffffff;
   padding: 0.5rem;
   cursor: pointer;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
 }
 
 .menu-toggle svg {
@@ -432,8 +432,16 @@ body {
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
+  text-decoration: none;
   animation: spin 25s linear infinite;
   line-height: 1.2;
+  transition: transform var(--transition), background var(--transition);
+}
+
+.hero-badge:hover {
+  background: var(--color-pink);
+  transform: scale(1.1);
+  animation-play-state: paused;
 }
 
 @keyframes spin {
