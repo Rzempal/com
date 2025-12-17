@@ -1,4 +1,4 @@
-/* style.css v0.022 Top marquee z czarnym tłem */
+/* style.css v0.023 Czarny pasek pod navbar */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -881,17 +881,11 @@ body {
 }
 
 /* ============================================
-   TOP MARQUEE (góra strony głównej)
+   NAV BACKDROP (czarny pasek pod navbar)
 ============================================ */
-.top-marquee {
+.nav-backdrop {
+  height: 80px;
   background: var(--color-bg);
-  padding: 0.75rem 0;
-  overflow: hidden;
-  border-bottom: 3px solid var(--color-text);
-}
-
-.top-marquee .marquee-content span {
-  font-size: 1rem;
 }
 
 /* ============================================
