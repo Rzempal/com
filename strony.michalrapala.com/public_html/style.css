@@ -1,4 +1,4 @@
-/* style.css v0.023 Czarny pasek pod navbar */
+/* style.css v0.024 Dopasowana wysokość nav-backdrop */
 
 /* ============================================
    ZMIENNE KOLORÓW - DARK MODE (domyślny)
@@ -884,7 +884,7 @@ body {
    NAV BACKDROP (czarny pasek pod navbar)
 ============================================ */
 .nav-backdrop {
-  height: 80px;
+  height: 72px;
   background: var(--color-bg);
 }
 
