@@ -456,9 +456,10 @@ body {
 /* Pills are positioned based on SVG viewBox coordinates (see main-script.js positionPills()) */
 /* Pills positioned diagonally from nodes (60° angle) with corner-based anchors */
 
-/* Pill 1 & 2 (Robotyka, Aplikacje) - up-left diagonal, bottom-right corner anchor */
+/* Pill 1, 2, 4 (Robotyka, Aplikacje, NewProject) - up-left diagonal, bottom-right corner anchor */
 .hub-pill-1,
-.hub-pill-2 {
+.hub-pill-2,
+.hub-pill-4 {
     transform: translate(-100%, -100%) scale(0);
 }
 

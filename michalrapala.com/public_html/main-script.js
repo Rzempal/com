@@ -79,11 +79,11 @@ function openVideoModal() {
 function navigateToHub() {
   if (isNavigating) return;
   isNavigating = true;
-  
+
   console.log('📍 Navigating to Hub...');
-  
+
   const body = document.body;
-  
+
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
     // Fallback bez GSAP - extended fade
@@ -127,21 +127,21 @@ function navigateToHub() {
 // Ten kod będzie załadowany przez hub.html (separate page)
 function initBackButton() {
   const backBtn = document.getElementById('backButton');
-  
+
   if (!backBtn) {
     console.log('ℹ️ Back button not found (this is Gate page)');
     return;
   }
-  
+
   backBtn.addEventListener('click', () => navigateToGate());
-  
+
   backBtn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.code === 'Space') {
       e.preventDefault();
       navigateToGate();
     }
   });
-  
+
   console.log('✅ Back button initialized');
 }
 
@@ -149,11 +149,11 @@ function initBackButton() {
 function navigateToGate() {
   if (isNavigating) return;
   isNavigating = true;
-  
+
   console.log('🔙 Navigating back to Gate...');
-  
+
   const body = document.body;
-  
+
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
     // Fallback bez GSAP - extended fade
@@ -194,14 +194,14 @@ function navigateToGate() {
 // ========== PILLS LOGIC (FOR HUB PAGE) ==========
 function initPills() {
   const pills = document.querySelectorAll('.hub-pill');
-  
+
   if (pills.length === 0) {
     console.log('ℹ️ No pills found (this is Gate page)');
     return;
   }
-  
+
   let currentCard = null;
-  
+
   pills.forEach((pill) => {
     pill.addEventListener('click', () => {
       const cardId = pill.dataset.card;
@@ -209,7 +209,7 @@ function initPills() {
       showCard(cardId, currentCard);
       currentCard = document.getElementById(`hub-card-${cardId}`);
     });
-    
+
     pill.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.code === 'Space') {
         e.preventDefault();
@@ -219,7 +219,7 @@ function initPills() {
       }
     });
   });
-  
+
   console.log('✅ Pills initialized');
 }
 
@@ -481,7 +481,8 @@ function positionPills() {
   const pillOffsets = {
     'robotyka': { x: -52, y: -30 },    // up-left diagonal
     'aplikacje': { x: -52, y: -30 },   // up-left diagonal
-    'www': { x: 52, y: -30 }           // up-right diagonal
+    'www': { x: 52, y: -30 },          // up-right diagonal
+    'newproject': { x: -52, y: -30 }   // up-left diagonal (old Apps position)
   };
 
   pills.forEach(pill => {
@@ -840,7 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check for deep link (hash in URL)
   if (isHubPage && window.location.hash) {
     const cardId = window.location.hash.slice(1); // remove #
-    if (['robotyka', 'aplikacje', 'www'].includes(cardId)) {
+    if (['robotyka', 'aplikacje', 'www', 'newproject'].includes(cardId)) {
       console.log(`🔗 Deep link detected: ${cardId}`);
       setTimeout(() => openCard(cardId), 300); // delay for DOM ready
     }
@@ -868,6 +869,11 @@ const cardData = {
     title: 'Twoja strona → online',
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
+  },
+  newproject: {
+    title: 'New Project',
+    logo: 'assets/images/global/logo_placeholder.png',
+    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=New+Project',
   },
 };
 
