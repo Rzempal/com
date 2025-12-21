@@ -3,21 +3,32 @@
 /* ========== ZMIENNE KOLORÓW – CYBERPUNK ========== */
 :root {
     /* Tła */
-    --bg: #0a0a0f;           /* Deep black z odcieniem niebieskiego */
-    --bg-alt: #12121a;       /* Alternatywne tło */
-    --fg: #ffffff;           /* Biały tekst */
-    --muted: rgba(255, 255, 255, 0.5);  /* Tekst drugoplanowy */
-    --surface: #1a1a24;      /* Powierzchnia karty */
+    --bg: #0a0a0f;
+    /* Deep black z odcieniem niebieskiego */
+    --bg-alt: #12121a;
+    /* Alternatywne tło */
+    --fg: #ffffff;
+    /* Biały tekst */
+    --muted: rgba(255, 255, 255, 0.5);
+    /* Tekst drugoplanowy */
+    --surface: #1a1a24;
+    /* Powierzchnia karty */
     --shadow: rgba(0, 0, 0, 0.5);
     --border: rgba(0, 255, 255, 0.2);
 
     /* Neonowe kolory */
-    --accent: #00ffff;       /* Neon Cyan */
-    --accent-2: #00cccc;     /* Cyan hover */
-    --magenta: #ff00ff;      /* Neon Magenta */
-    --yellow: #ffff00;       /* Neon Yellow */
-    --hot-pink: #ff1493;     /* Hot Pink */
-    --green: #00ff00;        /* Neon Green (status) */
+    --accent: #00ffff;
+    /* Neon Cyan */
+    --accent-2: #00cccc;
+    /* Cyan hover */
+    --magenta: #ff00ff;
+    /* Neon Magenta */
+    --yellow: #ffff00;
+    /* Neon Yellow */
+    --hot-pink: #ff1493;
+    /* Hot Pink */
+    --green: #00ff00;
+    /* Neon Green (status) */
 
     /* Glow effects */
     --glow-cyan: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 40px var(--accent);
@@ -25,7 +36,8 @@
     --glow-cyan-strong: 0 0 20px var(--accent), 0 0 40px var(--accent), 0 0 60px var(--accent);
 
     /* Layout - shared header height (navbar & card topbar) */
-    --header-height: 3.75rem; /* 0.75rem padding + 2.25rem content + 0.75rem padding */
+    --header-height: 3.75rem;
+    /* 0.75rem padding + 2.25rem content + 0.75rem padding */
 
     /* Fonty – Cyberpunk */
     --font-display: 'Orbitron', sans-serif;
@@ -67,13 +79,11 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px);
     pointer-events: none;
     z-index: 9999;
 }
@@ -101,10 +111,9 @@ body::before {
     right: 0;
     height: 50%;
     background: linear-gradient(to bottom,
-        transparent 0%,
-        rgba(255, 0, 255, 0.05) 50%,
-        rgba(0, 255, 255, 0.08) 100%
-    );
+            transparent 0%,
+            rgba(255, 0, 255, 0.05) 50%,
+            rgba(0, 255, 255, 0.08) 100%);
 }
 
 /* ========== NEON TEXT UTILITIES ========== */
@@ -152,33 +161,85 @@ body::before {
 }
 
 @keyframes glitch-anim-1 {
-    0% { clip: rect(36px, 9999px, 97px, 0); }
-    25% { clip: rect(7px, 9999px, 75px, 0); }
-    50% { clip: rect(50px, 9999px, 68px, 0); }
-    75% { clip: rect(62px, 9999px, 15px, 0); }
-    100% { clip: rect(24px, 9999px, 14px, 0); }
+    0% {
+        clip: rect(36px, 9999px, 97px, 0);
+    }
+
+    25% {
+        clip: rect(7px, 9999px, 75px, 0);
+    }
+
+    50% {
+        clip: rect(50px, 9999px, 68px, 0);
+    }
+
+    75% {
+        clip: rect(62px, 9999px, 15px, 0);
+    }
+
+    100% {
+        clip: rect(24px, 9999px, 14px, 0);
+    }
 }
 
 @keyframes glitch-anim-2 {
-    0% { clip: rect(65px, 9999px, 89px, 0); }
-    25% { clip: rect(4px, 9999px, 44px, 0); }
-    50% { clip: rect(99px, 9999px, 12px, 0); }
-    75% { clip: rect(23px, 9999px, 77px, 0); }
-    100% { clip: rect(56px, 9999px, 34px, 0); }
+    0% {
+        clip: rect(65px, 9999px, 89px, 0);
+    }
+
+    25% {
+        clip: rect(4px, 9999px, 44px, 0);
+    }
+
+    50% {
+        clip: rect(99px, 9999px, 12px, 0);
+    }
+
+    75% {
+        clip: rect(23px, 9999px, 77px, 0);
+    }
+
+    100% {
+        clip: rect(56px, 9999px, 34px, 0);
+    }
 }
 
 /* ========== FLICKER ANIMATION ========== */
 @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    92% { opacity: 1; }
-    93% { opacity: 0.3; }
-    94% { opacity: 1; }
-    95% { opacity: 0.5; }
-    96% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    92% {
+        opacity: 1;
+    }
+
+    93% {
+        opacity: 0.3;
+    }
+
+    94% {
+        opacity: 1;
+    }
+
+    95% {
+        opacity: 0.5;
+    }
+
+    96% {
+        opacity: 1;
+    }
 }
 
 /* ========== TYPOGRAFIA ========== */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
     font-weight: 700;
     line-height: 1.2;
@@ -472,8 +533,15 @@ button {
 }
 
 @keyframes floatEnterButton {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
 }
 
 /* Pill-style elements (text and glow) */
@@ -493,8 +561,15 @@ button {
 }
 
 @keyframes glow {
-    0%, 100% { box-shadow: 0 0 10px rgba(72, 210, 231, 0.4); }
-    50% { box-shadow: 0 0 20px rgba(72, 210, 231, 0.6); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(72, 210, 231, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(72, 210, 231, 0.6);
+    }
 }
 
 .gate__enter i {
@@ -573,7 +648,7 @@ button {
         flex-direction: column;
         gap: 1.5rem;
     }
-    
+
     .pill {
         max-width: 100%;
     }
@@ -718,12 +793,12 @@ button {
     .gate__title {
         font-size: 1.75rem;
     }
-    
+
     .card__header {
         padding: 1.25rem;
         font-size: 1.1rem;
     }
-    
+
     .card__panel {
         padding: 0 1.25rem;
     }
@@ -924,13 +999,25 @@ body.card-open {
 }
 
 @keyframes topBarUnblur {
-    from { opacity: 0.6; }
-    to { opacity: 1; }
+    from {
+        opacity: 0.6;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes statusUnblur {
-    from { opacity: 0.5; transform: scale(0.92); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0.5;
+        transform: scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Card Sheet - Base (CYBERPUNK) */
@@ -945,9 +1032,7 @@ body.card-open {
     overflow: visible;
     /* drop-shadow follows clip-path! Unlike border/box-shadow */
     filter:
-        drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
-        drop-shadow(0 0 8px rgba(0, 255, 255, 0.4))
-        drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
+        drop-shadow(0 0 1px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 8px rgba(0, 255, 255, 0.4)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
@@ -962,35 +1047,29 @@ body.card-open {
 @keyframes cardGlitchIn {
     0% {
         opacity: 0;
-        filter: hue-rotate(90deg) saturate(2)
-            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
-            drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+        filter: hue-rotate(90deg) saturate(2) drop-shadow(0 0 1px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
     }
+
     20% {
         opacity: 0.8;
-        filter: hue-rotate(-20deg) saturate(1.5)
-            drop-shadow(0 0 2px rgba(255, 0, 255, 0.9))
-            drop-shadow(0 0 15px rgba(255, 0, 255, 0.5));
+        filter: hue-rotate(-20deg) saturate(1.5) drop-shadow(0 0 2px rgba(255, 0, 255, 0.9)) drop-shadow(0 0 15px rgba(255, 0, 255, 0.5));
         transform: translateX(2px);
     }
+
     40% {
-        filter: hue-rotate(10deg) saturate(1.2)
-            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
-            drop-shadow(0 0 10px rgba(0, 255, 255, 0.4));
+        filter: hue-rotate(10deg) saturate(1.2) drop-shadow(0 0 1px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 10px rgba(0, 255, 255, 0.4));
         transform: translateX(-2px);
     }
+
     60% {
-        filter: hue-rotate(0deg) saturate(1)
-            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
-            drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
+        filter: hue-rotate(0deg) saturate(1) drop-shadow(0 0 1px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 8px rgba(0, 255, 255, 0.4));
         transform: translateX(1px);
     }
+
     100% {
         opacity: 1;
         filter:
-            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8))
-            drop-shadow(0 0 8px rgba(0, 255, 255, 0.4))
-            drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
+            drop-shadow(0 0 1px rgba(0, 255, 255, 0.8)) drop-shadow(0 0 8px rgba(0, 255, 255, 0.4)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
         transform: translateX(0);
     }
 }
@@ -1002,13 +1081,11 @@ body.card-open {
     left: 0;
     right: 0;
     bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 255, 255, 0.015) 2px,
-        rgba(0, 255, 255, 0.015) 4px
-    );
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.015) 2px,
+            rgba(0, 255, 255, 0.015) 4px);
     pointer-events: none;
     z-index: 1;
 }
@@ -1070,12 +1147,15 @@ body.card-open {
 
 /* Border glow pulse animation */
 @keyframes borderGlowPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow:
             0 0 20px rgba(0, 255, 255, 0.15),
             0 0 40px rgba(0, 255, 255, 0.1),
             inset 0 0 60px rgba(0, 255, 255, 0.03);
     }
+
     50% {
         box-shadow:
             0 0 30px rgba(0, 255, 255, 0.25),
@@ -1122,8 +1202,236 @@ body.card-open {
 }
 
 @keyframes terminalDotPulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--green); }
-    50% { opacity: 0.6; box-shadow: 0 0 20px var(--green); }
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 10px var(--green);
+    }
+
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 20px var(--green);
+    }
+}
+
+/* Yellow dot variant for newproject (default state) */
+.card-terminal-dot.dot-yellow {
+    background: #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+    animation: terminalDotPulseYellow 2s ease-in-out infinite;
+}
+
+@keyframes terminalDotPulseYellow {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 10px #ffcc00;
+    }
+
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 20px #ffcc00;
+    }
+}
+
+/* Red dot variant for newproject (ACCESS_DENIED state) */
+.card-terminal-dot.dot-red {
+    background: #ff3333;
+    box-shadow: 0 0 10px #ff3333;
+    animation: terminalDotPulseRed 2s ease-in-out infinite;
+}
+
+@keyframes terminalDotPulseRed {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 10px #ff3333;
+    }
+
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 20px #ff3333;
+    }
+}
+
+/* RTK Logo cursor blink animation */
+.rtk-cursor-blink {
+    animation: rtkCursorBlink 1s step-end infinite;
+}
+
+@keyframes rtkCursorBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ========== RTK LONG SVG Animation Styles ========== */
+.rtk-base-svg {
+    fill: none;
+    stroke: #ffffff;
+    stroke-linecap: round;
+    overflow: visible;
+    display: block;
+}
+
+/* Animated nodes for LONG variant */
+.rtk-long-node {
+    fill: #fff;
+    stroke: none;
+    opacity: 0;
+    animation: rtkFadeIn 0.5s ease-out forwards;
+}
+
+.rtk-n1 {
+    animation-delay: 0.1s;
+}
+
+.rtk-n2 {
+    animation-delay: 0.2s;
+}
+
+.rtk-n3 {
+    animation-delay: 0.3s;
+}
+
+.rtk-long-link {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    stroke-width: 1.5;
+    opacity: 0.6;
+    animation: rtkDraw 0.8s ease-out forwards;
+}
+
+.rtk-l1 {
+    animation-delay: 0.4s;
+}
+
+.rtk-l2 {
+    animation-delay: 0.5s;
+}
+
+.rtk-l3 {
+    animation-delay: 0.6s;
+}
+
+.rtk-long-path {
+    stroke-width: 3;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: rtkDraw 1.0s ease-out forwards 1.0s;
+}
+
+.rtk-long-cmd {
+    fill: #fff;
+    stroke: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 28px;
+    opacity: 0;
+    animation: rtkFadeIn 0.5s ease-out forwards 1.8s;
+}
+
+.rtk-long-url {
+    fill: #fff;
+    stroke: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 28px;
+    clip-path: inset(0 100% 0 0);
+    animation: rtkType 1.7s steps(17) forwards 2.3s;
+}
+
+.rtk-long-cursor-g {
+    animation: rtkMoveCursorLong 1.7s steps(17) forwards 2.3s;
+}
+
+.rtk-long-cursor {
+    fill: #fff;
+    stroke: none;
+    opacity: 0;
+    animation: rtkBlink 1s step-end infinite 2.0s;
+}
+
+@keyframes rtkFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes rtkDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes rtkType {
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes rtkMoveCursorLong {
+    to {
+        transform: translateX(300px);
+    }
+}
+
+@keyframes rtkBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Card Headline (replaces logo for newproject) */
+.card-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 1rem;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.02);
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.card-headline:hover {
+    border-color: rgba(0, 255, 255, 0.5);
+    background: rgba(0, 255, 255, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.headline-text {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--fg);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    transition: text-shadow 0.3s ease;
+}
+
+.card-headline:hover .headline-text {
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
 }
 
 /* Terminal prefix SYS:// */
@@ -1343,8 +1651,38 @@ body.card-open {
 }
 
 @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* CTA Denied variant (red instead of cyan) - MUST be after .card-cta */
+.card-cta-denied {
+    background: #ff3333;
+    box-shadow: 0 0 8px rgba(255, 51, 51, 0.4), 0 0 20px rgba(255, 51, 51, 0.2);
+}
+
+.card-cta-denied:hover {
+    background: #cc0000;
+    box-shadow: 0 0 12px rgba(255, 51, 51, 0.6), 0 0 30px rgba(255, 51, 51, 0.3);
+}
+
+/* CTA Preview variant (yellow for GAIN_PREVIEW state) */
+.card-cta-preview {
+    background: #ffcc00;
+    color: #000000;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.4), 0 0 20px rgba(255, 204, 0, 0.2);
+}
+
+.card-cta-preview:hover {
+    background: #e6b800;
+    box-shadow: 0 0 12px rgba(255, 204, 0, 0.6), 0 0 30px rgba(255, 204, 0, 0.3);
 }
 
 /* ========== MOBILE: Bottom Sheet (<1025px) ========== */
@@ -1358,14 +1696,19 @@ body.card-open {
         /* Remove default border - use pseudo-element instead */
         border: none;
         /* Notch shape: A=80px (notch), B=80px (diagonal), C=reszta */
-        clip-path: polygon(
-            100% 0,                      /* P1: prawy górny skrajny (wyżej) */
-            calc(100% - 80px) 0,         /* P2: A=80px (notch) */
-            calc(100% - 160px) 50px,     /* P3: B=80px (diagonal) */
-            0 50px,                      /* P4: C=reszta */
-            0 100%,                      /* P5: lewy dolny */
-            100% 100%                    /* P6: prawy dolny */
-        );
+        clip-path: polygon(100% 0,
+                /* P1: prawy górny skrajny (wyżej) */
+                calc(100% - 80px) 0,
+                /* P2: A=80px (notch) */
+                calc(100% - 160px) 50px,
+                /* P3: B=80px (diagonal) */
+                0 50px,
+                /* P4: C=reszta */
+                0 100%,
+                /* P5: lewy dolny */
+                100% 100%
+                /* P6: prawy dolny */
+            );
         border-radius: 0 0 0 16px;
     }
 
@@ -1381,12 +1724,14 @@ body.card-open {
 
     /* Mobile: topbar below notch */
     .card-topbar {
-        position: static; /* Close button positions relative to card-sheet, not topbar */
+        position: static;
+        /* Close button positions relative to card-sheet, not topbar */
         justify-content: flex-start;
         padding-left: 1.5rem;
         padding-right: 1rem;
         padding-top: 1rem;
-        margin-top: 50px; /* below notch diagonal */
+        margin-top: 50px;
+        /* below notch diagonal */
     }
 
     /* Mobile: title smaller */
@@ -1445,8 +1790,10 @@ body.card-open {
 
     /* Desktop: close button in normal flow, flexbox aligns it */
     .card-close {
-        position: relative; /* Back to flow - flexbox will align */
-        width: 2.25rem;  /* Match nav links height for border alignment */
+        position: relative;
+        /* Back to flow - flexbox will align */
+        width: 2.25rem;
+        /* Match nav links height for border alignment */
         height: 2.25rem;
         font-size: 0.85rem;
         flex-shrink: 0;
@@ -1454,7 +1801,8 @@ body.card-open {
     }
 
     .card-close i {
-        transform: rotate(-90deg); /* chevron-down → points right (>) */
+        transform: rotate(-90deg);
+        /* chevron-down → points right (>) */
     }
 
     /* Topbar: [Close >] [●] [SYS://] [Tytuł] - all flex children aligned */
@@ -1464,9 +1812,11 @@ body.card-open {
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        height: var(--header-height); /* Same as navbar */
+        height: var(--header-height);
+        /* Same as navbar */
         gap: 0.75rem;
-        padding: 0 1.5rem; /* Horizontal only - height is explicit */
+        padding: 0 1.5rem;
+        /* Horizontal only - height is explicit */
         margin-top: 0;
     }
 

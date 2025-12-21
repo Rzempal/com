@@ -79,11 +79,11 @@ function openVideoModal() {
 function navigateToHub() {
   if (isNavigating) return;
   isNavigating = true;
-  
+
   console.log('📍 Navigating to Hub...');
-  
+
   const body = document.body;
-  
+
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
     // Fallback bez GSAP - extended fade
@@ -127,21 +127,21 @@ function navigateToHub() {
 // Ten kod będzie załadowany przez hub.html (separate page)
 function initBackButton() {
   const backBtn = document.getElementById('backButton');
-  
+
   if (!backBtn) {
     console.log('ℹ️ Back button not found (this is Gate page)');
     return;
   }
-  
+
   backBtn.addEventListener('click', () => navigateToGate());
-  
+
   backBtn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.code === 'Space') {
       e.preventDefault();
       navigateToGate();
     }
   });
-  
+
   console.log('✅ Back button initialized');
 }
 
@@ -149,11 +149,11 @@ function initBackButton() {
 function navigateToGate() {
   if (isNavigating) return;
   isNavigating = true;
-  
+
   console.log('🔙 Navigating back to Gate...');
-  
+
   const body = document.body;
-  
+
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
     // Fallback bez GSAP - extended fade
@@ -194,14 +194,14 @@ function navigateToGate() {
 // ========== PILLS LOGIC (FOR HUB PAGE) ==========
 function initPills() {
   const pills = document.querySelectorAll('.hub-pill');
-  
+
   if (pills.length === 0) {
     console.log('ℹ️ No pills found (this is Gate page)');
     return;
   }
-  
+
   let currentCard = null;
-  
+
   pills.forEach((pill) => {
     pill.addEventListener('click', () => {
       const cardId = pill.dataset.card;
@@ -209,7 +209,7 @@ function initPills() {
       showCard(cardId, currentCard);
       currentCard = document.getElementById(`hub-card-${cardId}`);
     });
-    
+
     pill.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.code === 'Space') {
         e.preventDefault();
@@ -219,7 +219,7 @@ function initPills() {
       }
     });
   });
-  
+
   console.log('✅ Pills initialized');
 }
 
@@ -440,7 +440,7 @@ function fadeInHub() {
       }, 1.5 + (index * 0.2));
     });
 
-    // Back button - appears after all pills (2.1s)
+    // Back button - appears after all pills (4 pills = 2.3s, so 2.5s for back button)
     if (backButton) {
       timeline.to(backButton, {
         opacity: 1,
@@ -448,7 +448,7 @@ function fadeInHub() {
         scale: 1,
         duration: 0.6,
         ease: 'back.out(1.7)',
-      }, 2.1);
+      }, 2.5);
     }
   }
 
@@ -481,7 +481,8 @@ function positionPills() {
   const pillOffsets = {
     'robotyka': { x: -52, y: -30 },    // up-left diagonal
     'aplikacje': { x: -52, y: -30 },   // up-left diagonal
-    'www': { x: 52, y: -30 }           // up-right diagonal
+    'www': { x: 52, y: -30 },          // up-right diagonal
+    'newproject': { x: -52, y: -30 }   // up-left diagonal (old Apps position)
   };
 
   pills.forEach(pill => {
@@ -840,7 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check for deep link (hash in URL)
   if (isHubPage && window.location.hash) {
     const cardId = window.location.hash.slice(1); // remove #
-    if (['robotyka', 'aplikacje', 'www'].includes(cardId)) {
+    if (['robotyka', 'aplikacje', 'www', 'newproject'].includes(cardId)) {
       console.log(`🔗 Deep link detected: ${cardId}`);
       setTimeout(() => openCard(cardId), 300); // delay for DOM ready
     }
@@ -868,6 +869,11 @@ const cardData = {
     title: 'Twoja strona → online',
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
+  },
+  newproject: {
+    title: 'New Project',
+    logo: 'assets/images/global/logo_placeholder.png',
+    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=New+Project',
   },
 };
 
@@ -1047,11 +1053,41 @@ function mountCardContent(id) {
 
   // Set title
   const titleEl = document.getElementById('card-title');
-  if (titleEl) titleEl.textContent = data.title;
+  if (titleEl) {
+    // Special case: newproject uses SVG logo instead of text title
+    if (id === 'newproject') {
+      // SVG SHORT sized proportionally to SYS:// (viewBox 110x40 = 2.75:1 ratio)
+      titleEl.innerHTML = `
+        <svg viewBox="0 0 110 40" class="rtk-logo-svg" style="width: 65px; height: auto; vertical-align: middle; margin-left: 4px;">
+          <circle cx="5" cy="15" r="2" fill="#ffffff" />
+          <circle cx="20" cy="5" r="2" fill="#ffffff" />
+          <circle cx="10" cy="30" r="2" fill="#ffffff" />
+          <line x1="5" y1="15" x2="20" y2="5" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="20" y1="5" x2="10" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="5" y1="15" x2="10" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+          <path d="M 10 30 L 32 30" stroke="#ffffff" stroke-width="2" fill="none" />
+          <text x="32" y="30" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
+          <rect x="68" y="8" width="14" height="26" fill="#ffffff" class="rtk-cursor-blink" />
+        </svg>
+      `;
+    } else {
+      titleEl.textContent = data.title;
+    }
+  }
 
-  // Set logo
+  // Handle terminal dot color for newproject (yellow = default/pending state)
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  if (terminalDot && id === 'newproject') {
+    terminalDot.classList.add('dot-yellow');
+  }
+
+  // Set logo (hide for newproject since we use text headline instead)
   const logoEl = document.getElementById('card-logo');
-  if (logoEl) {
+  const mediaFrame = document.querySelector('.card-media-frame');
+  if (id === 'newproject') {
+    if (mediaFrame) mediaFrame.style.display = 'none';
+  } else if (logoEl) {
+    if (mediaFrame) mediaFrame.style.display = '';
     logoEl.src = data.logo;
     logoEl.alt = data.title;
     logoEl.onerror = () => {
@@ -1067,13 +1103,92 @@ function mountCardContent(id) {
     contentEl.appendChild(clone);
   }
 
+  // Attach CTA click handler for newproject sequence
+  if (id === 'newproject') {
+    setTimeout(() => {
+      const cta = document.getElementById('newproject-cta');
+      if (cta) {
+        cta.addEventListener('click', handleNewProjectCTAClick);
+      }
+    }, 100);
+  }
+
   console.log(`📝 Content mounted for: ${id}`);
+}
+
+// Handle NewProject CTA click sequence
+function handleNewProjectCTAClick(e) {
+  const cta = e.currentTarget;
+  const textEl = cta.querySelector('.cta-text');
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  const titleEl = document.getElementById('card-title');
+  let state = parseInt(cta.dataset.state || '0');
+
+  // State machine: 0 -> 1 -> 2 -> 3 (redirect)
+  if (state === 0) {
+    // ACCESS_MODUL (cyan) -> ACCESS_DENIED (red)
+    e.preventDefault();
+    cta.classList.add('card-cta-denied');
+    textEl.textContent = 'ACCESS_DENIED';
+    cta.dataset.state = '1';
+    // Dot stays yellow
+  } else if (state === 1) {
+    // ACCESS_DENIED (red) -> GAIN_PREVIEW (yellow)
+    e.preventDefault();
+    cta.classList.remove('card-cta-denied');
+    cta.classList.add('card-cta-preview');
+    textEl.textContent = 'GAIN_PREVIEW';
+    cta.dataset.state = '2';
+    // Dot turns to green (remove yellow)
+    if (terminalDot) {
+      terminalDot.classList.remove('dot-yellow');
+    }
+    // Change logo from SHORT to LONG variant with animation
+    if (titleEl) {
+      titleEl.innerHTML = `
+        <svg viewBox="0 0 440 60" class="rtk-base-svg" style="width: 240px; height: auto; vertical-align: middle; margin-left: 4px;">
+          <!-- 1. Sieć neuronowa (Chaos) -->
+          <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
+          <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
+          <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
+          <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
+          <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
+          <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
+          <!-- 2. Linia przepływu (Process) -->
+          <path d="M 10 30 L 40 30" class="rtk-long-path" />
+          <!-- 3. Prompt (Static >_) -->
+          <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
+          <!-- 4. Wpisywana komenda (Typing "cd resztatokod.pl") -->
+          <text x="86" y="38" class="rtk-long-url" xml:space="preserve">cd resztatokod.pl</text>
+          <!-- 5. Kursor -->
+          <g class="rtk-long-cursor-g">
+            <rect x="86" y="16" width="14" height="26" class="rtk-long-cursor" />
+          </g>
+        </svg>
+      `;
+    }
+  } else if (state === 2) {
+    // GAIN_PREVIEW (yellow) -> Redirect to ResztaToKod.pl
+    cta.href = 'https://resztatokod.pl';
+    cta.target = '_blank';
+    // Allow default link behavior - will open in new tab
+  }
 }
 
 // Unmount card content
 function unmountCardContent() {
   const titleEl = document.getElementById('card-title');
-  if (titleEl) titleEl.textContent = '';
+  if (titleEl) titleEl.innerHTML = '';
+
+  // Reset terminal dot color (remove yellow/red classes if present)
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  if (terminalDot) {
+    terminalDot.classList.remove('dot-yellow', 'dot-red');
+  }
+
+  // Reset media frame visibility
+  const mediaFrame = document.querySelector('.card-media-frame');
+  if (mediaFrame) mediaFrame.style.display = '';
 
   const logoEl = document.getElementById('card-logo');
   if (logoEl) {
