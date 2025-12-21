@@ -440,7 +440,7 @@ function fadeInHub() {
       }, 1.5 + (index * 0.2));
     });
 
-    // Back button - appears after all pills (2.1s)
+    // Back button - appears after all pills (4 pills = 2.3s, so 2.5s for back button)
     if (backButton) {
       timeline.to(backButton, {
         opacity: 1,
@@ -448,7 +448,7 @@ function fadeInHub() {
         scale: 1,
         duration: 0.6,
         ease: 'back.out(1.7)',
-      }, 2.1);
+      }, 2.5);
     }
   }
 
