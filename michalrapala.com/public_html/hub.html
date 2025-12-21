@@ -101,13 +101,20 @@
                         <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
                     </linearGradient>
 
-                    <linearGradient id="connectorGradient2" x1="850" y1="350" x2="798" y2="320"
+                    <linearGradient id="connectorGradient2" x1="350" y1="750" x2="298" y2="720"
                         gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
                         <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
                     </linearGradient>
 
                     <linearGradient id="connectorGradient3" x1="450" y1="750" x2="502" y2="720"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
+                    </linearGradient>
+
+                    <!-- Gradient for NewProject connector (node 850, 350) - 60° diagonal up-left -->
+                    <linearGradient id="connectorGradient4" x1="850" y1="350" x2="798" y2="320"
                         gradientUnits="userSpaceOnUse">
                         <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
                         <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
@@ -299,10 +306,12 @@
                     <!-- Pills connection points (matching pill positions - enhanced like central pad) -->
                     <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9"
                         data-pad="pill-1" />
-                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9"
+                    <circle class="circuit-pad pill-pad" cx="350" cy="750" r="12" filter="url(#glow)" opacity="0.9"
                         data-pad="pill-2" />
                     <circle class="circuit-pad pill-pad" cx="450" cy="750" r="12" filter="url(#glow)" opacity="0.9"
                         data-pad="pill-3" />
+                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9"
+                        data-pad="pill-4" />
                 </g>
 
                 <!-- Permanent Connector Lines (pills → nodes, always visible) -->
@@ -312,13 +321,17 @@
                     <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="448" y2="470"
                         stroke="url(#connectorGradient1)" />
 
-                    <!-- Connector for Aplikacje (node 850,350) - 60° diagonal up-left with gradient fade -->
-                    <line class="pill-connector pill-connector-2" x1="850" y1="350" x2="798" y2="320"
+                    <!-- Connector for Aplikacje (node 350,750) - 60° diagonal up-left with gradient fade -->
+                    <line class="pill-connector pill-connector-2" x1="350" y1="750" x2="298" y2="720"
                         stroke="url(#connectorGradient2)" />
 
                     <!-- Connector for WWW (node 450,750) - 60° diagonal up-right with gradient fade -->
                     <line class="pill-connector pill-connector-3" x1="450" y1="750" x2="502" y2="720"
                         stroke="url(#connectorGradient3)" />
+
+                    <!-- Connector for NewProject (node 850,350) - 60° diagonal up-left with gradient fade -->
+                    <line class="pill-connector pill-connector-4" x1="850" y1="350" x2="798" y2="320"
+                        stroke="url(#connectorGradient4)" />
                 </g>
 
                 <!-- Pill Connection Lines (hidden by default, flash on click) -->
@@ -329,13 +342,17 @@
                     <path id="pill-line-robotyka-right" class="pill-line" d="M 900 550 L 550 550 L 500 500"
                         filter="url(#glowStrong)" opacity="0" />
 
-                    <!-- Line to Pill 2 (Aplikacje - top-right) - follows existing horizontal trace (line 1) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350"
+                    <!-- Line to Pill 2 (Aplikacje - bottom-left) - follows horizontal trace to node 350,750 -->
+                    <path id="pill-line-aplikacje" class="pill-line" d="M 50 700 L 250 700 L 300 750 L 350 750"
                         filter="url(#glowStrong)" opacity="0" />
 
                     <!-- Line to Pill 3 (WWW - bottom-center) - follows trace 4 (vertical) then trace 3 (horizontal) -->
                     <path id="pill-line-www" class="pill-line"
                         d="M 200 50 L 200 400 L 250 450 L 250 700 L 350 700 L 400 750 L 450 750"
+                        filter="url(#glowStrong)" opacity="0" />
+
+                    <!-- Line to Pill 4 (NewProject - top-right) - follows old Apps trace -->
+                    <path id="pill-line-newproject" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350"
                         filter="url(#glowStrong)" opacity="0" />
                 </g>
 
@@ -413,9 +430,9 @@
                     <span class="pill-text">Robotyka_</span>
                 </button>
 
-                <!-- Pill 2: Aplikacje (Top-Right - pinned to node 850, 350) -->
-                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="850"
-                    data-node-y="350" aria-label="Aplikacje">
+                <!-- Pill 2: Aplikacje (Bottom-Left - pinned to node 350, 750) -->
+                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="350"
+                    data-node-y="750" aria-label="Aplikacje">
                     <span class="pill-text">Apps_</span>
                 </button>
 
@@ -425,7 +442,7 @@
                     <span class="pill-text">WWW_</span>
                 </button>
 
-                <!-- Pill 4: NewProject (Top-Right corner - pinned to node 850, 350) -->
+                <!-- Pill 4: NewProject (Top-Right - pinned to node 850, 350) -->
                 <button class="hub-pill hub-pill-4" data-card="newproject" data-neuron="5" data-node-x="850"
                     data-node-y="350" aria-label="New Project">
                     <span class="pill-text">NewProject_</span>
@@ -510,12 +527,12 @@
 
     <template id="template-newproject">
         <div class="card-body">
-            <!-- Main headline in gate__title style (like index.html: MICHAL/RAPALA/.COM) -->
-            <h1 class="card-headline">
-                <span class="line-1">KOD JEST</span>
-                <span class="line-2 glitch" data-text="OSTATNIM">OSTATNIM</span>
-                <span class="line-3">KROKIEM.</span>
-            </h1>
+            <!-- Main headline as text (replacing logo) -->
+            <div class="card-headline">
+                <span class="headline-text">KOD JEST</span>
+                <span class="headline-text">OSTATNIM</span>
+                <span class="headline-text">KROKIEM.</span>
+            </div>
             <p class="card-lead">
                 > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
             </p>

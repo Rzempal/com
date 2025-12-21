@@ -440,7 +440,7 @@ function fadeInHub() {
       }, 1.5 + (index * 0.2));
     });
 
-    // Back button - appears after all pills (2.1s)
+    // Back button - appears after all pills (4 pills = 2.3s, so 2.5s for back button)
     if (backButton) {
       timeline.to(backButton, {
         opacity: 1,
@@ -448,7 +448,7 @@ function fadeInHub() {
         scale: 1,
         duration: 0.6,
         ease: 'back.out(1.7)',
-      }, 2.1);
+      }, 2.5);
     }
   }
 
@@ -482,7 +482,7 @@ function positionPills() {
     'robotyka': { x: -52, y: -30 },    // up-left diagonal
     'aplikacje': { x: -52, y: -30 },   // up-left diagonal
     'www': { x: 52, y: -30 },          // up-right diagonal
-    'newproject': { x: -52, y: -30 }   // up-left diagonal (same as robotyka/aplikacje)
+    'newproject': { x: -52, y: -30 }   // up-left diagonal (old Apps position)
   };
 
   pills.forEach(pill => {
@@ -841,7 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check for deep link (hash in URL)
   if (isHubPage && window.location.hash) {
     const cardId = window.location.hash.slice(1); // remove #
-    if (['robotyka', 'aplikacje', 'www'].includes(cardId)) {
+    if (['robotyka', 'aplikacje', 'www', 'newproject'].includes(cardId)) {
       console.log(`🔗 Deep link detected: ${cardId}`);
       setTimeout(() => openCard(cardId), 300); // delay for DOM ready
     }
@@ -871,9 +871,9 @@ const cardData = {
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
   },
   newproject: {
-    title: '', // Special: SVG logo injected by mountCardContent
-    logo: '', // No logo - headline instead
-    logoFallback: '',
+    title: 'New Project',
+    logo: 'assets/images/global/logo_placeholder.png',
+    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=New+Project',
   },
 };
 
@@ -1056,18 +1056,18 @@ function mountCardContent(id) {
   if (titleEl) {
     // Special case: newproject uses SVG logo instead of text title
     if (id === 'newproject') {
-      // SVG SHORT sized proportionally to SYS:// - CYAN color to match theme
+      // SVG SHORT sized proportionally to SYS:// (viewBox 110x40 = 2.75:1 ratio)
       titleEl.innerHTML = `
         <svg viewBox="0 0 110 40" class="rtk-logo-svg" style="width: 65px; height: auto; vertical-align: middle; margin-left: 4px;">
-          <circle cx="5" cy="15" r="2" fill="#00ffff" />
-          <circle cx="20" cy="5" r="2" fill="#00ffff" />
-          <circle cx="10" cy="30" r="2" fill="#00ffff" />
-          <line x1="5" y1="15" x2="20" y2="5" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
-          <line x1="20" y1="5" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
-          <line x1="5" y1="15" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
-          <path d="M 10 30 L 32 30" stroke="#00ffff" stroke-width="2" fill="none" />
-          <text x="32" y="30" fill="#00ffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
-          <rect x="68" y="8" width="14" height="26" fill="#00ffff" class="rtk-cursor-blink" />
+          <circle cx="5" cy="15" r="2" fill="#ffffff" />
+          <circle cx="20" cy="5" r="2" fill="#ffffff" />
+          <circle cx="10" cy="30" r="2" fill="#ffffff" />
+          <line x1="5" y1="15" x2="20" y2="5" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="20" y1="5" x2="10" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="5" y1="15" x2="10" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+          <path d="M 10 30 L 32 30" stroke="#ffffff" stroke-width="2" fill="none" />
+          <text x="32" y="30" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
+          <rect x="68" y="8" width="14" height="26" fill="#ffffff" class="rtk-cursor-blink" />
         </svg>
       `;
     } else {
@@ -1081,13 +1081,13 @@ function mountCardContent(id) {
     terminalDot.classList.add('dot-yellow');
   }
 
-  // Set logo (hide for newproject)
+  // Set logo (hide for newproject since we use text headline instead)
   const logoEl = document.getElementById('card-logo');
   const mediaFrame = document.querySelector('.card-media-frame');
   if (id === 'newproject') {
-    // Hide logo section for newproject
     if (mediaFrame) mediaFrame.style.display = 'none';
   } else if (logoEl) {
+    if (mediaFrame) mediaFrame.style.display = '';
     logoEl.src = data.logo;
     logoEl.alt = data.title;
     logoEl.onerror = () => {
@@ -1103,12 +1103,12 @@ function mountCardContent(id) {
     contentEl.appendChild(clone);
   }
 
-  // Setup CTA click sequence for newproject
+  // Attach CTA click handler for newproject sequence
   if (id === 'newproject') {
     setTimeout(() => {
-      const ctaEl = document.getElementById('newproject-cta');
-      if (ctaEl) {
-        ctaEl.addEventListener('click', handleNewProjectCTAClick);
+      const cta = document.getElementById('newproject-cta');
+      if (cta) {
+        cta.addEventListener('click', handleNewProjectCTAClick);
       }
     }, 100);
   }
@@ -1118,28 +1118,32 @@ function mountCardContent(id) {
 
 // Handle NewProject CTA click sequence
 function handleNewProjectCTAClick(e) {
-  e.preventDefault();
   const cta = e.currentTarget;
-  const currentState = parseInt(cta.dataset.state || '0');
-  const ctaText = cta.querySelector('.cta-text');
+  const textEl = cta.querySelector('.cta-text');
   const terminalDot = document.querySelector('.card-terminal-dot');
   const titleEl = document.getElementById('card-title');
+  let state = parseInt(cta.dataset.state || '0');
 
-  if (currentState === 0) {
-    // State 0 → 1: ACCESS_MODUL → ACCESS_DENIED (red)
-    if (ctaText) ctaText.textContent = 'ACCESS_DENIED';
+  // State machine: 0 -> 1 -> 2 -> 3 (redirect)
+  if (state === 0) {
+    // ACCESS_MODUL (cyan) -> ACCESS_DENIED (red)
+    e.preventDefault();
     cta.classList.add('card-cta-denied');
+    textEl.textContent = 'ACCESS_DENIED';
     cta.dataset.state = '1';
-    console.log('🔴 CTA: ACCESS_DENIED');
-  } else if (currentState === 1) {
-    // State 1 → 2: ACCESS_DENIED → GAIN_PREVIEW (yellow)
-    if (ctaText) ctaText.textContent = 'GAIN_PREVIEW';
+    // Dot stays yellow
+  } else if (state === 1) {
+    // ACCESS_DENIED (red) -> GAIN_PREVIEW (yellow)
+    e.preventDefault();
     cta.classList.remove('card-cta-denied');
     cta.classList.add('card-cta-preview');
+    textEl.textContent = 'GAIN_PREVIEW';
     cta.dataset.state = '2';
-    // Restore dot to green
-    if (terminalDot) terminalDot.classList.remove('dot-yellow');
-    // Change logo to LONG variant with animation - CYAN color
+    // Dot turns to green (remove yellow)
+    if (terminalDot) {
+      terminalDot.classList.remove('dot-yellow');
+    }
+    // Change logo from SHORT to LONG variant with animation
     if (titleEl) {
       titleEl.innerHTML = `
         <svg viewBox="0 0 440 60" class="rtk-base-svg" style="width: 240px; height: auto; vertical-align: middle; margin-left: 4px;">
@@ -1150,31 +1154,41 @@ function handleNewProjectCTAClick(e) {
           <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
           <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
           <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
-          <!-- 2. Ścieżki → Porządek (łączy sieć z terminalem) -->
-          <path d="M 10 30 L 32 30" class="rtk-long-path" />
-          <!-- 3. Terminal (>_) -->
-          <text x="32" y="30" class="rtk-long-cmd">>_</text>
-          <!-- 4. Typing: cd resztatokod.pl -->
-          <text x="70" y="30" class="rtk-long-url">cd resztatokod.pl</text>
-          <!-- 5. Kursor (mruga) -->
+          <!-- 2. Linia przepływu (Process) -->
+          <path d="M 10 30 L 40 30" class="rtk-long-path" />
+          <!-- 3. Prompt (Static >_) -->
+          <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
+          <!-- 4. Wpisywana komenda (Typing "cd resztatokod.pl") -->
+          <text x="86" y="38" class="rtk-long-url" xml:space="preserve">cd resztatokod.pl</text>
+          <!-- 5. Kursor -->
           <g class="rtk-long-cursor-g">
-            <rect x="340" y="10" width="10" height="24" class="rtk-long-cursor" />
+            <rect x="86" y="16" width="14" height="26" class="rtk-long-cursor" />
           </g>
         </svg>
       `;
     }
-    console.log('🟡 CTA: GAIN_PREVIEW + LONG logo');
-  } else if (currentState === 2) {
-    // State 2: Open external link
-    window.open('https://resztatokod.pl', '_blank');
-    console.log('🔗 CTA: Opening resztatokod.pl');
+  } else if (state === 2) {
+    // GAIN_PREVIEW (yellow) -> Redirect to ResztaToKod.pl
+    cta.href = 'https://resztatokod.pl';
+    cta.target = '_blank';
+    // Allow default link behavior - will open in new tab
   }
 }
 
 // Unmount card content
 function unmountCardContent() {
   const titleEl = document.getElementById('card-title');
-  if (titleEl) titleEl.innerHTML = ''; // Use innerHTML to clear SVG too
+  if (titleEl) titleEl.innerHTML = '';
+
+  // Reset terminal dot color (remove yellow/red classes if present)
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  if (terminalDot) {
+    terminalDot.classList.remove('dot-yellow', 'dot-red');
+  }
+
+  // Reset media frame visibility
+  const mediaFrame = document.querySelector('.card-media-frame');
+  if (mediaFrame) mediaFrame.style.display = '';
 
   const logoEl = document.getElementById('card-logo');
   if (logoEl) {
