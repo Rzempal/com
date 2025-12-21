@@ -79,11 +79,11 @@ function openVideoModal() {
 function navigateToHub() {
   if (isNavigating) return;
   isNavigating = true;
-  
+
   console.log('📍 Navigating to Hub...');
-  
+
   const body = document.body;
-  
+
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
     // Fallback bez GSAP - extended fade
@@ -127,21 +127,21 @@ function navigateToHub() {
 // Ten kod będzie załadowany przez hub.html (separate page)
 function initBackButton() {
   const backBtn = document.getElementById('backButton');
-  
+
   if (!backBtn) {
     console.log('ℹ️ Back button not found (this is Gate page)');
     return;
   }
-  
+
   backBtn.addEventListener('click', () => navigateToGate());
-  
+
   backBtn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.code === 'Space') {
       e.preventDefault();
       navigateToGate();
     }
   });
-  
+
   console.log('✅ Back button initialized');
 }
 
@@ -149,11 +149,11 @@ function initBackButton() {
 function navigateToGate() {
   if (isNavigating) return;
   isNavigating = true;
-  
+
   console.log('🔙 Navigating back to Gate...');
-  
+
   const body = document.body;
-  
+
   if (!window.gsap) {
     console.warn('⚠️ GSAP not loaded, using fallback');
     // Fallback bez GSAP - extended fade
@@ -194,14 +194,14 @@ function navigateToGate() {
 // ========== PILLS LOGIC (FOR HUB PAGE) ==========
 function initPills() {
   const pills = document.querySelectorAll('.hub-pill');
-  
+
   if (pills.length === 0) {
     console.log('ℹ️ No pills found (this is Gate page)');
     return;
   }
-  
+
   let currentCard = null;
-  
+
   pills.forEach((pill) => {
     pill.addEventListener('click', () => {
       const cardId = pill.dataset.card;
@@ -209,7 +209,7 @@ function initPills() {
       showCard(cardId, currentCard);
       currentCard = document.getElementById(`hub-card-${cardId}`);
     });
-    
+
     pill.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.code === 'Space') {
         e.preventDefault();
@@ -219,7 +219,7 @@ function initPills() {
       }
     });
   });
-  
+
   console.log('✅ Pills initialized');
 }
 
@@ -481,7 +481,8 @@ function positionPills() {
   const pillOffsets = {
     'robotyka': { x: -52, y: -30 },    // up-left diagonal
     'aplikacje': { x: -52, y: -30 },   // up-left diagonal
-    'www': { x: 52, y: -30 }           // up-right diagonal
+    'www': { x: 52, y: -30 },          // up-right diagonal
+    'newproject': { x: -52, y: -30 }   // up-left diagonal (same as robotyka/aplikacje)
   };
 
   pills.forEach(pill => {
@@ -869,6 +870,11 @@ const cardData = {
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
   },
+  newproject: {
+    title: '', // Special: SVG logo injected by mountCardContent
+    logo: '', // No logo - headline instead
+    logoFallback: '',
+  },
 };
 
 // Detect desktop
@@ -1047,11 +1053,41 @@ function mountCardContent(id) {
 
   // Set title
   const titleEl = document.getElementById('card-title');
-  if (titleEl) titleEl.textContent = data.title;
+  if (titleEl) {
+    // Special case: newproject uses SVG logo instead of text title
+    if (id === 'newproject') {
+      // SVG SHORT sized proportionally to SYS:// - CYAN color to match theme
+      titleEl.innerHTML = `
+        <svg viewBox="0 0 110 40" class="rtk-logo-svg" style="width: 65px; height: auto; vertical-align: middle; margin-left: 4px;">
+          <circle cx="5" cy="15" r="2" fill="#00ffff" />
+          <circle cx="20" cy="5" r="2" fill="#00ffff" />
+          <circle cx="10" cy="30" r="2" fill="#00ffff" />
+          <line x1="5" y1="15" x2="20" y2="5" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="20" y1="5" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="5" y1="15" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
+          <path d="M 10 30 L 32 30" stroke="#00ffff" stroke-width="2" fill="none" />
+          <text x="32" y="30" fill="#00ffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
+          <rect x="68" y="8" width="14" height="26" fill="#00ffff" class="rtk-cursor-blink" />
+        </svg>
+      `;
+    } else {
+      titleEl.textContent = data.title;
+    }
+  }
 
-  // Set logo
+  // Handle terminal dot color for newproject (yellow = default/pending state)
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  if (terminalDot && id === 'newproject') {
+    terminalDot.classList.add('dot-yellow');
+  }
+
+  // Set logo (hide for newproject)
   const logoEl = document.getElementById('card-logo');
-  if (logoEl) {
+  const mediaFrame = document.querySelector('.card-media-frame');
+  if (id === 'newproject') {
+    // Hide logo section for newproject
+    if (mediaFrame) mediaFrame.style.display = 'none';
+  } else if (logoEl) {
     logoEl.src = data.logo;
     logoEl.alt = data.title;
     logoEl.onerror = () => {
@@ -1067,18 +1103,94 @@ function mountCardContent(id) {
     contentEl.appendChild(clone);
   }
 
+  // Setup CTA click sequence for newproject
+  if (id === 'newproject') {
+    setTimeout(() => {
+      const ctaEl = document.getElementById('newproject-cta');
+      if (ctaEl) {
+        ctaEl.addEventListener('click', handleNewProjectCTAClick);
+      }
+    }, 100);
+  }
+
   console.log(`📝 Content mounted for: ${id}`);
+}
+
+// Handle NewProject CTA click sequence
+function handleNewProjectCTAClick(e) {
+  e.preventDefault();
+  const cta = e.currentTarget;
+  const currentState = parseInt(cta.dataset.state || '0');
+  const ctaText = cta.querySelector('.cta-text');
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  const titleEl = document.getElementById('card-title');
+
+  if (currentState === 0) {
+    // State 0 → 1: ACCESS_MODUL → ACCESS_DENIED (red)
+    if (ctaText) ctaText.textContent = 'ACCESS_DENIED';
+    cta.classList.add('card-cta-denied');
+    cta.dataset.state = '1';
+    console.log('🔴 CTA: ACCESS_DENIED');
+  } else if (currentState === 1) {
+    // State 1 → 2: ACCESS_DENIED → GAIN_PREVIEW (yellow)
+    if (ctaText) ctaText.textContent = 'GAIN_PREVIEW';
+    cta.classList.remove('card-cta-denied');
+    cta.classList.add('card-cta-preview');
+    cta.dataset.state = '2';
+    // Restore dot to green
+    if (terminalDot) terminalDot.classList.remove('dot-yellow');
+    // Change logo to LONG variant with animation - CYAN color
+    if (titleEl) {
+      titleEl.innerHTML = `
+        <svg viewBox="0 0 440 60" class="rtk-base-svg" style="width: 240px; height: auto; vertical-align: middle; margin-left: 4px;">
+          <!-- 1. Sieć neuronowa (Chaos) -->
+          <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
+          <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
+          <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
+          <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
+          <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
+          <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
+          <!-- 2. Ścieżki → Porządek (łączy sieć z terminalem) -->
+          <path d="M 10 30 L 32 30" class="rtk-long-path" />
+          <!-- 3. Terminal (>_) -->
+          <text x="32" y="30" class="rtk-long-cmd">>_</text>
+          <!-- 4. Typing: cd resztatokod.pl -->
+          <text x="70" y="30" class="rtk-long-url">cd resztatokod.pl</text>
+          <!-- 5. Kursor (mruga) -->
+          <g class="rtk-long-cursor-g">
+            <rect x="340" y="10" width="10" height="24" class="rtk-long-cursor" />
+          </g>
+        </svg>
+      `;
+    }
+    console.log('🟡 CTA: GAIN_PREVIEW + LONG logo');
+  } else if (currentState === 2) {
+    // State 2: Open external link
+    window.open('https://resztatokod.pl', '_blank');
+    console.log('🔗 CTA: Opening resztatokod.pl');
+  }
 }
 
 // Unmount card content
 function unmountCardContent() {
   const titleEl = document.getElementById('card-title');
-  if (titleEl) titleEl.textContent = '';
+  if (titleEl) titleEl.innerHTML = ''; // Use innerHTML to clear SVG too
 
   const logoEl = document.getElementById('card-logo');
   if (logoEl) {
     logoEl.src = '';
     logoEl.alt = '';
+  }
+
+  // Reset media frame visibility (hidden for newproject)
+  const mediaFrame = document.querySelector('.card-media-frame');
+  if (mediaFrame) mediaFrame.style.display = '';
+
+  // Reset terminal dot color (remove yellow/red states)
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  if (terminalDot) {
+    terminalDot.classList.remove('dot-yellow');
+    terminalDot.classList.remove('dot-red');
   }
 
   const contentEl = document.getElementById('card-content');
