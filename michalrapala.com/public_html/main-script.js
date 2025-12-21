@@ -1196,6 +1196,17 @@ function unmountCardContent() {
     logoEl.alt = '';
   }
 
+  // Reset media frame visibility (hidden for newproject)
+  const mediaFrame = document.querySelector('.card-media-frame');
+  if (mediaFrame) mediaFrame.style.display = '';
+
+  // Reset terminal dot color (remove yellow/red states)
+  const terminalDot = document.querySelector('.card-terminal-dot');
+  if (terminalDot) {
+    terminalDot.classList.remove('dot-yellow');
+    terminalDot.classList.remove('dot-red');
+  }
+
   const contentEl = document.getElementById('card-content');
   if (contentEl) contentEl.innerHTML = '';
 }
