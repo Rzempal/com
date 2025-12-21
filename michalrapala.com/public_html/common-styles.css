@@ -1277,7 +1277,7 @@ body.card-open {
 /* ========== RTK LONG SVG Animation Styles ========== */
 .rtk-base-svg {
     fill: none;
-    stroke: #ffffff;
+    stroke: var(--accent);
     stroke-linecap: round;
     overflow: visible;
     display: block;
@@ -1285,7 +1285,7 @@ body.card-open {
 
 /* Animated nodes for LONG variant */
 .rtk-long-node {
-    fill: #fff;
+    fill: var(--accent);
     stroke: none;
     opacity: 0;
     animation: rtkFadeIn 0.5s ease-out forwards;
@@ -1331,7 +1331,7 @@ body.card-open {
 }
 
 .rtk-long-cmd {
-    fill: #fff;
+    fill: var(--accent);
     stroke: none;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
@@ -1341,7 +1341,7 @@ body.card-open {
 }
 
 .rtk-long-url {
-    fill: #fff;
+    fill: var(--accent);
     stroke: none;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
@@ -1355,7 +1355,7 @@ body.card-open {
 }
 
 .rtk-long-cursor {
-    fill: #fff;
+    fill: var(--accent);
     stroke: none;
     opacity: 0;
     animation: rtkBlink 1s step-end infinite 2.0s;
@@ -1397,41 +1397,34 @@ body.card-open {
     }
 }
 
-/* Card Headline (replaces logo for newproject) */
+/* Card Headline (same style as gate__title from index.html) */
 .card-headline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    margin-bottom: 1.5rem;
-    padding: 1.5rem 1rem;
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    background: rgba(0, 255, 255, 0.02);
-    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
-    transition: all 0.3s ease;
-    cursor: default;
-}
-
-.card-headline:hover {
-    border-color: rgba(0, 255, 255, 0.5);
-    background: rgba(0, 255, 255, 0.05);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-}
-
-.headline-text {
     font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--fg);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1.2;
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    transition: text-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-.card-headline:hover .headline-text {
-    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+.card-headline .line-1,
+.card-headline .line-2,
+.card-headline .line-3 {
+    display: block;
+    color: var(--fg);
+}
+
+/* "KOD" in cyan with glow */
+.card-headline .word-cyan {
+    color: var(--accent);
+    text-shadow: var(--glow-cyan);
+}
+
+/* "." in magenta with glow */
+.card-headline .dot-magenta {
+    color: var(--magenta);
+    text-shadow: var(--glow-magenta);
 }
 
 /* Terminal prefix SYS:// */
