@@ -1056,18 +1056,18 @@ function mountCardContent(id) {
   if (titleEl) {
     // Special case: newproject uses SVG logo instead of text title
     if (id === 'newproject') {
-      // SVG SHORT sized proportionally to SYS:// (viewBox 110x40 = 2.75:1 ratio)
+      // SVG SHORT sized proportionally to SYS:// (viewBox 110x40 = 2.75:1 ratio) - CYAN color
       titleEl.innerHTML = `
         <svg viewBox="0 0 110 40" class="rtk-logo-svg" style="width: 65px; height: auto; vertical-align: middle; margin-left: 4px;">
-          <circle cx="5" cy="15" r="2" fill="#ffffff" />
-          <circle cx="20" cy="5" r="2" fill="#ffffff" />
-          <circle cx="10" cy="30" r="2" fill="#ffffff" />
-          <line x1="5" y1="15" x2="20" y2="5" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
-          <line x1="20" y1="5" x2="10" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
-          <line x1="5" y1="15" x2="10" y2="30" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
-          <path d="M 10 30 L 32 30" stroke="#ffffff" stroke-width="2" fill="none" />
-          <text x="32" y="30" fill="#ffffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
-          <rect x="68" y="8" width="14" height="26" fill="#ffffff" class="rtk-cursor-blink" />
+          <circle cx="5" cy="15" r="2" fill="#00ffff" />
+          <circle cx="20" cy="5" r="2" fill="#00ffff" />
+          <circle cx="10" cy="30" r="2" fill="#00ffff" />
+          <line x1="5" y1="15" x2="20" y2="5" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="20" y1="5" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
+          <line x1="5" y1="15" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
+          <path d="M 10 30 L 32 30" stroke="#00ffff" stroke-width="2" fill="none" />
+          <text x="32" y="30" fill="#00ffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
+          <rect x="68" y="8" width="14" height="26" fill="#00ffff" class="rtk-cursor-blink" />
         </svg>
       `;
     } else {
