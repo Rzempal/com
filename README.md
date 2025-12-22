@@ -8,8 +8,8 @@ Strona główna oraz system subdomen prezentujący ofertę usług z obszaru auto
 
 - [michalrapala.com](https://michalrapala.com)
   - [robotyka.michalrapala.com](https://robotyka.michalrapala.com)
-  - [strony.michalrapala.com](https://strony.michalrapala.com)
-  - [michalrapala.app](https://michalrapala.app)
+- [twoja-strona.online](https://twoja-strona.online)
+- [michalrapala.app](https://michalrapala.app)
 
 ---
 
@@ -85,6 +85,7 @@ strony.michalrapala.com/
 
 **Opis:**  
 Strona startowa, która kieruje użytkownika do trzech głównych obszarów działalności:
+
 - Robotyka i symulacja procesów produkcyjnych
 - Dedykowane aplikacje webowe
 - Projektowanie nowoczesnych stron WWW
@@ -94,6 +95,7 @@ Strona startowa, która kieruje użytkownika do trzech głównych obszarów dzia
 ## 🤖 robotyka.michalrapala.com
 
 **Zakres usług:**
+
 - Symulacja procesów w środowisku Process Simulate
 - Programowanie offline robotów przemysłowych (KUKA, FANUC, ABB)
 - Automatyzacja stanowisk zorientowana na przemysł motoryzacyjny
@@ -106,6 +108,7 @@ Strona startowa, która kieruje użytkownika do trzech głównych obszarów dzia
 Platforma z dedykowanymi aplikacjami webowymi wspierającymi codzienną pracę i analizę danych.
 
 **Przykładowe zastosowania:**
+
 - Kalkulatory techniczne
 - Systemy rezerwacji
 - Narzędzia do przetwarzania i porównywania danych
@@ -118,6 +121,7 @@ Platforma z dedykowanymi aplikacjami webowymi wspierającymi codzienną pracę i
 Nowoczesne strony internetowe projektowane z myślą o estetyce, szybkości działania i konwersji użytkowników.
 
 **Funkcje:**
+
 - Responsywność
 - Intuicyjna nawigacja
 - Optymalizacja SEO i Core Web Vitals
@@ -126,7 +130,7 @@ Nowoczesne strony internetowe projektowane z myślą o estetyce, szybkości dzia
 
 ## ✉️ Kontakt
 
-📧 kontakt@michalrapala.com  
+📧 <kontakt@michalrapala.com>  
 🔗 [LinkedIn](https://www.linkedin.com/in/michalrapala)
 
 ---
