@@ -3,9 +3,76 @@
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
 
+
+// ========== TRANSLATIONS ==========
+const translations = {
+  pl: {
+    status: "STATUS: DOSTĘPNY // NOWE PROJEKTY",
+    robotyka_title: "Symulacje Robotyczne",
+    robotyka_desc: "> Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowe (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.",
+    aplikacje_title: "Aplikacje",
+    aplikacje_desc: "> Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding",
+    www_title: "Strony WWW",
+    www_desc: "> Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.",
+    new_project_title: "Nowy Projekt",
+    new_project_desc: " > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.",
+    enter_cta: "WEJDŹ",
+    access_denied: "DOSTĘP_ZABLOKOWANY",
+    gain_preview: "ZOBACZ_PODGLĄD"
+  },
+  en: {
+    status: "STATUS: AVAILABLE // OPEN FOR WORK",
+    robotyka_title: "Robotic Simulations",
+    robotyka_desc: "> Advanced simulation services for manufacturing processes and offline programming of industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.",
+    aplikacje_title: "Web Apps",
+    aplikacje_desc: "> I automate what shouldn't be done manually. Engineering web apps designed for specific business tasks. #vibecoding",
+    www_title: "Websites",
+    www_desc: "> I design modern and responsive websites that are your company's showcase. I focus on aesthetics, speed, and intuitive navigation.",
+    new_project_title: "New Project",
+    new_project_desc: " > Technology is no longer a barrier. It has become a lever for those who have a plan.",
+    enter_cta: "ENTER",
+    access_denied: "ACCESS_DENIED",
+    gain_preview: "GAIN_PREVIEW"
+  }
+};
+
 // ========== STATE ==========
 let isNavigating = false;
 let resizeDebounceTimer = null;
+let currentLang = localStorage.getItem('lang') || 'pl';
+
+// ========== LANGUAGE FUNCTIONS ==========
+function selectLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  updateContent();
+
+  // If on index.html (Gate), navigate to Hub after selection
+  if (document.querySelector('.gate__enter')) {
+    navigateToHub();
+  }
+}
+
+function updateContent() {
+  const t = translations[currentLang];
+
+  // Update elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) {
+      el.textContent = t[key];
+    }
+  });
+
+  // Update Toggle Button Text
+  const toggleText = document.querySelector('#lang-toggle .lang-text');
+  if (toggleText) {
+    toggleText.textContent = currentLang === 'pl' ? 'EN' : 'PL';
+  }
+}
+
+// Global expose for onclick
+window.selectLanguage = selectLanguage;
 
 // ========== REDUCED MOTION CHECK ==========
 function prefersReducedMotion() {
@@ -1129,7 +1196,7 @@ function handleNewProjectCTAClick(e) {
     // ACCESS_MODUL (cyan) -> ACCESS_DENIED (red)
     e.preventDefault();
     cta.classList.add('card-cta-denied');
-    textEl.textContent = 'DOSTĘP_ZABLOKOWANY';
+    textEl.textContent = translations[currentLang].access_denied;
     cta.dataset.state = '1';
     // Dot stays yellow
   } else if (state === 1) {
@@ -1137,7 +1204,7 @@ function handleNewProjectCTAClick(e) {
     e.preventDefault();
     cta.classList.remove('card-cta-denied');
     cta.classList.add('card-cta-preview');
-    textEl.textContent = 'ZOBACZ_PODGLĄD';
+    textEl.textContent = translations[currentLang].gain_preview;
     cta.dataset.state = '2';
     // Dot turns to green (remove yellow)
     if (terminalDot) {
@@ -1370,11 +1437,27 @@ function disableDrag() {
 }
 
 // Event listeners for card sheet
+
+// ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
+  // Set initial language from storage
+  if (typeof updateContent === 'function') {
+    updateContent();
+  }
+
   // Backdrop click
   const backdrop = document.getElementById('card-backdrop');
   if (backdrop) {
     backdrop.addEventListener('click', closeCard);
+  }
+
+  // Hub specific: Add toggle listener
+  const toggle = document.getElementById('lang-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const newLang = currentLang === 'pl' ? 'en' : 'pl';
+      selectLanguage(newLang);
+    });
   }
 
   // Close button

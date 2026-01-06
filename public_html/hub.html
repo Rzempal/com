@@ -36,6 +36,9 @@
         <div class="cyber-nav-content">
             <!-- Left: Social Links -->
             <div class="cyber-nav-links">
+                <button class="cyber-nav-link lang-toggle" id="lang-toggle" aria-label="Switch Language">
+                    <span class="lang-text" style="font-size: 0.7rem; font-weight: bold;">EN</span>
+                </button>
                 <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer"
                     class="cyber-nav-link" title="LinkedIn">
                     <i class="fab fa-linkedin"></i>
@@ -52,7 +55,7 @@
             <!-- Right: Status -->
             <div class="cyber-nav-status">
                 <span class="status-dot"></span>
-                <span class="status-text">Otwarty na nowe projekty.</span>
+                <span class="status-text" data-i18n="status">Otwarty na nowe projekty.</span>
             </div>
         </div>
     </nav>
@@ -488,36 +491,36 @@
     <!-- ========== HIDDEN TEMPLATES (card content) ========== -->
     <template id="template-robotyka">
         <div class="card-body">
-            <p class="card-lead">
-                > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych
+            <p class="card-lead" data-i18n="robotyka_desc">
+                > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowe
                 (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
             </p>
             <a href="https://robotyka.michalrapala.com" class="card-cta">
-                <span class="cta-text">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
+                <span class="cta-text" data-i18n="enter_cta">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
             </a>
         </div>
     </template>
 
     <template id="template-aplikacje">
         <div class="card-body">
-            <p class="card-lead">
+            <p class="card-lead" data-i18n="aplikacje_desc">
                 > Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych
                 zadań biznesowych. #vibecoding
             </p>
             <a href="https://michalrapala.app" class="card-cta">
-                <span class="cta-text">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
+                <span class="cta-text" data-i18n="enter_cta">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
             </a>
         </div>
     </template>
 
     <template id="template-www">
         <div class="card-body">
-            <p class="card-lead">
+            <p class="card-lead" data-i18n="www_desc">
                 > Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się
                 na estetyce, szybkości działania i intuicyjnej nawigacji.
             </p>
             <a href="https://twoja-strona.online" class="card-cta">
-                <span class="cta-text">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
+                <span class="cta-text" data-i18n="enter_cta">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
             </a>
         </div>
     </template>
@@ -531,10 +534,11 @@
                 <span class="line-3">KROKIEM<span class="dot-magenta">.</span></span>
             </h1>
             <p class="card-lead">
-                > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
+                <span data-i18n="new_project_desc"> > Technologia przestała być barierą. Stała się dźwignią dla tych,
+                    którzy mają plan.</span>
             </p>
             <a href="#" class="card-cta" id="newproject-cta" data-state="0">
-                <span class="cta-text">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
+                <span class="cta-text" data-i18n="enter_cta">WEJDŹ</span><span class="cta-cursor cursor-blink">_</span>
             </a>
         </div>
     </template>

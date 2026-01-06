@@ -235,8 +235,15 @@ body::before {
 
 /* ========== CURSOR BLINK ========== */
 @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .cursor-blink {
@@ -473,6 +480,15 @@ button {
 }
 
 /* Cyber Button */
+/* Button Container */
+.gate__buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .gate__enter,
 .btn-cyber {
     display: inline-flex;
@@ -506,6 +522,17 @@ button {
 .btn-cyber-primary:hover {
     background: var(--magenta);
     box-shadow: var(--glow-magenta);
+}
+
+/* English Variant (Magenta default, Cyan hover) */
+.gate__enter--en {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
+}
+
+.gate__enter--en:hover {
+    background: var(--accent);
+    box-shadow: var(--glow-cyan);
 }
 
 .btn-cyber-secondary {
