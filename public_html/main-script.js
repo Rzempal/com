@@ -861,7 +861,7 @@ const cardData = {
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
   },
   aplikacje: {
-    title: 'Aplikacje webowe',
+    title: 'Aplikacje',
     logo: 'assets/images/global/logo_app.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje',
   },
@@ -1129,7 +1129,7 @@ function handleNewProjectCTAClick(e) {
     // ACCESS_MODUL (cyan) -> ACCESS_DENIED (red)
     e.preventDefault();
     cta.classList.add('card-cta-denied');
-    textEl.textContent = 'ACCESS_DENIED';
+    textEl.textContent = 'DOSTĘP_ZABLOKOWANY_';
     cta.dataset.state = '1';
     // Dot stays yellow
   } else if (state === 1) {
@@ -1137,7 +1137,7 @@ function handleNewProjectCTAClick(e) {
     e.preventDefault();
     cta.classList.remove('card-cta-denied');
     cta.classList.add('card-cta-preview');
-    textEl.textContent = 'GAIN_PREVIEW';
+    textEl.textContent = 'ZOBACZ_PODGLĄD_';
     cta.dataset.state = '2';
     // Dot turns to green (remove yellow)
     if (terminalDot) {
