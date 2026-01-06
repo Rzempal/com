@@ -1129,7 +1129,7 @@ function handleNewProjectCTAClick(e) {
     // ACCESS_MODUL (cyan) -> ACCESS_DENIED (red)
     e.preventDefault();
     cta.classList.add('card-cta-denied');
-    textEl.textContent = 'DOSTĘP_ZABLOKOWANY_';
+    textEl.textContent = 'DOSTĘP_ZABLOKOWANY';
     cta.dataset.state = '1';
     // Dot stays yellow
   } else if (state === 1) {
@@ -1137,7 +1137,7 @@ function handleNewProjectCTAClick(e) {
     e.preventDefault();
     cta.classList.remove('card-cta-denied');
     cta.classList.add('card-cta-preview');
-    textEl.textContent = 'ZOBACZ_PODGLĄD_';
+    textEl.textContent = 'ZOBACZ_PODGLĄD';
     cta.dataset.state = '2';
     // Dot turns to green (remove yellow)
     if (terminalDot) {
