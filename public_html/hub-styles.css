@@ -1,4 +1,4 @@
-/* hub-styles.css v0.040 – fixed card heights + PCB visibility */
+/* hub-styles.css v0.041 – desktop vertical scroll layout + PCB fix */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -851,12 +851,50 @@ body {
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 50vh;
+    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: var(--header-height);
     background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 15, 0.95) 100%);
+}
+
+/* Scroll indicator */
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    opacity: 0.7;
+    animation: scrollBounce 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.hero-scroll-indicator:hover {
+    opacity: 1;
+}
+
+.hero-scroll-indicator span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.hero-scroll-indicator i {
+    font-size: 1.5rem;
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
 }
 
 /* ========== TWO PILLARS SECTION ========== */
@@ -867,7 +905,9 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 4rem 2rem;
+    min-height: 60vh;
+    align-content: center;
 }
 
 .pillar {

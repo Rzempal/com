@@ -1,4 +1,4 @@
-// main-script.js v0.102 – Stacked card carousel mobile + PCB fix
+// main-script.js v0.103 – Desktop vertical scroll + PCB pills fix
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -258,23 +258,25 @@ function fadeInPage() {
 // ========== DYNAMIC PILLS POSITIONING ==========
 function positionPills() {
   const svg = document.querySelector('.hub-mesh');
+  const pillsContainer = document.querySelector('.hub-pills-container');
   const pills = document.querySelectorAll('.hub-pill');
 
-  if (!svg || pills.length === 0) {
+  if (!svg || !pillsContainer || pills.length === 0) {
     return;
   }
 
-  const svgRect = svg.getBoundingClientRect();
+  // Get container dimensions (pills are positioned relative to this)
+  const containerRect = pillsContainer.getBoundingClientRect();
   const viewBox = svg.viewBox.baseVal;
 
   // Calculate scale (preserveAspectRatio="xMidYMid meet" uses min scale)
-  const scaleX = svgRect.width / viewBox.width;
-  const scaleY = svgRect.height / viewBox.height;
+  const scaleX = containerRect.width / viewBox.width;
+  const scaleY = containerRect.height / viewBox.height;
   const scale = Math.min(scaleX, scaleY);
 
-  // Calculate offset for centering SVG
-  const offsetX = (svgRect.width - viewBox.width * scale) / 2;
-  const offsetY = (svgRect.height - viewBox.height * scale) / 2;
+  // Calculate offset for centering SVG within container
+  const offsetX = (containerRect.width - viewBox.width * scale) / 2;
+  const offsetY = (containerRect.height - viewBox.height * scale) / 2;
 
   // Diagonal offsets for each pill (60 deg angle from vertical)
   const pillOffsets = {
@@ -296,11 +298,12 @@ function positionPills() {
 
     const offset = pillOffsets[cardId] || { x: 0, y: -60 };
 
-    const screenX = svgRect.left + offsetX + ((nodeX + offset.x) * scale);
-    const screenY = svgRect.top + offsetY + ((nodeY + offset.y) * scale);
+    // Position relative to container (not viewport)
+    const posX = offsetX + ((nodeX + offset.x) * scale);
+    const posY = offsetY + ((nodeY + offset.y) * scale);
 
-    pill.style.left = `${screenX}px`;
-    pill.style.top = `${screenY}px`;
+    pill.style.left = `${posX}px`;
+    pill.style.top = `${posY}px`;
   });
 
   console.log('📍 Pills positioned dynamically (scale:', scale.toFixed(3), ')');
@@ -1189,3 +1192,76 @@ function initPillarsCarousel() {
 
   console.log('✅ Pillars carousel initialized');
 }
+
+// ========== SCROLL INDICATOR ==========
+function initScrollIndicator() {
+  const indicator = document.getElementById('scrollIndicator');
+  const pillarsSection = document.getElementById('twoPillars');
+
+  if (!indicator || !pillarsSection) return;
+
+  indicator.addEventListener('click', () => {
+    pillarsSection.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Hide indicator when scrolled past hero
+  const hideOnScroll = () => {
+    const scrollY = window.scrollY;
+    const heroHeight = window.innerHeight * 0.5;
+
+    if (scrollY > heroHeight) {
+      indicator.style.opacity = '0';
+      indicator.style.pointerEvents = 'none';
+    } else {
+      indicator.style.opacity = '0.7';
+      indicator.style.pointerEvents = 'auto';
+    }
+  };
+
+  window.addEventListener('scroll', hideOnScroll, { passive: true });
+  console.log('✅ Scroll indicator initialized');
+}
+
+// ========== SCROLL REVEAL ANIMATIONS ==========
+function initScrollReveal() {
+  if (!window.gsap) return;
+
+  const gsap = window.gsap;
+
+  // Elements to reveal on scroll
+  const pillars = document.querySelectorAll('.pillar');
+  const pcbSection = document.querySelector('.pcb-showcase');
+
+  // Simple intersection observer for reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+
+        // Animate pillars
+        if (entry.target.classList.contains('pillar')) {
+          gsap.fromTo(entry.target,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+          );
+        }
+
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  // Observe pillars
+  pillars.forEach(pillar => {
+    pillar.style.opacity = '0';
+    revealObserver.observe(pillar);
+  });
+
+  console.log('✅ Scroll reveal initialized');
+}
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollIndicator();
+  initScrollReveal();
+});
