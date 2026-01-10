@@ -1,4 +1,4 @@
-/* hub-styles.css v0.038 – two pillars landing section */
+/* hub-styles.css v0.039 – stacked card carousel mobile + PCB fix */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -1100,26 +1100,134 @@ body {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
 }
 
-/* Mobile: Stack pillars */
+/* ========== MOBILE: STACKED CARD CAROUSEL ========== */
 @media (max-width: 900px) {
     .two-pillars {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        display: block;
+        position: relative;
         padding: 1rem;
+        padding-bottom: 3rem; /* Space for dots */
+        min-height: 480px;
     }
 
     .pillar {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
         padding: 1rem;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.5s ease;
+        cursor: pointer;
+        will-change: transform, opacity;
+    }
+
+    /* Active card (front) */
+    .pillar.stack-active {
+        z-index: 3;
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+
+    /* Second card (behind) */
+    .pillar.stack-next {
+        z-index: 2;
+        transform: scale(0.95) translateY(15px);
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    /* Hidden cards */
+    .pillar.stack-hidden {
+        z-index: 1;
+        transform: scale(0.9) translateY(30px);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Card exit animation (swipe out) */
+    .pillar.stack-exiting {
+        z-index: 4;
+        transform: translateX(-110%) rotate(-5deg);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.3s ease;
     }
 
     .pillar-headline-text {
         font-size: clamp(1.3rem, 5vw, 2rem);
     }
+
+    /* Navigation dots */
+    .pillars-nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    .pillars-nav-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.3);
+        border: 1px solid var(--accent);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .pillars-nav-dot:hover {
+        background: rgba(0, 255, 255, 0.5);
+    }
+
+    .pillars-nav-dot.active {
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent);
+        transform: scale(1.2);
+    }
+
+    /* Progress bar on active dot */
+    .pillars-nav-dot.active::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        border-top-color: var(--magenta);
+        animation: dotProgress 4s linear forwards;
+    }
+
+    @keyframes dotProgress {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+}
+
+/* Desktop: ensure nav dots hidden */
+@media (min-width: 901px) {
+    .pillars-nav {
+        display: none;
+    }
+
+    .pillar {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+    }
 }
 
 /* PCB Showcase section adjustments */
 .pcb-showcase {
-    min-height: 80vh;
+    height: auto;
+    min-height: 100vh;
+    aspect-ratio: 1 / 1;
+    max-height: 100vw;
 }
 
 /* ========== REDUCED MOTION ========== */

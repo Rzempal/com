@@ -1,4 +1,4 @@
-// main-script.js v0.101 – Two pillars section with studio CTA sequence
+// main-script.js v0.102 – Stacked card carousel mobile + PCB fix
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -1041,5 +1041,151 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize pillar CTA
   initPillarStudioCTA();
 
+  // Initialize stacked carousel (mobile only)
+  initPillarsCarousel();
+
   console.log('✅ Card sheet listeners initialized');
 });
+
+// ========== STACKED CARD CAROUSEL (MOBILE) ==========
+let carouselInterval = null;
+let currentPillarIndex = 0;
+const CAROUSEL_DELAY = 4000; // 4 seconds
+
+function initPillarsCarousel() {
+  const pillars = document.querySelectorAll('.pillar');
+  const dots = document.querySelectorAll('.pillars-nav-dot');
+
+  if (pillars.length < 2) return;
+
+  // Check if mobile
+  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+
+  // Set initial state
+  function setInitialState() {
+    if (!isMobile()) {
+      // Desktop: remove all stack classes
+      pillars.forEach(p => {
+        p.classList.remove('stack-active', 'stack-next', 'stack-hidden', 'stack-exiting');
+      });
+      stopCarousel();
+      return;
+    }
+
+    // Mobile: set stack positions
+    updateStackPositions();
+    startCarousel();
+  }
+
+  // Update stack positions based on currentPillarIndex
+  function updateStackPositions() {
+    pillars.forEach((pillar, index) => {
+      pillar.classList.remove('stack-active', 'stack-next', 'stack-hidden', 'stack-exiting');
+
+      if (index === currentPillarIndex) {
+        pillar.classList.add('stack-active');
+      } else if (index === (currentPillarIndex + 1) % pillars.length) {
+        pillar.classList.add('stack-next');
+      } else {
+        pillar.classList.add('stack-hidden');
+      }
+    });
+
+    // Update dots
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentPillarIndex);
+    });
+  }
+
+  // Go to specific slide
+  function goToSlide(index, animate = true) {
+    if (!isMobile()) return;
+
+    const prevIndex = currentPillarIndex;
+    if (index === prevIndex) return;
+
+    if (animate) {
+      // Add exit animation to current card
+      const currentCard = pillars[prevIndex];
+      currentCard.classList.add('stack-exiting');
+
+      // After exit animation, update positions
+      setTimeout(() => {
+        currentPillarIndex = index;
+        updateStackPositions();
+      }, 400);
+    } else {
+      currentPillarIndex = index;
+      updateStackPositions();
+    }
+
+    // Reset timer
+    restartCarousel();
+  }
+
+  // Next slide
+  function nextSlide() {
+    const next = (currentPillarIndex + 1) % pillars.length;
+    goToSlide(next);
+  }
+
+  // Start auto-rotation
+  function startCarousel() {
+    if (carouselInterval) return;
+    carouselInterval = setInterval(() => {
+      if (isMobile()) {
+        nextSlide();
+      }
+    }, CAROUSEL_DELAY);
+  }
+
+  // Stop auto-rotation
+  function stopCarousel() {
+    if (carouselInterval) {
+      clearInterval(carouselInterval);
+      carouselInterval = null;
+    }
+  }
+
+  // Restart timer
+  function restartCarousel() {
+    stopCarousel();
+    if (isMobile()) {
+      startCarousel();
+    }
+  }
+
+  // Click on card to advance
+  pillars.forEach((pillar, index) => {
+    pillar.addEventListener('click', (e) => {
+      if (!isMobile()) return;
+
+      // Don't advance if clicking on CTA
+      if (e.target.closest('.pillar-cta')) return;
+
+      // If clicking active card, go to next
+      if (pillar.classList.contains('stack-active')) {
+        nextSlide();
+      }
+    });
+  });
+
+  // Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      goToSlide(index);
+    });
+  });
+
+  // Handle resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setInitialState, 150);
+  });
+
+  // Initialize
+  setInitialState();
+
+  console.log('✅ Pillars carousel initialized');
+}
