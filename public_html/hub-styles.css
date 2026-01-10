@@ -1,4 +1,4 @@
-/* hub-styles.css v0.039 – stacked card carousel mobile + PCB fix */
+/* hub-styles.css v0.040 – fixed card heights + PCB visibility */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -1106,8 +1106,8 @@ body {
         display: block;
         position: relative;
         padding: 1rem;
-        padding-bottom: 3rem; /* Space for dots */
-        min-height: 480px;
+        padding-bottom: 3.5rem; /* Space for dots */
+        height: 520px; /* Fixed height for carousel */
     }
 
     .pillar {
@@ -1115,12 +1115,47 @@ body {
         top: 1rem;
         left: 1rem;
         right: 1rem;
-        padding: 1rem;
+        height: calc(100% - 4rem); /* Fixed height, account for padding + dots */
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
         transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                     opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                     box-shadow 0.5s ease;
         cursor: pointer;
         will-change: transform, opacity;
+    }
+
+    /* Image container - fixed height on mobile */
+    .pillar-media {
+        height: 160px;
+        flex-shrink: 0;
+        aspect-ratio: auto;
+    }
+
+    /* Headline container - fixed height to match image */
+    .pillar-headline {
+        height: 160px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Description - flex to fill remaining space */
+    .pillar-desc {
+        flex: 1;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+    }
+
+    /* CTA at bottom */
+    .pillar-cta {
+        flex-shrink: 0;
+        align-self: center;
+        margin-top: auto;
     }
 
     /* Active card (front) */
@@ -1133,15 +1168,15 @@ body {
     /* Second card (behind) */
     .pillar.stack-next {
         z-index: 2;
-        transform: scale(0.95) translateY(15px);
-        opacity: 0.7;
+        transform: scale(0.95) translateY(12px);
+        opacity: 0.6;
         pointer-events: none;
     }
 
     /* Hidden cards */
     .pillar.stack-hidden {
         z-index: 1;
-        transform: scale(0.9) translateY(30px);
+        transform: scale(0.9) translateY(24px);
         opacity: 0;
         pointer-events: none;
     }
@@ -1156,7 +1191,8 @@ body {
     }
 
     .pillar-headline-text {
-        font-size: clamp(1.3rem, 5vw, 2rem);
+        font-size: clamp(1.4rem, 6vw, 2rem);
+        text-align: center;
     }
 
     /* Navigation dots */
@@ -1165,15 +1201,16 @@ body {
         justify-content: center;
         gap: 0.75rem;
         position: absolute;
-        bottom: 1rem;
+        bottom: 0.75rem;
         left: 50%;
         transform: translateX(-50%);
         z-index: 10;
     }
 
     .pillars-nav-dot {
-        width: 10px;
-        height: 10px;
+        position: relative;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
         background: rgba(0, 255, 255, 0.3);
         border: 1px solid var(--accent);
@@ -1191,15 +1228,15 @@ body {
         transform: scale(1.2);
     }
 
-    /* Progress bar on active dot */
+    /* Progress ring on active dot */
     .pillars-nav-dot.active::after {
         content: '';
         position: absolute;
-        inset: -3px;
+        inset: -4px;
         border-radius: 50%;
         border: 2px solid transparent;
         border-top-color: var(--magenta);
-        animation: dotProgress 4s linear forwards;
+        animation: dotProgress 4s linear infinite;
     }
 
     @keyframes dotProgress {
@@ -1224,10 +1261,12 @@ body {
 
 /* PCB Showcase section adjustments */
 .pcb-showcase {
-    height: auto;
-    min-height: 100vh;
-    aspect-ratio: 1 / 1;
-    max-height: 100vw;
+    /* Square aspect ratio based on viewport */
+    width: 100%;
+    height: 100vmin;
+    min-height: 100vmin;
+    max-width: 100vmin;
+    margin: 0 auto;
 }
 
 /* ========== REDUCED MOTION ========== */
