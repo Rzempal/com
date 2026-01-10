@@ -795,6 +795,57 @@ body {
     }
 }
 
+/* ========== HERO OVERLAY (unified layout) ========== */
+.hero-overlay {
+    position: absolute;
+    top: calc(var(--header-height) + 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    text-align: center;
+    pointer-events: none;
+    width: 90%;
+    max-width: min(100vw, 100vh);
+}
+
+.hero-overlay .gate__tag {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.hero-overlay .gate__title {
+    margin-bottom: 1rem;
+}
+
+.hero-overlay .gate__subtitle {
+    margin-bottom: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Mobile: smaller hero */
+@media (max-width: 768px) {
+    .hero-overlay {
+        top: calc(var(--header-height) + 1rem);
+    }
+
+    .hero-overlay .gate__title {
+        font-size: 2rem;
+    }
+
+    .hero-overlay .gate__subtitle {
+        font-size: 0.8rem;
+    }
+}
+
+/* Desktop: larger hero */
+@media (min-width: 1025px) {
+    .hero-overlay {
+        top: calc(var(--header-height) + 3rem);
+    }
+}
+
 /* ========== REDUCED MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
     .center-pad,

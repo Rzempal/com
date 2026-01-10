@@ -1,6 +1,7 @@
-<!-- index.html v0.021 – Cyberpunk: Neon colors, glitch effects, terminal style -->
+<!-- index.html v0.100 – Unified gate+hub: single page, faster UX -->
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,178 +22,273 @@
     <!-- ========== STYLESHEETS ========== -->
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="common-styles.css">
+    <link rel="stylesheet" href="hub-styles.css">
     <link rel="stylesheet" href="main-animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Grid Background -->
     <div class="grid-bg"></div>
 
-    <!-- ========== GATE: Ekran Wejściowy ========== -->
-    <section id="gate" class="gate" aria-label="Wejście do strony">
-        <div class="gate__container">
-            <!-- SVG Circuit Board Background (Cyberpunk Neon) -->
-            <svg class="gate__mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <!-- ========== CYBERPUNK NAVBAR ========== -->
+    <nav class="cyber-nav">
+        <div class="cyber-nav-content">
+            <!-- Left: Social Links -->
+            <div class="cyber-nav-links">
+                <button class="cyber-nav-link lang-toggle" id="lang-toggle" aria-label="Switch Language">
+                    <span class="lang-text" style="font-size: 0.7rem; font-weight: bold;">EN</span>
+                </button>
+                <a href="https://www.linkedin.com/in/michal-rapala" target="_blank" rel="noopener noreferrer"
+                    class="cyber-nav-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/Rzempal" target="_blank" rel="noopener noreferrer" class="cyber-nav-link"
+                    title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <button class="cyber-nav-link email-copy-btn" title="Kopiuj email"
+                    data-email="kontakt@michalrapala.com">
+                    <i class="fas fa-envelope"></i>
+                </button>
+            </div>
+
+            <!-- Right: Status -->
+            <div class="cyber-nav-status">
+                <span class="status-dot"></span>
+                <span class="status-text" data-i18n="hub_status">>_OTWARTY NA NOWE PROJEKTY_</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HUB CONTAINER ========== -->
+    <div class="hub-wrapper">
+
+        <!-- Neural Mesh Background + Hero + Pills -->
+        <section class="hub-mesh-section" id="hubMeshSection">
+
+            <!-- Hero Content (overlay on PCB) -->
+            <div class="hero-overlay">
+                <!-- Tag -->
+                <span class="gate__tag" data-reveal>Engineer // Developer</span>
+
+                <!-- Title with Glitch -->
+                <h1 class="gate__title" data-reveal>
+                    <span class="line-1">Michal</span>
+                    <span class="line-2 glitch" data-text="Rapala">Rapala</span>
+                    <span class="line-3">.com</span>
+                </h1>
+
+                <p class="gate__subtitle" data-reveal>
+                    Symulacje robotyczne. Aplikacje. Strony internetowe.<br>
+                    Jack into the digital world where code meets creativity.
+                </p>
+            </div>
+
+            <!-- SVG Circuit Board Background -->
+            <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <defs>
                     <linearGradient id="meshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style="stop-color: #00ffff; stop-opacity: 0.4" />
                         <stop offset="100%" style="stop-color: #ff00ff; stop-opacity: 0.2" />
                     </linearGradient>
 
-                    <!-- Filter for Neon Glow -->
+                    <!-- Filter for Glow -->
                     <filter id="glow">
-                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                         <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
 
-                    <!-- Filter for STRONG Neon Glow -->
+                    <!-- Filter for STRONG Glow (Flash Lines) -->
                     <filter id="glowStrong">
-                        <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                        <feGaussianBlur stdDeviation="6" result="coloredBlur" />
                         <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
 
-                    <!-- Solder Mask Texture -->
+                    <!-- Gradients for Connector Lines (node to pill fade) -->
+                    <linearGradient id="connectorGradient1" x1="500" y1="500" x2="448" y2="470"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
+                    </linearGradient>
+
+                    <linearGradient id="connectorGradient2" x1="350" y1="750" x2="298" y2="720"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
+                    </linearGradient>
+
+                    <linearGradient id="connectorGradient3" x1="450" y1="750" x2="502" y2="720"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
+                    </linearGradient>
+
+                    <!-- Gradient for Studio connector (node 850, 350) - 60deg diagonal up-left -->
+                    <linearGradient id="connectorGradient4" x1="850" y1="350" x2="798" y2="320"
+                        gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#00ffff" stop-opacity="0.7" />
+                        <stop offset="100%" stop-color="#00ffff" stop-opacity="0.2" />
+                    </linearGradient>
+
+                    <!-- Solder Mask Texture (subtle green-teal overlay) -->
                     <filter id="solderMask">
                         <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" />
-                        <feColorMatrix in="noise" type="saturate" values="0.05" result="desaturatedNoise"/>
+                        <feColorMatrix in="noise" type="saturate" values="0.05" result="desaturatedNoise" />
                         <feComponentTransfer in="desaturatedNoise" result="opacity">
                             <feFuncA type="table" tableValues="0 0.03" />
                         </feComponentTransfer>
                         <feBlend in="SourceGraphic" in2="opacity" mode="overlay" />
                     </filter>
 
-                    <!-- Ground Plane Pattern (neon cyan) -->
+                    <!-- Ground Plane Pattern (hatched copper fill) -->
                     <pattern id="groundPlane" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <rect width="20" height="20" fill="none"/>
-                        <path d="M 0 0 L 20 20 M 20 0 L 0 20" stroke="#00ffff" stroke-width="0.5" opacity="0.15"/>
+                        <rect width="20" height="20" fill="none" />
+                        <path d="M 0 0 L 20 20 M 20 0 L 0 20" stroke="#00ffff" stroke-width="0.5" opacity="0.15" />
                     </pattern>
                 </defs>
 
                 <!-- PCB Substrate (deep black - cyberpunk) -->
-                <rect x="0" y="0" width="1000" height="1000" fill="#0a0a0f" opacity="0.9"/>
+                <rect x="0" y="0" width="1000" height="1000" fill="#0a0a0f" opacity="0.9" />
 
                 <!-- Zone Fills (Ground Planes) - Background layer -->
                 <g class="zone-fills" opacity="0.3" filter="url(#solderMask)">
                     <!-- Top-left ground zone -->
-                    <rect x="30" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#00ffff" stroke-width="0.5" opacity="0.2" rx="5"/>
+                    <rect x="30" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#00ffff"
+                        stroke-width="0.5" opacity="0.2" rx="5" />
 
                     <!-- Top-right ground zone -->
-                    <rect x="570" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#00ffff" stroke-width="0.5" opacity="0.2" rx="5"/>
+                    <rect x="570" y="30" width="400" height="300" fill="url(#groundPlane)" stroke="#00ffff"
+                        stroke-width="0.5" opacity="0.2" rx="5" />
 
                     <!-- Bottom ground zone -->
-                    <rect x="30" y="670" width="940" height="300" fill="url(#groundPlane)" stroke="#00ffff" stroke-width="0.5" opacity="0.2" rx="5"/>
+                    <rect x="30" y="670" width="940" height="300" fill="url(#groundPlane)" stroke="#00ffff"
+                        stroke-width="0.5" opacity="0.2" rx="5" />
                 </g>
 
                 <!-- Circuit Board Traces (PCB paths) - Variable width for realism -->
-                <g class="circuit-traces" stroke="url(#meshGradient)" fill="none" opacity="0.5" stroke-linecap="round" filter="url(#solderMask)">
+                <g class="circuit-traces" stroke="url(#meshGradient)" fill="none" opacity="0.5" stroke-linecap="round"
+                    filter="url(#solderMask)">
                     <!-- Power traces (thicker - 4.5px) -->
-                    <path class="circuit-trace power-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2" stroke-width="4.5" /><!-- horizontal -->
-                    <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5" stroke-width="4.5" /><!-- vertical -->
+                    <path class="circuit-trace power-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2"
+                        stroke-width="4.5" />
+                    <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5"
+                        stroke-width="4.5" />
 
                     <!-- Signal traces (medium - 3px) -->
-                    <path class="circuit-trace signal-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1" stroke-width="3" /><!-- horizontal -->
-                    <path class="circuit-trace signal-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6" stroke-width="3" /><!-- vertical -->
+                    <path class="circuit-trace signal-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1"
+                        stroke-width="3" />
+                    <path class="circuit-trace signal-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6"
+                        stroke-width="3" />
 
                     <!-- Thin signal traces (2px) -->
-                    <path class="circuit-trace signal-trace-thin" d="M 50 150 L 300 150 L 350 200 L 650 200" data-index="0" stroke-width="2" /><!-- horizontal -->
-                    <path class="circuit-trace signal-trace-thin" d="M 50 700 L 350 700 L 400 750 L 750 750" data-index="3" stroke-width="2" /><!-- horizontal -->
-                    <path class="circuit-trace signal-trace-thin" d="M 200 50 L 200 400 L 250 450 L 250 850" data-index="4" stroke-width="2.5" /><!-- vertical -->
+                    <path class="circuit-trace signal-trace-thin" d="M 50 150 L 300 150 L 350 200 L 650 200"
+                        data-index="0" stroke-width="2" />
+                    <path class="circuit-trace signal-trace-thin" d="M 50 700 L 350 700 L 400 750 L 750 750"
+                        data-index="3" stroke-width="2" />
+                    <path class="circuit-trace signal-trace-thin" d="M 200 50 L 200 400 L 250 450 L 250 850"
+                        data-index="4" stroke-width="2.5" />
 
                     <!-- Curved/angled traces (decorative - thin) -->
-                    <path class="circuit-trace decorative-trace" d="M 100 100 Q 300 100 400 250 T 600 400" data-index="7" stroke-width="2" />
-                    <path class="circuit-trace decorative-trace" d="M 800 200 Q 700 300 650 450 T 500 650" data-index="8" stroke-width="2" />
-                    <path class="circuit-trace decorative-trace" d="M 300 800 Q 500 750 700 700 T 900 600" data-index="9" stroke-width="2" />
+                    <path class="circuit-trace decorative-trace" d="M 100 100 Q 300 100 400 250 T 600 400"
+                        data-index="7" stroke-width="2" />
+                    <path class="circuit-trace decorative-trace" d="M 800 200 Q 700 300 650 450 T 500 650"
+                        data-index="8" stroke-width="2" />
+                    <path class="circuit-trace decorative-trace" d="M 300 800 Q 500 750 700 700 T 900 600"
+                        data-index="9" stroke-width="2" />
                 </g>
 
                 <!-- Mounting Holes (4 corners for PCB mounting) -->
                 <g class="mounting-holes">
-                    <!-- Top-left -->
-                    <circle cx="60" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
-                    <circle cx="60" cy="60" r="8" fill="#0a1120" opacity="0.9"/>
-
-                    <!-- Top-right -->
-                    <circle cx="940" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
-                    <circle cx="940" cy="60" r="8" fill="#0a1120" opacity="0.9"/>
-
-                    <!-- Bottom-left -->
-                    <circle cx="60" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
-                    <circle cx="60" cy="940" r="8" fill="#0a1120" opacity="0.9"/>
-
-                    <!-- Bottom-right -->
-                    <circle cx="940" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6"/>
-                    <circle cx="940" cy="940" r="8" fill="#0a1120" opacity="0.9"/>
+                    <circle cx="60" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
+                    <circle cx="60" cy="60" r="8" fill="#0a1120" opacity="0.9" />
+                    <circle cx="940" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
+                    <circle cx="940" cy="60" r="8" fill="#0a1120" opacity="0.9" />
+                    <circle cx="60" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
+                    <circle cx="60" cy="940" r="8" fill="#0a1120" opacity="0.9" />
+                    <circle cx="940" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
+                    <circle cx="940" cy="940" r="8" fill="#0a1120" opacity="0.9" />
                 </g>
 
                 <!-- Via Holes (plated through-holes at junction points) -->
                 <g class="via-holes">
-                    <!-- Vias at key junction pads -->
-                    <circle cx="150" cy="150" r="3" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="300" cy="150" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="350" cy="200" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="650" cy="200" r="3" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="450" cy="350" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="850" cy="350" r="3" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="500" cy="500" r="4" fill="#0a1120" opacity="0.8"/>
-                    <circle cx="550" cy="500" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="550" cy="550" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="250" cy="450" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="800" cy="400" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="400" cy="750" r="2.5" fill="#0a1120" opacity="0.7"/>
-                    <circle cx="450" cy="750" r="3" fill="#0a1120" opacity="0.8"/>
-                    <circle cx="550" cy="850" r="3" fill="#0a1120" opacity="0.8"/>
+                    <circle cx="150" cy="150" r="3" fill="#0a1120" opacity="0.7" />
+                    <circle cx="300" cy="150" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="350" cy="200" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="650" cy="200" r="3" fill="#0a1120" opacity="0.7" />
+                    <circle cx="450" cy="350" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="850" cy="350" r="3" fill="#0a1120" opacity="0.7" />
+                    <circle cx="500" cy="500" r="4" fill="#0a1120" opacity="0.8" />
+                    <circle cx="550" cy="500" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="550" cy="550" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="250" cy="450" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="800" cy="400" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="400" cy="750" r="2.5" fill="#0a1120" opacity="0.7" />
+                    <circle cx="450" cy="750" r="3" fill="#0a1120" opacity="0.8" />
+                    <circle cx="550" cy="850" r="3" fill="#0a1120" opacity="0.8" />
                 </g>
 
                 <!-- SMD Components (Resistors & Capacitors) -->
                 <g class="smd-components">
-                    <!-- Resistors (0805 size - 8x5 units) -->
                     <g class="resistor" data-ref="R1">
-                        <rect x="270" y="147" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="280" y="142" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R1</text>
+                        <rect x="270" y="147" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="1" />
+                        <text x="280" y="142" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">R1</text>
                     </g>
                     <g class="resistor" data-ref="R2">
-                        <rect x="370" y="297" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="380" y="292" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R2</text>
+                        <rect x="370" y="297" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="1" />
+                        <text x="380" y="292" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">R2</text>
                     </g>
                     <g class="resistor" data-ref="R3">
-                        <rect x="720" y="347" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="730" y="342" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R3</text>
+                        <rect x="720" y="347" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="1" />
+                        <text x="730" y="342" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">R3</text>
                     </g>
                     <g class="resistor" data-ref="R4">
-                        <rect x="220" y="447" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="1"/>
-                        <text x="230" y="442" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">R4</text>
+                        <rect x="220" y="447" width="20" height="6" fill="#1a2332" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="1" />
+                        <text x="230" y="442" font-size="6" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">R4</text>
                     </g>
-
-                    <!-- Capacitors (0603 size - 6x3 units) -->
                     <g class="capacitor" data-ref="C1">
-                        <rect x="120" y="148" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="127" y="144" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C1</text>
+                        <rect x="120" y="148" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="0.5" />
+                        <text x="127" y="144" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">C1</text>
                     </g>
                     <g class="capacitor" data-ref="C2">
-                        <rect x="420" y="347" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="427" y="343" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C2</text>
+                        <rect x="420" y="347" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="0.5" />
+                        <text x="427" y="343" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">C2</text>
                     </g>
                     <g class="capacitor" data-ref="C3">
-                        <rect x="580" y="520" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="587" y="516" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C3</text>
+                        <rect x="580" y="520" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="0.5" />
+                        <text x="587" y="516" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">C3</text>
                     </g>
                     <g class="capacitor" data-ref="C4">
-                        <rect x="320" y="747" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5" opacity="0.8" rx="0.5"/>
-                        <text x="327" y="743" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle" font-family="monospace">C4</text>
+                        <rect x="320" y="747" width="15" height="4" fill="#2a3545" stroke="#00ffff" stroke-width="0.5"
+                            opacity="0.8" rx="0.5" />
+                        <text x="327" y="743" font-size="5" fill="#00ffff" opacity="0.5" text-anchor="middle"
+                            font-family="monospace">C4</text>
                     </g>
                 </g>
 
                 <!-- Connection Pads (vias/pads at intersections) -->
                 <g class="circuit-pads" fill="#00ffff" stroke="#00ffff" stroke-width="1.5" opacity="0.7">
-                    <!-- Pads at key positions -->
                     <circle class="circuit-pad" cx="150" cy="150" r="8" data-pad="0" />
                     <circle class="circuit-pad" cx="300" cy="150" r="6" data-pad="1" />
                     <circle class="circuit-pad" cx="350" cy="200" r="6" data-pad="2a" />
@@ -210,83 +306,83 @@
                     <circle class="circuit-pad" cx="800" cy="400" r="6" data-pad="7a" />
                     <circle class="circuit-pad" cx="250" cy="750" r="6" data-pad="8" />
                     <circle class="circuit-pad" cx="400" cy="750" r="6" data-pad="8a" />
-                    <circle class="circuit-pad" cx="550" cy="850" r="8" data-pad="9a" />
                     <circle class="circuit-pad" cx="450" cy="750" r="8" data-pad="9" />
+                    <circle class="circuit-pad" cx="550" cy="850" r="8" data-pad="9a" />
 
-                    <!-- Pills connection points (matching Hub pill positions - enhanced like central pad) -->
-                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-1" />
-                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-2" />
-                    <circle class="circuit-pad pill-pad" cx="450" cy="750" r="12" filter="url(#glow)" opacity="0.9" data-pad="pill-3" />
+                    <!-- Pills connection points -->
+                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9"
+                        data-pad="pill-1" />
+                    <circle class="circuit-pad pill-pad" cx="350" cy="750" r="12" filter="url(#glow)" opacity="0.9"
+                        data-pad="pill-2" />
+                    <circle class="circuit-pad pill-pad" cx="450" cy="750" r="12" filter="url(#glow)" opacity="0.9"
+                        data-pad="pill-3" />
+                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9"
+                        data-pad="pill-4" />
                 </g>
 
-                <!-- Pill Connection Lines (hidden - only used on Hub) -->
-                <g class="pill-connection-lines" stroke="#00ffff" stroke-width="4" fill="none" opacity="0" stroke-linecap="round" style="display: none;">
-                    <!-- Line to Pill 1 (Robotyka - 500, 500 - horizontal trace through center) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 150 500 L 500 500" filter="url(#glowStrong)" />
+                <!-- Permanent Connector Lines (pills to nodes, always visible) -->
+                <g class="pill-connectors" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="8 4"
+                    opacity="0.7">
+                    <line class="pill-connector pill-connector-1" x1="500" y1="500" x2="448" y2="470"
+                        stroke="url(#connectorGradient1)" />
+                    <line class="pill-connector pill-connector-2" x1="350" y1="750" x2="298" y2="720"
+                        stroke="url(#connectorGradient2)" />
+                    <line class="pill-connector pill-connector-3" x1="450" y1="750" x2="502" y2="720"
+                        stroke="url(#connectorGradient3)" />
+                    <line class="pill-connector pill-connector-4" x1="850" y1="350" x2="798" y2="320"
+                        stroke="url(#connectorGradient4)" />
+                </g>
 
-                    <!-- Line to Pill 2 (Aplikacje - 850, 350 - horizontal trace to top-right) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 500 350 L 850 350" filter="url(#glowStrong)" />
-
-                    <!-- Line to Pill 3 (WWW - 450, 750 - follows trace 4 (vertical) then trace 3 (horizontal)) -->
-                    <path id="pill-line-www" class="pill-line" d="M 200 50 L 200 400 L 250 450 L 250 700 L 350 700 L 400 750 L 450 750" filter="url(#glowStrong)" />
+                <!-- Pill Connection Lines (hidden by default, flash on click) -->
+                <g class="pill-connection-lines" stroke="#00ffff" stroke-width="6" fill="none" stroke-linecap="round">
+                    <path id="pill-line-robotyka-left" class="pill-line" d="M 150 500 L 500 500"
+                        filter="url(#glowStrong)" opacity="0" />
+                    <path id="pill-line-robotyka-right" class="pill-line" d="M 900 550 L 550 550 L 500 500"
+                        filter="url(#glowStrong)" opacity="0" />
+                    <path id="pill-line-aplikacje" class="pill-line" d="M 50 700 L 250 700 L 300 750 L 350 750"
+                        filter="url(#glowStrong)" opacity="0" />
+                    <path id="pill-line-www" class="pill-line"
+                        d="M 200 50 L 200 400 L 250 450 L 250 700 L 350 700 L 400 750 L 450 750"
+                        filter="url(#glowStrong)" opacity="0" />
+                    <path id="pill-line-studio" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350"
+                        filter="url(#glowStrong)" opacity="0" />
                 </g>
 
                 <!-- Central Pad (main junction) -->
-                <circle cx="500" cy="500" r="12" fill="#00ffff" stroke="#00ffff" stroke-width="2" filter="url(#glow)" opacity="0.9" class="center-pad"/>
-                <circle cx="500" cy="500" r="18" fill="none" stroke="#00ffff" stroke-width="1.5" opacity="0.5" class="center-pad-ring"/>
+                <circle cx="500" cy="500" r="12" fill="#00ffff" stroke="#00ffff" stroke-width="2" filter="url(#glow)"
+                    opacity="0.9" class="center-pad" />
+                <circle cx="500" cy="500" r="18" fill="none" stroke="#00ffff" stroke-width="1.5" opacity="0.5"
+                    class="center-pad-ring" />
 
-                <!-- Silk Screen Layer (white markings - professional PCB annotations) -->
+                <!-- Silk Screen Layer -->
                 <g class="silk-screen" fill="#ffffff" opacity="0.8" font-family="monospace">
-                    <!-- Test Points (TP) - locations where technicians can probe signals -->
                     <g class="test-points">
-                        <!-- TP1: Robotyka node -->
                         <text x="510" y="520" font-size="8" font-weight="600">TP1</text>
-
-                        <!-- TP2: Aplikacje node -->
                         <text x="860" y="365" font-size="8" font-weight="600">TP2</text>
-
-                        <!-- TP3: WWW node -->
                         <text x="460" y="765" font-size="8" font-weight="600">TP3</text>
                     </g>
-
-                    <!-- Component Reference Designators (already added earlier as R1-R4, C1-C4) -->
-
-                    <!-- Jumper designation at central pad -->
                     <g class="jumpers">
                         <text x="470" y="490" font-size="7" opacity="0.6">JP1</text>
                     </g>
-
-                    <!-- Board Information (bottom-right corner) -->
                     <g class="board-info">
-                        <!-- Board version and designer mark -->
                         <text x="850" y="970" font-size="9" font-weight="700" letter-spacing="1">MR PCB</text>
                         <text x="900" y="985" font-size="7" opacity="0.7">v1.0</text>
-
-                        <!-- Copyright -->
                         <text x="50" y="985" font-size="6" opacity="0.6">© 2025</text>
                     </g>
-
-                    <!-- Functional labels near mounting holes -->
                     <g class="mounting-labels">
                         <text x="75" y="65" font-size="6" opacity="0.5">H1</text>
                         <text x="920" y="65" font-size="6" opacity="0.5">H2</text>
                         <text x="75" y="945" font-size="6" opacity="0.5">H3</text>
                         <text x="920" y="945" font-size="6" opacity="0.5">H4</text>
                     </g>
-
-                    <!-- Pin 1 indicators (small dots showing orientation) -->
                     <g class="pin-indicators">
-                        <circle cx="268" cy="147" r="1.5" fill="#ffffff" opacity="0.6"/>
-                        <circle cx="368" cy="297" r="1.5" fill="#ffffff" opacity="0.6"/>
+                        <circle cx="268" cy="147" r="1.5" fill="#ffffff" opacity="0.6" />
+                        <circle cx="368" cy="297" r="1.5" fill="#ffffff" opacity="0.6" />
                     </g>
-
-                    <!-- Polarity marks for capacitors -->
                     <g class="polarity-marks">
                         <text x="113" y="152" font-size="8" opacity="0.5">+</text>
                         <text x="413" y="351" font-size="8" opacity="0.5">+</text>
                     </g>
-
-                    <!-- Zone boundary labels -->
                     <g class="zone-labels">
                         <text x="40" y="50" font-size="7" opacity="0.5">GND</text>
                         <text x="580" y="50" font-size="7" opacity="0.5">GND</text>
@@ -294,53 +390,117 @@
                     </g>
                 </g>
             </svg>
-            
-            <!-- Treść Gate (Cyberpunk) -->
-            <div class="gate__content">
-                <!-- Status Bar -->
-                <div class="gate__status" data-reveal>
-                    <span class="gate__status-dot"></span>
-                    <span class="gate__status-text">System Online // v2.025</span>
-                </div>
 
-                <!-- Tag -->
-                <span class="gate__tag" data-reveal>Engineer // Developer</span>
-
-                <!-- Title with Glitch -->
-                <h1 class="gate__title" data-reveal>
-                    <span class="line-1">Michal</span>
-                    <span class="line-2 glitch" data-text="Rapala">Rapala</span>
-                    <span class="line-3">.com</span>
-                </h1>
-
-                <p class="gate__subtitle" data-reveal>
-                    Symulacje robotyczne. Aplikacje webowe. Strony internetowe.<br>
-                    Jack into the digital world where code meets creativity.
-                </p>
-
-                <button class="gate__enter" aria-label="Wejdź na stronę">
-                    <span class="pill-text">Initialize_</span>
+            <!-- Pills Container -->
+            <div class="hub-pills-container">
+                <button class="hub-pill hub-pill-1" data-card="robotyka" data-neuron="2" data-node-x="500"
+                    data-node-y="500" aria-label="Robotyka">
+                    <span class="pill-text" data-i18n="pill_robotyka">Robotyka_</span>
+                </button>
+                <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="350"
+                    data-node-y="750" aria-label="Aplikacje">
+                    <span class="pill-text" data-i18n="pill_apps">Apps_</span>
+                </button>
+                <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750"
+                    aria-label="Strony WWW">
+                    <span class="pill-text" data-i18n="pill_www">WWW_</span>
+                </button>
+                <button class="hub-pill hub-pill-4" data-card="studio" data-neuron="5" data-node-x="850"
+                    data-node-y="350" aria-label="Studio">
+                    <span class="pill-text" data-i18n="pill_studio">STUDIO_</span>
                 </button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ========== VIDEO MODAL ========== -->
-    <div id="videoModal" class="video-modal" hidden>
-        <div class="video-modal-backdrop"></div>
-        <div class="video-modal-content">
-            <button class="video-modal-close" aria-label="Zamknij video">
-                <i class="fas fa-times"></i>
-            </button>
-            <video id="introVideo" class="video-player" controls>
-                <source src="assets/movies/AI_intro.mp4" type="video/mp4">
-                Twoja przeglądarka nie wspiera odtwarzania wideo.
-            </video>
-        </div>
     </div>
+
+    <!-- ========== CARD BACKDROP ========== -->
+    <div id="card-backdrop" class="card-backdrop" hidden></div>
+
+    <!-- ========== CARD SHEET ========== -->
+    <aside id="card-sheet" class="card-sheet" role="dialog" aria-modal="true" aria-labelledby="card-title" hidden>
+        <div class="card-scanlines" aria-hidden="true"></div>
+        <div class="card-corner card-corner-tl" aria-hidden="true"></div>
+        <div class="card-corner card-corner-br" aria-hidden="true"></div>
+
+        <header class="card-topbar">
+            <button class="card-close" aria-label="Zamknij" title="Zamknij (Esc)">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="card-terminal-header">
+                <span class="card-terminal-dot"></span>
+                <span class="card-terminal-prefix">SYS://</span>
+                <h2 id="card-title" class="card-title"></h2>
+            </div>
+        </header>
+
+        <div class="card-media">
+            <div class="card-media-frame">
+                <img id="card-logo" class="card-logo-img" alt="" />
+            </div>
+        </div>
+
+        <div id="card-content" class="card-content"></div>
+    </aside>
+
+    <!-- ========== HIDDEN TEMPLATES ========== -->
+    <template id="template-robotyka">
+        <div class="card-body">
+            <p class="card-lead" data-i18n="robotyka_desc">
+                > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych
+                (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+            </p>
+            <a href="https://robotyka.michalrapala.com" class="card-cta">
+                <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+            </a>
+        </div>
+    </template>
+
+    <template id="template-aplikacje">
+        <div class="card-body">
+            <p class="card-lead" data-i18n="aplikacje_desc">
+                > Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych
+                zadań biznesowych. #vibecoding
+            </p>
+            <a href="https://michalrapala.app" class="card-cta">
+                <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+            </a>
+        </div>
+    </template>
+
+    <template id="template-www">
+        <div class="card-body">
+            <p class="card-lead" data-i18n="www_desc">
+                > Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się
+                na estetyce, szybkości działania i intuicyjnej nawigacji.
+            </p>
+            <a href="https://twoja-strona.online" class="card-cta">
+                <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+            </a>
+        </div>
+    </template>
+
+    <template id="template-studio">
+        <div class="card-body">
+            <h1 class="card-headline">
+                <span class="line-1" data-i18n-html="headline_line1"><span class="word-cyan glitch"
+                        data-text="KOD">KOD</span> JEST</span>
+                <span class="line-2" data-i18n="headline_line2">OSTATNIM</span>
+                <span class="line-3" data-i18n-html="headline_line3">KROKIEM<span class="dot-magenta">.</span></span>
+            </h1>
+            <p class="card-lead">
+                <span data-i18n="studio_desc"> > Technologia przestała być barierą. Stała się dźwignią dla tych,
+                    którzy mają plan.</span>
+            </p>
+            <a href="#" class="card-cta" id="studio-cta" data-state="0">
+                <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+            </a>
+        </div>
+    </template>
 
     <!-- ========== SCRIPTS ========== -->
     <script defer src="main-script.js"></script>
 
 </body>
+
 </html>
