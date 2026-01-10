@@ -341,7 +341,12 @@
                 <!-- Status Bar -->
                 <div class="gate__status" data-reveal>
                     <span class="gate__status-dot"></span>
-                    <span class="gate__status-text">STATUS: DOSTĘPNY // NOWE PROJEKTY</span>
+                    <span class="gate__status-text">
+                        <span class="status-lang status-lang--pl">STATUS // OTWARTY <span
+                                class="status-highlight">NA</span> NOWE PROJEKTY</span>
+                        <span class="status-lang status-lang--en">STATUS // OPEN <span
+                                class="status-highlight">FOR</span> NEW PROJECT</span>
+                    </span>
                 </div>
 
                 <!-- Tag -->
@@ -359,13 +364,14 @@
                     Jack into the digital world where code meets creativity.
                 </p>
 
-                <div class="gate__buttons">
-                    <button class="gate__enter" onclick="selectLanguage('pl')" aria-label="Wejdź na stronę (PL)">
-                        <span class="pill-text">OTWÓRZ<span class="cursor-blink">_</span></span>
+                <div class="gate__buttons" id="gateButtons">
+                    <button class="gate__enter gate__enter--pl" onclick="selectLanguage('pl')"
+                        aria-label="Wejdź na stronę (PL)" data-lang="pl">
+                        <span class="pill-text">ROZPOCZNIJ<span class="cursor-blink">_</span></span>
                     </button>
                     <button class="gate__enter gate__enter--en" onclick="selectLanguage('en')"
-                        aria-label="Enter site (EN)">
-                        <span class="pill-text">Initialize<span class="cursor-blink">_</span></span>
+                        aria-label="Enter site (EN)" data-lang="en">
+                        <span class="pill-text">INITIALIZE<span class="cursor-blink">_</span></span>
                     </button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<!-- hub.html v0.039 – Close button moved inside topbar for flex alignment -->
+<!-- hub.html v0.040 – Email copy button replaces mailto link -->
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -47,15 +47,16 @@
                     title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="mailto:kontakt@michalrapala.com" class="cyber-nav-link" title="Email">
+                <button class="cyber-nav-link email-copy-btn" title="Kopiuj email"
+                    data-email="kontakt@michalrapala.com">
                     <i class="fas fa-envelope"></i>
-                </a>
+                </button>
             </div>
 
             <!-- Right: Status -->
             <div class="cyber-nav-status">
                 <span class="status-dot"></span>
-                <span class="status-text" data-i18n="status">Otwarty na nowe projekty.</span>
+                <span class="status-text" data-i18n="hub_status">OTWARTY NA NOWE PROJEKTY </span>
             </div>
         </div>
     </nav>
@@ -430,25 +431,25 @@
                 <!-- Pill 1: Robotyka (Center - pinned to node 500, 500) -->
                 <button class="hub-pill hub-pill-1" data-card="robotyka" data-neuron="2" data-node-x="500"
                     data-node-y="500" aria-label="Robotyka">
-                    <span class="pill-text">Robotyka_</span>
+                    <span class="pill-text" data-i18n="pill_robotyka">Robotyka_</span>
                 </button>
 
                 <!-- Pill 2: Aplikacje (Bottom-Left - pinned to node 350, 750) -->
                 <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="350"
                     data-node-y="750" aria-label="Aplikacje">
-                    <span class="pill-text">Apps_</span>
+                    <span class="pill-text" data-i18n="pill_apps">Apps_</span>
                 </button>
 
                 <!-- Pill 3: Strony (Bottom-Center - pinned to node 450, 750) -->
                 <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750"
                     aria-label="Strony WWW">
-                    <span class="pill-text">WWW_</span>
+                    <span class="pill-text" data-i18n="pill_www">WWW_</span>
                 </button>
 
                 <!-- Pill 4: NewProject (Top-Right - pinned to node 850, 350) -->
                 <button class="hub-pill hub-pill-4" data-card="newproject" data-neuron="5" data-node-x="850"
                     data-node-y="350" aria-label="New Project">
-                    <span class="pill-text">NewProject_</span>
+                    <span class="pill-text" data-i18n="pill_newproject">NOWY_ROZDZIAŁ_</span>
                 </button>
             </div>
         </section>
@@ -529,9 +530,10 @@
         <div class="card-body">
             <!-- Main headline in gate__title style -->
             <h1 class="card-headline">
-                <span class="line-1"><span class="word-cyan glitch" data-text="KOD">KOD</span> JEST</span>
-                <span class="line-2">OSTATNIM</span>
-                <span class="line-3">KROKIEM<span class="dot-magenta">.</span></span>
+                <span class="line-1" data-i18n-html="headline_line1"><span class="word-cyan glitch"
+                        data-text="KOD">KOD</span> JEST</span>
+                <span class="line-2" data-i18n="headline_line2">OSTATNIM</span>
+                <span class="line-3" data-i18n-html="headline_line3">KROKIEM<span class="dot-magenta">.</span></span>
             </h1>
             <p class="card-lead">
                 <span data-i18n="new_project_desc"> > Technologia przestała być barierą. Stała się dźwignią dla tych,

@@ -1,4 +1,4 @@
-// main-script.js v0.054 – Revert card animation speed (desktop: 1.2s, mobile: 0.5s)
+// main-script.js v0.055 – Email copy button, badge padding alignment
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -8,6 +8,7 @@
 const translations = {
   pl: {
     status: "STATUS: DOSTĘPNY // NOWE PROJEKTY",
+    hub_status: ">_OTWARTY NA NOWE PROJEKTY_",
     robotyka_title: "Symulacje Robotyczne",
     robotyka_desc: "> Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowe (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.",
     aplikacje_title: "Aplikacje",
@@ -18,10 +19,18 @@ const translations = {
     new_project_desc: " > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.",
     enter_cta: "WEJDŹ",
     access_denied: "DOSTĘP_ZABLOKOWANY",
-    gain_preview: "ZOBACZ_PODGLĄD"
+    gain_preview: "ZOBACZ_PODGLĄD",
+    pill_robotyka: "Robotyka_",
+    pill_apps: "Apps_",
+    pill_www: "WWW_",
+    pill_newproject: "NOWY_ROZDZIAŁ_",
+    headline_line1: '<span class="word-cyan glitch" data-text="KOD">KOD</span> JEST',
+    headline_line2: "OSTATNIM",
+    headline_line3: 'KROKIEM<span class="dot-magenta">.</span>'
   },
   en: {
     status: "STATUS: AVAILABLE // OPEN FOR WORK",
+    hub_status: ">_OPEN FOR NEW PROJECT_____",
     robotyka_title: "Robotic Simulations",
     robotyka_desc: "> Advanced simulation services for manufacturing processes and offline programming of industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.",
     aplikacje_title: "Web Apps",
@@ -32,7 +41,14 @@ const translations = {
     new_project_desc: " > Technology is no longer a barrier. It has become a lever for those who have a plan.",
     enter_cta: "ENTER",
     access_denied: "ACCESS_DENIED",
-    gain_preview: "GAIN_PREVIEW"
+    gain_preview: "GAIN_PREVIEW",
+    pill_robotyka: "Robotics_",
+    pill_apps: "Apps_",
+    pill_www: "WWW_",
+    pill_newproject: "COMMING_SOON_",
+    headline_line1: '<span class="word-cyan glitch" data-text="CODE">CODE</span> IS THE',
+    headline_line2: "FINAL",
+    headline_line3: 'STEP<span class="dot-magenta">.</span>'
   }
 };
 
@@ -56,7 +72,7 @@ function selectLanguage(lang) {
 function updateContent() {
   const t = translations[currentLang];
 
-  // Update elements with data-i18n attribute
+  // Update elements with data-i18n attribute (text content)
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key]) {
@@ -64,10 +80,18 @@ function updateContent() {
     }
   });
 
-  // Update Toggle Button Text
+  // Update elements with data-i18n-html attribute (HTML content)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key]) {
+      el.innerHTML = t[key];
+    }
+  });
+
+  // Update Toggle Button Text (shows current language)
   const toggleText = document.querySelector('#lang-toggle .lang-text');
   if (toggleText) {
-    toggleText.textContent = currentLang === 'pl' ? 'EN' : 'PL';
+    toggleText.textContent = currentLang.toUpperCase();
   }
 }
 
@@ -81,15 +105,17 @@ function prefersReducedMotion() {
 
 // ========== GATE: INICJALIZACJA ==========
 function initGate() {
-  const enterBtn = document.querySelector('.gate__enter');
+  const enterBtnPl = document.querySelector('.gate__enter--pl');
+  const enterBtnEn = document.querySelector('.gate__enter--en');
   const gateLogo = document.getElementById('gateLogo');
+  const gateButtons = document.getElementById('gateButtons');
+  const statusLangPl = document.querySelector('.status-lang--pl');
+  const statusLangEn = document.querySelector('.status-lang--en');
 
-  if (!enterBtn) {
-    console.error('❌ Gate enter button not found');
+  if (!enterBtnPl && !enterBtnEn) {
+    console.error('❌ Gate enter buttons not found');
     return;
   }
-
-  enterBtn.addEventListener('click', () => navigateToHub());
 
   // Logo click - open video modal
   if (gateLogo) {
@@ -104,6 +130,34 @@ function initGate() {
       navigateToHub();
     }
   });
+
+  // ========== CTA HOVER: Badge Language Sync + Button Color Swap ==========
+  // Only INITIALIZE_ (EN button) hover triggers language switch
+  if (enterBtnEn && statusLangPl && statusLangEn) {
+    // Hover on INITIALIZE_ (EN) - switch badge to EN + swap button colors
+    enterBtnEn.addEventListener('mouseenter', () => {
+      // Badge language switch
+      statusLangPl.style.display = 'none';
+      statusLangEn.style.display = 'inline';
+
+      // Button color swap (add class to trigger CSS)
+      if (enterBtnPl) enterBtnPl.classList.add('is-hovered');
+      if (enterBtnEn) enterBtnEn.classList.add('is-hovered');
+    });
+
+    // Mouse leave from INITIALIZE_ - revert to PL + reset button colors
+    enterBtnEn.addEventListener('mouseleave', () => {
+      // Badge language revert
+      statusLangPl.style.display = 'inline';
+      statusLangEn.style.display = 'none';
+
+      // Button color reset
+      if (enterBtnPl) enterBtnPl.classList.remove('is-hovered');
+      if (enterBtnEn) enterBtnEn.classList.remove('is-hovered');
+    });
+
+    console.log('✅ Badge language sync (EN hover only) + button color swap initialized');
+  }
 
   console.log('✅ Gate initialized');
 }
@@ -1472,6 +1526,20 @@ document.addEventListener('DOMContentLoaded', () => {
       closeCard();
     }
   });
+
+  // Email copy button (navbar) - copy email to clipboard instead of mailto:
+  const emailCopyBtn = document.querySelector('.email-copy-btn');
+  if (emailCopyBtn) {
+    emailCopyBtn.addEventListener('click', () => {
+      const email = emailCopyBtn.dataset.email;
+      copyToClipboard(email).then(() => {
+        showCopyFeedback();
+        console.log('📧 Email copied to clipboard');
+      }).catch(err => {
+        console.error('❌ Failed to copy email:', err);
+      });
+    });
+  }
 
   console.log('✅ Card sheet listeners initialized');
 });

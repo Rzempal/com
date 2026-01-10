@@ -516,23 +516,87 @@ button {
     color: var(--bg);
     background: var(--accent);
     box-shadow: var(--glow-cyan);
+    transition: all 0.3s ease;
 }
 
-.gate__enter:hover,
-.btn-cyber-primary:hover {
+/* Polish Variant (Magenta default, Cyan hover) */
+.gate__enter--pl {
     background: var(--magenta);
     box-shadow: var(--glow-magenta);
 }
 
-/* English Variant (Magenta default, Cyan hover) */
+/* English Variant (Cyan default, Magenta hover) */
 .gate__enter--en {
-    background: var(--magenta);
-    box-shadow: var(--glow-magenta);
-}
-
-.gate__enter--en:hover {
     background: var(--accent);
     box-shadow: var(--glow-cyan);
+}
+
+/* Synchronized hover animation - triggered by JS adding .is-hovered class */
+/* Polish button hover: animated pulse magenta -> cyan -> magenta */
+.gate__enter--pl:hover {
+    animation: plButtonPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes plButtonPulse {
+
+    0%,
+    100% {
+        background: var(--magenta);
+        box-shadow: var(--glow-magenta);
+    }
+
+    50% {
+        background: var(--accent);
+        box-shadow: var(--glow-cyan);
+    }
+}
+
+/* When EN is hovered, PL also changes (via JS .is-hovered class) */
+.gate__enter--pl.is-hovered {
+    background: var(--accent);
+    box-shadow: var(--glow-cyan);
+    animation: none;
+}
+
+.gate__enter--en.is-hovered,
+.gate__enter--en:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
+}
+
+/* Active/pressed state */
+.gate__enter--pl:active {
+    background: var(--accent);
+    box-shadow: var(--glow-cyan-strong);
+    animation: none;
+}
+
+.gate__enter--en:active {
+    background: var(--magenta);
+    box-shadow: 0 0 20px var(--magenta), 0 0 40px var(--magenta), 0 0 60px var(--magenta);
+}
+
+/* ========== STATUS BADGE LANGUAGE SWITCH ========== */
+.status-lang {
+    display: none;
+}
+
+.status-lang--pl {
+    display: inline;
+}
+
+/* Badge language switch handled by JavaScript (mouseenter/mouseleave on .gate__buttons) */
+
+/* Status highlight (NA/FOR) - code block style */
+.status-highlight {
+    display: inline-block;
+    padding: 0.1em 0.4em;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: 0.05em;
 }
 
 .btn-cyber-secondary {
