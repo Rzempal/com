@@ -1,4 +1,4 @@
-/* hub-styles.css v0.037 – slower status center animation (1.2s) */
+/* hub-styles.css v0.038 – two pillars landing section */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -277,9 +277,10 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100svh;
+    min-height: 100svh;
     background-color: var(--bg);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* ========== HUB MESH SECTION (Pills + Neural Mesh Background) ========== */
@@ -844,6 +845,281 @@ body {
     .hero-overlay {
         top: calc(var(--header-height) + 3rem);
     }
+}
+
+/* ========== HERO SECTION ========== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--header-height);
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 15, 0.95) 100%);
+}
+
+/* ========== TWO PILLARS SECTION ========== */
+.two-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.pillar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 15, 25, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 1.5rem;
+    /* Cyberpunk corner cuts */
+    clip-path: polygon(
+        0 20px, 20px 0, 100% 0, 100% calc(100% - 20px),
+        calc(100% - 20px) 100%, 0 100%
+    );
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar:hover {
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+}
+
+.pillar-studio:hover {
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+}
+
+/* Pillar Header */
+.pillar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+}
+
+.pillar-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.pillar-dot-yellow {
+    background: var(--yellow);
+    box-shadow: 0 0 10px var(--yellow);
+}
+
+.pillar-prefix {
+    opacity: 0.7;
+}
+
+.pillar-title {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+/* RTK SVG in pillar header */
+.pillar-rtk-svg {
+    height: 20px;
+    width: auto;
+}
+
+.pillar-rtk-svg .rtk-path {
+    stroke: var(--accent);
+    stroke-width: 2;
+    fill: none;
+}
+
+.pillar-rtk-svg .rtk-cmd {
+    fill: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.pillar-rtk-svg .rtk-url {
+    fill: var(--yellow);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pillar-rtk-svg .rtk-cursor {
+    fill: var(--yellow);
+    opacity: 0.8;
+    animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 0.8; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Pillar Media */
+.pillar-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 20, 30, 0.5);
+}
+
+.pillar-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pillar:hover .pillar-media img {
+    transform: scale(1.02);
+}
+
+/* Pillar Headline (for Studio) */
+.pillar-headline {
+    margin-bottom: 1rem;
+}
+
+.pillar-headline-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--fg);
+}
+
+.pillar-headline-text .line-1,
+.pillar-headline-text .line-2,
+.pillar-headline-text .line-3 {
+    display: block;
+}
+
+.pillar-headline-text .word-cyan {
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent);
+}
+
+.pillar-headline-text .dot-magenta {
+    color: var(--magenta);
+    text-shadow: 0 0 20px var(--magenta);
+}
+
+/* Pillar Description */
+.pillar-desc {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Pillar CTA */
+.pillar-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    align-self: flex-start;
+}
+
+.pillar-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.4s ease;
+}
+
+.pillar-cta:hover::before {
+    left: 100%;
+}
+
+/* Cyan CTA (Robotyka) */
+.pillar-cta-cyan {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: var(--glow-cyan);
+}
+
+.pillar-cta-cyan:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
+}
+
+/* Yellow CTA (Studio) - with states */
+.pillar-cta-yellow {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: var(--glow-cyan);
+}
+
+.pillar-cta-yellow:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
+}
+
+/* State: Denied (red) */
+.pillar-cta-denied {
+    background: #ff3366 !important;
+    box-shadow: 0 0 20px rgba(255, 51, 102, 0.5) !important;
+}
+
+/* State: Preview (yellow) */
+.pillar-cta-preview {
+    background: var(--yellow) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* Mobile: Stack pillars */
+@media (max-width: 900px) {
+    .two-pillars {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .pillar {
+        padding: 1rem;
+    }
+
+    .pillar-headline-text {
+        font-size: clamp(1.3rem, 5vw, 2rem);
+    }
+}
+
+/* PCB Showcase section adjustments */
+.pcb-showcase {
+    min-height: 80vh;
 }
 
 /* ========== REDUCED MOTION ========== */

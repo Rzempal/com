@@ -1,4 +1,4 @@
-<!-- index.html v0.100 – Unified gate+hub: single page, faster UX -->
+<!-- index.html v0.101 – Two pillars landing section + PCB showcase -->
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -64,10 +64,8 @@
     <!-- ========== HUB CONTAINER ========== -->
     <div class="hub-wrapper">
 
-        <!-- Neural Mesh Background + Hero + Pills -->
-        <section class="hub-mesh-section" id="hubMeshSection">
-
-            <!-- Hero Content (overlay on PCB) -->
+        <!-- ========== HERO SECTION ========== -->
+        <section class="hero-section" id="heroSection">
             <div class="hero-overlay">
                 <!-- Tag -->
                 <span class="gate__tag" data-reveal>Engineer // Developer</span>
@@ -84,7 +82,60 @@
                     Jack into the digital world where code meets creativity.
                 </p>
             </div>
+        </section>
 
+        <!-- ========== TWO PILLARS SECTION ========== -->
+        <section class="two-pillars" id="twoPillars">
+            <!-- Left Pillar: ROBOTYKA -->
+            <article class="pillar pillar-robotyka">
+                <header class="pillar-header">
+                    <span class="pillar-dot"></span>
+                    <span class="pillar-prefix">SYS://</span>
+                    <span class="pillar-title">ROBOTYKA</span>
+                </header>
+                <div class="pillar-media">
+                    <img src="assets/images/global/logo_robotyka.png"
+                         alt="Robotyka - symulacje przemysłowe"
+                         onerror="this.src='https://placehold.co/400x250/1e293b/48d2e7?text=Robotyka'" />
+                </div>
+                <p class="pillar-desc" data-i18n="robotyka_desc">
+                    > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+                </p>
+                <a href="https://robotyka.michalrapala.com" class="pillar-cta pillar-cta-cyan">
+                    <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+                </a>
+            </article>
+
+            <!-- Right Pillar: RESZTATOKOD.PL -->
+            <article class="pillar pillar-studio">
+                <header class="pillar-header">
+                    <span class="pillar-dot pillar-dot-yellow"></span>
+                    <span class="pillar-prefix">SYS://</span>
+                    <svg viewBox="0 0 200 30" class="pillar-rtk-svg">
+                        <path d="M 5 15 L 20 15" class="rtk-path" />
+                        <text x="28" y="20" class="rtk-cmd">>_</text>
+                        <text x="50" y="20" class="rtk-url">CD RESZTATOKOD.PL</text>
+                        <rect x="178" y="6" width="12" height="20" class="rtk-cursor" />
+                    </svg>
+                </header>
+                <div class="pillar-headline">
+                    <h2 class="pillar-headline-text">
+                        <span class="line-1" data-i18n-html="headline_line1"><span class="word-cyan glitch" data-text="KOD">KOD</span> JEST</span>
+                        <span class="line-2" data-i18n="headline_line2">OSTATNIM</span>
+                        <span class="line-3" data-i18n-html="headline_line3">KROKIEM<span class="dot-magenta">.</span></span>
+                    </h2>
+                </div>
+                <p class="pillar-desc" data-i18n="studio_desc">
+                    > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
+                </p>
+                <a href="#" class="pillar-cta pillar-cta-yellow" id="pillar-studio-cta" data-state="0">
+                    <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+                </a>
+            </article>
+        </section>
+
+        <!-- ========== PCB SHOWCASE SECTION ========== -->
+        <section class="hub-mesh-section pcb-showcase" id="hubMeshSection">
             <!-- SVG Circuit Board Background -->
             <svg class="hub-mesh" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 <defs>

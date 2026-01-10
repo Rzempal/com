@@ -1,4 +1,4 @@
-// main-script.js v0.100 – Unified single-page layout (no gate/hub navigation)
+// main-script.js v0.101 – Two pillars section with studio CTA sequence
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -798,6 +798,50 @@ function handleStudioCTAClick(e) {
   }
 }
 
+// Handle Pillar Studio CTA click sequence (standalone, no card dependencies)
+function handlePillarStudioCTAClick(e) {
+  const cta = e.currentTarget;
+  const textEl = cta.querySelector('.cta-text');
+  const pillarDot = document.querySelector('.pillar-studio .pillar-dot');
+  const pillarHeader = document.querySelector('.pillar-studio .pillar-header');
+  let state = parseInt(cta.dataset.state || '0');
+
+  if (state === 0) {
+    e.preventDefault();
+    cta.classList.add('pillar-cta-denied');
+    textEl.textContent = 'ACCESS_DENIED';
+    cta.dataset.state = '1';
+    // Update pillar dot to red
+    if (pillarDot) {
+      pillarDot.style.background = '#ff3366';
+      pillarDot.style.boxShadow = '0 0 10px #ff3366';
+    }
+  } else if (state === 1) {
+    e.preventDefault();
+    cta.classList.remove('pillar-cta-denied');
+    cta.classList.add('pillar-cta-preview');
+    textEl.textContent = 'GAIN_PREVIEW';
+    cta.dataset.state = '2';
+    // Update pillar dot to yellow
+    if (pillarDot) {
+      pillarDot.style.background = 'var(--yellow)';
+      pillarDot.style.boxShadow = '0 0 10px var(--yellow)';
+    }
+  } else if (state === 2) {
+    cta.href = 'https://resztatokod.pl';
+    cta.target = '_blank';
+  }
+}
+
+// Initialize Pillar Studio CTA
+function initPillarStudioCTA() {
+  const pillarCta = document.getElementById('pillar-studio-cta');
+  if (pillarCta) {
+    pillarCta.addEventListener('click', handlePillarStudioCTAClick);
+    console.log('✅ Pillar Studio CTA initialized');
+  }
+}
+
 // Unmount card content
 function unmountCardContent() {
   const titleEl = document.getElementById('card-title');
@@ -993,6 +1037,9 @@ document.addEventListener('DOMContentLoaded', () => {
       closeCard();
     }
   });
+
+  // Initialize pillar CTA
+  initPillarStudioCTA();
 
   console.log('✅ Card sheet listeners initialized');
 });
