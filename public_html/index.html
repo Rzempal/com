@@ -159,34 +159,19 @@
 
                     <!-- Filter for Glow -->
                     <filter id="glow">
-<<<<<<< HEAD
-                        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="coloredBlur" />
-=======
                         <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                         <feMerge>
                             <feMergeNode in="coloredBlur" />
->>>>>>> claude/simplify-user-flow-B3JeE
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
 
                     <!-- Filter for STRONG Glow (Flash Lines) -->
                     <filter id="glowStrong">
-<<<<<<< HEAD
-                        <feGaussianBlur stdDeviation="8" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="coloredBlur" />
-=======
                         <feGaussianBlur stdDeviation="6" result="coloredBlur" />
                         <feMerge>
                             <feMergeNode in="coloredBlur" />
                             <feMergeNode in="coloredBlur" />
->>>>>>> claude/simplify-user-flow-B3JeE
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
@@ -257,25 +242,6 @@
                     filter="url(#solderMask)">
                     <!-- Power traces (thicker - 4.5px) -->
                     <path class="circuit-trace power-trace" d="M 150 500 L 500 500 L 550 550 L 900 550" data-index="2"
-<<<<<<< HEAD
-                        stroke-width="4.5" /><!-- horizontal -->
-                    <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5"
-                        stroke-width="4.5" /><!-- vertical -->
-
-                    <!-- Signal traces (medium - 3px) -->
-                    <path class="circuit-trace signal-trace" d="M 100 300 L 400 300 L 450 350 L 850 350" data-index="1"
-                        stroke-width="3" /><!-- horizontal -->
-                    <path class="circuit-trace signal-trace" d="M 750 50 L 750 350 L 800 400 L 800 800" data-index="6"
-                        stroke-width="3" /><!-- vertical -->
-
-                    <!-- Thin signal traces (2px) -->
-                    <path class="circuit-trace signal-trace-thin" d="M 50 150 L 300 150 L 350 200 L 650 200"
-                        data-index="0" stroke-width="2" /><!-- horizontal -->
-                    <path class="circuit-trace signal-trace-thin" d="M 50 700 L 350 700 L 400 750 L 750 750"
-                        data-index="3" stroke-width="2" /><!-- horizontal -->
-                    <path class="circuit-trace signal-trace-thin" d="M 200 50 L 200 400 L 250 450 L 250 850"
-                        data-index="4" stroke-width="2.5" /><!-- vertical -->
-=======
                         stroke-width="4.5" />
                     <path class="circuit-trace power-trace" d="M 500 100 L 500 450 L 550 500 L 550 850" data-index="5"
                         stroke-width="4.5" />
@@ -293,7 +259,6 @@
                         data-index="3" stroke-width="2" />
                     <path class="circuit-trace signal-trace-thin" d="M 200 50 L 200 400 L 250 450 L 250 850"
                         data-index="4" stroke-width="2.5" />
->>>>>>> claude/simplify-user-flow-B3JeE
 
                     <!-- Curved/angled traces (decorative - thin) -->
                     <path class="circuit-trace decorative-trace" d="M 100 100 Q 300 100 400 250 T 600 400"
@@ -306,38 +271,18 @@
 
                 <!-- Mounting Holes (4 corners for PCB mounting) -->
                 <g class="mounting-holes">
-<<<<<<< HEAD
-                    <!-- Top-left -->
-                    <circle cx="60" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
-                    <circle cx="60" cy="60" r="8" fill="#0a1120" opacity="0.9" />
-
-                    <!-- Top-right -->
-                    <circle cx="940" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
-                    <circle cx="940" cy="60" r="8" fill="#0a1120" opacity="0.9" />
-
-                    <!-- Bottom-left -->
-                    <circle cx="60" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
-                    <circle cx="60" cy="940" r="8" fill="#0a1120" opacity="0.9" />
-
-                    <!-- Bottom-right -->
-=======
                     <circle cx="60" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
                     <circle cx="60" cy="60" r="8" fill="#0a1120" opacity="0.9" />
                     <circle cx="940" cy="60" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
                     <circle cx="940" cy="60" r="8" fill="#0a1120" opacity="0.9" />
                     <circle cx="60" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
                     <circle cx="60" cy="940" r="8" fill="#0a1120" opacity="0.9" />
->>>>>>> claude/simplify-user-flow-B3JeE
                     <circle cx="940" cy="940" r="15" fill="none" stroke="#00ffff" stroke-width="2" opacity="0.6" />
                     <circle cx="940" cy="940" r="8" fill="#0a1120" opacity="0.9" />
                 </g>
 
                 <!-- Via Holes (plated through-holes at junction points) -->
                 <g class="via-holes">
-<<<<<<< HEAD
-                    <!-- Vias at key junction pads -->
-=======
->>>>>>> claude/simplify-user-flow-B3JeE
                     <circle cx="150" cy="150" r="3" fill="#0a1120" opacity="0.7" />
                     <circle cx="300" cy="150" r="2.5" fill="#0a1120" opacity="0.7" />
                     <circle cx="350" cy="200" r="2.5" fill="#0a1120" opacity="0.7" />
@@ -428,31 +373,6 @@
                     <circle class="circuit-pad" cx="450" cy="750" r="8" data-pad="9" />
                     <circle class="circuit-pad" cx="550" cy="850" r="8" data-pad="9a" />
 
-<<<<<<< HEAD
-                    <!-- Pills connection points (matching Hub pill positions - enhanced like central pad) -->
-                    <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9"
-                        data-pad="pill-1" />
-                    <circle class="circuit-pad pill-pad" cx="850" cy="350" r="12" filter="url(#glow)" opacity="0.9"
-                        data-pad="pill-2" />
-                    <circle class="circuit-pad pill-pad" cx="450" cy="750" r="12" filter="url(#glow)" opacity="0.9"
-                        data-pad="pill-3" />
-                </g>
-
-                <!-- Pill Connection Lines (hidden - only used on Hub) -->
-                <g class="pill-connection-lines" stroke="#00ffff" stroke-width="4" fill="none" opacity="0"
-                    stroke-linecap="round" style="display: none;">
-                    <!-- Line to Pill 1 (Robotyka - 500, 500 - horizontal trace through center) -->
-                    <path id="pill-line-robotyka" class="pill-line" d="M 150 500 L 500 500" filter="url(#glowStrong)" />
-
-                    <!-- Line to Pill 2 (Aplikacje - 850, 350 - horizontal trace to top-right) -->
-                    <path id="pill-line-aplikacje" class="pill-line" d="M 500 500 L 500 350 L 850 350"
-                        filter="url(#glowStrong)" />
-
-                    <!-- Line to Pill 3 (WWW - 450, 750 - follows trace 4 (vertical) then trace 3 (horizontal)) -->
-                    <path id="pill-line-www" class="pill-line"
-                        d="M 200 50 L 200 400 L 250 450 L 250 700 L 350 700 L 400 750 L 450 750"
-                        filter="url(#glowStrong)" />
-=======
                     <!-- Pills connection points -->
                     <circle class="circuit-pad pill-pad" cx="500" cy="500" r="12" filter="url(#glow)" opacity="0.9"
                         data-pad="pill-1" />
@@ -490,7 +410,6 @@
                         filter="url(#glowStrong)" opacity="0" />
                     <path id="pill-line-studio" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350"
                         filter="url(#glowStrong)" opacity="0" />
->>>>>>> claude/simplify-user-flow-B3JeE
                 </g>
 
                 <!-- Central Pad (main junction) -->
@@ -535,47 +454,6 @@
                     </g>
                 </g>
             </svg>
-<<<<<<< HEAD
-
-            <!-- Treść Gate (Cyberpunk) -->
-            <div class="gate__content">
-                <!-- Status Bar -->
-                <div class="gate__status" data-reveal>
-                    <span class="gate__status-dot"></span>
-                    <span class="gate__status-text">
-                        <span class="status-lang status-lang--pl">STATUS // OTWARTY <span
-                                class="status-highlight">NA</span> NOWE PROJEKTY</span>
-                        <span class="status-lang status-lang--en">STATUS // OPEN <span
-                                class="status-highlight">FOR</span> NEW PROJECT</span>
-                    </span>
-                </div>
-
-                <!-- Tag -->
-                <span class="gate__tag" data-reveal>Engineer // Developer</span>
-
-                <!-- Title with Glitch -->
-                <h1 class="gate__title" data-reveal>
-                    <span class="line-1">Michal</span>
-                    <span class="line-2 glitch" data-text="Rapala">Rapala</span>
-                    <span class="line-3">.com</span>
-                </h1>
-
-                <p class="gate__subtitle" data-reveal>
-                    Symulacje robotyczne. Aplikacje. Strony internetowe.<br>
-                    Jack into the digital world where code meets creativity.
-                </p>
-
-                <div class="gate__buttons" id="gateButtons">
-                    <button class="gate__enter gate__enter--pl" onclick="selectLanguage('pl')"
-                        aria-label="Wejdź na stronę (PL)" data-lang="pl">
-                        <span class="pill-text">ROZPOCZNIJ<span class="cursor-blink">_</span></span>
-                    </button>
-                    <button class="gate__enter gate__enter--en" onclick="selectLanguage('en')"
-                        aria-label="Enter site (EN)" data-lang="en">
-                        <span class="pill-text">INITIALIZE<span class="cursor-blink">_</span></span>
-                    </button>
-                </div>
-=======
 
             <!-- Pills Container -->
             <div class="hub-pills-container">
@@ -595,7 +473,6 @@
                     data-node-y="350" aria-label="Studio">
                     <span class="pill-text" data-i18n="pill_studio">STUDIO_</span>
                 </button>
->>>>>>> claude/simplify-user-flow-B3JeE
             </div>
         </section>
 
@@ -634,8 +511,12 @@
     <template id="template-robotyka">
         <div class="card-body">
             <p class="card-lead" data-i18n="robotyka_desc">
-                Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe.
+                > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych
+                (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
             </p>
+            <a href="https://robotyka.michalrapala.com" class="card-cta">
+                <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+            </a>
         </div>
     </template>
 
@@ -686,8 +567,4 @@
 
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> claude/simplify-user-flow-B3JeE

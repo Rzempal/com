@@ -1,141 +1,118 @@
 # michalrapala.com
 
-Strona główna oraz system subdomen prezentujący ofertę usług z obszaru automatyzacji, symulacji procesów przemysłowych i rozwoju aplikacji webowych. Każdy z obszarów posiada dedykowaną sekcję lub subdomenę.
+Strona glowna oraz system subdomen prezentujacy oferte uslug z obszaru automatyzacji, symulacji procesow przemyslowych i rozwoju aplikacji webowych.
+
+**Styl:** Retro-futurism / Cyberpunk
 
 ---
 
-## 🌐 Struktura domen
+## Struktura domen
 
-- [michalrapala.com](https://michalrapala.com)
-  - [robotyka.michalrapala.com](https://robotyka.michalrapala.com)
-- [twoja-strona.online](https://twoja-strona.online)
-- [michalrapala.app](https://michalrapala.app)
+- [michalrapala.com](https://michalrapala.com) - strona glowna (ten projekt)
+  - [robotyka.michalrapala.com](https://robotyka.michalrapala.com) - symulacje robotyczne
+  - [resztatokod.pl](https://resztatokod.pl) - studio developerskie
+- [twoja-strona.online](https://twoja-strona.online) - strony WWW
+- [michalrapala.app](https://michalrapala.app) - aplikacje webowe
 
 ---
 
-## 📁 Struktura plików projektu
+## Struktura plikow (public_html)
+
+### Pliki UZYWANE (produkcja)
 
 ```
-michalrapala.com/
-└── public_html/
-    ├── index.html
-    ├── common-styles.css
-    ├── footer-template.html
-    └── assets/
-        ├── images/
-        │   ├── global/
-        │   │   ├── logo_app.png
-        │   │   ├── logo_portfolio.png
-        │   │   ├── logo_robotyka.png
-        │   │   ├── logo_web_ai.png
-        │   │   └── logo_wykonanie_light.png
-        │   ├── main/
-        │   │   ├── main_hero_background.png
-        │   │   └── main_rob_pic.png
-        │   ├── robotyka/
-        │   │   ├── header_robotyka_light.png
-        │   │   ├── header_robotyka.jpg
-        │   │   ├── laptop.png
-        │   │   ├── profilowe.jpg
-        │   │   ├── programowanie_online.jpg
-        │   │   └── projekt_strony.jpg
-        │   └── strony_www/
-        │       ├── Al_Creation_2.jpg
-        │       ├── Al_Creation_3.jpg
-        │       ├── Al_Creation_4.jpg
-        │       ├── Al_Creation_5.jpg
-        │       ├── ai_web_background_2.jpg
-        │       ├── ai_web_background.jpg
-        │       ├── bepure.jpg
-        │       ├── koncept.png
-        │       ├── pomysl.png
-        │       ├── projekt_strony.jpg
-        │       ├── robotyk.jpg
-        │       ├── rozmowa.png
-        │       └── tworzenie.png
-        └── movies/
-            └── AI_intro.mp4
+public_html/
+├── index.html              # Glowna strona (v0.104)
+├── common-styles.css       # Wspolne style CSS (zmienne, typografia)
+├── hub-styles.css          # Style hub/hero section (v0.042)
+├── main-animations.css     # Animacje CSS (glitch, reveal, traces)
+├── fonts.css               # Definicje fontow
+├── main-script.js          # Glowny skrypt JS (animacje, i18n, carousel)
+└── assets/
+    └── images/
+        └── global/
+            └── logo_robotyka.png   # Logo sekcji Robotyka
+```
 
-robotyka.michalrapala.com/
-└── public_html/
-    ├── index.html
-    ├── doswiadczenie.html
-    ├── projekty.html
-    ├── kontakt.html
-    ├── common-scripts.js
-    ├── common-styles.css
-    ├── navbar-template.html
-    └── footer-template.html
+### Pliki NIEUZYWANE (do usuniecia lub archiwum)
 
-strony.michalrapala.com/
-└── public_html/
-    ├── index.html
-    ├── oferta.html
-    ├── realizacje.html
-    ├── cennik-kalkulator.html
-    ├── kontakt.html
-    ├── style.css
-    ├── navbar-template.html
-    └── footer-template.html
+```
+public_html/
+├── footer-template.html    # Stary szablon footer (nieimportowany)
+├── mockup-cyberpunk.html   # Mockup dev (do archiwum)
+├── PROJECT_STATUS.md       # Stara dokumentacja techniczna
+└── assets/
+    └── images/
+        └── global/
+            └── kod_jest_ostatni.jpg  # Nieuzywany obraz
 ```
 
 ---
 
-## 🔧 michalrapala.com – Strona Główna
+## Technologie
 
-**Opis:**  
-Strona startowa, która kieruje użytkownika do trzech głównych obszarów działalności:
-
-- Robotyka i symulacja procesów produkcyjnych
-- Dedykowane aplikacje webowe
-- Projektowanie nowoczesnych stron WWW
+- **CSS:** Tailwind CSS (CDN), custom CSS variables
+- **JS:** Vanilla JS + GSAP 3.12 (animacje)
+- **Fonty:** Poppins (preload woff2), Font Awesome 6 (CDN)
+- **i18n:** PL/EN via data-i18n attributes
 
 ---
 
-## 🤖 robotyka.michalrapala.com
+## Glowne komponenty
 
-**Zakres usług:**
+### Hero Section
+- Tytul z efektem glitch
+- Subtitle z animacja typewriter
+- Fade-in z efektem "z glebi" (scale 0.9 -> 1)
 
-- Symulacja procesów w środowisku Process Simulate
-- Programowanie offline robotów przemysłowych (KUKA, FANUC, ABB)
-- Automatyzacja stanowisk zorientowana na przemysł motoryzacyjny
+### Two Pillars (wewnatrz hero)
+- **Robotyka** - symulacje przemyslowe (KUKA, Fanuc, ABB)
+- **resztatokod.pl** - studio developerskie (3-state CTA sequence)
+- Desktop: grid 2 kolumny
+- Mobile: stacked card carousel z swipe
 
----
+### PCB Showcase
+- Interaktywne tlo SVG (circuit board)
+- Pill buttons z animacja GSAP
+- Flash effect na trace paths
 
-## 🧠 michalrapala.app
-
-**Opis:**  
-Platforma z dedykowanymi aplikacjami webowymi wspierającymi codzienną pracę i analizę danych.
-
-**Przykładowe zastosowania:**
-
-- Kalkulatory techniczne
-- Systemy rezerwacji
-- Narzędzia do przetwarzania i porównywania danych
-
----
-
-## 💻 strony.michalrapala.com
-
-**Opis:**  
-Nowoczesne strony internetowe projektowane z myślą o estetyce, szybkości działania i konwersji użytkowników.
-
-**Funkcje:**
-
-- Responsywność
-- Intuicyjna nawigacja
-- Optymalizacja SEO i Core Web Vitals
+### Navbar
+- Status badge: "OTWARTY NA NOWE PROJEKTY"
+- Social links (LinkedIn, GitHub, Email)
+- Language toggle (PL/EN)
 
 ---
 
-## ✉️ Kontakt
+## Tlumaczenia (i18n)
 
-📧 <kontakt@michalrapala.com>  
-🔗 [LinkedIn](https://www.linkedin.com/in/michalrapala)
+Obiekt `translations` w `main-script.js`:
+
+| Klucz | PL | EN |
+|-------|----|----|
+| hub_status | OTWARTY NA NOWE PROJEKTY | OPEN FOR NEW PROJECTS |
+| scroll_cta | Zobacz, czym sie teraz zajmuje. | See what I'm working on now. |
+| pillars_heading | Symulacje robotyczne. Aplikacje. Strony internetowe. | Robotic simulations. Applications. Websites. |
+| hero_subtitle | Jack into the digital world... | Jack into the digital world... |
 
 ---
 
-## 🚀 Status
+## Deployment
 
-✅ Otwarty na nowe projekty  
-📆 Aktualizacja: lipiec 2025
+- **Hosting:** hostido.pl
+- **CI/CD:** Vercel (preview deployments)
+- **Branch:** `claude/simplify-user-flow-B3JeE`
+
+---
+
+## Kontakt
+
+- kontakt@michalrapala.com
+- [LinkedIn](https://www.linkedin.com/in/michal-rapala)
+- [GitHub](https://github.com/Rzempal)
+
+---
+
+## Status
+
+- Otwarty na nowe projekty
+- Ostatnia aktualizacja: styczen 2026
