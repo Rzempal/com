@@ -427,14 +427,17 @@ const translations = {
   pl: {
     hub_status: 'OTWARTY NA NOWE PROJEKTY',
     pill_robotyka: 'Robotyka_',
-    pill_apps: 'Apps_',
+    pill_robotyka_hero: 'SYMULACJA',
+    pill_apps: 'Aplikacje_',
     pill_www: 'WWW_',
-    pill_studio: 'STUDIO_',
+    pill_studio: 'Android_',
     enter_cta: 'WEJDZ',
     robotyka_desc: '> Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.',
+    pcb_robotyka_desc: '> Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe. Tworzony we współpracy z Forseven, ten hybrydowy potwór V8 o mocy 800 KM rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028. Czyste DNA sportowej jazdy, teraz w najbardziej uniwersalnej formie.',
     aplikacje_desc: '> Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding',
     www_desc: '> Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.',
     studio_desc: '> Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.',
+    pcb_android_desc: '> Nie kop w pudle. Sprawdź w telefonie. Skanuj leki aparatem, śledź daty ważności i miej wszystko pod kontrolą.',
     headline_line1: '<span class="word-cyan glitch" data-text="KOD">KOD</span> JEST',
     headline_line2: 'OSTATNIM',
     headline_line3: 'KROKIEM<span class="dot-magenta">.</span>',
@@ -445,14 +448,17 @@ const translations = {
   en: {
     hub_status: 'OPEN FOR NEW PROJECTS',
     pill_robotyka: 'Robotics_',
+    pill_robotyka_hero: 'SIMULATION',
     pill_apps: 'Apps_',
     pill_www: 'WWW_',
-    pill_studio: 'STUDIO_',
+    pill_studio: 'Android_',
     enter_cta: 'ENTER',
     robotyka_desc: '> Advanced production process simulation services and offline programming for industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.',
+    pcb_robotyka_desc: '> Future of performance: SUV that redefines luxury. Meet Project P47 – McLaren\'s first-ever five-seater coupe SUV. Created in collaboration with Forseven, this 800 hp hybrid V8 monster will challenge Ferrari Purosangue and Aston Martin DBX. Market premiere is planned for 2028. Pure sports driving DNA, now in its most versatile form.',
     aplikacje_desc: '> I automate what is not worth doing manually. Engineering webapps designed for specific business tasks. #vibecoding',
     www_desc: '> I design modern and responsive websites that are your company\'s showcase. I focus on aesthetics, performance and intuitive navigation.',
     studio_desc: '> Technology is no longer a barrier. It has become a lever for those who have a plan.',
+    pcb_android_desc: '> Don\'t dig in the box. Check your phone. Scan meds with camera, track expiration dates and keep everything under control.',
     headline_line1: '<span class="word-cyan glitch" data-text="CODE">CODE</span> IS',
     headline_line2: 'THE LAST',
     headline_line3: 'STEP<span class="dot-magenta">.</span>',
@@ -493,7 +499,30 @@ function setLanguage(lang) {
   // Store preference
   localStorage.setItem('lang', lang);
 
+  // If a card is open, translate its content too
+  if (currentCardId) {
+    translateCardContent(document.getElementById('card-content'), lang);
+  }
+
   console.log(`🌐 Language set to: ${lang}`);
+}
+
+function translateCardContent(container, lang) {
+  if (!container) return;
+
+  container.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  container.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (translations[lang] && translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
 }
 
 function initLangToggle() {
@@ -563,7 +592,7 @@ let dragState = null;
 // Card data
 const cardData = {
   robotyka: {
-    title: 'Robotyka',
+    title: 'McLaren | Projekt P47',
     logo: 'assets/images/global/logo_robotyka.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
   },
@@ -578,9 +607,9 @@ const cardData = {
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
   },
   studio: {
-    title: 'Studio',
-    logo: 'assets/images/global/logo_placeholder.png',
-    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Studio',
+    title: 'Karton na leki',
+    logo: 'assets/images/app/Karton-AI.jpg',
+    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Karton-AI',
   },
 };
 
@@ -731,6 +760,31 @@ function finishClose(sheet) {
   console.log('✅ Card closed');
 }
 
+// Carousel logic for cards
+let cardCarouselTimer = null;
+
+function initCardCarousel(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const images = container.querySelectorAll('.carousel-img');
+  if (images.length < 2) return;
+
+  let currentIndex = 0;
+
+  function nextImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  }
+
+  // Clear existing timer if any
+  if (cardCarouselTimer) clearInterval(cardCarouselTimer);
+
+  // Start rotation
+  cardCarouselTimer = setInterval(nextImage, 3000);
+}
+
 // Mount card content
 function mountCardContent(id) {
   const data = cardData[id];
@@ -739,24 +793,7 @@ function mountCardContent(id) {
   // Set title
   const titleEl = document.getElementById('card-title');
   if (titleEl) {
-    if (id === 'studio') {
-      // SVG logo for studio
-      titleEl.innerHTML = `
-        <svg viewBox="0 0 110 40" class="rtk-logo-svg" style="width: 65px; height: auto; vertical-align: middle; margin-left: 4px;">
-          <circle cx="5" cy="15" r="2" fill="#00ffff" />
-          <circle cx="20" cy="5" r="2" fill="#00ffff" />
-          <circle cx="10" cy="30" r="2" fill="#00ffff" />
-          <line x1="5" y1="15" x2="20" y2="5" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
-          <line x1="20" y1="5" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
-          <line x1="5" y1="15" x2="10" y2="30" stroke="#00ffff" stroke-width="1.5" opacity="0.6" />
-          <path d="M 10 30 L 32 30" stroke="#00ffff" stroke-width="2" fill="none" />
-          <text x="32" y="30" fill="#00ffff" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="28px">cd</text>
-          <rect x="68" y="8" width="14" height="26" fill="#00ffff" class="rtk-cursor-blink" />
-        </svg>
-      `;
-    } else {
-      titleEl.textContent = data.title;
-    }
+    titleEl.textContent = data.title;
   }
 
   // Handle terminal dot for studio
@@ -765,18 +802,26 @@ function mountCardContent(id) {
     terminalDot.classList.add('dot-yellow');
   }
 
-  // Set logo (hide for studio)
+  // Set logo
   const logoEl = document.getElementById('card-logo');
-  const mediaFrame = document.querySelector('.card-media-frame');
-  if (id === 'studio') {
-    if (mediaFrame) mediaFrame.style.display = 'none';
-  } else if (logoEl) {
-    if (mediaFrame) mediaFrame.style.display = '';
-    logoEl.src = data.logo;
-    logoEl.alt = data.title;
-    logoEl.onerror = () => {
-      logoEl.src = data.logoFallback;
-    };
+  const mediaContainer = document.querySelector('.card-media');
+
+  if (id === 'robotyka') {
+    if (mediaContainer) {
+      mediaContainer.style.setProperty('display', 'none', 'important');
+    }
+  } else {
+    if (mediaContainer) {
+      mediaContainer.style.display = '';
+      mediaContainer.style.removeProperty('display');
+    }
+    if (logoEl) {
+      logoEl.src = data.logo;
+      logoEl.alt = data.title;
+      logoEl.onerror = () => {
+        logoEl.src = data.logoFallback;
+      };
+    }
   }
 
   // Set content from template
@@ -784,110 +829,17 @@ function mountCardContent(id) {
   const contentEl = document.getElementById('card-content');
   if (template && contentEl) {
     const clone = template.content.cloneNode(true);
+    // Translate the cloned content before appending or right after
+    translateCardContent(clone, currentLang);
     contentEl.appendChild(clone);
   }
 
-  // Attach CTA click handler for studio sequence
-  if (id === 'studio') {
-    setTimeout(() => {
-      const cta = document.getElementById('studio-cta');
-      if (cta) {
-        cta.addEventListener('click', handleStudioCTAClick);
-      }
-    }, 100);
+  // Initialize carousel for robotyka
+  if (id === 'robotyka') {
+    setTimeout(() => initCardCarousel('robotyka-carousel'), 100);
   }
 
   console.log(`📝 Content mounted for: ${id}`);
-}
-
-// Handle Studio CTA click sequence
-function handleStudioCTAClick(e) {
-  const cta = e.currentTarget;
-  const textEl = cta.querySelector('.cta-text');
-  const terminalDot = document.querySelector('.card-terminal-dot');
-  const titleEl = document.getElementById('card-title');
-  let state = parseInt(cta.dataset.state || '0');
-
-  if (state === 0) {
-    e.preventDefault();
-    cta.classList.add('card-cta-denied');
-    textEl.textContent = 'ACCESS_DENIED';
-    cta.dataset.state = '1';
-  } else if (state === 1) {
-    e.preventDefault();
-    cta.classList.remove('card-cta-denied');
-    cta.classList.add('card-cta-preview');
-    textEl.textContent = 'GAIN_PREVIEW';
-    cta.dataset.state = '2';
-    if (terminalDot) {
-      terminalDot.classList.remove('dot-yellow');
-    }
-    if (titleEl) {
-      titleEl.innerHTML = `
-        <svg viewBox="0 0 440 60" class="rtk-base-svg" style="width: 240px; height: auto; vertical-align: middle; margin-left: 4px;">
-          <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
-          <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
-          <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
-          <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
-          <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
-          <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
-          <path d="M 10 30 L 40 30" class="rtk-long-path" />
-          <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
-          <text x="86" y="38" class="rtk-long-url" xml:space="preserve">cd resztatokod.pl</text>
-          <g class="rtk-long-cursor-g">
-            <rect x="86" y="16" width="14" height="26" class="rtk-long-cursor" />
-          </g>
-        </svg>
-      `;
-    }
-  } else if (state === 2) {
-    cta.href = 'https://resztatokod.pl';
-    cta.target = '_blank';
-  }
-}
-
-// Handle Pillar Studio CTA click sequence (standalone, no card dependencies)
-function handlePillarStudioCTAClick(e) {
-  const cta = e.currentTarget;
-  const textEl = cta.querySelector('.cta-text');
-  const pillarDot = document.querySelector('.pillar-studio .pillar-dot');
-  const pillarHeader = document.querySelector('.pillar-studio .pillar-header');
-  let state = parseInt(cta.dataset.state || '0');
-
-  if (state === 0) {
-    e.preventDefault();
-    cta.classList.add('pillar-cta-denied');
-    textEl.textContent = 'ACCESS_DENIED';
-    cta.dataset.state = '1';
-    // Update pillar dot to red
-    if (pillarDot) {
-      pillarDot.style.background = '#ff3366';
-      pillarDot.style.boxShadow = '0 0 10px #ff3366';
-    }
-  } else if (state === 1) {
-    e.preventDefault();
-    cta.classList.remove('pillar-cta-denied');
-    cta.classList.add('pillar-cta-preview');
-    textEl.textContent = 'GAIN_PREVIEW';
-    cta.dataset.state = '2';
-    // Update pillar dot to yellow
-    if (pillarDot) {
-      pillarDot.style.background = 'var(--yellow)';
-      pillarDot.style.boxShadow = '0 0 10px var(--yellow)';
-    }
-  } else if (state === 2) {
-    cta.href = 'https://resztatokod.pl';
-    cta.target = '_blank';
-  }
-}
-
-// Initialize Pillar Studio CTA
-function initPillarStudioCTA() {
-  const pillarCta = document.getElementById('pillar-studio-cta');
-  if (pillarCta) {
-    pillarCta.addEventListener('click', handlePillarStudioCTAClick);
-    console.log('✅ Pillar Studio CTA initialized');
-  }
 }
 
 // Unmount card content
@@ -900,8 +852,8 @@ function unmountCardContent() {
     terminalDot.classList.remove('dot-yellow', 'dot-red');
   }
 
-  const mediaFrame = document.querySelector('.card-media-frame');
-  if (mediaFrame) mediaFrame.style.display = '';
+  const mediaContainer = document.querySelector('.card-media');
+  if (mediaContainer) mediaContainer.style.display = '';
 
   const logoEl = document.getElementById('card-logo');
   if (logoEl) {
@@ -911,6 +863,11 @@ function unmountCardContent() {
 
   const contentEl = document.getElementById('card-content');
   if (contentEl) contentEl.innerHTML = '';
+
+  if (cardCarouselTimer) {
+    clearInterval(cardCarouselTimer);
+    cardCarouselTimer = null;
+  }
 }
 
 // Show/hide backdrop
@@ -1085,9 +1042,6 @@ document.addEventListener('DOMContentLoaded', () => {
       closeCard();
     }
   });
-
-  // Initialize pillar CTA
-  initPillarStudioCTA();
 
   // Initialize stacked carousel (mobile only)
   initPillarsCarousel();

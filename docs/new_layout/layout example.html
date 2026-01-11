@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michał Rąpała | Engineer & Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- DESIGN SYSTEM --- */
+        :root {
+            /* Kolory */
+            --color-bg-main: #0A0A0B; /* Głęboki antracyt */
+            --color-bg-surface: #141416; /* Nieco jaśniejsze tło kart */
+            --color-text-primary: #F4F4F5; /* Biały o wysokim kontraście */
+            --color-text-secondary: #A1A1AA; /* Szary pomocniczy */
+            
+            --color-accent-eng: #00E5FF; /* Techniczny Cyjan */
+            --color-accent-dev: #FF007A; /* Kreatywna Magenta */
+
+            /* Typografia */
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', sans-serif;
+
+            /* Siatka przestrzenna (8px grid) */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --layout-max-width: 1280px;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            background-color: var(--color-bg-main);
+            color: var(--color-text-primary);
+            font-family: var(--font-sans);
+            overflow: hidden; /* Blokujemy standardowy scroll dla snap-scrolla */
+        }
+        h1, h2, h3, .mono-link { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px; }
+        p { line-height: 1.6; color: var(--color-text-secondary); }
+
+        /* --- LAYOUT STRUCTURE (SNAP SCROLL) --- */
+        .main-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            align-items: center; /* Centrowanie wertykalne treści */
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: var(--layout-max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        /* --- NAVIGATION (STICKY) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--space-4);
+            z-index: 100;
+            background: rgba(10, 10, 11, 0.8); /* Glassmorphism base */
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .nav-logo { font-family: var(--font-mono); font-weight: 700; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: var(--space-4); }
+        .mono-link { font-size: 14px; color: var(--color-text-secondary); text-decoration: none; transition: color 0.3s ease; }
+        .mono-link:hover { color: var(--color-text-primary); }
+        .mono-link.active-eng { color: var(--color-accent-eng); }
+
+
+        /* --- SECTION 1: HERO --- */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-8);
+            align-items: center;
+        }
+        .hero-h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            margin-bottom: var(--space-3);
+        }
+        .accent-eng { color: var(--color-accent-eng); }
+        .accent-dev { color: var(--color-accent-dev); }
+        .hero-lead {
+            font-size: 18px;
+            max-width: 500px;
+            margin-bottom: var(--space-6);
+        }
+        /* Mockup technicznej grafiki po prawej */
+        .hero-visual-mockup {
+            height: 400px;
+            background: 
+                radial-gradient(circle at center, rgba(0, 229, 255, 0.1) 0%, transparent 60%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px);
+            border: 1px dashed rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-mono);
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* --- SECTION 2: TWO PILLARS --- */
+        /* Usuwamy domyślny padding sekcji dla pełnego efektu split-screen */
+        #two-pillars { align-items: stretch; } 
+        .pillar-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .pillar {
+            flex: 1;
+            padding: var(--space-8) var(--space-4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.4s ease;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar:last-child { border-right: none; }
+        
+        /* Tła dla filarów */
+        .pillar-eng { background: linear-gradient(to bottom right, var(--color-bg-main), rgba(0, 229, 255, 0.05)); }
+        .pillar-dev { background: linear-gradient(to bottom right, var(--color-bg-main), rgba(255, 0, 122, 0.05)); }
+
+        .pillar-header {
+            font-size: 32px;
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        .pillar-icon { width: 24px; height: 24px; background: currentColor; opacity: 0.8; }
+        .pillar blockquote {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            border-left: 4px solid currentColor;
+            padding-left: var(--space-3);
+            margin-bottom: var(--space-4);
+        }
+        /* Interakcja Hover: przygaszenie drugiego filaru */
+        .pillar-container:hover .pillar:not(:hover) { opacity: 0.4; filter: grayscale(50%); }
+
+
+        /* --- SECTION 3: PCB HUB (MOCKUP VISUALIZATION) --- */
+        #pcb-hub {
+            background-color: #080809;
+            /* Subtelna siatka w tle */
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .pcb-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            margin: 0 auto;
+            /* Centralny punkt "procesora" */
+        }
+        .pcb-center-chip {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px; height: 120px;
+            background: var(--color-bg-surface);
+            border: 2px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: center; align-items: center;
+            text-align: center;
+            z-index: 2;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        
+        /* Mockup Ścieżek (Traces) - używam gradientów by symulować linie */
+        .trace-line {
+            position: absolute;
+            background: rgba(255,255,255,0.05);
+            z-index: 1;
+        }
+        /* Symulacja prądu płynącego do węzłów */
+        .trace-line::after {
+            content: ''; position: absolute; top:0; left:0; width: 100%; height: 100%;
+            background: inherit; opacity: 0.5;
+            animation: pulse-trace 3s infinite ease-in-out;
+        }
+
+        /* Rozmieszczenie węzłów (Pills) */
+        .pcb-node {
+            position: absolute;
+            padding: var(--space-2) var(--space-4);
+            background: var(--color-bg-surface);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            text-align: center;
+        }
+        .pcb-node:hover {
+            border-color: var(--color-text-primary);
+            box-shadow: 0 0 15px rgba(255,255,255,0.05);
+        }
+        /* Pozycjonowanie (Top Left) */
+        .node-tl { top: 10%; left: 15%; border-left: 3px solid var(--color-accent-eng); }
+        /* Pozycjonowanie (Top Right) */
+        .node-tr { top: 15%; right: 15%; border-right: 3px solid var(--color-accent-dev); }
+        /* Pozycjonowanie (Bottom Left) */
+        .node-bl { bottom: 15%; left: 20%; border-left: 3px solid var(--color-accent-eng); }
+        /* Pozycjonowanie (Bottom Right) */
+        .node-br { bottom: 10%; right: 20%; border-right: 3px solid var(--color-accent-dev); }
+
+        /* Linie łączące (wizualizacja CSS) */
+        .trace-tl { top: 50%; left: 15%; width: 35%; height: 2px; transform: translateY(-50%) rotate(-25deg); transform-origin: right center; background: var(--color-accent-eng); }
+        .trace-tr { top: 50%; right: 15%; width: 35%; height: 2px; transform: translateY(-50%) rotate(25deg); transform-origin: left center; background: var(--color-accent-dev); }
+        
+        @keyframes pulse-trace {
+            0% { opacity: 0.2; } 50% { opacity: 0.8; } 100% { opacity: 0.2; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">M.R.</div>
+        <div class="nav-links">
+            <a href="#hero" class="mono-link active-eng">START</a>
+            <a href="#two-pillars" class="mono-link">SPECJALIZACJE</a>
+            <a href="#pcb-hub" class="mono-link">PROJEKTY</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+
+        <section id="hero">
+            <div class="content-wrapper hero-grid">
+                <div class="hero-text">
+                    <h1 class="hero-h1">
+                        <span class="accent-eng">ENGINEER</span> //<br>
+                        <span class="accent-dev">DEVELOPER</span>
+                    </h1>
+                    <p class="hero-lead">
+                        Zanurz się w cyfrowym świecie, gdzie precyzyjny kod spotyka inżynieryjną kreatywność.
+                    </p>
+                    <div style="font-family: var(--font-mono); font-size: 12px; color: var(--color-text-secondary);">
+                        [SCROLL FOR DATA] ↓
+                    </div>
+                </div>
+                <div class="hero-visual-mockup">
+                    [SYSTEM READY // SVG VISUALIZATION PLACEHOLDER]
+                </div>
+            </div>
+        </section>
+
+        <section id="two-pillars">
+            <div class="pillar-container">
+                <div class="pillar pillar-eng" style="color: var(--color-accent-eng)">
+                    <div class="content-wrapper" style="max-width: 500px; margin: 0 auto;">
+                        <h2 class="pillar-header">
+                           ENG:// SYMULACJA
+                        </h2>
+                        <blockquote>
+                            Od ponad dekady pracuję jako inżynier robotyki w przemyśle motoryzacyjnym.
+                        </blockquote>
+                        <p style="color: var(--color-text-secondary)">
+                            Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="pillar pillar-dev" style="color: var(--color-accent-dev)">
+                    <div class="content-wrapper" style="max-width: 500px; margin: 0 auto;">
+                        <h2 class="pillar-header">
+                            DEV:// RESZTATOKOD.PL
+                        </h2>
+                        <blockquote>
+                            Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
+                        </blockquote>
+                        <p style="color: var(--color-text-secondary)">
+                            Współzałożyciel studia kreatywnego. Kod jest dla nas ostatnim krokiem procesu, w którym logika biznesowa spotyka się z wydajnym wykonaniem. Aplikacje webowe, strony internetowe.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pcb-hub">
+            <div class="content-wrapper" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style="text-align: center; margin-bottom: var(--space-8);">AKTUALNE PROJEKTY [PCB_VIEW]</h2>
+                
+                <div class="pcb-container">
+                    <div class="trace-line trace-tl"></div>
+                    <div class="trace-line trace-tr"></div>
+
+                    <div class="pcb-center-chip">
+                        <span style="font-family: var(--font-mono); font-size: 12px; color: var(--color-text-secondary);">MAIN_CORE<br>M.R. SYSTEM</span>
+                    </div>
+
+                    <div class="pcb-node node-tl">
+                        ROBOTYKA <br> [Projekt McLaren P47]
+                    </div>
+                    <div class="pcb-node node-tr">
+                        ANDROID APK <br> [Karton na leki]
+                    </div>
+                    <div class="pcb-node node-bl">
+                         APPS WEBOWE <br> [Narzędzia inż.]
+                    </div>
+                    <div class="pcb-node node-br">
+                        WWW <br> [Strony internetowe]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1446,6 +1446,13 @@ body.card-open {
 @media (max-width: 1024px) {
     .card-sheet {
         cursor: grab;
+        /* Mobile: explicit full screen and padding for navbar */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        padding-top: var(--header-height);
     }
 
     .card-sheet.is-dragging {
