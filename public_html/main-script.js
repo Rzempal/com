@@ -431,7 +431,7 @@ const translations = {
     pill_www: 'WWW_',
     pill_studio: 'STUDIO_',
     enter_cta: 'WEJDZ',
-    robotyka_desc: '> Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.',
+    robotyka_desc: 'Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe. Tworzony we współpracy z Forseven, ten hybrydowy potwór V8 o mocy 800 KM rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028.',
     aplikacje_desc: '> Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding',
     www_desc: '> Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.',
     studio_desc: '> Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.',
@@ -449,7 +449,7 @@ const translations = {
     pill_www: 'WWW_',
     pill_studio: 'STUDIO_',
     enter_cta: 'ENTER',
-    robotyka_desc: '> Advanced production process simulation services and offline programming for industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.',
+    robotyka_desc: 'The future of performance: an SUV that redefines luxury. Meet Project P47 – McLaren\'s first-ever five-seater coupe SUV. Developed in collaboration with Forseven, this 800 HP hybrid V8 beast will challenge the Ferrari Purosangue and Aston Martin DBX. Market premiere planned for 2028.',
     aplikacje_desc: '> I automate what is not worth doing manually. Engineering webapps designed for specific business tasks. #vibecoding',
     www_desc: '> I design modern and responsive websites that are your company\'s showcase. I focus on aesthetics, performance and intuitive navigation.',
     studio_desc: '> Technology is no longer a barrier. It has become a lever for those who have a plan.',
@@ -563,9 +563,13 @@ let dragState = null;
 // Card data
 const cardData = {
   robotyka: {
-    title: 'Robotyka',
-    logo: 'assets/images/global/logo_robotyka.png',
-    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
+    title: 'McLaren | Projekt P47',
+    images: [
+      'assets/images/robotyka/P47-1.jpg',
+      'assets/images/robotyka/P47-2.jpg',
+      'assets/images/robotyka/P47-3.jpg',
+    ],
+    logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=P47',
   },
   aplikacje: {
     title: 'Aplikacje webowe',
@@ -731,6 +735,44 @@ function finishClose(sheet) {
   console.log('✅ Card closed');
 }
 
+// Carousel for robotyka
+let carouselInterval = null;
+
+function startCarousel(container) {
+  stopCarousel();
+  const images = container.querySelectorAll('.carousel-img');
+  const dots = container.querySelectorAll('.carousel-dot');
+  if (images.length <= 1) return;
+
+  let currentIndex = 0;
+
+  carouselInterval = setInterval(() => {
+    images[currentIndex].classList.remove('active');
+    dots[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+    dots[currentIndex].classList.add('active');
+  }, 3500);
+
+  // Click on dots to navigate
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      images[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+      currentIndex = i;
+      images[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+    });
+  });
+}
+
+function stopCarousel() {
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+    carouselInterval = null;
+  }
+}
+
 // Mount card content
 function mountCardContent(id) {
   const data = cardData[id];
@@ -765,11 +807,28 @@ function mountCardContent(id) {
     terminalDot.classList.add('dot-yellow');
   }
 
-  // Set logo (hide for studio)
+  // Set logo (hide for studio, carousel for robotyka)
   const logoEl = document.getElementById('card-logo');
   const mediaFrame = document.querySelector('.card-media-frame');
   if (id === 'studio') {
     if (mediaFrame) mediaFrame.style.display = 'none';
+  } else if (id === 'robotyka' && data.images) {
+    // Image carousel for robotyka
+    if (mediaFrame) {
+      mediaFrame.style.display = '';
+      mediaFrame.innerHTML = `
+        <div class="card-carousel">
+          ${data.images.map((src, i) => `
+            <img class="carousel-img ${i === 0 ? 'active' : ''}" src="${src}" alt="${data.title} ${i + 1}" />
+          `).join('')}
+          <div class="carousel-dots">
+            ${data.images.map((_, i) => `<span class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`).join('')}
+          </div>
+        </div>
+      `;
+      // Start carousel auto-rotation
+      startCarousel(mediaFrame);
+    }
   } else if (logoEl) {
     if (mediaFrame) mediaFrame.style.display = '';
     logoEl.src = data.logo;
@@ -892,6 +951,9 @@ function initPillarStudioCTA() {
 
 // Unmount card content
 function unmountCardContent() {
+  // Stop carousel if running
+  stopCarousel();
+
   const titleEl = document.getElementById('card-title');
   if (titleEl) titleEl.innerHTML = '';
 
@@ -901,7 +963,13 @@ function unmountCardContent() {
   }
 
   const mediaFrame = document.querySelector('.card-media-frame');
-  if (mediaFrame) mediaFrame.style.display = '';
+  if (mediaFrame) {
+    mediaFrame.style.display = '';
+    // Restore original img element if carousel was used
+    if (mediaFrame.querySelector('.card-carousel')) {
+      mediaFrame.innerHTML = '<img id="card-logo" class="card-logo-img" alt="" />';
+    }
+  }
 
   const logoEl = document.getElementById('card-logo');
   if (logoEl) {
