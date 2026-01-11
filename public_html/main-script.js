@@ -1052,7 +1052,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ========== STACKED CARD CAROUSEL (MOBILE) ==========
 let carouselInterval = null;
 let currentPillarIndex = 0;
-const CAROUSEL_DELAY = 4000; // 4 seconds
+const CAROUSEL_DELAY = 7000; // 7 seconds (slower rotation)
 
 function initPillarsCarousel() {
   const pillars = document.querySelectorAll('.pillar');
