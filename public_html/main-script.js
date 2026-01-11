@@ -400,6 +400,8 @@ const translations = {
     headline_line2: 'OSTATNIM',
     headline_line3: 'KROKIEM<span class="dot-magenta">.</span>',
     scroll_cta: 'Zobacz, czym się teraz zajmuję.',
+    hero_subtitle: 'Jack into the digital world where code meets creativity.',
+    pillars_heading: 'Symulacje robotyczne. Aplikacje. Strony internetowe.',
   },
   en: {
     hub_status: '>_OPEN FOR NEW PROJECTS_',
@@ -416,6 +418,8 @@ const translations = {
     headline_line2: 'THE LAST',
     headline_line3: 'STEP<span class="dot-magenta">.</span>',
     scroll_cta: 'See what I\'m working on now.',
+    hero_subtitle: 'Jack into the digital world where code meets creativity.',
+    pillars_heading: 'Robotic simulations. Applications. Websites.',
   }
 };
 

@@ -910,6 +910,17 @@ body {
     align-content: center;
 }
 
+.pillars-heading {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
 .pillar {
     position: relative;
     display: flex;
@@ -1146,17 +1157,26 @@ body {
         display: block;
         position: relative;
         padding: 0.75rem;
+        padding-top: 2.5rem; /* Space for heading */
         padding-bottom: 3rem; /* Space for dots */
-        height: 420px; /* Smaller for hero layout */
+        height: 450px; /* Adjusted for heading */
         flex: 0 0 auto;
+    }
+
+    .pillars-heading {
+        position: absolute;
+        top: 0.5rem;
+        left: 0;
+        right: 0;
+        font-size: 0.75rem;
     }
 
     .pillar {
         position: absolute;
-        top: 0.75rem;
+        top: 2.5rem;
         left: 0.75rem;
         right: 0.75rem;
-        height: calc(100% - 3.5rem); /* Fixed height, account for padding + dots */
+        height: calc(100% - 5.5rem); /* Adjusted for heading + dots */
         padding: 1rem;
         display: flex;
         flex-direction: column;
