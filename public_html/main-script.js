@@ -178,6 +178,37 @@ function animateLine(lineId) {
   }, 1.5);
 }
 
+// ========== TYPEWRITER EFFECT ==========
+function initTypewriter() {
+  const subtitle = document.getElementById('heroSubtitle');
+  if (!subtitle) return;
+
+  const textEl = subtitle.querySelector('.typewriter-text');
+  const cursorEl = subtitle.querySelector('.typewriter-cursor');
+  if (!textEl) return;
+
+  // Get text from translations
+  const text = translations[currentLang]?.hero_subtitle || 'Jack into the digital world where code meets creativity.';
+  const speed = 50; // ms per character
+
+  let i = 0;
+  textEl.textContent = '';
+
+  function type() {
+    if (i < text.length) {
+      textEl.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    } else {
+      // Typing complete - cursor keeps blinking (handled by CSS)
+      console.log('✅ Typewriter complete');
+    }
+  }
+
+  // Start typing
+  type();
+}
+
 // ========== PAGE FADE IN ==========
 function fadeInPage() {
   const body = document.body;
@@ -200,6 +231,8 @@ function fadeInPage() {
         }
       }, 2000 + (index * 200));
     });
+    // Start typewriter after fade
+    setTimeout(initTypewriter, 2000);
     return;
   }
 
@@ -212,6 +245,8 @@ function fadeInPage() {
       const translateX = isWWW ? '0%' : '-100%';
       pill.style.transform = `translate(${translateX}, -100%) scale(1)`;
     });
+    // Start typewriter immediately
+    initTypewriter();
     console.log('✅ Page instant display (reduced motion)');
     return;
   }
@@ -227,14 +262,18 @@ function fadeInPage() {
     ease: 'power2.out',
   }, 0);
 
-  // Hero overlay fade in (starts early)
+  // Hero overlay fade in from depth (scale effect)
   if (heroOverlay) {
-    gsap.set(heroOverlay, { opacity: 0, y: 20 });
+    gsap.set(heroOverlay, { opacity: 0, scale: 0.9 });
     timeline.to(heroOverlay, {
       opacity: 1,
-      y: 0,
-      duration: 1.2,
+      scale: 1,
+      duration: 1.5,
       ease: 'power2.out',
+      onComplete: () => {
+        // Start typewriter after hero fade in
+        initTypewriter();
+      }
     }, 0.3);
   }
 
@@ -386,7 +425,7 @@ let currentLang = 'pl';
 
 const translations = {
   pl: {
-    hub_status: '>_OTWARTY NA NOWE PROJEKTY_',
+    hub_status: 'OTWARTY NA NOWE PROJEKTY',
     pill_robotyka: 'Robotyka_',
     pill_apps: 'Apps_',
     pill_www: 'WWW_',
@@ -404,7 +443,7 @@ const translations = {
     pillars_heading: 'Symulacje robotyczne. Aplikacje. Strony internetowe.',
   },
   en: {
-    hub_status: '>_OPEN FOR NEW PROJECTS_',
+    hub_status: 'OPEN FOR NEW PROJECTS',
     pill_robotyka: 'Robotics_',
     pill_apps: 'Apps_',
     pill_www: 'WWW_',

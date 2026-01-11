@@ -807,6 +807,24 @@ body {
     }
 }
 
+/* ========== TYPEWRITER EFFECT ========== */
+.typewriter-text {
+    display: inline;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 400;
+    animation: cursorBlink 0.8s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
 /* ========== HERO SECTION ========== */
 .hero-section {
     position: relative;
