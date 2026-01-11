@@ -1712,8 +1712,9 @@ body.card-open {
         bottom: 0;
         left: 0;
         right: 0;
-        max-height: 92vh;
-        max-height: calc(92vh - env(safe-area-inset-top));
+        /* Max height respects navbar - prevents card from hiding under it */
+        max-height: calc(100vh - var(--header-height) - 0.5rem);
+        max-height: calc(100svh - var(--header-height) - 0.5rem);
         /* Remove default border - use pseudo-element instead */
         border: none;
         /* Notch shape: A=80px (notch), B=80px (diagonal), C=reszta */
@@ -1770,11 +1771,12 @@ body.card-open {
     }
 
     .card-sheet.is-snapped-mid {
-        transform: translateY(40vh);
+        transform: translateY(35vh);
     }
 
     .card-sheet.is-snapped-max {
-        transform: translateY(8vh);
+        /* Respects navbar height - card stops below navbar */
+        transform: translateY(calc(var(--header-height) + 0.5rem));
     }
 }
 
