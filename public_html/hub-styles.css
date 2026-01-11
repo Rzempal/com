@@ -1,4 +1,4 @@
-/* hub-styles.css v0.038 – Badge glow/fade effect, navbar PL/EN stays visible */
+/* hub-styles.css v0.042 – pillars inside hero section */
 
 /* ========== HUB BODY INITIAL STATE ========== */
 body {
@@ -12,21 +12,18 @@ body {
     left: 0;
     right: 0;
     z-index: 40;
-    height: var(--header-height);
-    /* Explicit height for border alignment */
+    height: var(--header-height); /* Explicit height for border alignment */
     background-color: rgba(10, 10, 15, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 0 1.5rem;
-    /* Horizontal only - height is explicit */
+    padding: 0 1.5rem; /* Horizontal only - height is explicit */
 }
 
 .cyber-nav-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
-    /* Fill navbar height */
+    height: 100%; /* Fill navbar height */
     /* Match PCB board width (square 1000x1000, fits viewport height) */
     max-width: min(100vw, 100vh);
     margin: 0 auto;
@@ -80,8 +77,7 @@ body {
 /* Desktop: status stretches full navbar height */
 @media (min-width: 1025px) {
     .cyber-nav-status {
-        align-self: stretch;
-        /* Fill navbar height (now explicit via --header-height) */
+        align-self: stretch; /* Fill navbar height (now explicit via --header-height) */
         padding: 0 1rem;
         display: flex;
         align-items: center;
@@ -109,26 +105,11 @@ body {
     color: var(--accent);
 }
 
-/* Gradient fade effect on badge right edge */
-.cyber-nav-status::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 100%;
-    background: linear-gradient(to left, rgba(10, 10, 15, 0.9), transparent);
-    pointer-events: none;
-}
-
 @keyframes statusPulse {
-
-    0%,
-    100% {
+    0%, 100% {
         opacity: 1;
         box-shadow: 0 0 10px var(--green);
     }
-
     50% {
         opacity: 0.7;
         box-shadow: 0 0 20px var(--green);
@@ -152,12 +133,12 @@ body {
 }
 
 /* ========== BACK BUTTON (FULL CYBERPUNK) ========== */
-/* Positioned inside hub-mesh-section, at top-left of PCB area */
+/* Positioned inside hub-mesh-section, at bottom-left of PCB area */
 .hub-back-button {
     position: absolute;
     /* PCB is centered square (min viewport dimension) */
-    /* Position at top-left corner of that square (below navbar) */
-    top: calc(50% - min(42vw, 42vh) + var(--header-height));
+    /* Position at bottom-left corner of that square */
+    bottom: calc(50% - min(42vw, 42vh));
     left: calc(50% - min(42vw, 42vh));
     z-index: 100;
     display: flex;
@@ -215,15 +196,8 @@ body {
 }
 
 @keyframes floatBackButton {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(-5px);
-    }
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-5px); }
 }
 
 /* Responsive - Średnie ekrany (600px-900px): Email z tekstem, LinkedIn+GitHub tylko ikony */
@@ -241,10 +215,8 @@ body {
     }
 
     /* LinkedIn i GitHub: tylko ikony */
-    .top-info-bar-contact a:nth-child(1) span,
-    /* LinkedIn */
-    .top-info-bar-contact a:nth-child(2) span {
-        /* GitHub */
+    .top-info-bar-contact a:nth-child(1) span, /* LinkedIn */
+    .top-info-bar-contact a:nth-child(2) span { /* GitHub */
         display: none;
     }
 
@@ -305,9 +277,10 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100svh;
+    min-height: 100svh;
     background-color: var(--bg);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* ========== HUB MESH SECTION (Pills + Neural Mesh Background) ========== */
@@ -358,42 +331,36 @@ body {
         stroke-width: 2;
         stroke: #00ffff;
     }
-
     10% {
         opacity: 0.7;
         stroke-width: 8;
         stroke: #00ffff;
         filter: drop-shadow(0 0 10px #00ffff);
     }
-
     20% {
         opacity: 1;
         stroke-width: 14;
         stroke: #ff00ff;
         filter: drop-shadow(0 0 30px #ff00ff) drop-shadow(0 0 60px #ff00ff);
     }
-
     35% {
         opacity: 1;
         stroke-width: 16;
         stroke: #ffffff;
         filter: drop-shadow(0 0 40px #00ffff) drop-shadow(0 0 80px #ff00ff);
     }
-
     50% {
         opacity: 0.95;
         stroke-width: 14;
         stroke: #00ffff;
         filter: drop-shadow(0 0 35px #00ffff) drop-shadow(0 0 60px #00ffff);
     }
-
     70% {
         opacity: 0.8;
         stroke-width: 10;
         stroke: #00ffff;
         filter: drop-shadow(0 0 20px #00ffff);
     }
-
     100% {
         opacity: 0;
         stroke-width: 2;
@@ -410,13 +377,10 @@ body {
 }
 
 @keyframes connectorPulse {
-
-    0%,
-    100% {
+    0%, 100% {
         opacity: 0.6;
         stroke-width: 2;
     }
-
     50% {
         opacity: 0.8;
         stroke-width: 2.5;
@@ -638,54 +602,15 @@ body {
 
 /* ========== RESPONSIVE: DESKTOP (>768px) ========== */
 @media (min-width: 768px) {
+    /* Hub wrapper stays column for vertical scroll layout */
     .hub-wrapper {
-        flex-direction: row;
+        flex-direction: column;
     }
 
+    /* PCB showcase below hero */
     .hub-mesh-section {
-        flex: 1;
-        min-height: 100vh;
-        padding: 0;
-        border-right: 1px solid rgba(0, 255, 255, 0.2);
-    }
-
-    .hub-cards-section {
-        flex: 1;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .hub-card {
-        width: auto;
-        height: auto;
-        flex-direction: row;
-        gap: 2rem;
-        padding: 2rem;
-        max-width: 600px;
-    }
-
-    /* Desktop: Cards slide in from right */
-    .hub-card {
-        transform: translateX(100%);
-        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
-    }
-
-    .hub-card.active {
-        transform: translateX(0);
-    }
-
-    .hub-card-image {
-        flex: 0 0 250px;
-        height: 200px;
-        margin: 0;
-    }
-
-    .hub-card-content {
-        flex: 1;
-    }
-
-    .hub-card-title {
-        font-size: 2.5rem;
+        min-height: auto;
+        padding: 2rem 0;
     }
 }
 
@@ -759,7 +684,6 @@ body {
         opacity: 0;
         transform: translateX(-50%) translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
@@ -768,7 +692,6 @@ body {
 
 /* ========== MOBILE: NAVBAR ANIMATION WHEN CARD OPEN (<1025px) ========== */
 @media (max-width: 1024px) {
-
     /* Default: navbar below card backdrop */
     .cyber-nav {
         z-index: 40;
@@ -791,11 +714,9 @@ body {
         0% {
             box-shadow: none;
         }
-
         50% {
             box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
         }
-
         100% {
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
         }
@@ -804,44 +725,31 @@ body {
 
 /* ========== DESKTOP: NAVBAR ANIMATIONS WHEN CARD OPEN (≥1025px) ========== */
 @media (min-width: 1025px) {
-
     /* Navbar content needs relative positioning for absolute child */
     .cyber-nav-content {
         position: relative;
     }
 
-    /* Default state transitions for navbar links */
-    .cyber-nav-links {
-        position: relative;
-    }
-
-    .cyber-nav-links .cyber-nav-link {
-        transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    /* PL/EN toggle - always visible, stays in place */
-    .cyber-nav-links .cyber-nav-link.lang-toggle {
-        z-index: 10;
-        position: relative;
-    }
-
-    /* Social icons slide LEFT behind PL/EN toggle when card open */
-    body.card-open .cyber-nav-links .cyber-nav-link:not(.lang-toggle) {
+    /* Hide social links when card is open */
+    body.card-open .cyber-nav-links {
         opacity: 0;
         pointer-events: none;
-        transform: translateX(-50px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition: opacity 0.4s ease;
     }
 
     /* Center status indicator when card is open */
     body.card-open .cyber-nav-status {
         position: absolute;
         top: 0;
-        bottom: 0;
-        /* Stretch to full navbar height */
+        bottom: 0; /* Stretch to full navbar height */
         left: 50%;
         transform: translateX(-50%);
         transition: all 1.2s ease;
+    }
+
+    /* Default state transition */
+    .cyber-nav-links {
+        transition: opacity 0.4s ease;
     }
 
     .cyber-nav-status {
@@ -849,9 +757,562 @@ body {
     }
 }
 
+/* ========== HERO OVERLAY (unified layout) ========== */
+.hero-overlay {
+    position: relative;
+    z-index: 30;
+    text-align: center;
+    pointer-events: none;
+    width: 90%;
+    max-width: min(100vw, 100vh);
+    padding-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-overlay .gate__tag {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.hero-overlay .gate__title {
+    margin-bottom: 0.75rem;
+}
+
+.hero-overlay .gate__subtitle {
+    margin-bottom: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Mobile: smaller hero */
+@media (max-width: 768px) {
+    .hero-overlay {
+        padding-top: 1rem;
+    }
+
+    .hero-overlay .gate__title {
+        font-size: 1.8rem;
+    }
+
+    .hero-overlay .gate__subtitle {
+        font-size: 0.75rem;
+    }
+}
+
+/* Desktop: larger hero */
+@media (min-width: 1025px) {
+    .hero-overlay {
+        padding-top: 2rem;
+    }
+}
+
+/* ========== TYPEWRITER EFFECT ========== */
+.typewriter-text {
+    display: inline;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 400;
+    animation: cursorBlink 0.8s step-end infinite;
+    margin-left: 2px;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* ========== HERO SECTION ========== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: var(--header-height);
+    padding-bottom: 2rem;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 15, 0.95) 100%);
+}
+
+/* Scroll indicator */
+.hero-scroll-indicator {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent);
+    opacity: 0.7;
+    animation: scrollBounce 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.hero-scroll-indicator:hover {
+    opacity: 1;
+}
+
+.hero-scroll-indicator span {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.hero-scroll-indicator i {
+    font-size: 1.25rem;
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+/* ========== TWO PILLARS SECTION ========== */
+.two-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    flex: 1;
+    align-content: center;
+}
+
+.pillars-heading {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.pillar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(10, 15, 25, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 1.5rem;
+    /* Cyberpunk corner cuts */
+    clip-path: polygon(
+        0 20px, 20px 0, 100% 0, 100% calc(100% - 20px),
+        calc(100% - 20px) 100%, 0 100%
+    );
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar:hover {
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+}
+
+.pillar-studio:hover {
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+}
+
+/* Pillar Header */
+.pillar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+}
+
+.pillar-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--green);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.pillar-dot-yellow {
+    background: var(--yellow);
+    box-shadow: 0 0 10px var(--yellow);
+}
+
+.pillar-prefix {
+    opacity: 0.7;
+}
+
+.pillar-title {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+/* RTK SVG in pillar header */
+.pillar-rtk-svg {
+    height: 20px;
+    width: auto;
+}
+
+.pillar-rtk-svg .rtk-path {
+    stroke: var(--accent);
+    stroke-width: 2;
+    fill: none;
+}
+
+.pillar-rtk-svg .rtk-cmd {
+    fill: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.pillar-rtk-svg .rtk-url {
+    fill: var(--yellow);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pillar-rtk-svg .rtk-cursor {
+    fill: var(--yellow);
+    opacity: 0.8;
+    animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 0.8; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Pillar Media */
+.pillar-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 20, 30, 0.5);
+}
+
+.pillar-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pillar:hover .pillar-media img {
+    transform: scale(1.02);
+}
+
+/* Pillar Headline (for Studio) */
+.pillar-headline {
+    margin-bottom: 1rem;
+}
+
+.pillar-headline-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--fg);
+}
+
+.pillar-headline-text .line-1,
+.pillar-headline-text .line-2,
+.pillar-headline-text .line-3 {
+    display: block;
+}
+
+.pillar-headline-text .word-cyan {
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent);
+}
+
+.pillar-headline-text .dot-magenta {
+    color: var(--magenta);
+    text-shadow: 0 0 20px var(--magenta);
+}
+
+/* Pillar Description */
+.pillar-desc {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Pillar CTA */
+.pillar-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    align-self: flex-start;
+}
+
+.pillar-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.4s ease;
+}
+
+.pillar-cta:hover::before {
+    left: 100%;
+}
+
+/* Cyan CTA (Robotyka) */
+.pillar-cta-cyan {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: var(--glow-cyan);
+}
+
+.pillar-cta-cyan:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
+}
+
+/* Yellow CTA (Studio) - with states */
+.pillar-cta-yellow {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: var(--glow-cyan);
+}
+
+.pillar-cta-yellow:hover {
+    background: var(--magenta);
+    box-shadow: var(--glow-magenta);
+}
+
+/* State: Denied (red) */
+.pillar-cta-denied {
+    background: #ff3366 !important;
+    box-shadow: 0 0 20px rgba(255, 51, 102, 0.5) !important;
+}
+
+/* State: Preview (yellow) */
+.pillar-cta-preview {
+    background: var(--yellow) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* ========== MOBILE: STACKED CARD CAROUSEL ========== */
+@media (max-width: 900px) {
+    .two-pillars {
+        display: block;
+        position: relative;
+        padding: 0.75rem;
+        padding-top: 2.5rem; /* Space for heading */
+        padding-bottom: 3rem; /* Space for dots */
+        height: 450px; /* Adjusted for heading */
+        flex: 0 0 auto;
+    }
+
+    .pillars-heading {
+        position: absolute;
+        top: 0.5rem;
+        left: 0;
+        right: 0;
+        font-size: 0.75rem;
+    }
+
+    .pillar {
+        position: absolute;
+        top: 2.5rem;
+        left: 0.75rem;
+        right: 0.75rem;
+        height: calc(100% - 5.5rem); /* Adjusted for heading + dots */
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.5s ease;
+        cursor: pointer;
+        will-change: transform, opacity;
+    }
+
+    /* Image container - fixed height on mobile */
+    .pillar-media {
+        height: 120px;
+        flex-shrink: 0;
+        aspect-ratio: auto;
+    }
+
+    /* Headline container - fixed height to match image */
+    .pillar-headline {
+        height: 120px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Description - flex to fill remaining space */
+    .pillar-desc {
+        flex: 1;
+        overflow: hidden;
+        margin-bottom: 0.75rem;
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+
+    /* CTA at bottom */
+    .pillar-cta {
+        flex-shrink: 0;
+        align-self: center;
+        margin-top: auto;
+    }
+
+    /* Active card (front) */
+    .pillar.stack-active {
+        z-index: 3;
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+
+    /* Second card (behind) */
+    .pillar.stack-next {
+        z-index: 2;
+        transform: scale(0.95) translateY(12px);
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Hidden cards */
+    .pillar.stack-hidden {
+        z-index: 1;
+        transform: scale(0.9) translateY(24px);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Card exit animation (swipe out) */
+    .pillar.stack-exiting {
+        z-index: 4;
+        transform: translateX(-110%) rotate(-5deg);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.3s ease;
+    }
+
+    .pillar-headline-text {
+        font-size: clamp(1.4rem, 6vw, 2rem);
+        text-align: center;
+    }
+
+    /* Navigation dots */
+    .pillars-nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        position: absolute;
+        bottom: 0.75rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    .pillars-nav-dot {
+        position: relative;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.3);
+        border: 1px solid var(--accent);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .pillars-nav-dot:hover {
+        background: rgba(0, 255, 255, 0.5);
+    }
+
+    .pillars-nav-dot.active {
+        background: var(--accent);
+        box-shadow: 0 0 10px var(--accent);
+        transform: scale(1.2);
+    }
+
+    /* Progress ring on active dot */
+    .pillars-nav-dot.active::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        border-top-color: var(--magenta);
+        animation: dotProgress 4s linear infinite;
+    }
+
+    @keyframes dotProgress {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+}
+
+/* Desktop: ensure nav dots hidden */
+@media (min-width: 901px) {
+    .pillars-nav {
+        display: none;
+    }
+
+    .pillar {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+    }
+}
+
+/* PCB Showcase section adjustments */
+.pcb-showcase {
+    /* Square aspect ratio based on viewport */
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
 /* ========== REDUCED MOTION ========== */
 @media (prefers-reduced-motion: reduce) {
-
     .center-pad,
     .center-pad-ring,
     .circuit-pad,
