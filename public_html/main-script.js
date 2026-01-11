@@ -1,4 +1,4 @@
-// main-script.js v0.103 – Desktop vertical scroll + PCB pills fix
+// main-script.js v0.104 – Remove scroll reveal, pillars in hero
 
 // ========== GSAP GLOBAL ==========
 // GSAP jest załadowany z <script> w index.html, dostępny jako window.gsap
@@ -1196,12 +1196,12 @@ function initPillarsCarousel() {
 // ========== SCROLL INDICATOR ==========
 function initScrollIndicator() {
   const indicator = document.getElementById('scrollIndicator');
-  const pillarsSection = document.getElementById('twoPillars');
+  const pcbSection = document.getElementById('hubMeshSection');
 
-  if (!indicator || !pillarsSection) return;
+  if (!indicator || !pcbSection) return;
 
   indicator.addEventListener('click', () => {
-    pillarsSection.scrollIntoView({ behavior: 'smooth' });
+    pcbSection.scrollIntoView({ behavior: 'smooth' });
   });
 
   // Hide indicator when scrolled past hero
@@ -1222,46 +1222,7 @@ function initScrollIndicator() {
   console.log('✅ Scroll indicator initialized');
 }
 
-// ========== SCROLL REVEAL ANIMATIONS ==========
-function initScrollReveal() {
-  if (!window.gsap) return;
-
-  const gsap = window.gsap;
-
-  // Elements to reveal on scroll
-  const pillars = document.querySelectorAll('.pillar');
-  const pcbSection = document.querySelector('.pcb-showcase');
-
-  // Simple intersection observer for reveal
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-
-        // Animate pillars
-        if (entry.target.classList.contains('pillar')) {
-          gsap.fromTo(entry.target,
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
-          );
-        }
-
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  // Observe pillars
-  pillars.forEach(pillar => {
-    pillar.style.opacity = '0';
-    revealObserver.observe(pillar);
-  });
-
-  console.log('✅ Scroll reveal initialized');
-}
-
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   initScrollIndicator();
-  initScrollReveal();
 });
