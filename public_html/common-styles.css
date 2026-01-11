@@ -88,32 +88,53 @@ body::before {
     z-index: 9999;
 }
 
-/* ========== GRID BACKGROUND ========== */
+/* ========== LAYERED DARK BACKGROUND ========== */
 .grid-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    /* Layer 1: Subtle gray grid (more visible than before) */
     background:
-        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
     z-index: -1;
     pointer-events: none;
 }
 
+/* Layer 2: Vignette - darker edges for focus */
+.grid-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse 80% 60% at 50% 50%,
+        transparent 0%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+}
+
+/* Layer 3: Subtle radial glow from center - adds depth */
 .grid-bg::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to bottom,
-            transparent 0%,
-            rgba(255, 0, 255, 0.05) 50%,
-            rgba(0, 255, 255, 0.08) 100%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse 70% 50% at 50% 40%,
+        rgba(20, 25, 35, 0.5) 0%,
+        transparent 60%
+    );
+    pointer-events: none;
 }
 
 /* ========== NEON TEXT UTILITIES ========== */
