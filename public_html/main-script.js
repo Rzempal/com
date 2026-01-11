@@ -399,6 +399,7 @@ const translations = {
     headline_line1: '<span class="word-cyan glitch" data-text="KOD">KOD</span> JEST',
     headline_line2: 'OSTATNIM',
     headline_line3: 'KROKIEM<span class="dot-magenta">.</span>',
+    scroll_cta: 'Zobacz, czym się teraz zajmuję.',
   },
   en: {
     hub_status: '>_OPEN FOR NEW PROJECTS_',
@@ -414,6 +415,7 @@ const translations = {
     headline_line1: '<span class="word-cyan glitch" data-text="CODE">CODE</span> IS',
     headline_line2: 'THE LAST',
     headline_line3: 'STEP<span class="dot-magenta">.</span>',
+    scroll_cta: 'See what I\'m working on now.',
   }
 };
 
@@ -1132,6 +1134,12 @@ function initPillarsCarousel() {
     goToSlide(next);
   }
 
+  // Previous slide
+  function prevSlide() {
+    const prev = (currentPillarIndex - 1 + pillars.length) % pillars.length;
+    goToSlide(prev);
+  }
+
   // Start auto-rotation
   function startCarousel() {
     if (carouselInterval) return;
@@ -1179,6 +1187,35 @@ function initPillarsCarousel() {
       goToSlide(index);
     });
   });
+
+  // Swipe handling for mobile
+  const pillarsContainer = document.getElementById('twoPillars');
+  if (pillarsContainer) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const SWIPE_THRESHOLD = 50;
+
+    pillarsContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    pillarsContainer.addEventListener('touchend', (e) => {
+      if (!isMobile()) return;
+
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > SWIPE_THRESHOLD) {
+        if (diff > 0) {
+          // Swipe left -> next
+          nextSlide();
+        } else {
+          // Swipe right -> prev
+          prevSlide();
+        }
+      }
+    }, { passive: true });
+  }
 
   // Handle resize
   let resizeTimer;
