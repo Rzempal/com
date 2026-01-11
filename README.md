@@ -22,9 +22,9 @@ Strona glowna oraz system subdomen prezentujacy oferte uslug z obszaru automatyz
 
 ```
 public_html/
-├── index.html              # Glowna strona (v0.104)
+├── index.html              # Glowna strona (v0.115) - full-screen snap-scroll
 ├── common-styles.css       # Wspolne style CSS (zmienne, typografia)
-├── hub-styles.css          # Style hub/hero section (v0.042)
+├── hub-styles.css          # Style hub/hero section (v0.050) - snap-scroll + kolorystyka
 ├── main-animations.css     # Animacje CSS (glitch, reveal, traces)
 ├── fonts.css               # Definicje fontow
 ├── main-script.js          # Glowny skrypt JS (animacje, i18n, carousel)

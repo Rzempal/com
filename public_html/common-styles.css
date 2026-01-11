@@ -425,10 +425,10 @@ button {
     filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
 }
 
-/* Gate Title (Cyberpunk) */
+/* Gate Title (Cyberpunk) - HERO SIZE */
 .gate__title {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: clamp(3.5rem, 10vw, 7rem);
     font-weight: 900;
     line-height: 1.1;
     text-transform: uppercase;

@@ -825,7 +825,7 @@ body {
     }
 
     .hero-overlay .gate__title {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
     }
 
     .hero-overlay .gate__subtitle {
@@ -1066,6 +1066,10 @@ body {
     fill: var(--magenta);
 }
 
+.rtk-url-dev {
+    fill: var(--magenta);
+}
+
 .rtk-cursor-dev {
     fill: var(--magenta);
 }
@@ -1200,6 +1204,11 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* Show full image (no crop) */
+.pillar-media-contain img {
+    object-fit: contain;
+}
+
 .pillar:hover .pillar-media img {
     transform: scale(1.02);
 }
@@ -1207,6 +1216,17 @@ body {
 /* Pillar Headline (for Studio) */
 .pillar-headline {
     margin-bottom: 1rem;
+}
+
+/* Pillar H3 Headline (text headline) */
+.pillar-headline-h3 {
+    font-family: var(--font-display);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 700;
+    color: var(--fg);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    text-align: center;
 }
 
 .pillar-headline-text {
