@@ -850,20 +850,21 @@ body {
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    min-height: 100svh;
+    min-height: 40vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: var(--header-height);
-    padding-bottom: 2rem;
+    justify-content: center;
+    padding: calc(var(--header-height) + 2rem) 1rem 4rem;
     background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 10, 15, 0.95) 100%);
 }
 
 /* Scroll indicator */
 .hero-scroll-indicator {
-    position: relative;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -873,8 +874,6 @@ body {
     animation: scrollBounce 2s ease-in-out infinite;
     cursor: pointer;
     transition: opacity 0.3s ease;
-    margin-top: 1rem;
-    padding-bottom: 0.5rem;
 }
 
 .hero-scroll-indicator:hover {
@@ -893,21 +892,19 @@ body {
 }
 
 @keyframes scrollBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
 }
 
 /* ========== TWO PILLARS SECTION ========== */
 .two-pillars {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 1.5rem;
-    flex: 1;
-    align-content: center;
+    padding: 3rem 2rem;
 }
 
 .pillar {
@@ -1009,8 +1006,8 @@ body {
 .pillar-media {
     position: relative;
     width: 100%;
-    aspect-ratio: 16/10;
-    margin-bottom: 1rem;
+    aspect-ratio: 4/3;
+    margin-bottom: 1.5rem;
     overflow: hidden;
     border: 1px solid rgba(0, 255, 255, 0.3);
     background: rgba(0, 20, 30, 0.5);
@@ -1029,7 +1026,13 @@ body {
 
 /* Pillar Headline (for Studio) */
 .pillar-headline {
-    margin-bottom: 1rem;
+    aspect-ratio: 4/3;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    background: rgba(0, 20, 30, 0.5);
 }
 
 .pillar-headline-text {
@@ -1145,19 +1148,17 @@ body {
     .two-pillars {
         display: block;
         position: relative;
-        padding: 0.75rem;
+        padding: 1rem;
         padding-bottom: 3rem; /* Space for dots */
-        height: 420px; /* Smaller for hero layout */
-        flex: 0 0 auto;
+        max-width: 400px;
     }
 
     .pillar {
         position: absolute;
-        top: 0.75rem;
-        left: 0.75rem;
-        right: 0.75rem;
-        height: calc(100% - 3.5rem); /* Fixed height, account for padding + dots */
-        padding: 1rem;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        padding: 1.25rem;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -1168,29 +1169,25 @@ body {
         will-change: transform, opacity;
     }
 
-    /* Image container - fixed height on mobile */
+    /* Image container on mobile */
     .pillar-media {
-        height: 120px;
+        aspect-ratio: 4/3;
+        height: auto;
         flex-shrink: 0;
-        aspect-ratio: auto;
     }
 
-    /* Headline container - fixed height to match image */
+    /* Headline container on mobile */
     .pillar-headline {
-        height: 120px;
+        aspect-ratio: 4/3;
+        height: auto;
         flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
-    /* Description - flex to fill remaining space */
+    /* Description */
     .pillar-desc {
-        flex: 1;
-        overflow: hidden;
-        margin-bottom: 0.75rem;
-        font-size: 0.75rem;
-        line-height: 1.4;
+        margin-bottom: 1rem;
+        font-size: 0.8rem;
+        line-height: 1.5;
     }
 
     /* CTA at bottom */

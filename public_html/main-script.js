@@ -1196,12 +1196,12 @@ function initPillarsCarousel() {
 // ========== SCROLL INDICATOR ==========
 function initScrollIndicator() {
   const indicator = document.getElementById('scrollIndicator');
-  const pcbSection = document.getElementById('hubMeshSection');
+  const pillarsSection = document.getElementById('twoPillars');
 
-  if (!indicator || !pcbSection) return;
+  if (!indicator || !pillarsSection) return;
 
   indicator.addEventListener('click', () => {
-    pcbSection.scrollIntoView({ behavior: 'smooth' });
+    pillarsSection.scrollIntoView({ behavior: 'smooth' });
   });
 
   // Hide indicator when scrolled past hero
