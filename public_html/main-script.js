@@ -792,6 +792,15 @@ function mountCardContent(id) {
     terminalDot.classList.add('dot-yellow');
   }
 
+  // Set prefix (ENG:// for robotyka, DEV:// for others)
+  const prefixEl = document.getElementById('card-prefix');
+  if (prefixEl) {
+    const isEng = id === 'robotyka';
+    prefixEl.textContent = isEng ? 'ENG://' : 'DEV://';
+    prefixEl.classList.remove('prefix-eng', 'prefix-dev');
+    prefixEl.classList.add(isEng ? 'prefix-eng' : 'prefix-dev');
+  }
+
   // Set logo
   const logoEl = document.getElementById('card-logo');
   const mediaContainer = document.querySelector('.card-media');
@@ -840,6 +849,13 @@ function unmountCardContent() {
   const terminalDot = document.querySelector('.card-terminal-dot');
   if (terminalDot) {
     terminalDot.classList.remove('dot-yellow', 'dot-red');
+  }
+
+  // Reset prefix
+  const prefixEl = document.getElementById('card-prefix');
+  if (prefixEl) {
+    prefixEl.textContent = 'SYS://';
+    prefixEl.classList.remove('prefix-eng', 'prefix-dev');
   }
 
   const mediaContainer = document.querySelector('.card-media');
