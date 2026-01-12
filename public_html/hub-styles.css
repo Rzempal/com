@@ -1484,6 +1484,12 @@ body {
 
 /* ========== MOBILE: STACKED CARD CAROUSEL ========== */
 @media (max-width: 900px) {
+    /* Mobile: block scroll when card is open */
+    body.card-open .hub-wrapper {
+        overflow: hidden;
+        scroll-snap-type: none;
+    }
+
     /* Disable hover effect on mobile (carousel mode) */
     .two-pillars:hover .pillar:not(:hover) {
         opacity: 1;
