@@ -322,7 +322,7 @@ function positionPills() {
     'robotyka': { x: -52, y: -30 },
     'aplikacje': { x: -52, y: -30 },
     'www': { x: 52, y: -30 },
-    'studio': { x: -52, y: -30 }
+    'android': { x: -52, y: -30 }
   };
 
   pills.forEach(pill => {
@@ -428,20 +428,24 @@ const translations = {
     hub_status: 'OTWARTY NA NOWE PROJEKTY',
     pill_robotyka: 'Robotyka_',
     pill_robotyka_hero: 'SYMULACJA',
-    pill_apps: 'Aplikacje_',
+    pill_apps: 'APPS_',
     pill_www: 'WWW_',
-    pill_studio: 'Android_',
+    pill_android: 'ANDROID_',
     enter_cta: 'WEJDZ',
     robotyka_desc: '> Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.',
     pcb_robotyka_desc: '> Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe. Tworzony we współpracy z Forseven, ten hybrydowy potwór V8 o mocy 800 KM rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028. Czyste DNA sportowej jazdy, teraz w najbardziej uniwersalnej formie.',
+    aplikacje_headline: 'Aplikacje webowe',
     aplikacje_desc: '> Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding',
+    www_headline: 'Strony internetowe',
     www_desc: '> Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.',
-    studio_desc: '> Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.',
+    android_headline: 'Twoja domowa apteczka z AI',
+    android_desc: '> Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.',
     pcb_android_desc: '> Nie kop w pudle. Sprawdź w telefonie. Skanuj leki aparatem, śledź daty ważności i miej wszystko pod kontrolą.',
     headline_line1: '<span class="word-cyan glitch" data-text="KOD">KOD</span> JEST',
     headline_line2: 'OSTATNIM',
     headline_line3: 'KROKIEM<span class="dot-magenta">.</span>',
-    scroll_cta: 'Zobacz, czym się teraz zajmuję.',
+    hero_scroll_cta: 'ZOBACZ, CZYM SIĘ ZAJMUJĘ',
+    scroll_cta: 'ODKRYJ MOJE PROJEKTY',
     hero_subtitle: 'Jack into the digital world where code meets creativity.',
     pillars_heading: 'Symulacje robotyczne. Aplikacje. Strony internetowe.',
   },
@@ -449,20 +453,24 @@ const translations = {
     hub_status: 'OPEN FOR NEW PROJECTS',
     pill_robotyka: 'Robotics_',
     pill_robotyka_hero: 'SIMULATION',
-    pill_apps: 'Apps_',
+    pill_apps: 'APPS_',
     pill_www: 'WWW_',
-    pill_studio: 'Android_',
+    pill_android: 'ANDROID_',
     enter_cta: 'ENTER',
     robotyka_desc: '> Advanced production process simulation services and offline programming for industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.',
     pcb_robotyka_desc: '> Future of performance: SUV that redefines luxury. Meet Project P47 – McLaren\'s first-ever five-seater coupe SUV. Created in collaboration with Forseven, this 800 hp hybrid V8 monster will challenge Ferrari Purosangue and Aston Martin DBX. Market premiere is planned for 2028. Pure sports driving DNA, now in its most versatile form.',
+    aplikacje_headline: 'Web Applications',
     aplikacje_desc: '> I automate what is not worth doing manually. Engineering webapps designed for specific business tasks. #vibecoding',
+    www_headline: 'Websites',
     www_desc: '> I design modern and responsive websites that are your company\'s showcase. I focus on aesthetics, performance and intuitive navigation.',
-    studio_desc: '> Technology is no longer a barrier. It has become a lever for those who have a plan.',
+    android_headline: 'Your home pharmacy with AI',
+    android_desc: '> Technology is no longer a barrier. It has become a lever for those who have a plan.',
     pcb_android_desc: '> Don\'t dig in the box. Check your phone. Scan meds with camera, track expiration dates and keep everything under control.',
     headline_line1: '<span class="word-cyan glitch" data-text="CODE">CODE</span> IS',
     headline_line2: 'THE LAST',
     headline_line3: 'STEP<span class="dot-magenta">.</span>',
-    scroll_cta: 'See what I\'m working on now.',
+    hero_scroll_cta: 'SEE WHAT I DO',
+    scroll_cta: 'DISCOVER MY PROJECTS',
     hero_subtitle: 'Jack into the digital world where code meets creativity.',
     pillars_heading: 'Robotic simulations. Applications. Websites.',
   }
@@ -577,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check for deep link
   if (window.location.hash) {
     const cardId = window.location.hash.slice(1);
-    if (['robotyka', 'aplikacje', 'www', 'studio'].includes(cardId)) {
+    if (['robotyka', 'aplikacje', 'www', 'android'].includes(cardId)) {
       console.log(`🔗 Deep link detected: ${cardId}`);
       setTimeout(() => openCard(cardId), 300);
     }
@@ -597,17 +605,17 @@ const cardData = {
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
   },
   aplikacje: {
-    title: 'Aplikacje webowe',
+    title: 'APLIKACJE',
     logo: 'assets/images/global/logo_app.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje',
   },
   www: {
-    title: 'Twoja strona → online',
+    title: 'Strony internetowe',
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
   },
-  studio: {
-    title: 'Karton na leki',
+  android: {
+    title: 'APK: Karton na leki',
     logo: 'assets/images/app/Karton-AI.jpg',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Karton-AI',
   },
@@ -786,9 +794,9 @@ function mountCardContent(id) {
     titleEl.textContent = data.title;
   }
 
-  // Handle terminal dot for studio
+  // Handle terminal dot for android
   const terminalDot = document.querySelector('.card-terminal-dot');
-  if (terminalDot && id === 'studio') {
+  if (terminalDot && id === 'android') {
     terminalDot.classList.add('dot-yellow');
   }
 

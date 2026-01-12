@@ -83,6 +83,12 @@
 
                 <h2 class="pillars-heading" data-i18n="pillars_heading">Symulacje robotyczne. Aplikacje. Strony
                     internetowe.</h2>
+
+                <!-- Scroll Indicator -->
+                <div class="hero-scroll-indicator" onclick="document.getElementById('twoPillarsSection').scrollIntoView({behavior:'smooth'})">
+                    <span data-i18n="hero_scroll_cta">ZOBACZ, CZYM SIĘ ZAJMUJĘ</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
         </section>
 
@@ -154,7 +160,7 @@
 
             <!-- Scroll Indicator (at end of two-pillars, points to PCB) -->
             <div class="hero-scroll-indicator" id="scrollIndicator" role="button" aria-label="Scroll down">
-                <span data-i18n="scroll_cta">Zobacz, czym się teraz zajmuję.</span>
+                <span data-i18n="scroll_cta">ODKRYJ MOJE PROJEKTY</span>
                 <i class="fas fa-chevron-down"></i>
             </div>
         </section>
@@ -420,7 +426,7 @@
                     <path id="pill-line-www" class="pill-line"
                         d="M 200 50 L 200 400 L 250 450 L 250 700 L 350 700 L 400 750 L 450 750"
                         filter="url(#glowStrong)" opacity="0" />
-                    <path id="pill-line-studio" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350"
+                    <path id="pill-line-android" class="pill-line" d="M 100 300 L 400 300 L 450 350 L 850 350"
                         filter="url(#glowStrong)" opacity="0" />
                 </g>
 
@@ -475,15 +481,15 @@
                 </button>
                 <button class="hub-pill hub-pill-2" data-card="aplikacje" data-neuron="5" data-node-x="350"
                     data-node-y="750" aria-label="Aplikacje">
-                    <span class="pill-text" data-i18n="pill_apps">Apps_</span>
+                    <span class="pill-text" data-i18n="pill_apps">APPS_</span>
                 </button>
                 <button class="hub-pill hub-pill-3" data-card="www" data-neuron="13" data-node-x="450" data-node-y="750"
                     aria-label="Strony WWW">
                     <span class="pill-text" data-i18n="pill_www">WWW_</span>
                 </button>
-                <button class="hub-pill hub-pill-4" data-card="studio" data-neuron="5" data-node-x="850"
+                <button class="hub-pill hub-pill-4" data-card="android" data-neuron="5" data-node-x="850"
                     data-node-y="350" aria-label="Android">
-                    <span class="pill-text" data-i18n="pill_studio">Android_</span>
+                    <span class="pill-text" data-i18n="pill_android">ANDROID_</span>
                 </button>
             </div>
         </section>
@@ -544,6 +550,7 @@
 
     <template id="template-aplikacje">
         <div class="card-body">
+            <h1 class="card-headline" data-i18n="aplikacje_headline">Aplikacje webowe</h1>
             <p class="card-lead" data-i18n="aplikacje_desc">
                 > Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych
                 zadań biznesowych. #vibecoding
@@ -556,6 +563,7 @@
 
     <template id="template-www">
         <div class="card-body">
+            <h1 class="card-headline" data-i18n="www_headline">Strony internetowe</h1>
             <p class="card-lead" data-i18n="www_desc">
                 > Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się
                 na estetyce, szybkości działania i intuicyjnej nawigacji.
@@ -566,15 +574,15 @@
         </div>
     </template>
 
-    <template id="template-studio">
+    <template id="template-android">
         <div class="card-body">
-            <h1 class="card-headline">Karton na leki</h1>
+            <h1 class="card-headline" data-i18n="android_headline">Twoja domowa apteczka z AI</h1>
             <p class="card-lead">
                 <span data-i18n="pcb_android_desc"> > Nie kop w pudle. Sprawdź w telefonie. Skanuj leki aparatem, śledź
                     daty
                     ważności i miej wszystko pod kontrolą.</span>
             </p>
-            <a href="https://pudelkonaleki.michalrapala.app/" class="card-cta" id="studio-cta">
+            <a href="https://pudelkonaleki.michalrapala.app/" class="card-cta" id="android-cta">
                 <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
             </a>
         </div>
