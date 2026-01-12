@@ -1448,13 +1448,26 @@ body.card-open {
     text-shadow: var(--glow-magenta);
 }
 
-/* Terminal prefix SYS:// */
+/* Terminal prefix ENG:// / DEV:// */
 .card-terminal-prefix {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--magenta);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    /* Default: magenta (fallback for SYS://) */
+    color: var(--magenta);
+    text-shadow: 0 0 10px var(--magenta);
+}
+
+/* ENG:// - cyan (Robotyka) */
+.card-terminal-prefix.prefix-eng {
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+}
+
+/* DEV:// - magenta (Aplikacje, WWW, Android) */
+.card-terminal-prefix.prefix-dev {
+    color: var(--magenta);
     text-shadow: 0 0 10px var(--magenta);
 }
 
