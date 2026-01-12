@@ -651,15 +651,10 @@ function openCard(id) {
     const gsap = window.gsap;
 
     if (isDesktop()) {
-      // Desktop: slide from right
-      const viewportWidth = window.innerWidth;
-      const statusEl = document.querySelector('.cyber-nav-status');
-      const statusWidth = statusEl ? statusEl.getBoundingClientRect().width : 200;
-      const targetLeft = (viewportWidth / 2) + (statusWidth / 2) + 16;
-
+      // Desktop: sideSheet slides from right edge
       gsap.fromTo(sheet,
-        { left: viewportWidth, opacity: 0 },
-        { left: targetLeft, opacity: 1, duration: 1.2, ease: 'power2.out', force3D: true }
+        { x: '100%', opacity: 0 },
+        { x: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
       );
     } else {
       // Mobile: slide from bottom
@@ -671,13 +666,6 @@ function openCard(id) {
   } else {
     // Reduced motion
     sheet.style.transition = 'opacity 0.3s ease';
-    if (isDesktop()) {
-      const viewportWidth = window.innerWidth;
-      const statusEl = document.querySelector('.cyber-nav-status');
-      const statusWidth = statusEl ? statusEl.getBoundingClientRect().width : 200;
-      const targetLeft = (viewportWidth / 2) + (statusWidth / 2) + 16;
-      sheet.style.left = `${targetLeft}px`;
-    }
     sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
     sheet.style.opacity = '0';
     sheet.offsetHeight;
@@ -689,6 +677,9 @@ function openCard(id) {
 
   // Focus trap
   setTimeout(() => trapFocus(sheet), 100);
+
+  // Enable swipe gestures (mobile: vertical, desktop: horizontal)
+  setTimeout(() => enableDrag(sheet), 100);
 
   console.log(`✅ Card opened: ${id}`);
 }
@@ -712,9 +703,9 @@ function closeCard() {
     const gsap = window.gsap;
 
     if (isDesktop()) {
-      const viewportWidth = window.innerWidth;
+      // Desktop: sideSheet slides out to right
       gsap.to(sheet, {
-        left: viewportWidth, opacity: 0, duration: 0.8, ease: 'power2.in', force3D: true,
+        x: '100%', opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
         onComplete: () => finishClose(sheet),
       });
     } else {
@@ -736,7 +727,6 @@ function finishClose(sheet) {
   // Reset inline styles
   sheet.style.transform = '';
   sheet.style.opacity = '';
-  sheet.style.left = '';
   sheet.style.transition = '';
 
   if (window.gsap) {
@@ -925,11 +915,13 @@ function trapFocus(container) {
   });
 }
 
-// Drag (mobile only)
+// Drag/Swipe - Mobile: vertical, Desktop: horizontal
 function enableDrag(sheet) {
-  if (isDesktop()) return;
+  const desktop = isDesktop();
 
+  let startX = 0;
   let startY = 0;
+  let currentX = 0;
   let currentY = 0;
   let isDragging = false;
 
@@ -939,7 +931,12 @@ function enableDrag(sheet) {
       return;
     }
 
-    startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+    const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+    startX = clientX;
+    startY = clientY;
+    currentX = clientX;
+    currentY = clientY;
     isDragging = true;
     sheet.classList.add('is-dragging');
   };
@@ -947,18 +944,35 @@ function enableDrag(sheet) {
   const handleMove = (e) => {
     if (!isDragging) return;
 
+    currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
     currentY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-    const deltaY = currentY - startY;
 
-    if (deltaY < 0) return;
+    if (desktop) {
+      // Desktop: horizontal swipe (right to close)
+      const deltaX = currentX - startX;
+      if (deltaX < 0) return; // Only allow swipe right
 
-    const yPercent = (deltaY / window.innerHeight) * 100;
-    sheet.style.transform = `translateY(${yPercent}%)`;
+      const xPercent = (deltaX / window.innerWidth) * 100;
+      sheet.style.transform = `translateX(${xPercent}%)`;
 
-    const backdrop = document.getElementById('card-backdrop');
-    if (backdrop) {
-      const opacity = Math.max(0, 0.35 - (yPercent / 100) * 0.35);
-      backdrop.style.opacity = opacity;
+      const backdrop = document.getElementById('card-backdrop');
+      if (backdrop) {
+        const opacity = Math.max(0, 0.15 - (xPercent / 100) * 0.15);
+        backdrop.style.opacity = opacity;
+      }
+    } else {
+      // Mobile: vertical swipe (down to close)
+      const deltaY = currentY - startY;
+      if (deltaY < 0) return; // Only allow swipe down
+
+      const yPercent = (deltaY / window.innerHeight) * 100;
+      sheet.style.transform = `translateY(${yPercent}%)`;
+
+      const backdrop = document.getElementById('card-backdrop');
+      if (backdrop) {
+        const opacity = Math.max(0, 0.35 - (yPercent / 100) * 0.35);
+        backdrop.style.opacity = opacity;
+      }
     }
   };
 
@@ -968,28 +982,54 @@ function enableDrag(sheet) {
     isDragging = false;
     sheet.classList.remove('is-dragging');
 
-    const deltaY = currentY - startY;
-    const deltaPercent = (deltaY / window.innerHeight) * 100;
-    const velocity = Math.abs(deltaY);
+    if (desktop) {
+      // Desktop: horizontal swipe threshold
+      const deltaX = currentX - startX;
+      const deltaPercent = (deltaX / window.innerWidth) * 100;
 
-    if (deltaPercent > 33 || velocity > 1200) {
-      closeCard();
-    } else {
-      if (window.gsap) {
-        window.gsap.to(sheet, {
-          yPercent: 0,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
+      if (deltaPercent > 20 || deltaX > 150) {
+        closeCard();
       } else {
-        sheet.style.transform = 'translateY(0)';
-      }
+        if (window.gsap) {
+          window.gsap.to(sheet, {
+            xPercent: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        } else {
+          sheet.style.transform = 'translateX(0)';
+        }
 
-      const backdrop = document.getElementById('card-backdrop');
-      if (backdrop) backdrop.style.opacity = '';
+        const backdrop = document.getElementById('card-backdrop');
+        if (backdrop) backdrop.style.opacity = '';
+      }
+    } else {
+      // Mobile: vertical swipe threshold
+      const deltaY = currentY - startY;
+      const deltaPercent = (deltaY / window.innerHeight) * 100;
+      const velocity = Math.abs(deltaY);
+
+      if (deltaPercent > 33 || velocity > 1200) {
+        closeCard();
+      } else {
+        if (window.gsap) {
+          window.gsap.to(sheet, {
+            yPercent: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        } else {
+          sheet.style.transform = 'translateY(0)';
+        }
+
+        const backdrop = document.getElementById('card-backdrop');
+        if (backdrop) backdrop.style.opacity = '';
+      }
     }
 
+    startX = 0;
     startY = 0;
+    currentX = 0;
     currentY = 0;
   };
 
