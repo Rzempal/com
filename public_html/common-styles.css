@@ -1006,6 +1006,20 @@ body.card-open {
     pointer-events: auto;
 }
 
+/* Desktop: allow scroll through backdrop when card is open */
+@media (min-width: 1025px) {
+    body.card-open .card-backdrop {
+        pointer-events: none;
+    }
+}
+
+/* Mobile: prevent touch scroll propagation when card is open */
+@media (max-width: 1024px) {
+    body.card-open {
+        touch-action: none;
+    }
+}
+
 /* Status highlight - "unblur" effect when card is open (mobile only) */
 /* Mobile: lift entire top-bar above blur using :has() */
 @media (max-width: 1024px) {
