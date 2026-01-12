@@ -754,41 +754,8 @@ body {
     }
 }
 
-/* ========== DESKTOP: NAVBAR ANIMATIONS WHEN CARD OPEN (≥1025px) ========== */
-@media (min-width: 1025px) {
-
-    /* Navbar content needs relative positioning for absolute child */
-    .cyber-nav-content {
-        position: relative;
-    }
-
-    /* Hide social links when card is open */
-    body.card-open .cyber-nav-links {
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s ease;
-    }
-
-    /* Center status indicator when card is open */
-    body.card-open .cyber-nav-status {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        /* Stretch to full navbar height */
-        left: 50%;
-        transform: translateX(-50%);
-        transition: all 1.2s ease;
-    }
-
-    /* Default state transition */
-    .cyber-nav-links {
-        transition: opacity 0.4s ease;
-    }
-
-    .cyber-nav-status {
-        transition: all 1.2s ease;
-    }
-}
+/* ========== DESKTOP: NAVBAR WHEN CARD OPEN (≥1025px) ========== */
+/* SideSheet doesn't affect navbar - content remains visible */
 
 /* ========== HERO OVERLAY (unified layout) ========== */
 .hero-overlay {
