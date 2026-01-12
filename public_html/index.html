@@ -1,4 +1,4 @@
-<!-- index.html v0.104 – Pillars inside hero section -->
+<!-- index.html v0.115 – Pillar headlines + larger hero + PCB projekty link -->
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -64,11 +64,11 @@
     <!-- ========== HUB CONTAINER ========== -->
     <div class="hub-wrapper">
 
-        <!-- ========== HERO SECTION ========== -->
+        <!-- ========== HERO SECTION (Page 1) ========== -->
         <section class="hero-section" id="heroSection">
             <div class="hero-overlay">
-                <!-- Tag -->
-                <span class="gate__tag" data-reveal>Engineer // Developer</span>
+                <!-- Tag with consistent styling -->
+                <span class="gate__tag" data-reveal><span class="tag-eng">ENGINEER</span> // <span class="tag-dev">DEVELOPER</span></span>
 
                 <!-- Title with Glitch -->
                 <h1 class="gate__title" data-reveal>
@@ -84,21 +84,24 @@
                 <h2 class="pillars-heading" data-i18n="pillars_heading">Symulacje robotyczne. Aplikacje. Strony
                     internetowe.</h2>
             </div>
+        </section>
 
-            <!-- ========== TWO PILLARS (inside hero) ========== -->
-            <section class="two-pillars" id="twoPillars">
+        <!-- ========== TWO PILLARS SECTION (Page 2) ========== -->
+        <section class="two-pillars-section" id="twoPillarsSection">
+            <div class="two-pillars" id="twoPillars">
 
-                <!-- Left Pillar: ROBOTYKA -->
-                <article class="pillar pillar-robotyka">
+                <!-- Left Pillar: ENG:// SYMULACJA -->
+                <article class="pillar pillar-robotyka pillar-eng">
                     <header class="pillar-header">
                         <span class="pillar-dot"></span>
-                        <span class="pillar-prefix">SYS://</span>
-                        <span class="pillar-title" data-i18n="pill_robotyka_hero">ROBOTYKA</span>
+                        <span class="pillar-prefix pillar-prefix-eng">ENG://</span>
+                        <span class="pillar-title" data-i18n="pill_robotyka_hero">SYMULACJA</span>
                     </header>
-                    <div class="pillar-media">
+                    <div class="pillar-media pillar-media-contain">
                         <img src="assets/images/global/logo_robotyka.png" alt="Robotyka - symulacje przemysłowe"
                             onerror="this.src='https://placehold.co/400x250/1e293b/48d2e7?text=Robotyka'" />
                     </div>
+                    <h3 class="pillar-headline-h3" data-i18n="robotyka_headline">Od ponad dekady pracuję jako inżynier robotyki w przemyśle motoryzacyjnym.</h3>
                     <p class="pillar-desc" data-i18n="robotyka_desc">
                         > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów
                         przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność
@@ -110,16 +113,16 @@
                     </a>
                 </article>
 
-                <!-- Right Pillar: RESZTATOKOD.PL -->
-                <article class="pillar pillar-studio">
+                <!-- Right Pillar: DEV:// RESZTATOKOD.PL -->
+                <article class="pillar pillar-studio pillar-dev">
                     <header class="pillar-header">
-                        <span class="pillar-dot pillar-dot-yellow"></span>
-                        <span class="pillar-prefix">SYS://</span>
-                        <svg viewBox="0 0 200 30" class="pillar-rtk-svg">
-                            <path d="M 5 15 L 20 15" class="rtk-path" />
-                            <text x="28" y="20" class="rtk-cmd">>_</text>
-                            <text x="50" y="20" class="rtk-url">CD RESZTATOKOD.PL</text>
-                            <rect x="178" y="6" width="12" height="20" class="rtk-cursor" />
+                        <span class="pillar-dot pillar-dot-magenta"></span>
+                        <span class="pillar-prefix pillar-prefix-dev">DEV://</span>
+                        <svg viewBox="0 0 200 30" class="pillar-rtk-svg pillar-rtk-svg-dev">
+                            <path d="M 5 15 L 20 15" class="rtk-path rtk-path-dev" />
+                            <text x="28" y="20" class="rtk-cmd rtk-cmd-dev">>_</text>
+                            <text x="50" y="20" class="rtk-url rtk-url-dev">CD RESZTATOKOD.PL</text>
+                            <rect x="178" y="6" width="12" height="20" class="rtk-cursor rtk-cursor-dev" />
                         </svg>
                     </header>
                     <div class="pillar-headline">
@@ -131,10 +134,11 @@
                                     class="dot-magenta">.</span></span>
                         </h2>
                     </div>
+                    <h3 class="pillar-headline-h3" data-i18n="studio_headline">Współzałożyciel ResztaToKod.pl</h3>
                     <p class="pillar-desc" data-i18n="studio_desc">
                         > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
                     </p>
-                    <a href="https://pudelkonaleki.michalrapala.app/" class="pillar-cta pillar-cta-yellow">
+                    <a href="https://resztatokod.pl" class="pillar-cta pillar-cta-magenta">
                         <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span
                             class="cta-cursor cursor-blink">_</span>
                     </a>
@@ -146,9 +150,9 @@
                     <button class="pillars-nav-dot" data-index="1" aria-label="Slide 2"></button>
                 </nav>
 
-            </section>
+            </div>
 
-            <!-- Scroll Indicator -->
+            <!-- Scroll Indicator (at end of two-pillars, points to PCB) -->
             <div class="hero-scroll-indicator" id="scrollIndicator" role="button" aria-label="Scroll down">
                 <span data-i18n="scroll_cta">Zobacz, czym się teraz zajmuję.</span>
                 <i class="fas fa-chevron-down"></i>
@@ -532,7 +536,7 @@
                 rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028.
                 Czyste DNA sportowej jazdy, teraz w najbardziej uniwersalnej formie.
             </p>
-            <a href="https://robotyka.michalrapala.com" class="card-cta">
+            <a href="https://robotyka.michalrapala.com/projekty.html" class="card-cta">
                 <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
             </a>
         </div>
