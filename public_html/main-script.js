@@ -431,6 +431,7 @@ const translations = {
     pill_apps: 'APPS_',
     pill_www: 'WWW_',
     pill_android: 'ANDROID_',
+    dev_prefix: 'PROGRAMOWANIE',
     enter_cta: 'WEJDZ',
     robotyka_desc: '> Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.',
     pcb_robotyka_desc: '> Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe. Tworzony we współpracy z Forseven, ten hybrydowy potwór V8 o mocy 800 KM rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028. Czyste DNA sportowej jazdy, teraz w najbardziej uniwersalnej formie.',
@@ -456,6 +457,7 @@ const translations = {
     pill_apps: 'APPS_',
     pill_www: 'WWW_',
     pill_android: 'ANDROID_',
+    dev_prefix: 'PROGRAMMING',
     enter_cta: 'ENTER',
     robotyka_desc: '> Advanced production process simulation services and offline programming for industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.',
     pcb_robotyka_desc: '> Future of performance: SUV that redefines luxury. Meet Project P47 – McLaren\'s first-ever five-seater coupe SUV. Created in collaboration with Forseven, this 800 hp hybrid V8 monster will challenge Ferrari Purosangue and Aston Martin DBX. Market premiere is planned for 2028. Pure sports driving DNA, now in its most versatile form.',
@@ -809,26 +811,10 @@ function mountCardContent(id) {
     prefixEl.classList.add(isEng ? 'prefix-eng' : 'prefix-dev');
   }
 
-  // Set logo
-  const logoEl = document.getElementById('card-logo');
+  // Hide card-media (images are now inside templates for consistent layout)
   const mediaContainer = document.querySelector('.card-media');
-
-  if (id === 'robotyka') {
-    if (mediaContainer) {
-      mediaContainer.style.setProperty('display', 'none', 'important');
-    }
-  } else {
-    if (mediaContainer) {
-      mediaContainer.style.display = '';
-      mediaContainer.style.removeProperty('display');
-    }
-    if (logoEl) {
-      logoEl.src = data.logo;
-      logoEl.alt = data.title;
-      logoEl.onerror = () => {
-        logoEl.src = data.logoFallback;
-      };
-    }
+  if (mediaContainer) {
+    mediaContainer.style.setProperty('display', 'none', 'important');
   }
 
   // Set content from template
