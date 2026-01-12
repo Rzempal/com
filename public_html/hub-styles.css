@@ -1454,17 +1454,19 @@ body {
     50% { opacity: 0; }
 }
 
-/* RTK CTA Container - Logo + Button */
+/* RTK CTA Container - Logo + Button side by side */
 .rtk-cta-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
     margin-top: auto;
+    flex-wrap: wrap;
 }
 
 .rtk-logo-wrapper {
-    width: 100%;
+    flex: 1;
+    min-width: 240px;
     max-width: 320px;
     height: 44px;
 }
@@ -1472,6 +1474,12 @@ body {
 .rtk-cta-button {
     opacity: 0;
     animation: rtkFadeIn 0.5s ease-out forwards 4s;
+}
+
+.rtk-cta-button:hover {
+    background: var(--yellow) !important;
+    color: var(--bg) !important;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6) !important;
 }
 
 /* ========== MOBILE: STACKED CARD CAROUSEL ========== */
