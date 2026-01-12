@@ -1226,6 +1226,125 @@ body.card-open {
     gap: 0.5rem;
 }
 
+/* ========== CARD TABS (Multi-card mode) ========== */
+.card-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    overflow-x: auto;
+    padding: 0 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.card-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.card-tab {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.35rem 0.75rem;
+    background: transparent;
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    color: var(--accent);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-tab:hover {
+    border-color: var(--accent);
+    background: rgba(0, 255, 255, 0.05);
+}
+
+.card-tab.active {
+    background: rgba(0, 255, 255, 0.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+}
+
+.card-tab.tab-eng {
+    border-color: rgba(0, 255, 255, 0.25);
+    color: var(--accent);
+}
+
+.card-tab.tab-dev {
+    border-color: rgba(255, 0, 255, 0.25);
+    color: var(--magenta);
+}
+
+.card-tab.tab-dev:hover {
+    border-color: var(--magenta);
+    background: rgba(255, 0, 255, 0.05);
+}
+
+.card-tab.tab-dev.active {
+    background: rgba(255, 0, 255, 0.12);
+    border-color: var(--magenta);
+    box-shadow: 0 0 12px rgba(255, 0, 255, 0.25);
+}
+
+/* ========== CARD SECTIONS (Stacked content) ========== */
+.card-section {
+    padding-top: 1rem;
+}
+
+.card-section:not(:first-child) {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 255, 255, 0.12);
+    position: relative;
+}
+
+.card-section:not(:first-child)::before {
+    content: '◆';
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg);
+    padding: 0 1rem;
+    color: var(--accent);
+    font-size: 0.6rem;
+    opacity: 0.5;
+}
+
+.card-section.section-dev:not(:first-child) {
+    border-top-color: rgba(255, 0, 255, 0.12);
+}
+
+.card-section.section-dev:not(:first-child)::before {
+    color: var(--magenta);
+}
+
+.card-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+
+.card-section-header .section-prefix {
+    color: var(--accent);
+}
+
+.card-section-header .section-prefix.prefix-dev {
+    color: var(--magenta);
+}
+
+.card-section-header .section-title {
+    color: var(--fg);
+}
+
 /* Terminal dot (pulsing) */
 .card-terminal-dot {
     width: 8px;

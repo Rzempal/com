@@ -529,11 +529,14 @@
             <button class="card-close" aria-label="Zamknij" title="Zamknij (Esc)">
                 <i class="fas fa-chevron-down"></i>
             </button>
-            <div class="card-terminal-header">
+            <!-- Single card: terminal header -->
+            <div class="card-terminal-header" id="card-terminal-header">
                 <span class="card-terminal-dot"></span>
                 <span id="card-prefix" class="card-terminal-prefix">SYS://</span>
                 <h2 id="card-title" class="card-title"></h2>
             </div>
+            <!-- Multiple cards: tab pills -->
+            <nav class="card-tabs" id="card-tabs" hidden aria-label="Otwarte projekty"></nav>
         </header>
 
         <div class="card-media">

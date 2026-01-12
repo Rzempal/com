@@ -596,30 +596,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ========== CARD SHEET SYSTEM ==========
 
-let currentCardId = null;
+let openCards = []; // Array of open card IDs (stacking)
 let dragState = null;
 
-// Card data
+// Card data with tab names
 const cardData = {
   robotyka: {
     title: 'McLaren | Projekt P47',
+    tabName: 'ROBOTYKA_',
     logo: 'assets/images/global/logo_robotyka.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
+    isEng: true,
   },
   aplikacje: {
     title: 'APLIKACJE',
+    tabName: 'APPS_',
     logo: 'assets/images/global/logo_app.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje',
+    isEng: false,
   },
   www: {
     title: 'Strony internetowe',
+    tabName: 'WWW_',
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
+    isEng: false,
   },
   android: {
     title: 'APK: Karton na leki',
+    tabName: 'ANDROID_',
     logo: 'assets/images/app/Karton-AI.jpg',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Karton-AI',
+    isEng: false,
   },
 };
 
@@ -628,84 +636,91 @@ function isDesktop() {
   return window.matchMedia('(min-width: 1025px)').matches;
 }
 
-// Open card
+// Open card (supports stacking multiple cards)
 function openCard(id) {
-  if (currentCardId === id) return;
   if (!cardData[id]) {
     console.error(`❌ Unknown card ID: ${id}`);
     return;
   }
 
+  // If card already open, scroll to it
+  if (openCards.includes(id)) {
+    scrollToCardSection(id);
+    setActiveTab(id);
+    return;
+  }
+
   console.log(`📂 Opening card: ${id}`);
 
-  currentCardId = id;
+  const isFirstCard = openCards.length === 0;
+  openCards.push(id);
 
-  // Mount content
-  mountCardContent(id);
+  // Mount content (animate if not first card)
+  mountCardContent(id, !isFirstCard);
 
-  // Show backdrop
-  showBackdrop(true);
+  // Update tabs UI
+  updateCardTabs();
 
-  // Lock body scroll
-  lockBodyScroll(true);
+  // Only do sheet animation on first card
+  if (isFirstCard) {
+    showBackdrop(true);
+    lockBodyScroll(true);
 
-  // Get elements
-  const sheet = document.getElementById('card-sheet');
-  if (!sheet) return;
+    const sheet = document.getElementById('card-sheet');
+    if (!sheet) return;
 
-  sheet.hidden = false;
-  sheet.classList.add('is-open');
+    sheet.hidden = false;
+    sheet.classList.add('is-open');
 
-  // Animation with GSAP
-  if (window.gsap && !prefersReducedMotion()) {
-    const gsap = window.gsap;
+    // Animation with GSAP
+    if (window.gsap && !prefersReducedMotion()) {
+      const gsap = window.gsap;
 
-    if (isDesktop()) {
-      // Desktop: sideSheet slides from right edge
-      gsap.fromTo(sheet,
-        { x: '100%', opacity: 0 },
-        { x: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
-      );
+      if (isDesktop()) {
+        gsap.fromTo(sheet,
+          { x: '100%', opacity: 0 },
+          { x: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+        );
+      } else {
+        gsap.fromTo(sheet,
+          { y: '100%', opacity: 0 },
+          { y: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
+        );
+      }
     } else {
-      // Mobile: slide from bottom
-      gsap.fromTo(sheet,
-        { y: '100%', opacity: 0 },
-        { y: '0%', opacity: 1, duration: 0.5, ease: 'power2.out', force3D: true }
-      );
+      sheet.style.transition = 'opacity 0.3s ease';
+      sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
+      sheet.style.opacity = '0';
+      sheet.offsetHeight;
+      sheet.style.opacity = '1';
     }
+
+    setTimeout(() => trapFocus(sheet), 100);
+    setTimeout(() => enableDrag(sheet), 100);
   } else {
-    // Reduced motion
-    sheet.style.transition = 'opacity 0.3s ease';
-    sheet.style.transform = isDesktop() ? 'translateX(0)' : 'translateY(0)';
-    sheet.style.opacity = '0';
-    sheet.offsetHeight;
-    sheet.style.opacity = '1';
+    // Scroll to newly added card
+    setTimeout(() => {
+      scrollToCardSection(id);
+      setActiveTab(id);
+    }, 100);
   }
 
   // Update hash
   history.replaceState(null, '', `#${id}`);
 
-  // Focus trap
-  setTimeout(() => trapFocus(sheet), 100);
-
-  // Enable swipe gestures (mobile: vertical, desktop: horizontal)
-  setTimeout(() => enableDrag(sheet), 100);
-
-  console.log(`✅ Card opened: ${id}`);
+  console.log(`✅ Card opened: ${id} (total: ${openCards.length})`);
 }
 
-// Close card
+// Close all cards
 function closeCard() {
-  if (!currentCardId) return;
+  if (openCards.length === 0) return;
 
-  console.log(`📪 Closing card: ${currentCardId}`);
+  console.log(`📪 Closing all cards: ${openCards.join(', ')}`);
 
   const sheet = document.getElementById('card-sheet');
   if (!sheet) return;
 
   sheet.classList.remove('is-open');
-
-  // Disable drag
   disableDrag();
 
   // Animation
@@ -713,7 +728,6 @@ function closeCard() {
     const gsap = window.gsap;
 
     if (isDesktop()) {
-      // Desktop: sideSheet slides out to right
       gsap.to(sheet, {
         x: '100%', opacity: 0, duration: 0.35, ease: 'power2.in', force3D: true,
         onComplete: () => finishClose(sheet),
@@ -750,14 +764,15 @@ function finishClose(sheet) {
   // Clear hash
   history.replaceState(null, '', window.location.pathname);
 
-  // Return focus to pill
-  if (currentCardId) {
-    const pill = document.querySelector(`[data-card="${currentCardId}"]`);
+  // Return focus to last opened pill
+  if (openCards.length > 0) {
+    const lastCard = openCards[openCards.length - 1];
+    const pill = document.querySelector(`[data-card="${lastCard}"]`);
     if (pill) pill.focus();
   }
 
-  currentCardId = null;
-  console.log('✅ Card closed');
+  openCards = [];
+  console.log('✅ All cards closed');
 }
 
 // Carousel logic for cards
@@ -785,46 +800,77 @@ function initCardCarousel(containerId) {
   cardCarouselTimer = setInterval(nextImage, 3000);
 }
 
-// Mount card content
-function mountCardContent(id) {
+// Mount card content (with section wrapper for stacking)
+function mountCardContent(id, animate = false) {
   const data = cardData[id];
   if (!data) return;
 
-  // Set title
-  const titleEl = document.getElementById('card-title');
-  if (titleEl) {
-    titleEl.textContent = data.title;
+  const isFirstCard = openCards.length === 1;
+  const isEng = data.isEng;
+
+  // Update terminal header only for first card
+  if (isFirstCard) {
+    const titleEl = document.getElementById('card-title');
+    if (titleEl) {
+      titleEl.textContent = data.title;
+    }
+
+    const terminalDot = document.querySelector('.card-terminal-dot');
+    if (terminalDot) {
+      terminalDot.classList.remove('dot-yellow');
+      if (id === 'android') {
+        terminalDot.classList.add('dot-yellow');
+      }
+    }
+
+    const prefixEl = document.getElementById('card-prefix');
+    if (prefixEl) {
+      prefixEl.textContent = isEng ? 'ENG://' : 'DEV://';
+      prefixEl.classList.remove('prefix-eng', 'prefix-dev');
+      prefixEl.classList.add(isEng ? 'prefix-eng' : 'prefix-dev');
+    }
   }
 
-  // Handle terminal dot for android
-  const terminalDot = document.querySelector('.card-terminal-dot');
-  if (terminalDot && id === 'android') {
-    terminalDot.classList.add('dot-yellow');
-  }
-
-  // Set prefix (ENG:// for robotyka, DEV:// for others)
-  const prefixEl = document.getElementById('card-prefix');
-  if (prefixEl) {
-    const isEng = id === 'robotyka';
-    prefixEl.textContent = isEng ? 'ENG://' : 'DEV://';
-    prefixEl.classList.remove('prefix-eng', 'prefix-dev');
-    prefixEl.classList.add(isEng ? 'prefix-eng' : 'prefix-dev');
-  }
-
-  // Hide card-media (images are now inside templates for consistent layout)
+  // Hide card-media
   const mediaContainer = document.querySelector('.card-media');
   if (mediaContainer) {
     mediaContainer.style.setProperty('display', 'none', 'important');
   }
 
-  // Set content from template
+  // Create section wrapper
+  const section = document.createElement('div');
+  section.className = `card-section ${isEng ? 'section-eng' : 'section-dev'}`;
+  section.setAttribute('data-card-section', id);
+
+  // Add section header (visible for all stacked cards)
+  const sectionHeader = document.createElement('div');
+  sectionHeader.className = 'card-section-header';
+  sectionHeader.innerHTML = `
+    <span class="section-prefix ${isEng ? '' : 'prefix-dev'}">${isEng ? 'ENG://' : 'DEV://'}</span>
+    <span class="section-title">${data.tabName.replace('_', '')}</span>
+  `;
+  section.appendChild(sectionHeader);
+
+  // Clone template content
   const template = document.getElementById(`template-${id}`);
-  const contentEl = document.getElementById('card-content');
-  if (template && contentEl) {
+  if (template) {
     const clone = template.content.cloneNode(true);
-    // Translate the cloned content before appending or right after
     translateCardContent(clone, currentLang);
-    contentEl.appendChild(clone);
+    section.appendChild(clone);
+  }
+
+  // Append to content area
+  const contentEl = document.getElementById('card-content');
+  if (contentEl) {
+    contentEl.appendChild(section);
+
+    // Animate entry from bottom if not first card
+    if (animate && window.gsap && !prefersReducedMotion()) {
+      window.gsap.fromTo(section,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }
+      );
+    }
   }
 
   // Initialize carousel for robotyka
@@ -832,7 +878,7 @@ function mountCardContent(id) {
     setTimeout(() => initCardCarousel('robotyka-carousel'), 100);
   }
 
-  console.log(`📝 Content mounted for: ${id}`);
+  console.log(`📝 Content mounted for: ${id} (section)`);
 }
 
 // Unmount card content
@@ -868,6 +914,68 @@ function unmountCardContent() {
     clearInterval(cardCarouselTimer);
     cardCarouselTimer = null;
   }
+
+  // Reset tabs UI
+  updateCardTabs();
+}
+
+// Update card tabs UI
+function updateCardTabs() {
+  const tabsContainer = document.getElementById('card-tabs');
+  const terminalHeader = document.getElementById('card-terminal-header');
+
+  if (!tabsContainer || !terminalHeader) return;
+
+  // Show tabs only when multiple cards open
+  if (openCards.length > 1) {
+    terminalHeader.hidden = true;
+    tabsContainer.hidden = false;
+
+    // Render tabs
+    tabsContainer.innerHTML = openCards.map((id, index) => {
+      const data = cardData[id];
+      if (!data) return '';
+      const isEng = data.isEng;
+      const isActive = index === openCards.length - 1;
+      return `<button class="card-tab ${isEng ? 'tab-eng' : 'tab-dev'} ${isActive ? 'active' : ''}"
+                      data-tab-id="${id}"
+                      aria-label="${data.tabName}">
+                ${data.tabName}
+              </button>`;
+    }).join('');
+
+    // Add click handlers
+    tabsContainer.querySelectorAll('.card-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab-id');
+        scrollToCardSection(tabId);
+        setActiveTab(tabId);
+      });
+    });
+  } else {
+    terminalHeader.hidden = false;
+    tabsContainer.hidden = true;
+    tabsContainer.innerHTML = '';
+  }
+}
+
+// Scroll to card section
+function scrollToCardSection(id) {
+  const section = document.querySelector(`[data-card-section="${id}"]`);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// Set active tab
+function setActiveTab(id) {
+  const tabsContainer = document.getElementById('card-tabs');
+  if (!tabsContainer) return;
+
+  tabsContainer.querySelectorAll('.card-tab').forEach(tab => {
+    const tabId = tab.getAttribute('data-tab-id');
+    tab.classList.toggle('active', tabId === id);
+  });
 }
 
 // Show/hide backdrop
