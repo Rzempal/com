@@ -1089,7 +1089,7 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     /* Card proportions */
     max-width: 480px;
-    min-height: 420px;
+    min-height: 480px;
 }
 
 .pillar-eng:hover {
@@ -1350,6 +1350,41 @@ body {
 .pillar-cta-preview {
     background: var(--yellow) !important;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+}
+
+/* Pillar Link (text link with external icon) */
+.pillar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    padding: 0.5rem 0;
+}
+
+.pillar-link:hover {
+    color: var(--fg);
+    text-shadow: 0 0 12px var(--accent);
+}
+
+.pillar-link svg {
+    transition: transform 0.3s ease;
+}
+
+.pillar-link:hover svg {
+    transform: translate(2px, -2px);
+}
+
+.pillar-dev .pillar-link {
+    color: var(--magenta);
+}
+
+.pillar-dev .pillar-link:hover {
+    text-shadow: 0 0 12px var(--magenta);
 }
 
 /* ========== RTK LOGO CTA (ResztaToKod.pl) ========== */
