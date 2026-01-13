@@ -943,6 +943,7 @@ body {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+    pointer-events: auto;
 }
 
 .hero-scroll-indicator i {
@@ -1080,15 +1081,17 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    background: rgba(10, 15, 25, 0.95);
+    /* PCB-style dark gradient background */
+    background: linear-gradient(135deg, #0a0a0f 0%, #0f1419 50%, #0a0a0f 100%);
     border: 1px solid rgba(0, 255, 255, 0.2);
-    padding: 1.5rem;
+    padding: 0;
     /* Cyberpunk corner cuts */
     clip-path: polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px),
             calc(100% - 20px) 100%, 0 100%);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     /* Card proportions */
     max-width: 480px;
+    overflow: hidden;
 }
 
 .pillar-eng:hover {
@@ -1101,15 +1104,17 @@ body {
     box-shadow: 0 0 30px rgba(255, 0, 255, 0.15);
 }
 
-/* Pillar Header */
+/* Pillar Header - PCB topbar style */
 .pillar-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     color: var(--accent);
+    background: rgba(0, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .pillar-dot {
@@ -1179,15 +1184,18 @@ body {
     }
 }
 
-/* Pillar Media */
 .pillar-media {
     position: relative;
     width: 100%;
     aspect-ratio: 16/10;
-    margin-bottom: 1rem;
+    margin: 1rem;
+    margin-bottom: 0.5rem;
     overflow: hidden;
     border: 1px solid rgba(0, 255, 255, 0.3);
     background: rgba(0, 20, 30, 0.5);
+    /* Cyan glow effect like PCB */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), 0 0 30px rgba(0, 255, 255, 0.1);
+    width: calc(100% - 2rem);
 }
 
 .pillar-media img {
@@ -1225,7 +1233,7 @@ body {
 
 /* Pillar Headline (for Studio - KOD JEST OSTATNIM KROKIEM) */
 .pillar-headline {
-    margin-bottom: 1rem;
+    margin: 0 1rem 1rem 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1238,7 +1246,7 @@ body {
     font-size: clamp(0.85rem, 1.8vw, 1rem);
     font-weight: 400;
     color: var(--muted);
-    margin-bottom: 0.75rem;
+    margin: 0 1rem 0.75rem 1rem;
     line-height: 1.5;
     text-align: center;
 }
@@ -1268,14 +1276,17 @@ body {
     text-shadow: 0 0 20px var(--magenta);
 }
 
-/* Pillar Description */
+/* Pillar Description - Callout style (matches PCB .card-lead) */
 .pillar-desc {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin: 0 1rem 1rem 1rem;
     flex-grow: 1;
+    /* Callout style */
+    padding-left: 0.75rem;
+    border-left: 2px solid rgba(0, 255, 255, 0.3);
 }
 
 /* Pillar CTA */
@@ -1361,7 +1372,7 @@ body {
     color: var(--accent);
     text-decoration: none;
     transition: all 0.3s ease;
-    margin-top: auto;
+    margin: auto 1rem 1rem 1rem;
     padding: 0.5rem 0;
 }
 
@@ -1535,7 +1546,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin-top: auto;
+    margin: auto 1rem 1rem 1rem;
 }
 
 /* RTK Logo as clickable link */

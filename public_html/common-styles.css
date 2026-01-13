@@ -1222,6 +1222,8 @@ body.is-dragging .card-backdrop {
     border-bottom: 1px solid rgba(0, 255, 255, 0.2);
     background: rgba(0, 255, 255, 0.02);
     z-index: 5;
+    /* Prevent pull-to-refresh interference on mobile swipe-down gesture */
+    overscroll-behavior: contain;
 }
 
 /* Terminal header container */
@@ -1595,6 +1597,8 @@ body.is-dragging .card-backdrop {
     text-transform: uppercase;
     margin-bottom: 1.5rem;
     text-align: center;
+    /* Prevent pull-to-refresh interference on mobile swipe-down gesture */
+    overscroll-behavior: contain;
 }
 
 .card-headline .line-1,
@@ -1719,6 +1723,8 @@ body.is-dragging .card-backdrop {
     padding: 1rem 1.5rem;
     flex-shrink: 0;
     z-index: 5;
+    /* Prevent pull-to-refresh interference on mobile swipe-down gesture */
+    overscroll-behavior: contain;
 }
 
 /* Neon frame around logo */
@@ -1791,6 +1797,8 @@ body.is-dragging .card-backdrop {
     text-align: left;
     padding-left: 0.5rem;
     border-left: 2px solid rgba(0, 255, 255, 0.3);
+    /* Prevent pull-to-refresh interference on mobile swipe-down gesture */
+    overscroll-behavior: contain;
 }
 
 .card-cta {

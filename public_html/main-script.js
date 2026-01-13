@@ -224,10 +224,11 @@ function fadeInPage() {
     pills.forEach((pill, index) => {
       setTimeout(() => {
         pill.style.opacity = '1';
+        pill.style.scale = '1';
         if (pill.classList.contains('hub-pill-3')) {
-          pill.style.transform = 'translate(0%, -100%)';
+          pill.style.transform = 'translate(0%, -100%) scale(1)';
         } else {
-          pill.style.transform = 'translate(-100%, -100%)';
+          pill.style.transform = 'translate(-100%, -100%) scale(1)';
         }
       }, 2000 + (index * 200));
     });
@@ -510,7 +511,7 @@ function setLanguage(lang) {
   localStorage.setItem('lang', lang);
 
   // If a card is open, translate its content too
-  if (currentCardId) {
+  if (openCards.length > 0) {
     translateCardContent(document.getElementById('card-content'), lang);
   }
 
@@ -1235,7 +1236,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && currentCardId) {
+    if (e.key === 'Escape' && openCards.length > 0) {
       closeCard();
     }
   });
