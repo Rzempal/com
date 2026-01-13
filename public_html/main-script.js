@@ -582,6 +582,23 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', handleResize);
   window.addEventListener('orientationchange', handleResize);
 
+  // IntersectionObserver for PCB section - reposition pills when visible
+  // Fixes bug where pills don't appear on desktop scroll-snap to page 3
+  const pcbSection = document.getElementById('hubMeshSection');
+  if (pcbSection && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Reposition pills when PCB section comes into view
+          positionPills();
+          console.log('📍 Pills repositioned on PCB section visibility');
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(pcbSection);
+    console.log('✅ PCB section observer initialized');
+  }
+
   console.log('✅ Initialization complete');
 
   // Check for deep link
