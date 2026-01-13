@@ -1089,7 +1089,6 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     /* Card proportions */
     max-width: 480px;
-    min-height: 480px;
 }
 
 .pillar-eng:hover {
@@ -1558,9 +1557,9 @@ body {
 }
 
 .rtk-logo-wrapper {
-    min-width: 280px;
-    max-width: 360px;
-    height: 50px;
+    min-width: 220px;
+    max-width: 300px;
+    height: 40px;
 }
 
 /* External icon animation - appears after typing */
@@ -1611,8 +1610,8 @@ body {
         /* Space for heading */
         padding-bottom: 3rem;
         /* Space for dots */
-        height: 450px;
-        /* Adjusted for heading */
+        height: 520px;
+        /* Increased for content fit */
         flex: 0 0 auto;
     }
 
@@ -1671,6 +1670,14 @@ body {
         flex-shrink: 0;
         align-self: center;
         margin-top: auto;
+    }
+
+    /* Link at bottom - mobile */
+    .pillar-link {
+        flex-shrink: 0;
+        align-self: center;
+        margin-top: auto;
+        font-size: 0.95rem;
     }
 
     /* Active card (front) */

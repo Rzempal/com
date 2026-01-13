@@ -1772,6 +1772,7 @@ body.is-dragging .card-backdrop {
     z-index: 5;
     /* Prevent pull-to-refresh when scrolling inside card */
     overscroll-behavior-y: contain;
+    touch-action: pan-y;
 }
 
 .card-body {
