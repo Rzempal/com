@@ -997,13 +997,20 @@ body.card-open {
     -webkit-backdrop-filter: blur(6px);
     z-index: 999;
     opacity: 0;
-    transition: opacity 240ms ease-out, backdrop-filter 240ms ease-out;
+    transition: opacity 240ms ease-out;
     pointer-events: none;
 }
 
 .card-backdrop:not([hidden]) {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* Performance: disable backdrop blur during drag */
+body.is-dragging .card-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Desktop: allow scroll through backdrop when card is open */
@@ -1343,6 +1350,32 @@ body.card-open {
 
 .card-section-header .section-title {
     color: var(--fg);
+}
+
+/* Topbar CTA button (external link) */
+.card-topbar-cta {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.card-topbar-cta:hover {
+    background: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+}
+
+.card-topbar-cta svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* Terminal dot (pulsing) */
@@ -1907,6 +1940,40 @@ body.card-open {
     /* Mobile: title smaller */
     .card-title {
         font-size: 0.9rem;
+    }
+
+    /* Mobile: hide CTA in card body (use topbar CTA instead) */
+    .card-cta {
+        display: none !important;
+    }
+
+    /* Mobile: reduce content sizes to avoid scroll */
+    .card-section-header {
+        display: none;
+    }
+
+    .card-headline {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+        margin-bottom: 0.5rem;
+    }
+
+    .card-lead {
+        font-size: 0.75rem;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-image-container {
+        max-height: 140px;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-image {
+        max-height: 140px;
+    }
+
+    .card-carousel-container {
+        max-height: 160px;
     }
 
     .card-logo-img {
