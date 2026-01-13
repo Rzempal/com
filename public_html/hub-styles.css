@@ -1087,6 +1087,9 @@ body {
     clip-path: polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px),
             calc(100% - 20px) 100%, 0 100%);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* Card proportions */
+    max-width: 480px;
+    min-height: 420px;
 }
 
 .pillar-eng:hover {
@@ -1382,9 +1385,17 @@ body {
     animation: rtkFadeIn 0.5s ease-out forwards;
 }
 
-.rtk-n1 { animation-delay: 0.1s; }
-.rtk-n2 { animation-delay: 0.2s; }
-.rtk-n3 { animation-delay: 0.3s; }
+.rtk-n1 {
+    animation-delay: 0.1s;
+}
+
+.rtk-n2 {
+    animation-delay: 0.2s;
+}
+
+.rtk-n3 {
+    animation-delay: 0.3s;
+}
 
 .rtk-long-link {
     stroke: var(--magenta);
@@ -1395,9 +1406,17 @@ body {
     animation: rtkDraw 0.8s ease-out forwards;
 }
 
-.rtk-l1 { animation-delay: 0.4s; }
-.rtk-l2 { animation-delay: 0.5s; }
-.rtk-l3 { animation-delay: 0.6s; }
+.rtk-l1 {
+    animation-delay: 0.4s;
+}
+
+.rtk-l2 {
+    animation-delay: 0.5s;
+}
+
+.rtk-l3 {
+    animation-delay: 0.6s;
+}
 
 .rtk-long-path {
     stroke: var(--magenta);
@@ -1440,56 +1459,99 @@ body {
 
 /* RTK Keyframes */
 @keyframes rtkFadeIn {
-    to { opacity: 1; }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes rtkDraw {
-    to { stroke-dashoffset: 0; }
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
 @keyframes rtkType {
-    to { clip-path: inset(0 0 0 0); }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
 }
 
 @keyframes rtkMoveCursorLong {
-    to { transform: translateX(300px); }
+    to {
+        transform: translateX(300px);
+    }
 }
 
 @keyframes rtkBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
-/* RTK CTA Container - Logo + Button side by side */
+/* RTK CTA Container - Logo centered */
 .rtk-cta-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 1rem;
     margin-top: auto;
-    flex-wrap: wrap;
+}
+
+/* RTK Logo as clickable link */
+.rtk-logo-link {
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.rtk-logo-link:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 12px rgba(255, 0, 255, 0.5));
+}
+
+.rtk-logo-link:hover .rtk-external-icon {
+    opacity: 1;
+    transform: translate(260px, 18px) scale(1.1);
 }
 
 .rtk-logo-wrapper {
-    flex: 1;
-    min-width: 240px;
-    max-width: 320px;
-    height: 44px;
+    min-width: 280px;
+    max-width: 360px;
+    height: 50px;
 }
 
-.rtk-cta-button {
+/* External icon animation - appears after typing */
+.rtk-external-icon {
     opacity: 0;
-    animation: rtkFadeIn 0.5s ease-out forwards 4s;
+    stroke: var(--magenta);
+    color: var(--magenta);
+    animation: rtkExternalAppear 0.5s ease-out forwards 3.5s;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.rtk-cta-button:hover {
-    background: var(--yellow) !important;
-    color: var(--bg) !important;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6) !important;
+@keyframes rtkExternalAppear {
+    0% {
+        opacity: 0;
+        transform: translate(250px, 18px) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(260px, 18px) scale(1);
+    }
 }
 
 /* ========== MOBILE: STACKED CARD CAROUSEL ========== */
 @media (max-width: 900px) {
+
     /* Mobile: block scroll when card is open */
     body.card-open .hub-wrapper {
         overflow: hidden;

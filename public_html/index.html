@@ -68,7 +68,8 @@
         <section class="hero-section" id="heroSection">
             <div class="hero-overlay">
                 <!-- Tag with consistent styling -->
-                <span class="gate__tag" data-reveal><span class="tag-eng">ENGINEER</span> // <span class="tag-dev">DEVELOPER</span></span>
+                <span class="gate__tag" data-reveal><span class="tag-eng">ENGINEER</span> // <span
+                        class="tag-dev">DEVELOPER</span></span>
 
                 <!-- Title with Glitch -->
                 <h1 class="gate__title" data-reveal>
@@ -85,7 +86,8 @@
                     internetowe.</h2>
 
                 <!-- Scroll Indicator -->
-                <div class="hero-scroll-indicator" onclick="document.getElementById('twoPillarsSection').scrollIntoView({behavior:'smooth'})">
+                <div class="hero-scroll-indicator"
+                    onclick="document.getElementById('twoPillarsSection').scrollIntoView({behavior:'smooth'})">
                     <span data-i18n="hero_scroll_cta">ZOBACZ, CZYM SIĘ ZAJMUJĘ</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -107,15 +109,15 @@
                         <img src="assets/images/global/logo_robotyka.png" alt="Robotyka - symulacje przemysłowe"
                             onerror="this.src='https://placehold.co/400x250/1e293b/48d2e7?text=Robotyka'" />
                     </div>
-                    <h3 class="pillar-headline-h3" data-i18n="robotyka_headline">Od ponad dekady pracuję jako inżynier robotyki w przemyśle motoryzacyjnym.</h3>
+                    <h3 class="pillar-headline-h3" data-i18n="robotyka_headline">Od ponad dekady pracuję jako inżynier
+                        robotyki w przemyśle motoryzacyjnym.</h3>
                     <p class="pillar-desc" data-i18n="robotyka_desc">
                         > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów
                         przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność
                         produkcji.
                     </p>
                     <a href="https://robotyka.michalrapala.com" class="pillar-cta pillar-cta-cyan">
-                        <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span
-                            class="cta-cursor cursor-blink">_</span>
+                        <span class="cta-text">ODKRYJ</span><span class="cta-cursor cursor-blink">_</span>
                     </a>
                 </article>
 
@@ -140,34 +142,49 @@
                         > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
                     </p>
                     <div class="rtk-cta-container">
-                        <!-- RTK Logo Animation -->
-                        <div class="rtk-logo-wrapper">
-                            <svg viewBox="0 0 440 60" class="rtk-logo-long">
-                                <!-- Neural network nodes -->
-                                <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
-                                <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
-                                <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
-                                <!-- Neural links -->
-                                <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
-                                <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
-                                <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
-                                <!-- Flow path -->
-                                <path d="M 10 30 L 40 30" class="rtk-long-path" />
-                                <!-- Prompt -->
-                                <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
-                                <!-- Typing command -->
-                                <text x="86" y="38" class="rtk-long-url" xml:space="preserve">cd resztatokod.pl</text>
-                                <!-- Cursor -->
-                                <g class="rtk-long-cursor-g">
-                                    <rect x="86" y="16" width="14" height="26" class="rtk-long-cursor" />
-                                </g>
-                            </svg>
-                        </div>
-                        <!-- Button appears after animation -->
-                        <a href="https://resztatokod.pl" class="pillar-cta pillar-cta-magenta rtk-cta-button">
-                            <span class="cta-text" data-i18n="enter_cta">WEJDZ</span><span class="cta-cursor cursor-blink">_</span>
+                        <!-- RTK Logo Animation as Link -->
+                        <a href="https://resztatokod.pl" class="rtk-logo-link" target="_blank" rel="noopener"
+                            aria-label="Przejdź do resztatokod.pl">
+                            <div class="rtk-logo-wrapper">
+                                <svg viewBox="0 0 480 60" class="rtk-logo-long">
+                                    <!-- Neural network nodes -->
+                                    <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
+                                    <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
+                                    <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
+                                    <!-- Neural links -->
+                                    <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
+                                    <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
+                                    <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
+                                    <!-- Flow path -->
+                                    <path d="M 10 30 L 40 30" class="rtk-long-path" />
+                                    <!-- Prompt -->
+                                    <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
+                                    <!-- Typing command -->
+                                    <text x="86" y="38" class="rtk-long-url" xml:space="preserve">cd
+                                        resztatokod.pl</text>
+                                    <!-- Cursor -->
+                                    <g class="rtk-long-cursor-g">
+                                        <rect x="86" y="16" width="14" height="26" class="rtk-long-cursor" />
+                                    </g>
+                                    <!-- External link icon (Lucide) - appears after typing animation -->
+                                    <g class="rtk-external-icon" transform="translate(260, 18)">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" fill="none" />
+                                        <polyline points="15 3 21 3 21 9" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                        <line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </g>
+                                </svg>
+                            </div>
                         </a>
                     </div>
+                    <!-- Creative CTA button -->
+                    <a href="https://resztatokod.pl" class="pillar-cta pillar-cta-magenta" target="_blank"
+                        rel="noopener">
+                        <span class="cta-text">EKSPLORUJ</span><span class="cta-cursor cursor-blink">_</span>
+                    </a>
                 </article>
 
                 <!-- Navigation Dots (mobile only) -->
@@ -538,8 +555,10 @@
             <!-- Multiple cards: tab pills -->
             <nav class="card-tabs" id="card-tabs" hidden aria-label="Otwarte projekty"></nav>
             <!-- CTA link (mobile topbar) -->
-            <a id="card-topbar-cta" class="card-topbar-cta" href="#" target="_blank" rel="noopener" aria-label="Otwórz projekt" title="Otwórz projekt" hidden>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <a id="card-topbar-cta" class="card-topbar-cta" href="#" target="_blank" rel="noopener"
+                aria-label="Otwórz projekt" title="Otwórz projekt" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
                     <line x1="10" y1="14" x2="21" y2="3"></line>
