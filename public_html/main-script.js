@@ -599,13 +599,14 @@ document.addEventListener('DOMContentLoaded', () => {
 let openCards = []; // Array of open card IDs (stacking)
 let dragState = null;
 
-// Card data with tab names
+// Card data with tab names and CTA URLs
 const cardData = {
   robotyka: {
     title: 'McLaren | Projekt P47',
     tabName: 'ROBOTYKA_',
     logo: 'assets/images/global/logo_robotyka.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Robotyka',
+    ctaUrl: 'https://robotyka.michalrapala.com/projekty.html',
     isEng: true,
   },
   aplikacje: {
@@ -613,6 +614,7 @@ const cardData = {
     tabName: 'APPS_',
     logo: 'assets/images/global/logo_app.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Aplikacje',
+    ctaUrl: 'https://michalrapala.app',
     isEng: false,
   },
   www: {
@@ -620,6 +622,7 @@ const cardData = {
     tabName: 'WWW_',
     logo: 'assets/images/global/logo_web_ai.png',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Strony+WWW',
+    ctaUrl: 'https://twoja-strona.online',
     isEng: false,
   },
   android: {
@@ -627,6 +630,7 @@ const cardData = {
     tabName: 'ANDROID_',
     logo: 'assets/images/app/Karton-AI.jpg',
     logoFallback: 'https://placehold.co/300x200/1e293b/48d2e7?text=Karton-AI',
+    ctaUrl: 'https://pudelkonaleki.michalrapala.app/',
     isEng: false,
   },
 };
@@ -831,6 +835,13 @@ function mountCardContent(id, animate = false) {
     }
   }
 
+  // Update topbar CTA link (always update to latest card)
+  const topbarCta = document.getElementById('card-topbar-cta');
+  if (topbarCta && data.ctaUrl) {
+    topbarCta.href = data.ctaUrl;
+    topbarCta.hidden = false;
+  }
+
   // Hide card-media
   const mediaContainer = document.querySelector('.card-media');
   if (mediaContainer) {
@@ -909,6 +920,13 @@ function unmountCardContent() {
 
   const contentEl = document.getElementById('card-content');
   if (contentEl) contentEl.innerHTML = '';
+
+  // Hide topbar CTA
+  const topbarCta = document.getElementById('card-topbar-cta');
+  if (topbarCta) {
+    topbarCta.hidden = true;
+    topbarCta.href = '#';
+  }
 
   if (cardCarouselTimer) {
     clearInterval(cardCarouselTimer);
@@ -1033,15 +1051,17 @@ function trapFocus(container) {
   });
 }
 
-// Drag/Swipe - Mobile: vertical, Desktop: horizontal
+// Drag/Swipe - Mobile: vertical, Desktop: horizontal (optimized with RAF)
 function enableDrag(sheet) {
   const desktop = isDesktop();
+  const backdrop = document.getElementById('card-backdrop'); // Cache once
 
   let startX = 0;
   let startY = 0;
   let currentX = 0;
   let currentY = 0;
   let isDragging = false;
+  let rafId = null;
 
   const handleStart = (e) => {
     const target = e.target;
@@ -1057,6 +1077,7 @@ function enableDrag(sheet) {
     currentY = clientY;
     isDragging = true;
     sheet.classList.add('is-dragging');
+    document.body.classList.add('is-dragging'); // For CSS perf optimizations
   };
 
   const handleMove = (e) => {
@@ -1065,40 +1086,45 @@ function enableDrag(sheet) {
     currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
     currentY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
 
-    if (desktop) {
-      // Desktop: horizontal swipe (right to close)
-      const deltaX = currentX - startX;
-      if (deltaX < 0) return; // Only allow swipe right
+    // Use requestAnimationFrame for smooth updates
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      if (desktop) {
+        const deltaX = currentX - startX;
+        if (deltaX < 0) return;
 
-      const xPercent = (deltaX / window.innerWidth) * 100;
-      sheet.style.transform = `translateX(${xPercent}%)`;
+        const xPercent = (deltaX / window.innerWidth) * 100;
+        sheet.style.transform = `translateX(${xPercent}%)`;
 
-      const backdrop = document.getElementById('card-backdrop');
-      if (backdrop) {
-        const opacity = Math.max(0, 0.15 - (xPercent / 100) * 0.15);
-        backdrop.style.opacity = opacity;
+        if (backdrop) {
+          backdrop.style.opacity = Math.max(0, 0.15 - (xPercent / 100) * 0.15);
+        }
+      } else {
+        const deltaY = currentY - startY;
+        if (deltaY < 0) return;
+
+        const yPercent = (deltaY / window.innerHeight) * 100;
+        sheet.style.transform = `translateY(${yPercent}%)`;
+
+        if (backdrop) {
+          backdrop.style.opacity = Math.max(0, 0.35 - (yPercent / 100) * 0.35);
+        }
       }
-    } else {
-      // Mobile: vertical swipe (down to close)
-      const deltaY = currentY - startY;
-      if (deltaY < 0) return; // Only allow swipe down
-
-      const yPercent = (deltaY / window.innerHeight) * 100;
-      sheet.style.transform = `translateY(${yPercent}%)`;
-
-      const backdrop = document.getElementById('card-backdrop');
-      if (backdrop) {
-        const opacity = Math.max(0, 0.35 - (yPercent / 100) * 0.35);
-        backdrop.style.opacity = opacity;
-      }
-    }
+    });
   };
 
   const handleEnd = () => {
     if (!isDragging) return;
 
+    // Cancel any pending animation frame
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
     isDragging = false;
     sheet.classList.remove('is-dragging');
+    document.body.classList.remove('is-dragging');
 
     if (desktop) {
       // Desktop: horizontal swipe threshold
@@ -1117,8 +1143,6 @@ function enableDrag(sheet) {
         } else {
           sheet.style.transform = 'translateX(0)';
         }
-
-        const backdrop = document.getElementById('card-backdrop');
         if (backdrop) backdrop.style.opacity = '';
       }
     } else {
@@ -1139,8 +1163,6 @@ function enableDrag(sheet) {
         } else {
           sheet.style.transform = 'translateY(0)';
         }
-
-        const backdrop = document.getElementById('card-backdrop');
         if (backdrop) backdrop.style.opacity = '';
       }
     }
