@@ -1091,7 +1091,20 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     /* Card proportions */
     max-width: 480px;
-    overflow: hidden;
+    overflow: visible;
+}
+
+/* Pillar corner marker (bottom-right cyan accent) */
+.pillar::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 15px;
+    height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    z-index: 2;
 }
 
 .pillar-eng:hover {
@@ -1233,11 +1246,18 @@ body {
 
 /* Pillar Headline (for Studio - KOD JEST OSTATNIM KROKIEM) */
 .pillar-headline {
-    margin: 0 1rem 1rem 1rem;
+    /* Match pillar-media dimensions */
+    aspect-ratio: 16/10;
+    width: calc(100% - 2rem);
+    margin: 1rem;
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
+    /* Match pillar-media styling */
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    background: rgba(0, 20, 30, 0.5);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2), 0 0 30px rgba(0, 255, 255, 0.1);
 }
 
 /* Pillar H3 Headline (text headline - mono font like description) */
@@ -1372,8 +1392,10 @@ body {
     color: var(--accent);
     text-decoration: none;
     transition: all 0.3s ease;
-    margin: auto 1rem 1rem 1rem;
-    padding: 0.5rem 0;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    align-self: center;
 }
 
 .pillar-link:hover {
@@ -1564,13 +1586,13 @@ body {
 
 .rtk-logo-link:hover .rtk-external-icon {
     opacity: 1;
-    transform: translate(260px, 18px) scale(1.1);
+    transform: translate(350px, 18px) scale(1.1);
 }
 
 .rtk-logo-wrapper {
-    min-width: 220px;
-    max-width: 300px;
-    height: 40px;
+    min-width: 300px;
+    max-width: 400px;
+    height: 45px;
 }
 
 /* External icon animation - appears after typing */
@@ -1585,12 +1607,12 @@ body {
 @keyframes rtkExternalAppear {
     0% {
         opacity: 0;
-        transform: translate(250px, 18px) scale(0.8);
+        transform: translate(340px, 18px) scale(0.8);
     }
 
     100% {
         opacity: 1;
-        transform: translate(260px, 18px) scale(1);
+        transform: translate(350px, 18px) scale(1);
     }
 }
 
