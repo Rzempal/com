@@ -53,10 +53,16 @@
                 </button>
             </div>
 
-            <!-- Right: Status -->
-            <div class="cyber-nav-status">
-                <span class="status-dot"></span>
-                <span class="status-text" data-i18n="hub_status">OTWARTY NA NOWE PROJEKTY</span>
+            <!-- Right: Status & Sidebar Toggle -->
+            <div class="cyber-nav-right">
+                <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Otwórz sidebar"
+                    title="Otwórz sidebar" hidden>
+                    <i class="fa-solid fa-left-from-bracket"></i>
+                </button>
+                <div class="cyber-nav-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text" data-i18n="hub_status">OTWARTY NA NOWE PROJEKTY</span>
+                </div>
             </div>
         </div>
     </nav>
@@ -541,7 +547,7 @@
 
         <header class="card-topbar">
             <button class="card-close" aria-label="Zamknij" title="Zamknij (Esc)">
-                <i class="fas fa-chevron-down"></i>
+                <i class="fa-solid fa-right-from-bracket"></i>
             </button>
             <!-- Single card: terminal header -->
             <div class="card-terminal-header" id="card-terminal-header">

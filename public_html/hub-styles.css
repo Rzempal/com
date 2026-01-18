@@ -66,6 +66,44 @@ body {
     filter: drop-shadow(0 0 4px currentColor);
 }
 
+.cyber-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar-toggle-btn {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.sidebar-toggle-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+@media (min-width: 1025px) {
+    .sidebar-toggle-btn {
+        display: flex;
+    }
+
+    /* Align cyber-nav-right bottom border with sidebar topbar */
+    .cyber-nav-right {
+        align-self: stretch;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        padding-bottom: 0;
+    }
+}
+
 /* Status - Right */
 .cyber-nav-status {
     display: flex;

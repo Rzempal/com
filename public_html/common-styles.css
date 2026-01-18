@@ -2065,8 +2065,7 @@ body.is-dragging .card-backdrop {
     }
 
     .card-close i {
-        transform: rotate(-90deg);
-        /* chevron-down → points right (>) */
+        transform: none; /* remove legacy rotation */
     }
 
     /* Topbar: [Close >] [●] [SYS://] [Tytuł] - all flex children aligned */
@@ -2082,6 +2081,26 @@ body.is-dragging .card-backdrop {
         padding: 0 1.5rem;
         /* Horizontal only - height is explicit */
         margin-top: 0;
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        z-index: 100;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .card-tabs {
+        position: sticky;
+        top: 0;
+        flex: 1;
+        overflow-x: auto;
+        white-space: nowrap;
+        background: var(--bg);
+        padding: 4px 0;
+    }
+
+    /* Hide CTA on desktop as requested */
+    .card-topbar-cta {
+        display: none !important;
     }
 
     .card-title {

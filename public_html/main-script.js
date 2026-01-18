@@ -600,6 +600,21 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ PCB section observer initialized');
   }
 
+  // Initialize Sidebar Toggle Button
+  const sidebarBtn = document.getElementById('sidebar-toggle-btn');
+  if (sidebarBtn) {
+    sidebarBtn.addEventListener('click', () => {
+      // Restore all previously open cards
+      const savedCards = JSON.parse(localStorage.getItem('openCards') || '[]');
+      if (savedCards.length > 0) {
+        savedCards.forEach(cardId => openCard(cardId));
+      } else {
+        // Fallback to default card
+        openCard('robotyka');
+      }
+    });
+  }
+
   console.log('✅ Initialization complete');
 
   // Check for deep link
@@ -689,10 +704,14 @@ function openCard(id) {
     lockBodyScroll(true);
 
     const sheet = document.getElementById('card-sheet');
+    const sidebarBtn = document.getElementById('sidebar-toggle-btn');
     if (!sheet) return;
 
     sheet.hidden = false;
     sheet.classList.add('is-open');
+
+    // Hide sidebar toggle button when sidebar is open
+    if (sidebarBtn) sidebarBtn.hidden = true;
 
     // Animation with GSAP
     if (window.gsap && !prefersReducedMotion()) {
@@ -727,8 +746,9 @@ function openCard(id) {
     }, 100);
   }
 
-  // Update hash
+  // Update hash and last card
   history.replaceState(null, '', `#${id}`);
+  localStorage.setItem('lastCard', id);
 
   console.log(`✅ Card opened: ${id} (total: ${openCards.length})`);
 }
@@ -779,21 +799,25 @@ function finishClose(sheet) {
     window.gsap.killTweensOf(sheet);
   }
 
+  // Save open cards BEFORE clearing them
+  if (openCards.length > 0) {
+    localStorage.setItem('openCards', JSON.stringify(openCards));
+  }
+
   unmountCardContent();
   showBackdrop(false);
   lockBodyScroll(false);
 
-  // Clear hash
-  history.replaceState(null, '', window.location.pathname);
-
-  // Return focus to last opened pill
-  if (openCards.length > 0) {
-    const lastCard = openCards[openCards.length - 1];
-    const pill = document.querySelector(`[data-card="${lastCard}"]`);
-    if (pill) pill.focus();
-  }
+  // Do NOT change hash or scroll position - user stays where they are
 
   openCards = [];
+
+  // Show sidebar toggle button when sidebar is closed (only on desktop)
+  const sidebarBtn = document.getElementById('sidebar-toggle-btn');
+  if (sidebarBtn && isDesktop()) {
+    sidebarBtn.hidden = false;
+  }
+
   console.log('✅ All cards closed');
 }
 
@@ -998,8 +1022,21 @@ function updateCardTabs() {
 // Scroll to card section
 function scrollToCardSection(id) {
   const section = document.querySelector(`[data-card-section="${id}"]`);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const contentContainer = document.getElementById('card-content');
+
+  if (section && contentContainer) {
+    // Calculate offset of section relative to the scroll container
+    const sectionTop = section.offsetTop - contentContainer.offsetTop;
+
+    // Smooth scroll within the container
+    contentContainer.scrollTo({
+      top: sectionTop,
+      behavior: 'smooth'
+    });
+
+    // Explicitly update last card on tab click too
+    localStorage.setItem('lastCard', id);
+    history.replaceState(null, '', `#${id}`);
   }
 }
 
