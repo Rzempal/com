@@ -251,3 +251,74 @@ html.lenis, html.lenis body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* ============================================
+   PCB Circuit Board Animations
+   ============================================ */
+
+/* Trace pulse animation */
+@keyframes pcb-trace-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.pcb-trace {
+  animation: pcb-trace-pulse 4s ease-in-out infinite;
+}
+
+.pcb-trace[data-index="0"] { animation-delay: 0s; }
+.pcb-trace[data-index="1"] { animation-delay: 0.5s; }
+.pcb-trace[data-index="2"] { animation-delay: 1s; }
+.pcb-trace[data-index="3"] { animation-delay: 1.5s; }
+.pcb-trace[data-index="4"] { animation-delay: 0.25s; }
+.pcb-trace[data-index="5"] { animation-delay: 0.75s; }
+.pcb-trace[data-index="6"] { animation-delay: 1.25s; }
+.pcb-trace[data-index="7"] { animation-delay: 1.75s; }
+.pcb-trace[data-index="8"] { animation-delay: 2s; }
+
+/* Pad glow animation */
+@keyframes pcb-pad-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.pcb-pad {
+  animation: pcb-pad-glow 3s ease-in-out infinite;
+}
+
+/* Pill anchor pulse */
+@keyframes pcb-anchor-pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.pcb-pill-anchor {
+  animation: pcb-anchor-pulse 2s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* Flash effect for clicked traces */
+@keyframes pcb-trace-flash {
+  0% {
+    stroke-opacity: 0;
+    stroke-width: 6;
+  }
+  20% {
+    stroke-opacity: 1;
+  }
+  100% {
+    stroke-opacity: 0;
+    stroke-width: 2;
+  }
+}
+
+.pcb-trace-flash {
+  animation: pcb-trace-flash 0.8s ease-out forwards;
+}
