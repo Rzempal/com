@@ -1,31 +1,35 @@
 # 📏 Standardy Kodu
 
-> **Powiązane:** [Architektura](architecture.md) | [Model Danych](data_model.md)
+> **Powiązane:** [Architektura](../architecture.md) | [Model Danych](../database.md) | [Testy](testing.md) | [Design](../design.md)
 
 ---
 
 ## Wersjonowanie
 
-### Komentarze wersji w plikach
+### Strategia Wersjonowania
 
-Każdy plik powinien mieć komentarz wersji w pierwszej linii:
+### Format
 
-```html
-<!-- nazwa_pliku.html v0.001 Opis zmiany -->
+```
+versionName: Major.Minor.Timestamp
+versionCode: Timestamp (tylko liczba)
 ```
 
-```tsx
-// nazwa_pliku.tsx v0.001 Opis zmiany
-```
+### Składniki
 
-```python
-# nazwa_pliku.py v0.001 Opis zmiany
-```
+| Pole | Wartość | Opis |
+| --- | --- | --- |
+| `Major` | 0 | Faza rozwoju (1 = beta) |
+| `Minor` | 1 | Funkcjonalna (rośnie przy nowych funkcjach) |
+| `Timestamp` | `yyDDDHHmm` | yy=rok, DDD=dzień roku, HH=godz, mm=min |
 
-| Wersja | Kiedy |
-|--------|-------|
-| `v0.001` | Pierwsza edycja |
-| `v0.002`, `v0.003`... | Kolejne zmiany (inkrementuj trzecią cyfrę) |
+### Przykład (2025-12-31 14:52)
+
+```
+versionName: 0.1.253651452
+versionCode: 253651452
+APK: name_0.1.253651452.apk
+```
 
 ### Commity Git
 
@@ -36,11 +40,12 @@ Format opisu commita:
 ```
 
 | Przykład | Opis |
-|----------|------|
+| --- | --- | --- |
 | `#1 Inicjalizacja projektu` | Pierwszy commit |
 | `#2 Dodano FilterPanel` | Drugi commit |
 | `#15 Fix: walidacja formularza` | Piętnasty commit |
 
+**zawsze sprawdzaj liczbe commitow `git rev-list --count HEAD`**
 ---
 
 ## Komentarze
@@ -48,7 +53,7 @@ Format opisu commita:
 ### Kiedy komentować
 
 | ✅ Komentuj | ❌ Nie komentuj |
-|-------------|-----------------|
+| --- | --- |
 | Sekcje strony (header, nav, main, footer) | Oczywisty kod |
 | Kluczowe funkcje biznesowe | Gettery/settery |
 | Złożone algorytmy | Standardowe operacje |
@@ -73,7 +78,7 @@ function calculateProjectMatch(project, plot) { ... }
 ### Funkcje
 
 | Reguła | Opis |
-|--------|------|
+| --- | --- |
 | Max 50 linii | Podziel większe funkcje na mniejsze |
 | Jedna odpowiedzialność | Funkcja robi jedną rzecz dobrze |
 | Opisowe nazwy | Nazwa mówi CO robi, nie JAK |
@@ -81,16 +86,17 @@ function calculateProjectMatch(project, plot) { ... }
 ### Nazewnictwo
 
 | Język | Konwencja | Przykład |
-|-------|-----------|----------|
+| --- | --- | --- |
 | JavaScript/TypeScript | `camelCase` | `calculateProjectMatch` |
 | Python | `snake_case` | `calculate_project_match` |
 | CSS (klasy) | `kebab-case` | `project-card-header` |
+| **Pliki Markdown** | `kebab-case` | `lessons-learned.md` |
 | Stałe | `SCREAMING_SNAKE_CASE` | `MAX_PROJECTS_PER_PAGE` |
 
 ### Zasady
 
 | Zasada | Opis |
-|--------|------|
+| --- | --- |
 | **DRY** | Don't Repeat Yourself - wyciągaj powtarzający się kod |
 | **KISS** | Keep It Simple - prostota > skomplikowane rozwiązania |
 | **YAGNI** | You Aren't Gonna Need It - nie implementuj "na zapas" |
@@ -134,7 +140,7 @@ apps/
 ### Typy
 
 | Preferuj | Unikaj |
-|----------|--------|
+| --- | --- |
 | `interface` dla obiektów | `any` |
 | `type` dla unii/aliasów | `as` casting (chyba że konieczne) |
 | Explicit return types | Implicit types w publicznym API |
@@ -154,4 +160,4 @@ const ProjectCard = (props: any) => { ... }
 
 ---
 
-> 📅 **Ostatnia aktualizacja:** 2025-12-14
+> 📅 **Ostatnia aktualizacja:** 2026-01-15

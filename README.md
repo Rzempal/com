@@ -47,6 +47,29 @@ public_html/
             └── kod_jest_ostatni.jpg  # Nieuzywany obraz
 ```
 
+```
+
+---
+
+## Dokumentacja
+
+### Standardy (Globalne/Read-Only)
+| Dokument | Opis |
+| --- | --- |
+| 🛡️ **[Conventions](docs/standards/conventions.md)** | Standardy kodu, nazewnictwo, struktura plików |
+| 👁️ **[Code Review](docs/standards/code-review.md)** | Zasady weryfikacji kodu (Backend/Logic) |
+| 🎨 **[Design Review](docs/standards/design-review.md)** | Zasady weryfikacji UI/UX (Frontend) |
+| 🧪 **[Testing](docs/standards/testing.md)** | Strategia testów i TDD |
+| 🤝 **[Contributing](docs/standards/contributing.md)** | Przewodnik po dokumentacji i zasadach współpracy |
+
+### Projekt (Live)
+| Dokument | Opis |
+| --- | --- |
+| 🏛️ **[Architecture](docs/architecture.md)** | Przegląd systemu i warstwy |
+| 📊 **[Database](docs/database.md)** | Model danych i schematy |
+| 💅 **[Design](docs/design.md)** | Design System implementation |
+| 🔐 **[Security](docs/security.md)** | Zasady bezpieczeństwa |
+
 ---
 
 ## Technologie

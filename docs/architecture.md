@@ -1,4 +1,4 @@
-# 🏛️ ArchiFlex - Dokumentacja Architektury
+# 🏛️ - Dokumentacja Architektury
 
 > **Cel dokumentu:** Przegląd architektury systemu dla nowych deweloperów.
 
@@ -7,18 +7,19 @@
 ## 📋 Dokumentacja
 
 | Dokument | Opis |
-|----------|------|
+| --- | --- |
 | **[Architektura](architecture.md)** | Przegląd systemu, stack, warstwy (ten plik) |
-| **[Model Danych](data_model.md)** | ERD, encje,  |
-| **[Logika Wyszukiwania](search_logic.md)** | Guided Selling, drzewo decyzyjne konfiguratora |
-| **[Bezpieczeństwo](security.md)** | GDPR, PCI DSS, uwierzytelnianie |
-| **[Road Map](road_map.md)** | Plan rozwoju projektu |
+| **[Model Danych](database.md)** | ERD, encje, migracje, backupy |
+| **[Testowanie](standards/testing.md)** | Strategia TDD, standardy testów |
+| **[Bezpieczeństwo](security.md)** | Strategia bezpieczeństwa, checklisty |
+| **[Deployment](deployment.md)** | Instrukcja wdrożenia i CI/CD |
+| **[Lessons Learned](lessons-learned.md)** | Dziennik doświadczeń i wniosków |
+| **[Logging](logging.md)** | System logowania i monitoring |
+| **[Road Map](roadmap.md)** | Plan rozwoju projektu |
 
 ---
 
 ## Przegląd Systemu
-
-**ArchiFLex** to interaktywne narzędzie pozwalające klientom dostosować gotowy projekt architektoniczny do ich indywidualnych potrzeb i ograniczeń działki.
 
 ### Model Biznesowy
 

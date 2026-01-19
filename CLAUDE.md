@@ -60,7 +60,7 @@ Przed kodem przedstaw:
 
 ## Zarządzanie Dokumentacją
 
-> 📚 Pełny przewodnik: **[docs/documentation_guide.md](../docs/documentation_guide.md)**
+> 📚 Pełny przewodnik: **[docs/documentation_guide.md](docs\architecture.md)**
 
 ### Checklist przed Commit
 

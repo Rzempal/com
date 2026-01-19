@@ -99,10 +99,10 @@ Your job as LLM is to:
 
 - Hosting and domain on hostido.pl
 - Vercel
-- Gemini API
 
 ##### **Secondary tools:**
 
+- Gemini API
 - Railway
 - Flutter
 - Resend
