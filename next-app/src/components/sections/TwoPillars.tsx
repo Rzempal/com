@@ -235,6 +235,7 @@ export function TwoPillars() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hasPeeked, setHasPeeked] = useState(false);
 
   // Handle scroll to detect active card
   const handleScroll = useCallback(() => {
@@ -257,6 +258,28 @@ export function TwoPillars() {
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  // Auto-peek animation - slide card slightly to hint at swipe
+  useEffect(() => {
+    if (!isInView || hasPeeked) return;
+
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    // Wait for enter animation to complete
+    const peekTimer = setTimeout(() => {
+      // Peek: scroll right 40px
+      container.scrollTo({ left: 40, behavior: 'smooth' });
+
+      // Return: scroll back after 400ms
+      setTimeout(() => {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+        setHasPeeked(true);
+      }, 400);
+    }, 800);
+
+    return () => clearTimeout(peekTimer);
+  }, [isInView, hasPeeked]);
 
   // Navigate to card via dots
   const scrollToCard = (index: number) => {
@@ -308,11 +331,8 @@ export function TwoPillars() {
           <DevCard t={t} />
         </motion.div>
 
-        {/* Mobile: CSS Scroll-Snap Carousel */}
+        {/* Mobile: CSS Scroll-Snap Carousel with auto-peek hint */}
         <div className="md:hidden relative">
-          {/* Edge gradients indicating more content */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none opacity-50" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none opacity-50" />
 
           <motion.div
             variants={containerVariants}
