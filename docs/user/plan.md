@@ -74,11 +74,14 @@ Zamiast budować standardowy układ sekcji pod sekcją, stwórz strukturę "Wars
 - [x] IntersectionObserver scroll spy
 - [x] Glassmorphism styling
 
-### 🔄 Etap 3: Two Pillars (IN PROGRESS)
-- [ ] Responsywny grid (desktop 2-col, mobile stack)
-- [ ] Glassmorphism cards z border glow
-- [ ] Staggered float-in animation
-- [ ] Mobile carousel z navigation dots
+### ✅ Etap 3: Two Pillars (DONE)
+- [x] Responsywny grid (desktop 2-col, mobile carousel)
+- [x] Glassmorphism cards z border glow (emerald/amber)
+- [x] Staggered float-in animation (Framer Motion)
+- [x] Mobile carousel z swipe gestures i navigation dots
+- [x] Full content from public_html (headlines, descriptions)
+- [x] RTK logo SVG animation (neural network → typing effect)
+- [x] Next/Image integration for logos
 
 ### ⏳ Etap 4: PCB Showcase (PENDING)
 - [ ] SVG circuit board
