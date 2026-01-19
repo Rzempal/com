@@ -17,14 +17,20 @@
     "robotics": {
       "tag": "ENG://SYMULACJA",
       "title": "Robotyka",
-      "description": "Symulacje procesów przemysłowych",
-      "cta": "Zobacz projekty"
+      "headline": "Od ponad dekady pracuję jako inżynier robotyki w przemyśle motoryzacyjnym.",
+      "description": "Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność produkcji.",
+      "cta": "Dowiedz się więcej"
     },
     "dev": {
       "tag": "DEV://PROGRAMOWANIE",
       "title": "resztatokod.pl",
-      "description": "Studio developerskie",
-      "cta": "Odwiedź studio"
+      "headline1": "KOD",
+      "headline2": "JEST",
+      "headline3": "OSTATNIM",
+      "headline4": "KROKIEM",
+      "subheadline": "Współzałożyciel ResztaToKod.pl",
+      "description": "Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.",
+      "cta": "cd resztatokod.pl"
     }
   },
   "pcb": {

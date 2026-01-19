@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,31 +34,227 @@ const cardVariants = {
   },
 };
 
+// RTK Logo SVG Component with animations
+function RTKLogo() {
+  return (
+    <svg viewBox="0 0 400 60" className="rtk-logo w-full max-w-[320px] h-auto">
+      {/* Neural network nodes */}
+      <circle cx="5" cy="15" r="2" className="rtk-node rtk-n1" />
+      <circle cx="20" cy="5" r="2" className="rtk-node rtk-n2" />
+      <circle cx="10" cy="30" r="2" className="rtk-node rtk-n3" />
+      {/* Neural links */}
+      <line x1="5" y1="15" x2="20" y2="5" className="rtk-link rtk-l1" />
+      <line x1="20" y1="5" x2="10" y2="30" className="rtk-link rtk-l2" />
+      <line x1="5" y1="15" x2="10" y2="30" className="rtk-link rtk-l3" />
+      {/* Flow path */}
+      <path d="M 10 30 L 40 30" className="rtk-path" />
+      {/* Prompt */}
+      <text x="48" y="38" className="rtk-cmd">&gt;_</text>
+      {/* Typing command */}
+      <text x="86" y="38" className="rtk-url">cd resztatokod.pl</text>
+      {/* Cursor */}
+      <g className="rtk-cursor-g">
+        <rect x="86" y="16" width="14" height="26" className="rtk-cursor" />
+      </g>
+      {/* External link icon */}
+      <g className="rtk-external" transform="translate(350, 18)">
+        <path
+          d="M15 11v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <polyline
+          points="12 2 18 2 18 8"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <line x1="8" y1="12" x2="18" y2="2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+    </svg>
+  );
+}
+
+// Robotics Card Component
+function RoboticsCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.a
+      href="https://robotyka.michalrapala.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      variants={cardVariants}
+      whileHover={{ scale: 1.02, y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      className="group relative block rounded-2xl overflow-hidden cursor-pointer transition-all duration-300
+        bg-zinc-900/50 backdrop-blur-md
+        border border-zinc-800
+        hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)]"
+    >
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
+      </div>
+
+      {/* Header */}
+      <div className="p-6 pb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-mono text-emerald-500 tracking-wider uppercase">
+            {t('robotics.tag')}
+          </span>
+        </div>
+      </div>
+
+      {/* Image */}
+      <div className="relative w-full aspect-[16/9] overflow-hidden">
+        <Image
+          src="/images/global/logo_robotyka.png"
+          alt="Robotyka - symulacje przemysłowe"
+          fill
+          className="object-contain p-4"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-6 pt-4">
+        <h3 className="font-display text-lg sm:text-xl font-semibold text-white mb-3 leading-tight">
+          {t('robotics.headline')}
+        </h3>
+
+        <p className="text-zinc-400 text-sm mb-6 leading-relaxed font-mono">
+          <span className="text-emerald-500/70">&gt;</span> {t('robotics.description')}
+        </p>
+
+        {/* CTA */}
+        <span className="inline-flex items-center gap-2 text-emerald-400 font-medium group-hover:text-emerald-300 transition-colors">
+          {t('robotics.cta')}
+          <svg
+            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            />
+            <polyline points="15 3 21 3 21 9" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="10" y1="14" x2="21" y2="3" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </div>
+
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
+        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-emerald-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-emerald-500/50 to-transparent" />
+      </div>
+    </motion.a>
+  );
+}
+
+// Dev Card Component with RTK Logo
+function DevCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.a
+      href="https://resztatokod.pl"
+      target="_blank"
+      rel="noopener noreferrer"
+      variants={cardVariants}
+      whileHover={{ scale: 1.02, y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      className="group relative block rounded-2xl overflow-hidden cursor-pointer transition-all duration-300
+        bg-zinc-900/50 backdrop-blur-md
+        border border-zinc-800
+        hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)]"
+    >
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent" />
+      </div>
+
+      {/* Header */}
+      <div className="p-6 pb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+          <span className="text-xs font-mono text-amber-500 tracking-wider uppercase">
+            {t('dev.tag')}
+          </span>
+        </div>
+      </div>
+
+      {/* Big Headline */}
+      <div className="px-6 py-8">
+        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black leading-none tracking-tighter">
+          <span className="block text-cyan-400 glitch" data-text={t('dev.headline1')}>
+            {t('dev.headline1')}
+          </span>
+          <span className="block text-white">{t('dev.headline2')}</span>
+          <span className="block text-white">{t('dev.headline3')}</span>
+          <span className="block text-white">
+            {t('dev.headline4')}
+            <span className="text-amber-500">.</span>
+          </span>
+        </h2>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 pt-0">
+        <h3 className="font-display text-lg font-semibold text-white mb-3">
+          {t('dev.subheadline')}
+        </h3>
+
+        <p className="text-zinc-400 text-sm mb-6 leading-relaxed font-mono">
+          <span className="text-amber-500/70">&gt;</span> {t('dev.description')}
+        </p>
+
+        {/* RTK Logo Animation as CTA */}
+        <div className="rtk-cta-container group-hover:opacity-100 opacity-80 transition-opacity">
+          <RTKLogo />
+        </div>
+      </div>
+
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
+        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-amber-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-amber-500/50 to-transparent" />
+      </div>
+    </motion.a>
+  );
+}
+
 export function TwoPillars() {
   const t = useTranslations('pillars');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const pillars = [
-    {
-      key: 'robotics',
-      tag: t('robotics.tag'),
-      title: t('robotics.title'),
-      description: t('robotics.description'),
-      cta: t('robotics.cta'),
-      href: 'https://robotyka.michalrapala.com',
-      icon: '⚙️',
-    },
-    {
-      key: 'dev',
-      tag: t('dev.tag'),
-      title: t('dev.title'),
-      description: t('dev.description'),
-      cta: t('dev.cta'),
-      href: 'https://resztatokod.pl',
-      icon: '💻',
-    },
-  ];
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleDragEnd = (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+    const threshold = 50;
+    const velocity = info.velocity.x;
+    const offset = info.offset.x;
+
+    if (offset < -threshold || velocity < -500) {
+      setActiveIndex(1);
+    } else if (offset > threshold || velocity > 500) {
+      setActiveIndex(0);
+    }
+  };
 
   return (
     <section
@@ -87,73 +283,65 @@ export function TwoPillars() {
           {t('heading')}
         </motion.h2>
 
-        {/* Cards grid */}
+        {/* Desktop: Grid layout */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+          className="hidden md:grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
         >
-          {pillars.map((pillar) => (
-            <motion.a
-              key={pillar.key}
-              href={pillar.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={cardVariants}
-              whileHover={{ scale: 1.02, y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative block rounded-2xl p-8 cursor-pointer transition-all duration-300
-                bg-zinc-900/50 backdrop-blur-md
-                border border-zinc-800
-                hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)]"
-            >
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
-              </div>
-
-              {/* Tag */}
-              <span className="inline-block text-xs font-mono text-emerald-500 tracking-wider uppercase mb-4">
-                {pillar.tag}
-              </span>
-
-              {/* Title */}
-              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-3 group-hover:text-emerald-50 transition-colors">
-                {pillar.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-zinc-400 mb-6 leading-relaxed">
-                {pillar.description}
-              </p>
-
-              {/* CTA */}
-              <span className="inline-flex items-center gap-2 text-emerald-400 font-medium group-hover:text-emerald-300 transition-colors">
-                {pillar.cta}
-                <svg
-                  className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </span>
-
-              {/* Corner accent */}
-              <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
-                <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-emerald-500/50 to-transparent" />
-                <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-emerald-500/50 to-transparent" />
-              </div>
-            </motion.a>
-          ))}
+          <RoboticsCard t={t} />
+          <DevCard t={t} />
         </motion.div>
+
+        {/* Mobile: Carousel */}
+        <div className="md:hidden relative overflow-hidden">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="relative"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: activeIndex === 0 ? -100 : 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: activeIndex === 0 ? 100 : -100 }}
+                transition={{ type: 'spring' as const, stiffness: 300, damping: 30 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                className="cursor-grab active:cursor-grabbing"
+              >
+                {activeIndex === 0 ? <RoboticsCard t={t} /> : <DevCard t={t} />}
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Navigation dots */}
+          <nav className="flex justify-center gap-3 mt-8" aria-label="Carousel navigation">
+            {[0, 1].map((index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  activeIndex === index
+                    ? 'w-6 bg-emerald-500'
+                    : 'bg-zinc-600 hover:bg-zinc-500'
+                }`}
+                aria-label={`Slide ${index + 1}`}
+                aria-current={activeIndex === index ? 'true' : 'false'}
+              />
+            ))}
+          </nav>
+
+          {/* Swipe hint */}
+          <p className="text-center text-zinc-600 text-xs mt-4 font-mono">
+            ← swipe →
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -17,14 +17,20 @@
     "robotics": {
       "tag": "ENG://SIMULATION",
       "title": "Robotics",
-      "description": "Industrial process simulations",
-      "cta": "View projects"
+      "headline": "For over a decade I've worked as a robotics engineer in the automotive industry.",
+      "description": "Advanced industrial process simulation services and offline programming for industrial robots (KUKA, Fanuc, ABB). I optimize workflows and increase production efficiency.",
+      "cta": "Learn more"
     },
     "dev": {
       "tag": "DEV://PROGRAMMING",
       "title": "resztatokod.pl",
-      "description": "Development studio",
-      "cta": "Visit studio"
+      "headline1": "CODE",
+      "headline2": "IS",
+      "headline3": "THE LAST",
+      "headline4": "STEP",
+      "subheadline": "Co-founder of ResztaToKod.pl",
+      "description": "Technology stopped being a barrier. It became a lever for those who have a plan.",
+      "cta": "cd resztatokod.pl"
     }
   },
   "pcb": {

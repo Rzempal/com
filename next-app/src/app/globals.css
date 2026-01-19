@@ -141,3 +141,113 @@ html.lenis, html.lenis body {
   color: var(--color-emerald-neon);
   animation: blink 1s step-end infinite;
 }
+
+/* ============================================
+   RTK Logo Animation System
+   ============================================ */
+
+.rtk-logo {
+  fill: none;
+  stroke: #ffffff;
+  stroke-linecap: round;
+  overflow: visible;
+}
+
+/* Neural network nodes */
+.rtk-node {
+  fill: #fff;
+  stroke: none;
+  opacity: 0;
+  animation: rtk-fade-in 0.5s ease-out forwards;
+}
+
+.rtk-n1 { animation-delay: 0.1s; }
+.rtk-n2 { animation-delay: 0.2s; }
+.rtk-n3 { animation-delay: 0.3s; }
+
+/* Neural network links */
+.rtk-link {
+  stroke: #ffffff;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  stroke-width: 1.5;
+  opacity: 0.6;
+  animation: rtk-draw 0.8s ease-out forwards;
+}
+
+.rtk-l1 { animation-delay: 0.4s; }
+.rtk-l2 { animation-delay: 0.5s; }
+.rtk-l3 { animation-delay: 0.6s; }
+
+/* Flow path */
+.rtk-path {
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: rtk-draw 1.0s ease-out forwards 1.0s;
+}
+
+/* Command prompt >_ */
+.rtk-cmd {
+  fill: #fff;
+  stroke: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 28px;
+  opacity: 0;
+  animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
+}
+
+/* Typing URL - clip-path reveal */
+.rtk-url {
+  fill: #fff;
+  stroke: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 28px;
+  clip-path: inset(0 100% 0 0);
+  animation: rtk-type 1.7s steps(17) forwards 2.3s;
+}
+
+/* Cursor block */
+.rtk-cursor {
+  fill: #fff;
+  stroke: none;
+  opacity: 0;
+  animation: rtk-blink 1s step-end infinite 2.0s;
+}
+
+/* Cursor movement */
+.rtk-cursor-g {
+  animation: rtk-move-cursor 1.7s steps(17) forwards 2.3s;
+}
+
+/* External link icon */
+.rtk-external {
+  stroke: #ffffff;
+  opacity: 0;
+  animation: rtk-fade-in 0.5s ease-out forwards 4s;
+}
+
+/* RTK Keyframes */
+@keyframes rtk-fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes rtk-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes rtk-type {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes rtk-move-cursor {
+  to { transform: translateX(300px); }
+}
+
+@keyframes rtk-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
