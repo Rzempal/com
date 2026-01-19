@@ -245,10 +245,22 @@ export function TwoPillars() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   // Swap cards
   const swapCards = () => {
     setActiveIndex((prev) => (prev === 0 ? 1 : 0));
+  };
+
+  // Handle drag end - swap if dragged enough
+  const handleDragEnd = (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+    setIsDragging(false);
+    const threshold = 80;
+    const velocityThreshold = 500;
+
+    if (Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold) {
+      swapCards();
+    }
   };
 
   // Card stack positions
@@ -306,7 +318,7 @@ export function TwoPillars() {
           <DesktopDevCard t={t} />
         </motion.div>
 
-        {/* Mobile: Stacked Cards */}
+        {/* Mobile: Stacked Cards with swipe */}
         <div className="md:hidden relative">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -320,18 +332,18 @@ export function TwoPillars() {
               className="absolute inset-x-0 top-0 origin-bottom-left"
               animate={activeIndex === 0 ? frontCardStyle : backCardStyle}
               transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
-              onClick={(e) => {
-                if (activeIndex !== 0) {
-                  e.preventDefault();
-                  swapCards();
-                }
-              }}
+              drag={activeIndex === 0 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.15}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={handleDragEnd}
               style={{
-                pointerEvents: activeIndex === 0 ? 'auto' : 'auto',
+                cursor: activeIndex === 0 ? 'grab' : 'default',
                 filter: activeIndex === 0 ? 'none' : 'brightness(0.7)',
               }}
+              whileDrag={{ cursor: 'grabbing' }}
             >
-              <RoboticsCard t={t} />
+              <RoboticsCard t={t} className={isDragging ? 'pointer-events-none' : ''} />
             </motion.div>
 
             {/* Dev Card */}
@@ -339,18 +351,18 @@ export function TwoPillars() {
               className="absolute inset-x-0 top-0 origin-bottom-left"
               animate={activeIndex === 1 ? frontCardStyle : backCardStyle}
               transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
-              onClick={(e) => {
-                if (activeIndex !== 1) {
-                  e.preventDefault();
-                  swapCards();
-                }
-              }}
+              drag={activeIndex === 1 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.15}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={handleDragEnd}
               style={{
-                pointerEvents: activeIndex === 1 ? 'auto' : 'auto',
+                cursor: activeIndex === 1 ? 'grab' : 'default',
                 filter: activeIndex === 1 ? 'none' : 'brightness(0.7)',
               }}
+              whileDrag={{ cursor: 'grabbing' }}
             >
-              <DevCard t={t} />
+              <DevCard t={t} className={isDragging ? 'pointer-events-none' : ''} />
             </motion.div>
           </motion.div>
 
@@ -370,11 +382,6 @@ export function TwoPillars() {
               />
             ))}
           </nav>
-
-          {/* Tap hint */}
-          <p className="text-center text-zinc-600 text-xs mt-3 font-mono">
-            tap to swap
-          </p>
         </div>
       </div>
     </section>
