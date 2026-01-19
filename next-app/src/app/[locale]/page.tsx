@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Hero } from '@/components/sections';
+import { Hero, TwoPillars } from '@/components/sections';
 import { SectionProgress } from '@/components/ui';
 
 export default async function HomePage({
@@ -14,7 +14,7 @@ export default async function HomePage({
     <main>
       <SectionProgress />
       <Hero />
-      {/* Two Pillars - Etap 3 */}
+      <TwoPillars />
       {/* PCB Showcase - Etap 4 */}
     </main>
   );
