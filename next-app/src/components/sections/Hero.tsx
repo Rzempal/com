@@ -43,6 +43,7 @@ export function Hero() {
 
   return (
     <section
+      id="hero"
       ref={sectionRef}
       className="relative h-screen flex items-center justify-center overflow-hidden"
     >
@@ -101,18 +102,37 @@ export function Hero() {
         </p>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Line + Dot */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
         style={{ opacity }}
       >
         <span className="text-sm text-zinc-500 tracking-wide">
           {t('scrollCta')}
         </span>
-        <div className="relative w-6 h-10 border-2 border-zinc-700 rounded-full flex justify-center">
-          <div className="w-1.5 h-3 bg-emerald-500 rounded-full mt-2 animate-bounce-subtle" />
-          {/* Glow effect */}
-          <div className="absolute w-1.5 h-3 bg-emerald-500 rounded-full mt-2 blur-sm opacity-50 animate-bounce-subtle" />
+        <div className="relative flex flex-col items-center">
+          {/* Vertical line */}
+          <div className="w-px h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
+          {/* Animated dot */}
+          <motion.div
+            className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500"
+            animate={{ y: [0, 40, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          {/* Glow trail */}
+          <motion.div
+            className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500 blur-sm opacity-50"
+            animate={{ y: [0, 40, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
         </div>
       </motion.div>
     </section>
