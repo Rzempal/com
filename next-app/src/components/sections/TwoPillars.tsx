@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 
 const containerVariants = {
@@ -78,31 +78,28 @@ function RTKLogo() {
   );
 }
 
-// Robotics Card Component
+// Robotics Card Component - CYAN accent
 function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'pillars'>>; className?: string }) {
   return (
-    <motion.a
+    <a
       href="https://robotyka.michalrapala.com"
       target="_blank"
       rel="noopener noreferrer"
-      variants={cardVariants}
-      whileHover={{ scale: 1.02, y: -4 }}
-      whileTap={{ scale: 0.98 }}
-      className={`group relative block rounded-2xl overflow-hidden cursor-pointer transition-all duration-300
-        bg-zinc-900/50 backdrop-blur-md
+      className={`group relative block rounded-2xl overflow-hidden cursor-pointer
+        bg-zinc-900/90 backdrop-blur-md
         border border-zinc-800
-        hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)] ${className}`}
+        hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] ${className}`}
     >
       {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent" />
       </div>
 
       {/* Header */}
       <div className="p-6 pb-4">
         <div className="flex items-center gap-3 mb-4">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs font-mono text-emerald-500 tracking-wider uppercase">
+          <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+          <span className="text-xs font-mono text-cyan-500 tracking-wider uppercase">
             {t('robotics.tag')}
           </span>
         </div>
@@ -126,11 +123,11 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
         </h3>
 
         <p className="text-zinc-400 text-sm mb-6 leading-relaxed font-mono">
-          <span className="text-emerald-500/70">&gt;</span> {t('robotics.description')}
+          <span className="text-cyan-500/70">&gt;</span> {t('robotics.description')}
         </p>
 
         {/* CTA */}
-        <span className="inline-flex items-center gap-2 text-emerald-400 font-medium group-hover:text-emerald-300 transition-colors">
+        <span className="inline-flex items-center gap-2 text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors">
           {t('robotics.cta')}
           <svg
             className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
@@ -152,38 +149,35 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
 
       {/* Corner accent */}
       <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
-        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-emerald-500/50 to-transparent" />
-        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-emerald-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-cyan-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-cyan-500/50 to-transparent" />
       </div>
-    </motion.a>
+    </a>
   );
 }
 
-// Dev Card Component with RTK Logo
+// Dev Card Component with RTK Logo - EMERALD accent
 function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'pillars'>>; className?: string }) {
   return (
-    <motion.a
+    <a
       href="https://resztatokod.pl"
       target="_blank"
       rel="noopener noreferrer"
-      variants={cardVariants}
-      whileHover={{ scale: 1.02, y: -4 }}
-      whileTap={{ scale: 0.98 }}
-      className={`group relative block rounded-2xl overflow-hidden cursor-pointer transition-all duration-300
-        bg-zinc-900/50 backdrop-blur-md
+      className={`group relative block rounded-2xl overflow-hidden cursor-pointer
+        bg-zinc-900/90 backdrop-blur-md
         border border-zinc-800
-        hover:border-amber-500/50 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)] ${className}`}
+        hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)] ${className}`}
     >
       {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent" />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
       </div>
 
       {/* Header */}
       <div className="p-6 pb-4">
         <div className="flex items-center gap-3 mb-4">
-          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-          <span className="text-xs font-mono text-amber-500 tracking-wider uppercase">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-mono text-emerald-500 tracking-wider uppercase">
             {t('dev.tag')}
           </span>
         </div>
@@ -192,14 +186,14 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
       {/* Big Headline */}
       <div className="px-6 py-8">
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black leading-none tracking-tighter">
-          <span className="block text-cyan-400 glitch" data-text={t('dev.headline1')}>
+          <span className="block text-emerald-400 glitch" data-text={t('dev.headline1')}>
             {t('dev.headline1')}
           </span>
           <span className="block text-white">{t('dev.headline2')}</span>
           <span className="block text-white">{t('dev.headline3')}</span>
           <span className="block text-white">
             {t('dev.headline4')}
-            <span className="text-amber-500">.</span>
+            <span className="text-emerald-500">.</span>
           </span>
         </h2>
       </div>
@@ -211,7 +205,7 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
         </h3>
 
         <p className="text-zinc-400 text-sm mb-6 leading-relaxed font-mono">
-          <span className="text-amber-500/70">&gt;</span> {t('dev.description')}
+          <span className="text-emerald-500/70">&gt;</span> {t('dev.description')}
         </p>
 
         {/* RTK Logo Animation as CTA */}
@@ -222,75 +216,56 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
 
       {/* Corner accent */}
       <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
-        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-amber-500/50 to-transparent" />
-        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-amber-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-emerald-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-emerald-500/50 to-transparent" />
       </div>
-    </motion.a>
+    </a>
+  );
+}
+
+// Desktop wrapper with motion
+function DesktopRoboticsCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.div variants={cardVariants} whileHover={{ scale: 1.02, y: -4 }} whileTap={{ scale: 0.98 }}>
+      <RoboticsCard t={t} />
+    </motion.div>
+  );
+}
+
+function DesktopDevCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.div variants={cardVariants} whileHover={{ scale: 1.02, y: -4 }} whileTap={{ scale: 0.98 }}>
+      <DevCard t={t} />
+    </motion.div>
   );
 }
 
 export function TwoPillars() {
   const t = useTranslations('pillars');
   const sectionRef = useRef<HTMLElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hasPeeked, setHasPeeked] = useState(false);
 
-  // Handle scroll to detect active card
-  const handleScroll = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
+  // Swap cards
+  const swapCards = () => {
+    setActiveIndex((prev) => (prev === 0 ? 1 : 0));
+  };
 
-    const scrollLeft = container.scrollLeft;
-    const cardWidth = container.offsetWidth;
-    const newIndex = Math.round(scrollLeft / cardWidth);
+  // Card stack positions
+  const frontCardStyle = {
+    zIndex: 20,
+    x: 0,
+    y: 0,
+    rotate: 0,
+    scale: 1,
+  };
 
-    if (newIndex !== activeIndex && newIndex >= 0 && newIndex <= 1) {
-      setActiveIndex(newIndex);
-    }
-  }, [activeIndex]);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
-  // Auto-peek animation - slide card slightly to hint at swipe
-  useEffect(() => {
-    if (!isInView || hasPeeked) return;
-
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    // Wait for enter animation to complete
-    const peekTimer = setTimeout(() => {
-      // Peek: scroll right 40px
-      container.scrollTo({ left: 40, behavior: 'smooth' });
-
-      // Return: scroll back after 400ms
-      setTimeout(() => {
-        container.scrollTo({ left: 0, behavior: 'smooth' });
-        setHasPeeked(true);
-      }, 400);
-    }, 800);
-
-    return () => clearTimeout(peekTimer);
-  }, [isInView, hasPeeked]);
-
-  // Navigate to card via dots
-  const scrollToCard = (index: number) => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const cardWidth = container.offsetWidth;
-    container.scrollTo({
-      left: cardWidth * index,
-      behavior: 'smooth',
-    });
+  const backCardStyle = {
+    zIndex: 10,
+    x: 20,
+    y: 8,
+    rotate: 2.5,
+    scale: 0.97,
   };
 
   return (
@@ -327,48 +302,79 @@ export function TwoPillars() {
           animate={isInView ? 'visible' : 'hidden'}
           className="hidden md:grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
         >
-          <RoboticsCard t={t} />
-          <DevCard t={t} />
+          <DesktopRoboticsCard t={t} />
+          <DesktopDevCard t={t} />
         </motion.div>
 
-        {/* Mobile: CSS Scroll-Snap Carousel with auto-peek hint */}
+        {/* Mobile: Stacked Cards */}
         <div className="md:hidden relative">
-
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-6 px-6"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ type: 'spring' as const, stiffness: 100, damping: 15, delay: 0.2 }}
+            className="relative"
+            style={{ minHeight: '580px' }}
           >
-            <div className="flex-none w-full snap-center">
+            {/* Robotics Card */}
+            <motion.div
+              className="absolute inset-x-0 top-0 origin-bottom-left"
+              animate={activeIndex === 0 ? frontCardStyle : backCardStyle}
+              transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
+              onClick={(e) => {
+                if (activeIndex !== 0) {
+                  e.preventDefault();
+                  swapCards();
+                }
+              }}
+              style={{
+                pointerEvents: activeIndex === 0 ? 'auto' : 'auto',
+                filter: activeIndex === 0 ? 'none' : 'brightness(0.7)',
+              }}
+            >
               <RoboticsCard t={t} />
-            </div>
-            <div className="flex-none w-full snap-center">
+            </motion.div>
+
+            {/* Dev Card */}
+            <motion.div
+              className="absolute inset-x-0 top-0 origin-bottom-left"
+              animate={activeIndex === 1 ? frontCardStyle : backCardStyle}
+              transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
+              onClick={(e) => {
+                if (activeIndex !== 1) {
+                  e.preventDefault();
+                  swapCards();
+                }
+              }}
+              style={{
+                pointerEvents: activeIndex === 1 ? 'auto' : 'auto',
+                filter: activeIndex === 1 ? 'none' : 'brightness(0.7)',
+              }}
+            >
               <DevCard t={t} />
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Navigation dots */}
-          <nav className="flex justify-center gap-3 mt-6" aria-label="Carousel navigation">
+          <nav className="flex justify-center gap-3 mt-6" aria-label="Card navigation">
             {[0, 1].map((index) => (
               <button
                 key={index}
-                onClick={() => scrollToCard(index)}
+                onClick={() => setActiveIndex(index)}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   activeIndex === index
                     ? 'w-6 bg-emerald-500'
                     : 'w-2 bg-zinc-600 hover:bg-zinc-500'
                 }`}
-                aria-label={`Slide ${index + 1}`}
+                aria-label={`Card ${index + 1}`}
                 aria-current={activeIndex === index ? 'true' : 'false'}
               />
             ))}
           </nav>
+
+          {/* Tap hint */}
+          <p className="text-center text-zinc-600 text-xs mt-3 font-mono">
+            tap to swap
+          </p>
         </div>
       </div>
     </section>
