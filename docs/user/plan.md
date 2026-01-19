@@ -45,3 +45,61 @@ Zamiast budować standardowy układ sekcji pod sekcją, stwórz strukturę "Wars
 1. **Background Layer**: Gradienty mesh i ziarno (noise).
 2. **Content Layer**: Tekst i interaktywne karty.
 3. **Overlay Layer**: Efekty świetlne (glows) podążające za myszką.
+
+---
+
+## 6. Progress Tracker
+
+### ✅ Etap 1: Fundament (DONE)
+- [x] Next.js 16 + React 19 + Tailwind CSS 4
+- [x] next-intl routing (`/pl/`, `/en/`)
+- [x] Lenis smooth scroll provider
+- [x] Google Fonts: Inter + Space Grotesk
+- [x] Struktura: `components/`, `hooks/`, `lib/`, `i18n/`, `messages/`
+
+### ✅ Etap 2: Hero Section (DONE)
+- [x] Layout full viewport z gradient mesh background
+- [x] Emerald glow (opacity 0.40, size 2/3)
+- [x] Grid overlay (opacity 0.06, 48px)
+- [x] Noise texture overlay
+- [x] Glitch effect - subtle grayscale + emerald accent (4 bursts/3s cycle)
+- [x] Typewriter animation z blinking cursor
+- [x] Canvas Shrink (scroll-linked scale/opacity/translateY via Framer Motion)
+- [x] Line + Dot scroll indicator
+
+### ✅ Etap 2.5: Section Progress (DONE)
+- [x] Desktop sidebar (`—01`, `—02`, `—03`) po lewej stronie
+- [x] Mobile floating pill (prawy dolny róg)
+- [x] Tap expand mini-menu sekcji
+- [x] IntersectionObserver scroll spy
+- [x] Glassmorphism styling
+
+### ✅ Etap 3: Two Pillars (DONE)
+- [x] Responsywny grid (desktop 2-col, mobile carousel)
+- [x] Glassmorphism cards z border glow (emerald/amber)
+- [x] Staggered float-in animation (Framer Motion)
+- [x] Mobile carousel z swipe gestures i navigation dots
+- [x] Full content from public_html (headlines, descriptions)
+- [x] RTK logo SVG animation (neural network → typing effect)
+- [x] Next/Image integration for logos
+
+### ✅ Etap 4: PCB Showcase (DONE)
+- [x] SVG circuit board (traces, pads, SMD components, silk screen)
+- [x] Interactive pills (Robotyka, APPS, WWW, STUDIO)
+- [x] CSS animations (trace pulse, pad glow, anchor pulse)
+- [x] Pills prepared for Card Sheet (onPillClick callback)
+
+### ⏳ Etap 5: Card Sheets (PENDING)
+- [ ] Slide-up sheet component
+- [ ] Templates dla projektów
+- [ ] Keyboard navigation
+
+### ⏳ Etap 6: Navbar + Polish (PENDING)
+- [ ] Sticky navbar
+- [ ] Language toggle
+- [ ] Micro-interactions
+
+### ⏳ Etap 7: Deployment (PENDING)
+- [ ] Vercel production
+- [ ] hostido.pl domain config
+- [ ] SEO meta tags
