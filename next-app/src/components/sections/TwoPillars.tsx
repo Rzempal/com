@@ -56,24 +56,6 @@ function RTKLogo() {
       <g className="rtk-cursor-g">
         <rect x="86" y="16" width="14" height="26" className="rtk-cursor" />
       </g>
-      {/* External link icon */}
-      <g className="rtk-external" transform="translate(350, 18)">
-        <path
-          d="M15 11v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <polyline
-          points="12 2 18 2 18 8"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <line x1="8" y1="12" x2="18" y2="2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </g>
     </svg>
   );
 }
@@ -244,7 +226,7 @@ export function TwoPillars() {
   const t = useTranslations('pillars');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1); // Dev card first (index 1)
   const [isDragging, setIsDragging] = useState(false);
 
   // Swap cards
