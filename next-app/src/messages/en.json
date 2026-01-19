@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "title": "Michał Rapała - Automation & App Development",
+    "description": "Robotic simulations, web applications, websites. Open for new projects."
+  },
+  "nav": {
+    "status": "OPEN FOR NEW PROJECTS",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Michał Rapała",
+    "subtitle": "Jack into the digital world...",
+    "scrollCta": "See what I'm working on now."
+  },
+  "pillars": {
+    "heading": "Robotic simulations. Applications. Websites.",
+    "robotics": {
+      "tag": "ENG://SIMULATION",
+      "title": "Robotics",
+      "description": "Industrial process simulations",
+      "cta": "View projects"
+    },
+    "dev": {
+      "tag": "DEV://PROGRAMMING",
+      "title": "resztatokod.pl",
+      "description": "Development studio",
+      "cta": "Visit studio"
+    }
+  },
+  "pcb": {
+    "heading": "Technologies"
+  }
+}

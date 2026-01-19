@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "title": "Michał Rapała - Automatyzacja & Rozwój Aplikacji",
+    "description": "Symulacje robotyczne, aplikacje webowe, strony internetowe. Otwarty na nowe projekty."
+  },
+  "nav": {
+    "status": "OTWARTY NA NOWE PROJEKTY",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "title": "Michał Rapała",
+    "subtitle": "Jack into the digital world...",
+    "scrollCta": "Zobacz, czym się teraz zajmuję."
+  },
+  "pillars": {
+    "heading": "Symulacje robotyczne. Aplikacje. Strony internetowe.",
+    "robotics": {
+      "tag": "ENG://SYMULACJA",
+      "title": "Robotyka",
+      "description": "Symulacje procesów przemysłowych",
+      "cta": "Zobacz projekty"
+    },
+    "dev": {
+      "tag": "DEV://PROGRAMOWANIE",
+      "title": "resztatokod.pl",
+      "description": "Studio developerskie",
+      "cta": "Odwiedź studio"
+    }
+  },
+  "pcb": {
+    "heading": "Technologie"
+  }
+}

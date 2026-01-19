@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
+/* Design System - Tech-Noir Palette */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --color-background: #000000;
+  --color-foreground: #fafafa;
+  --color-emerald-neon: #27C96D;
+  --color-emerald-glow: #10b981;
+  --color-text-muted: #a1a1aa;
+  --color-border: #27272a;
+  --color-surface: #18181b;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Utility: Display font */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Smooth scroll with Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Glassmorphism card base */
+.glass-card {
+  background: rgba(24, 24, 27, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(39, 39, 42, 0.8);
+}
+
+/* Glow effect for interactive elements */
+.glow-emerald {
+  box-shadow: 0 0 20px rgba(39, 201, 109, 0.15);
+}
+
+.glow-emerald:hover {
+  box-shadow: 0 0 30px rgba(39, 201, 109, 0.25);
+}
+
+/* Animation utilities */
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25%);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
 }
