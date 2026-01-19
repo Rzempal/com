@@ -83,11 +83,11 @@ Zamiast budować standardowy układ sekcji pod sekcją, stwórz strukturę "Wars
 - [x] RTK logo SVG animation (neural network → typing effect)
 - [x] Next/Image integration for logos
 
-### ⏳ Etap 4: PCB Showcase (PENDING)
-- [ ] SVG circuit board
-- [ ] Interactive pills
-- [ ] Trace flash animations
-- [ ] Parallax effect
+### ✅ Etap 4: PCB Showcase (DONE)
+- [x] SVG circuit board (traces, pads, SMD components, silk screen)
+- [x] Interactive pills (Robotyka, APPS, WWW, STUDIO)
+- [x] CSS animations (trace pulse, pad glow, anchor pulse)
+- [x] Pills prepared for Card Sheet (onPillClick callback)
 
 ### ⏳ Etap 5: Card Sheets (PENDING)
 - [ ] Slide-up sheet component
