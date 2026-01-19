@@ -87,3 +87,65 @@ html.lenis, html.lenis body {
 .animate-bounce-subtle {
   animation: bounce-subtle 2s ease-in-out infinite;
 }
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    text-shadow:
+      0.05em 0 0 rgba(39, 201, 109, 0.75),
+      -0.05em -0.025em 0 rgba(255, 0, 128, 0.75),
+      0.025em 0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+  14% {
+    text-shadow:
+      0.05em 0 0 rgba(39, 201, 109, 0.75),
+      -0.05em -0.025em 0 rgba(255, 0, 128, 0.75),
+      0.025em 0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+  15% {
+    text-shadow:
+      -0.05em -0.025em 0 rgba(39, 201, 109, 0.75),
+      0.025em 0.025em 0 rgba(255, 0, 128, 0.75),
+      -0.05em -0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+  49% {
+    text-shadow:
+      -0.05em -0.025em 0 rgba(39, 201, 109, 0.75),
+      0.025em 0.025em 0 rgba(255, 0, 128, 0.75),
+      -0.05em -0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+  50% {
+    text-shadow:
+      0.025em 0.05em 0 rgba(39, 201, 109, 0.75),
+      0.05em 0 0 rgba(255, 0, 128, 0.75),
+      0 -0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+  99% {
+    text-shadow:
+      0.025em 0.05em 0 rgba(39, 201, 109, 0.75),
+      0.05em 0 0 rgba(255, 0, 128, 0.75),
+      0 -0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+  100% {
+    text-shadow:
+      -0.025em 0 0 rgba(39, 201, 109, 0.75),
+      -0.025em -0.025em 0 rgba(255, 0, 128, 0.75),
+      -0.025em -0.05em 0 rgba(0, 255, 255, 0.75);
+  }
+}
+
+.glitch {
+  animation: glitch 2s infinite linear alternate-reverse;
+}
+
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.typewriter-cursor::after {
+  content: '|';
+  color: var(--color-emerald-neon);
+  animation: blink 1s step-end infinite;
+}
