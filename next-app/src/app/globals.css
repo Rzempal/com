@@ -88,54 +88,43 @@ html.lenis, html.lenis body {
   animation: bounce-subtle 2s ease-in-out infinite;
 }
 
-/* Glitch effect */
-@keyframes glitch {
-  0% {
-    text-shadow:
-      0.05em 0 0 rgba(39, 201, 109, 0.75),
-      -0.05em -0.025em 0 rgba(255, 0, 128, 0.75),
-      0.025em 0.05em 0 rgba(0, 255, 255, 0.75);
+/* Glitch effect - subtle grayscale with emerald accent */
+@keyframes glitch-subtle {
+  0%, 90% {
+    text-shadow: none;
   }
-  14% {
+  92% {
     text-shadow:
-      0.05em 0 0 rgba(39, 201, 109, 0.75),
-      -0.05em -0.025em 0 rgba(255, 0, 128, 0.75),
-      0.025em 0.05em 0 rgba(0, 255, 255, 0.75);
+      0.02em 0 0 rgba(161, 161, 170, 0.3),
+      -0.02em 0 0 rgba(39, 201, 109, 0.2);
   }
-  15% {
+  94% {
     text-shadow:
-      -0.05em -0.025em 0 rgba(39, 201, 109, 0.75),
-      0.025em 0.025em 0 rgba(255, 0, 128, 0.75),
-      -0.05em -0.05em 0 rgba(0, 255, 255, 0.75);
+      -0.02em -0.01em 0 rgba(161, 161, 170, 0.3),
+      0.02em 0.01em 0 rgba(39, 201, 109, 0.2);
   }
-  49% {
+  96% {
     text-shadow:
-      -0.05em -0.025em 0 rgba(39, 201, 109, 0.75),
-      0.025em 0.025em 0 rgba(255, 0, 128, 0.75),
-      -0.05em -0.05em 0 rgba(0, 255, 255, 0.75);
+      0.01em 0.02em 0 rgba(82, 82, 91, 0.4),
+      -0.01em -0.02em 0 rgba(39, 201, 109, 0.15);
   }
-  50% {
+  98% {
     text-shadow:
-      0.025em 0.05em 0 rgba(39, 201, 109, 0.75),
-      0.05em 0 0 rgba(255, 0, 128, 0.75),
-      0 -0.05em 0 rgba(0, 255, 255, 0.75);
-  }
-  99% {
-    text-shadow:
-      0.025em 0.05em 0 rgba(39, 201, 109, 0.75),
-      0.05em 0 0 rgba(255, 0, 128, 0.75),
-      0 -0.05em 0 rgba(0, 255, 255, 0.75);
+      -0.01em 0 0 rgba(161, 161, 170, 0.25),
+      0.01em 0 0 rgba(39, 201, 109, 0.2);
   }
   100% {
-    text-shadow:
-      -0.025em 0 0 rgba(39, 201, 109, 0.75),
-      -0.025em -0.025em 0 rgba(255, 0, 128, 0.75),
-      -0.025em -0.05em 0 rgba(0, 255, 255, 0.75);
+    text-shadow: none;
   }
 }
 
 .glitch {
-  animation: glitch 2s infinite linear alternate-reverse;
+  animation: glitch-subtle 4s infinite;
+}
+
+/* Glitch on hover - more visible */
+.glitch:hover {
+  animation: glitch-subtle 1s infinite;
 }
 
 /* Typewriter cursor */
