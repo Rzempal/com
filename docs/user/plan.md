@@ -83,16 +83,32 @@ Zamiast budować standardowy układ sekcji pod sekcją, stwórz strukturę "Wars
 - [x] RTK logo SVG animation (neural network → typing effect)
 - [x] Next/Image integration for logos
 
-### ✅ Etap 4: PCB Showcase (DONE)
+### 🔄 Etap 4: PCB Background & Project Sections (REFACTOR)
+**CONCEPT CHANGE:** PCB przestaje być sekcją, staje się **fixed background layer** z **scroll-linked current animation**.
+
+#### ✅ Completed (Old Concept)
 - [x] SVG circuit board (traces, pads, SMD components, silk screen)
 - [x] Interactive pills (Robotyka, APPS, WWW, STUDIO)
 - [x] CSS animations (trace pulse, pad glow, anchor pulse)
-- [x] Pills prepared for Card Sheet (onPillClick callback)
 
-### ⏳ Etap 5: Card Sheets (PENDING)
-- [ ] Slide-up sheet component
-- [ ] Templates dla projektów
-- [ ] Keyboard navigation
+#### 🎯 New Implementation Plan
+- [ ] PCBBackground component (fixed, opacity 15-20%)
+- [ ] CurrentFlow animation (Framer Motion + scroll-spy)
+  - [ ] Dual paths (cyan + emerald) from Hero scroll indicator
+  - [ ] Pulsating bursts (not continuous)
+  - [ ] Pad/trace highlighting along current path
+- [ ] 4 New Project Sections (replace pills):
+  - [ ] Section 03: Robotyka (McLaren P47 content)
+  - [ ] Section 04: APPS (Webappki content)
+  - [ ] Section 05: WWW (Strony internetowe content)
+  - [ ] Section 06: STUDIO (Karton-AI content)
+- [ ] Update SectionProgress (add sections 03-06)
+- [ ] i18n refactor (pcb → projects structure)
+- [ ] Mobile optimizations (performance tuning)
+
+**Reference:** `.agent/mockup-pcb-background.md`
+
+### ⏳ Etap 5: Card Sheets (REMOVED - Replaced by full sections)
 
 ### ⏳ Etap 6: Navbar + Polish (PENDING)
 - [ ] Sticky navbar
