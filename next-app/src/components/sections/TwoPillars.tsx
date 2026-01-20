@@ -68,9 +68,10 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
       target="_blank"
       rel="noopener noreferrer"
       className={`group relative block rounded-2xl overflow-hidden cursor-pointer
-        bg-zinc-900/90 backdrop-blur-md
-        border border-zinc-800
-        hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] ${className}`}
+        bg-zinc-900/20 backdrop-blur-xl
+        border border-zinc-700/30
+        hover:border-cyan-500/50 hover:bg-zinc-900/30 hover:shadow-[0_0_40px_rgba(6,182,212,0.2)]
+        transition-all duration-300 ${className}`}
     >
       {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
@@ -146,9 +147,10 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
       target="_blank"
       rel="noopener noreferrer"
       className={`group relative block rounded-2xl overflow-hidden cursor-pointer
-        bg-zinc-900/90 backdrop-blur-md
-        border border-zinc-800
-        hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)] ${className}`}
+        bg-zinc-900/20 backdrop-blur-xl
+        border border-zinc-700/30
+        hover:border-emerald-500/50 hover:bg-zinc-900/30 hover:shadow-[0_0_40px_rgba(16,185,129,0.2)]
+        transition-all duration-300 ${className}`}
     >
       {/* Glow effect on hover */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
