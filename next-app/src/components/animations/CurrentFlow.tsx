@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 
 /**
@@ -8,15 +8,16 @@ import { useEffect, useState, useRef } from 'react';
  *
  * Features:
  * - Dual paths (cyan + emerald) flowing from Hero scroll indicator
- * - Pulsating bursts (1.2s interval)
- * - Scroll-linked progress
+ * - 100% scroll-dependent (no time-based animations)
+ * - Leading particles that follow scroll position
  * - Pad highlighting along current path
  * - Responsive with mobile optimizations
  */
 export function CurrentFlow() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [burstActive, setBurstActive] = useState(false);
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
+  const prevScrollProgress = useMotionValue(0);
+  const [scrollVelocity, setScrollVelocity] = useState(0);
 
   // Scroll progress tracking
   const { scrollYProgress } = useScroll({
@@ -39,52 +40,68 @@ export function CurrentFlow() {
     checkDevice();
   }, []);
 
-  // Pulsating burst system - 1.2s interval
+  // Detect scroll velocity for burst effect
   useEffect(() => {
-    const burstInterval = setInterval(() => {
-      setBurstActive(true);
-      setTimeout(() => setBurstActive(false), 600);
-    }, 1200);
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      const velocity = Math.abs(latest - prevScrollProgress.get());
+      setScrollVelocity(velocity);
+      prevScrollProgress.set(latest);
+    });
 
-    return () => clearInterval(burstInterval);
-  }, []);
+    return () => unsubscribe();
+  }, [scrollYProgress, prevScrollProgress]);
 
-  // Path definitions - starting from Hero scroll indicator (~y: 800)
-  // Cyan path - left flow
+  // Path definitions - straight paths without curves for PCB aesthetic
+  // Cyan path - left flow (starting from y:800)
   const cyanPathData = `
     M 400 800
     L 400 1200
-    Q 400 1300 450 1350
+    L 450 1250
     L 450 1600
-    Q 450 1700 500 1750
+    L 500 1650
     L 500 1800
-    Q 500 1900 550 1950
+    L 550 1850
     L 550 2400
-    Q 550 2500 600 2550
+    L 600 2450
     L 600 3000
-    Q 600 3100 650 3150
+    L 650 3050
     L 650 3600
   `;
 
-  // Emerald path - right flow
+  // Emerald path - right flow (starting from y:800)
   const emeraldPathData = `
     M 1520 800
     L 1520 1200
-    Q 1520 1300 1470 1350
+    L 1470 1250
     L 1470 1600
-    Q 1470 1700 1420 1750
+    L 1420 1650
     L 1420 1800
-    Q 1420 1900 1370 1950
+    L 1370 1850
     L 1370 2400
-    Q 1370 2500 1320 2550
+    L 1320 2450
     L 1320 3000
-    Q 1320 3100 1270 3150
+    L 1270 3050
     L 1270 3600
   `;
 
   // Calculate path lengths for strokeDashoffset animation
-  const cyanPathLength = 3200; // Approximate SVG path length
-  const emeraldPathLength = 3200;
+  const cyanPathLength = 3000;
+  const emeraldPathLength = 3000;
+
+  // Helper function to get point on path at percentage
+  const getPointAtPercent = (pathData: string, percent: number) => {
+    if (typeof document === 'undefined') return { x: 0, y: 0 };
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', pathData);
+    const length = path.getTotalLength();
+    const point = path.getPointAtLength((percent / 100) * length);
+    return point;
+  };
+
+  // Scroll-based burst effect (intensity based on scroll velocity)
+  const burstIntensity = scrollVelocity > 0.01 ? 1 : 0.6;
+  const burstWidth = scrollVelocity > 0.01 ? 10 : 6;
 
   return (
     <div
@@ -102,19 +119,17 @@ export function CurrentFlow() {
         transition={{ duration: 1.5, delay: 0.5 }}
       >
         <defs>
-          {/* Cyan current gradient - animated glow */}
+          {/* Cyan current gradient */}
           <linearGradient id="cyanCurrentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#06b6d4" stopOpacity="0" />
-            <stop offset="30%" stopColor="#06b6d4" stopOpacity="0.8" />
-            <stop offset="70%" stopColor="#06b6d4" stopOpacity="1" />
+            <stop offset="40%" stopColor="#06b6d4" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
           </linearGradient>
 
           {/* Emerald current gradient */}
           <linearGradient id="emeraldCurrentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#10b981" stopOpacity="0" />
-            <stop offset="30%" stopColor="#10b981" stopOpacity="0.8" />
-            <stop offset="70%" stopColor="#10b981" stopOpacity="1" />
+            <stop offset="40%" stopColor="#10b981" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
           </linearGradient>
 
@@ -131,22 +146,29 @@ export function CurrentFlow() {
             </feMerge>
           </filter>
 
-          {/* Motion blur effect for speed */}
-          <filter id="motionBlur">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0,4" />
-          </filter>
+          {/* Radial gradient for leading particles */}
+          <radialGradient id="cyanParticleGradient">
+            <stop offset="0%" stopColor="#06b6d4" stopOpacity="1" />
+            <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+          </radialGradient>
+
+          <radialGradient id="emeraldParticleGradient">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="1" />
+            <stop offset="50%" stopColor="#10b981" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+          </radialGradient>
         </defs>
 
-        {/* Cyan current path */}
+        {/* Cyan current path - scroll-based reveal */}
         <motion.path
           d={cyanPathData}
           stroke="url(#cyanCurrentGradient)"
-          strokeWidth={burstActive ? '10' : '6'}
+          strokeWidth={burstWidth}
           fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          strokeLinecap="butt"
           filter="url(#currentGlow)"
-          opacity={burstActive ? 0.9 : 0.6}
+          opacity={burstIntensity}
           style={{
             strokeDasharray: cyanPathLength,
             strokeDashoffset: useTransform(
@@ -156,21 +178,20 @@ export function CurrentFlow() {
             ),
           }}
           transition={{
-            strokeWidth: { duration: 0.3, ease: 'easeOut' },
-            opacity: { duration: 0.3, ease: 'easeOut' },
+            strokeWidth: { duration: 0.2, ease: 'easeOut' },
+            opacity: { duration: 0.2, ease: 'easeOut' },
           }}
         />
 
-        {/* Emerald current path */}
+        {/* Emerald current path - scroll-based reveal */}
         <motion.path
           d={emeraldPathData}
           stroke="url(#emeraldCurrentGradient)"
-          strokeWidth={burstActive ? '10' : '6'}
+          strokeWidth={burstWidth}
           fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          strokeLinecap="butt"
           filter="url(#currentGlow)"
-          opacity={burstActive ? 0.9 : 0.6}
+          opacity={burstIntensity}
           style={{
             strokeDasharray: emeraldPathLength,
             strokeDashoffset: useTransform(
@@ -180,55 +201,55 @@ export function CurrentFlow() {
             ),
           }}
           transition={{
-            strokeWidth: { duration: 0.3, ease: 'easeOut' },
-            opacity: { duration: 0.3, ease: 'easeOut' },
+            strokeWidth: { duration: 0.2, ease: 'easeOut' },
+            opacity: { duration: 0.2, ease: 'easeOut' },
           }}
         />
 
-        {/* Particle system - only on high-end devices */}
+        {/* Leading particles - scroll-based position (not time-based) */}
         {!isLowEndDevice && (
-          <g className="current-particles">
-            {/* Cyan particles */}
-            {[...Array(12)].map((_, i) => (
-              <motion.circle
-                key={`cyan-${i}`}
-                r="4"
-                fill="#06b6d4"
-                filter="url(#currentGlow)"
-                opacity={burstActive ? 1 : 0.7}
-              >
-                <animateMotion
-                  dur="3s"
-                  repeatCount="indefinite"
-                  path={cyanPathData}
-                  begin={`${i * 0.25}s`}
-                />
-              </motion.circle>
-            ))}
+          <g className="leading-particles">
+            {/* Cyan leading particle */}
+            <motion.circle
+              r="6"
+              fill="url(#cyanParticleGradient)"
+              filter="url(#currentGlow)"
+              style={{
+                cx: useTransform(pathProgress, (p) => {
+                  const point = getPointAtPercent(cyanPathData, p);
+                  return point.x;
+                }),
+                cy: useTransform(pathProgress, (p) => {
+                  const point = getPointAtPercent(cyanPathData, p);
+                  return point.y;
+                }),
+                opacity: useTransform(pathProgress, [0, 2, 98, 100], [0, 1, 1, 0]),
+              }}
+            />
 
-            {/* Emerald particles */}
-            {[...Array(12)].map((_, i) => (
-              <motion.circle
-                key={`emerald-${i}`}
-                r="4"
-                fill="#10b981"
-                filter="url(#currentGlow)"
-                opacity={burstActive ? 1 : 0.7}
-              >
-                <animateMotion
-                  dur="3s"
-                  repeatCount="indefinite"
-                  path={emeraldPathData}
-                  begin={`${i * 0.25}s`}
-                />
-              </motion.circle>
-            ))}
+            {/* Emerald leading particle */}
+            <motion.circle
+              r="6"
+              fill="url(#emeraldParticleGradient)"
+              filter="url(#currentGlow)"
+              style={{
+                cx: useTransform(pathProgress, (p) => {
+                  const point = getPointAtPercent(emeraldPathData, p);
+                  return point.x;
+                }),
+                cy: useTransform(pathProgress, (p) => {
+                  const point = getPointAtPercent(emeraldPathData, p);
+                  return point.y;
+                }),
+                opacity: useTransform(pathProgress, [0, 2, 98, 100], [0, 1, 1, 0]),
+              }}
+            />
           </g>
         )}
 
-        {/* Pad highlights - glow when current passes */}
+        {/* Pad highlights - glow when current passes - scroll-based */}
         <g className="pad-highlights">
-          {/* Hero area pads */}
+          {/* Hero area pads - start point */}
           <motion.circle
             cx="400"
             cy="800"
@@ -236,15 +257,9 @@ export function CurrentFlow() {
             fill="none"
             stroke="#06b6d4"
             strokeWidth="3"
-            opacity={burstActive ? 0.9 : 0}
             filter="url(#currentGlow)"
-            animate={{
-              scale: burstActive ? [1, 1.3, 1] : 1,
-              opacity: burstActive ? [0, 0.9, 0] : 0,
-            }}
-            transition={{
-              duration: 0.6,
-              ease: 'easeOut',
+            style={{
+              opacity: useTransform(pathProgress, [0, 5], [0.9, 0]),
             }}
           />
           <motion.circle
@@ -254,120 +269,140 @@ export function CurrentFlow() {
             fill="none"
             stroke="#10b981"
             strokeWidth="3"
-            opacity={burstActive ? 0.9 : 0}
             filter="url(#currentGlow)"
-            animate={{
-              scale: burstActive ? [1, 1.3, 1] : 1,
-              opacity: burstActive ? [0, 0.9, 0] : 0,
-            }}
-            transition={{
-              duration: 0.6,
-              ease: 'easeOut',
+            style={{
+              opacity: useTransform(pathProgress, [0, 5], [0.9, 0]),
             }}
           />
 
           {/* Two Pillars area pads */}
           <motion.circle
             cx="450"
-            cy="1350"
+            cy="1250"
             r="14"
             fill="none"
             stroke="#06b6d4"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [15, 20], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [15, 20, 25], [0, 0.8, 0]),
+            }}
           />
           <motion.circle
             cx="1470"
-            cy="1350"
+            cy="1250"
             r="14"
             fill="none"
             stroke="#10b981"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [15, 20], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [15, 20, 25], [0, 0.8, 0]),
+            }}
           />
 
           {/* Robotyka area pads */}
           <motion.circle
             cx="500"
-            cy="1750"
+            cy="1650"
             r="14"
             fill="none"
             stroke="#06b6d4"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [35, 42], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [35, 42, 47], [0, 0.8, 0]),
+            }}
           />
           <motion.circle
             cx="1420"
-            cy="1750"
+            cy="1650"
             r="14"
             fill="none"
             stroke="#10b981"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [35, 42], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [35, 42, 47], [0, 0.8, 0]),
+            }}
           />
 
           {/* APPS area pads */}
           <motion.circle
             cx="550"
-            cy="2400"
+            cy="1850"
             r="14"
             fill="none"
             stroke="#06b6d4"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [55, 62], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [55, 62, 67], [0, 0.8, 0]),
+            }}
           />
           <motion.circle
             cx="1370"
-            cy="2400"
+            cy="1850"
             r="14"
             fill="none"
             stroke="#10b981"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [55, 62], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [55, 62, 67], [0, 0.8, 0]),
+            }}
           />
 
-          {/* WWW/STUDIO area pads */}
+          {/* WWW area pads */}
           <motion.circle
             cx="600"
-            cy="3000"
+            cy="2450"
             r="14"
             fill="none"
             stroke="#06b6d4"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [75, 82], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [75, 82, 87], [0, 0.8, 0]),
+            }}
           />
           <motion.circle
             cx="1320"
-            cy="3000"
+            cy="2450"
             r="14"
             fill="none"
             stroke="#10b981"
             strokeWidth="2.5"
-            style={{
-              opacity: useTransform(pathProgress, [75, 82], [0, 0.8]),
-            }}
             filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [75, 82, 87], [0, 0.8, 0]),
+            }}
+          />
+
+          {/* STUDIO area pads */}
+          <motion.circle
+            cx="650"
+            cy="3050"
+            r="14"
+            fill="none"
+            stroke="#06b6d4"
+            strokeWidth="2.5"
+            filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [90, 95, 100], [0, 0.8, 0]),
+            }}
+          />
+          <motion.circle
+            cx="1270"
+            cy="3050"
+            r="14"
+            fill="none"
+            stroke="#10b981"
+            strokeWidth="2.5"
+            filter="url(#currentGlow)"
+            style={{
+              opacity: useTransform(pathProgress, [90, 95, 100], [0, 0.8, 0]),
+            }}
           />
         </g>
       </motion.svg>

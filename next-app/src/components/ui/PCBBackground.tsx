@@ -103,7 +103,7 @@ export function PCBBackground() {
         </g>
 
         {/* Circuit Traces - Complex network of paths */}
-        <g className="circuit-traces" fill="none" strokeLinecap="round" filter="url(#bgSolderMask)">
+        <g className="circuit-traces" fill="none" strokeLinecap="butt" filter="url(#bgSolderMask)">
           {/* Vertical power traces - main spine */}
           <path
             className="power-trace"
