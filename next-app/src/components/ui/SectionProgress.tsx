@@ -11,7 +11,10 @@ interface Section {
 const sections: Section[] = [
   { id: 'hero', number: '01' },
   { id: 'pillars', number: '02' },
-  { id: 'pcb', number: '03' },
+  { id: 'robotyka', number: '03' },
+  { id: 'apps', number: '04' },
+  { id: 'www', number: '05' },
+  { id: 'studio', number: '06' },
 ];
 
 export function SectionProgress() {

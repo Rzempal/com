@@ -36,5 +36,43 @@
   "pcb": {
     "heading": "Technologies",
     "hint": "[ select a project ]"
+  },
+  "projects": {
+    "robotyka": {
+      "title": "Robotics",
+      "headline": "McLaren | Project P47",
+      "description": "The future of performance: an SUV that redefines luxury. Meet Project P47 – McLaren's first-ever five-seater coupe SUV. Created in partnership with Forseven, this 800 HP V8 hybrid beast will challenge the Ferrari Purosangue and Aston Martin DBX. Market launch planned for 2028. Pure sports driving DNA, now in its most versatile form.",
+      "image": "/assets/images/robotyka/P47-1.jpg",
+      "imageAlt": "McLaren Project P47 - Luxury SUV",
+      "cta": "Learn more",
+      "ctaUrl": "https://robotyka.michalrapala.com/projekty.html"
+    },
+    "apps": {
+      "title": "Web applications",
+      "headline": "Business automation",
+      "description": "I automate what shouldn't be done manually. Engineering web apps designed for specific business tasks. #vibecoding",
+      "image": "/assets/images/global/logo_app.png",
+      "imageAlt": "Web applications - business automation",
+      "cta": "View projects",
+      "ctaUrl": "https://michalrapala.app"
+    },
+    "www": {
+      "title": "Websites",
+      "headline": "Your digital business card",
+      "description": "I design modern and responsive websites that serve as your company's showcase. I focus on aesthetics, performance, and intuitive navigation.",
+      "image": "/assets/images/global/logo_web_ai.png",
+      "imageAlt": "Websites - design and development",
+      "cta": "View portfolio",
+      "ctaUrl": "https://twoja-strona.online"
+    },
+    "studio": {
+      "title": "STUDIO",
+      "headline": "Your home medicine cabinet with AI",
+      "description": "Don't dig through boxes. Check your phone. Scan medicines with your camera, track expiration dates, and stay in control.",
+      "image": "/assets/images/app/Karton-AI.jpg",
+      "imageAlt": "Karton-AI - Home medicine cabinet with AI",
+      "cta": "Check it out",
+      "ctaUrl": "https://pudelkonaleki.michalrapala.app/"
+    }
   }
 }
