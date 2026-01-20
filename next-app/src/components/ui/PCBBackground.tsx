@@ -33,11 +33,11 @@ export function PCBBackground() {
         animate={{ opacity: 0.25 }}
         transition={{ duration: 2, ease: 'easeOut' }}
         className="w-full h-full"
-        viewBox="0 -1000 1920 4000"
+        viewBox="0 0 1920 3000"
         preserveAspectRatio="xMidYMid slice"
         style={{
-          maskImage: 'linear-gradient(to bottom, transparent 0%, transparent 25%, black 25%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, transparent 25%, black 25%, black 100%)',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 100%)',
         }}
       >
         <defs>
@@ -88,20 +88,20 @@ export function PCBBackground() {
         {/* Main path - always leads to the end (central spine) */}
         <g className="main-path" stroke="url(#traceGreen)" fill="none" strokeWidth="8" opacity="0.6">
           <path id="mainPath" d="
-            M 960 -1000
-            L 960 -600
-            L 920 -560
-            L 920 -200
-            L 960 -160
-            L 960 200
-            L 1000 240
-            L 1000 600
-            L 960 640
-            L 960 1000
-            L 920 1040
-            L 920 1400
-            L 960 1440
+            M 960 0
+            L 960 400
+            L 920 440
+            L 920 800
+            L 960 840
+            L 960 1200
+            L 1000 1240
+            L 1000 1600
+            L 960 1640
             L 960 2000
+            L 920 2040
+            L 920 2400
+            L 960 2440
+            L 960 3000
           " strokeLinecap="butt" />
         </g>
 
