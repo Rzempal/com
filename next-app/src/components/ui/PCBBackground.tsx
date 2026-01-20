@@ -4,17 +4,14 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 /**
- * PCBBackground - Fixed background layer with circuit board design
- *
- * This component renders a large SVG circuit board that stays fixed
- * while content scrolls over it. It creates a tech aesthetic backdrop
- * for the entire page.
+ * PCBBackground - Static green PCB grid starting below Hero
  *
  * Features:
- * - Fixed position (doesn't scroll with content)
- * - Subtle opacity (15-20%) to not overpower content
- * - Responsive on mobile (18% opacity for better visibility)
- * - Extended height to cover full page scroll
+ * - Starts at Two Pillars section (y: 1000+)
+ * - Green solder mask colors (authentic PCB look)
+ * - Maze-like grid with dead ends
+ * - One main path from top to bottom
+ * - No glow effects (static, subtle)
  */
 export function PCBBackground() {
   const [isClient, setIsClient] = useState(false);
@@ -27,391 +24,243 @@ export function PCBBackground() {
 
   return (
     <div
-      className="fixed inset-0 -z-10 pointer-events-none opacity-[0.15] md:opacity-[0.18]"
+      className="fixed inset-0 pointer-events-none"
+      style={{ top: '100vh', zIndex: -1 }}
       aria-hidden="true"
     >
       <motion.svg
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 0.25 }}
         transition={{ duration: 2, ease: 'easeOut' }}
         className="w-full h-full"
-        viewBox="0 0 1920 4000"
+        viewBox="0 0 1920 3000"
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          {/* Gradient for traces */}
-          <linearGradient id="bgTraceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="#10b981" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.3" />
+          {/* Green PCB solder mask gradient */}
+          <linearGradient id="pcbGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="1" />
+            <stop offset="50%" stopColor="#059669" stopOpacity="1" />
+            <stop offset="100%" stopColor="#047857" stopOpacity="1" />
           </linearGradient>
 
-          {/* Emerald gradient */}
-          <linearGradient id="bgEmeraldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#10b981" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#10b981" stopOpacity="0.3" />
+          {/* Darker green for traces */}
+          <linearGradient id="traceGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#065f46" stopOpacity="1" />
+            <stop offset="100%" stopColor="#047857" stopOpacity="1" />
           </linearGradient>
-
-          {/* Glow filter */}
-          <filter id="bgGlow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
 
           {/* Ground plane pattern */}
-          <pattern id="bgGroundPlane" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 0 0 L 40 40 M 40 0 L 0 40" stroke="#06b6d4" strokeWidth="0.8" opacity="0.15" />
+          <pattern id="groundPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 0 0 L 40 40 M 40 0 L 0 40" stroke="#047857" strokeWidth="0.5" opacity="0.3" />
           </pattern>
-
-          {/* Solder mask texture */}
-          <filter id="bgSolderMask">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" />
-            <feColorMatrix in="noise" type="saturate" values="0.05" result="desaturatedNoise" />
-            <feComponentTransfer in="desaturatedNoise" result="opacity">
-              <feFuncA type="table" tableValues="0 0.03" />
-            </feComponentTransfer>
-            <feBlend in="SourceGraphic" in2="opacity" mode="overlay" />
-          </filter>
         </defs>
 
-        {/* PCB Substrate - deep black cyberpunk background */}
-        <rect x="0" y="0" width="1920" height="4000" fill="#0a0a0f" opacity="0.95" />
+        {/* PCB Substrate - dark green base */}
+        <rect x="0" y="0" width="1920" height="3000" fill="#064e3b" opacity="0.9" />
 
-        {/* Ground Zones - Background layer with hatched pattern */}
-        <g className="zone-fills" opacity="0.3" filter="url(#bgSolderMask)">
-          {/* Top section zones */}
-          <rect x="100" y="100" width="700" height="600" fill="url(#bgGroundPlane)" stroke="#06b6d4" strokeWidth="1" opacity="0.2" rx="10" />
-          <rect x="1120" y="100" width="700" height="600" fill="url(#bgGroundPlane)" stroke="#06b6d4" strokeWidth="1" opacity="0.2" rx="10" />
+        {/* Ground zones with hatched pattern */}
+        <g className="ground-zones" opacity="0.4">
+          {/* Two Pillars area zones */}
+          <rect x="100" y="50" width="700" height="500" fill="url(#groundPattern)" stroke="#10b981" strokeWidth="1" opacity="0.3" rx="8" />
+          <rect x="1120" y="50" width="700" height="500" fill="url(#groundPattern)" stroke="#10b981" strokeWidth="1" opacity="0.3" rx="8" />
 
-          {/* Mid-top zones */}
-          <rect x="100" y="800" width="800" height="700" fill="url(#bgGroundPlane)" stroke="#10b981" strokeWidth="1" opacity="0.15" rx="10" />
-          <rect x="1020" y="800" width="800" height="700" fill="url(#bgGroundPlane)" stroke="#06b6d4" strokeWidth="1" opacity="0.2" rx="10" />
+          {/* Robotyka area zones */}
+          <rect x="200" y="650" width="600" height="500" fill="url(#groundPattern)" stroke="#059669" strokeWidth="1" opacity="0.3" rx="8" />
+          <rect x="1020" y="650" width="700" height="500" fill="url(#groundPattern)" stroke="#059669" strokeWidth="1" opacity="0.3" rx="8" />
 
-          {/* Middle zones */}
-          <rect x="200" y="1600" width="600" height="700" fill="url(#bgGroundPlane)" stroke="#06b6d4" strokeWidth="1" opacity="0.2" rx="10" />
-          <rect x="1120" y="1600" width="600" height="700" fill="url(#bgGroundPlane)" stroke="#10b981" strokeWidth="1" opacity="0.15" rx="10" />
+          {/* APPS area zones */}
+          <rect x="100" y="1250" width="800" height="500" fill="url(#groundPattern)" stroke="#10b981" strokeWidth="1" opacity="0.3" rx="8" />
+          <rect x="1020" y="1250" width="800" height="500" fill="url(#groundPattern)" stroke="#10b981" strokeWidth="1" opacity="0.3" rx="8" />
 
-          {/* Lower zones */}
-          <rect x="100" y="2400" width="700" height="700" fill="url(#bgGroundPlane)" stroke="#10b981" strokeWidth="1" opacity="0.15" rx="10" />
-          <rect x="1120" y="2400" width="700" height="700" fill="url(#bgGroundPlane)" stroke="#06b6d4" strokeWidth="1" opacity="0.2" rx="10" />
+          {/* WWW area zones */}
+          <rect x="150" y="1850" width="650" height="500" fill="url(#groundPattern)" stroke="#047857" strokeWidth="1" opacity="0.3" rx="8" />
+          <rect x="1120" y="1850" width="650" height="500" fill="url(#groundPattern)" stroke="#047857" strokeWidth="1" opacity="0.3" rx="8" />
 
-          {/* Bottom zones */}
-          <rect x="100" y="3200" width="1720" height="700" fill="url(#bgGroundPlane)" stroke="#06b6d4" strokeWidth="1" opacity="0.2" rx="10" />
+          {/* STUDIO area zones */}
+          <rect x="100" y="2450" width="1720" height="500" fill="url(#groundPattern)" stroke="#10b981" strokeWidth="1" opacity="0.3" rx="8" />
         </g>
 
-        {/* Circuit Traces - Complex network of paths */}
-        <g className="circuit-traces" fill="none" strokeLinecap="butt" filter="url(#bgSolderMask)">
-          {/* Vertical power traces - main spine */}
-          <path
-            className="power-trace"
-            d="M 960 200 L 960 800 L 920 840 L 920 1600 L 960 1640 L 960 2400 L 1000 2440 L 1000 3200 L 960 3240 L 960 3800"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="6"
-            opacity="0.5"
-          />
-
-          {/* Left vertical trace */}
-          <path
-            className="power-trace"
-            d="M 400 200 L 400 1200 L 450 1250 L 450 2200 L 400 2250 L 400 3200 L 450 3250 L 450 3800"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="5"
-            opacity="0.5"
-          />
-
-          {/* Right vertical trace */}
-          <path
-            className="signal-trace"
-            d="M 1520 400 L 1520 1400 L 1480 1440 L 1480 2600 L 1520 2640 L 1520 3800"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="4"
-            opacity="0.4"
-          />
-
-          {/* Horizontal interconnects - Hero section area */}
-          <path
-            className="signal-trace"
-            d="M 200 400 L 700 400 L 750 450 L 1400 450"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="4"
-            opacity="0.4"
-          />
-          <path
-            className="signal-trace"
-            d="M 300 600 L 600 600 L 650 650 L 1200 650"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="3.5"
-            opacity="0.4"
-          />
-
-          {/* Two Pillars section area (y: 800-1600) */}
-          <path
-            className="signal-trace"
-            d="M 200 1000 L 800 1000 L 850 1050 L 1600 1050"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="4"
-            opacity="0.4"
-          />
-          <path
-            className="signal-trace"
-            d="M 150 1200 L 500 1200 L 550 1250 L 960 1250"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="3"
-            opacity="0.4"
-          />
-          <path
-            className="signal-trace"
-            d="M 960 1400 L 1400 1400 L 1450 1450 L 1700 1450"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="3.5"
-            opacity="0.4"
-          />
-
-          {/* Section 03 area (Robotyka - y: 1600-2400) */}
-          <path
-            className="signal-trace"
-            d="M 300 1800 L 700 1800 L 750 1850 L 1200 1850"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="4"
-            opacity="0.4"
-          />
-          <path
-            className="signal-trace"
-            d="M 200 2000 L 600 2000 L 650 2050 L 1400 2050"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="3.5"
-            opacity="0.4"
-          />
-          <path
-            className="thin-trace"
-            d="M 100 2200 L 450 2200 L 500 2250 L 960 2250"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="2.5"
-            opacity="0.4"
-          />
-
-          {/* Section 04 area (APPS - y: 2400-3200) */}
-          <path
-            className="signal-trace"
-            d="M 250 2600 L 750 2600 L 800 2650 L 1500 2650"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="4"
-            opacity="0.4"
-          />
-          <path
-            className="signal-trace"
-            d="M 150 2800 L 550 2800 L 600 2850 L 1300 2850"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="3.5"
-            opacity="0.4"
-          />
-          <path
-            className="thin-trace"
-            d="M 200 3000 L 500 3000 L 550 3050 L 1000 3050"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="2.5"
-            opacity="0.4"
-          />
-
-          {/* Section 05/06 area (WWW/STUDIO - y: 3200-4000) */}
-          <path
-            className="signal-trace"
-            d="M 300 3400 L 800 3400 L 850 3450 L 1600 3450"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="4"
-            opacity="0.4"
-          />
-          <path
-            className="signal-trace"
-            d="M 200 3600 L 700 3600 L 750 3650 L 1400 3650"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="3.5"
-            opacity="0.4"
-          />
-
-          {/* Decorative curved traces */}
-          <path
-            className="thin-trace"
-            d="M 200 300 Q 500 300 700 600 T 1100 1000"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="2.5"
-            opacity="0.3"
-          />
-          <path
-            className="thin-trace"
-            d="M 1600 500 Q 1400 700 1200 1100 T 800 1800"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="2.5"
-            opacity="0.3"
-          />
-          <path
-            className="thin-trace"
-            d="M 400 1500 Q 700 1700 1000 2000 T 1400 2600"
-            stroke="url(#bgTraceGradient)"
-            strokeWidth="2.5"
-            opacity="0.3"
-          />
-          <path
-            className="thin-trace"
-            d="M 1500 2200 Q 1200 2400 900 2800 T 500 3400"
-            stroke="url(#bgEmeraldGradient)"
-            strokeWidth="2.5"
-            opacity="0.3"
-          />
+        {/* Main path - always leads to the end (central spine) */}
+        <g className="main-path" stroke="url(#traceGreen)" fill="none" strokeWidth="8" opacity="0.6">
+          <path id="mainPath" d="
+            M 960 0
+            L 960 400
+            L 920 440
+            L 920 800
+            L 960 840
+            L 960 1200
+            L 1000 1240
+            L 1000 1600
+            L 960 1640
+            L 960 2000
+            L 920 2040
+            L 920 2400
+            L 960 2440
+            L 960 3000
+          " strokeLinecap="butt" />
         </g>
 
-        {/* Mounting Holes - 4 corners for realistic PCB look */}
-        <g className="mounting-holes">
+        {/* Circuit grid - maze-like with dead ends */}
+        <g className="circuit-grid" stroke="url(#traceGreen)" fill="none" strokeWidth="4" opacity="0.5" strokeLinecap="butt">
+          {/* Left side branches - some dead ends */}
+          <path d="M 200 100 L 500 100 L 540 140 L 540 300" />
+          <path d="M 540 300 L 700 300" /> {/* Dead end */}
+          <path d="M 540 140 L 800 140 L 840 180 L 840 400" />
+          <path d="M 840 400 L 920 400 L 920 440" /> {/* Connects to main */}
+
+          <path d="M 150 500 L 450 500 L 490 540 L 490 700" />
+          <path d="M 490 700 L 300 700" /> {/* Dead end */}
+          <path d="M 490 540 L 700 540 L 740 580 L 740 800" />
+          <path d="M 740 800 L 920 800" /> {/* Connects to main */}
+
+          <path d="M 250 900 L 550 900 L 590 940 L 590 1100" />
+          <path d="M 590 1100 L 400 1100" /> {/* Dead end */}
+          <path d="M 590 940 L 800 940 L 840 980 L 840 1200" />
+          <path d="M 840 1200 L 960 1200" /> {/* Connects to main */}
+
+          <path d="M 200 1300 L 600 1300 L 640 1340 L 640 1500" />
+          <path d="M 640 1500 L 450 1500" /> {/* Dead end */}
+          <path d="M 640 1340 L 850 1340 L 890 1380 L 890 1600" />
+          <path d="M 890 1600 L 1000 1600" /> {/* Connects to main */}
+
+          <path d="M 300 1700 L 650 1700 L 690 1740 L 690 1900" />
+          <path d="M 690 1900 L 500 1900" /> {/* Dead end */}
+          <path d="M 690 1740 L 880 1740 L 920 1780 L 920 2000" />
+          <path d="M 920 2000 L 960 2000" /> {/* Connects to main */}
+
+          <path d="M 250 2100 L 600 2100 L 640 2140 L 640 2300" />
+          <path d="M 640 2300 L 400 2300" /> {/* Dead end */}
+          <path d="M 640 2140 L 850 2140 L 890 2180 L 890 2400" />
+          <path d="M 890 2400 L 920 2400" /> {/* Connects to main */}
+
+          {/* Right side branches - some dead ends */}
+          <path d="M 1420 100 L 1120 100 L 1080 140 L 1080 300" />
+          <path d="M 1080 300 L 1280 300" /> {/* Dead end */}
+          <path d="M 1080 140 L 980 140 L 940 180 L 940 400" />
+          <path d="M 940 400 L 920 400" /> {/* Connects to main */}
+
+          <path d="M 1470 500 L 1170 500 L 1130 540 L 1130 700" />
+          <path d="M 1130 700 L 1330 700" /> {/* Dead end */}
+          <path d="M 1130 540 L 980 540 L 940 580 L 940 800" />
+          <path d="M 940 800 L 920 800" /> {/* Connects to main */}
+
+          <path d="M 1370 900 L 1070 900 L 1030 940 L 1030 1100" />
+          <path d="M 1030 1100 L 1230 1100" /> {/* Dead end */}
+          <path d="M 1030 940 L 1000 940 L 1000 1200" />
+          <path d="M 1000 1200 L 960 1200" /> {/* Connects to main */}
+
+          <path d="M 1420 1300 L 1020 1300 L 980 1340 L 980 1500" />
+          <path d="M 980 1500 L 1180 1500" /> {/* Dead end */}
+          <path d="M 980 1340 L 1000 1340 L 1000 1600" />
+          <path d="M 1000 1600 L 960 1600" /> {/* Connects to main */}
+
+          <path d="M 1320 1700 L 970 1700 L 930 1740 L 930 1900" />
+          <path d="M 930 1900 L 1130 1900" /> {/* Dead end */}
+          <path d="M 930 1740 L 940 1740 L 940 2000" />
+          <path d="M 940 2000 L 960 2000" /> {/* Connects to main */}
+
+          <path d="M 1370 2100 L 1020 2100 L 980 2140 L 980 2300" />
+          <path d="M 980 2300 L 1180 2300" /> {/* Dead end */}
+          <path d="M 980 2140 L 940 2140 L 940 2400" />
+          <path d="M 940 2400 L 920 2400" /> {/* Connects to main */}
+
+          {/* Horizontal interconnects */}
+          <path d="M 300 250 L 700 250" />
+          <path d="M 1220 250 L 1620 250" />
+          <path d="M 250 650 L 650 650" />
+          <path d="M 1270 650 L 1670 650" />
+          <path d="M 350 1050 L 750 1050" />
+          <path d="M 1170 1050 L 1570 1050" />
+          <path d="M 300 1450 L 700 1450" />
+          <path d="M 1220 1450 L 1620 1450" />
+          <path d="M 400 1850 L 800 1850" />
+          <path d="M 1120 1850 L 1520 1850" />
+          <path d="M 350 2250 L 750 2250" />
+          <path d="M 1170 2250 L 1570 2250" />
+        </g>
+
+        {/* Via holes at junctions */}
+        <g className="vias" fill="#064e3b" stroke="#10b981" strokeWidth="1" opacity="0.7">
+          <circle cx="540" cy="140" r="4" />
+          <circle cx="840" cy="400" r="4" />
+          <circle cx="490" cy="540" r="4" />
+          <circle cx="740" cy="800" r="4" />
+          <circle cx="590" cy="940" r="4" />
+          <circle cx="840" cy="1200" r="4" />
+          <circle cx="640" cy="1340" r="4" />
+          <circle cx="890" cy="1600" r="4" />
+          <circle cx="690" cy="1740" r="4" />
+          <circle cx="920" cy="2000" r="4" />
+          <circle cx="640" cy="2140" r="4" />
+          <circle cx="890" cy="2400" r="4" />
+
+          <circle cx="1080" cy="140" r="4" />
+          <circle cx="940" cy="400" r="4" />
+          <circle cx="1130" cy="540" r="4" />
+          <circle cx="940" cy="800" r="4" />
+          <circle cx="1030" cy="940" r="4" />
+          <circle cx="1000" cy="1200" r="4" />
+          <circle cx="980" cy="1340" r="4" />
+          <circle cx="1000" cy="1600" r="4" />
+          <circle cx="930" cy="1740" r="4" />
+          <circle cx="940" cy="2000" r="4" />
+          <circle cx="980" cy="2140" r="4" />
+          <circle cx="940" cy="2400" r="4" />
+
+          {/* Main path vias */}
+          <circle cx="960" cy="400" r="6" />
+          <circle cx="920" cy="800" r="6" />
+          <circle cx="960" cy="1200" r="6" />
+          <circle cx="1000" cy="1600" r="6" />
+          <circle cx="960" cy="2000" r="6" />
+          <circle cx="920" cy="2400" r="6" />
+        </g>
+
+        {/* SMD components at key points */}
+        <g className="smd-components" opacity="0.5">
+          {/* Resistors */}
           {[
-            [120, 120], [1800, 120],
-            [120, 3880], [1800, 3880]
-          ].map(([cx, cy], i) => (
-            <g key={i}>
-              <circle cx={cx} cy={cy} r="30" fill="none" stroke="#06b6d4" strokeWidth="2" opacity="0.6" />
-              <circle cx={cx} cy={cy} r="18" fill="#0a0a0f" opacity="0.9" />
-            </g>
-          ))}
-        </g>
-
-        {/* Via Holes - distributed throughout the board */}
-        <g className="via-holes" fill="#0a0a0f" opacity="0.7">
-          {/* Hero area vias */}
-          <circle cx="300" cy="400" r="4" />
-          <circle cx="700" cy="450" r="3.5" />
-          <circle cx="1400" cy="450" r="4" />
-          <circle cx="600" cy="650" r="3" />
-          <circle cx="1200" cy="650" r="4" />
-
-          {/* Two Pillars area vias */}
-          <circle cx="800" cy="1000" r="4" />
-          <circle cx="1600" cy="1050" r="4" />
-          <circle cx="500" cy="1200" r="3.5" />
-          <circle cx="960" cy="1250" r="5" />
-          <circle cx="1400" cy="1400" r="3.5" />
-
-          {/* Robotyka area vias */}
-          <circle cx="700" cy="1800" r="4" />
-          <circle cx="1200" cy="1850" r="4" />
-          <circle cx="600" cy="2000" r="3.5" />
-          <circle cx="450" cy="2200" r="3" />
-
-          {/* APPS area vias */}
-          <circle cx="750" cy="2600" r="4" />
-          <circle cx="1500" cy="2650" r="4" />
-          <circle cx="550" cy="2800" r="3.5" />
-          <circle cx="500" cy="3000" r="3" />
-
-          {/* WWW/STUDIO area vias */}
-          <circle cx="800" cy="3400" r="4" />
-          <circle cx="1600" cy="3450" r="4" />
-          <circle cx="700" cy="3600" r="3.5" />
-        </g>
-
-        {/* SMD Components - Resistors and Capacitors */}
-        <g className="smd-components" opacity="0.6">
-          {/* Resistors - distributed across the board */}
-          {[
-            { x: 540, y: 397, label: 'R1' },
-            { x: 740, y: 597, label: 'R2' },
-            { x: 640, y: 997, label: 'R3' },
-            { x: 1240, y: 1047, label: 'R4' },
-            { x: 540, y: 1247, label: 'R5' },
-            { x: 540, y: 1797, label: 'R6' },
-            { x: 1040, y: 1847, label: 'R7' },
-            { x: 540, y: 2597, label: 'R8' },
-            { x: 1240, y: 2647, label: 'R9' },
-            { x: 640, y: 3397, label: 'R10' },
-            { x: 1240, y: 3447, label: 'R11' },
+            { x: 460, y: 247 },
+            { x: 660, y: 537 },
+            { x: 760, y: 937 },
+            { x: 560, y: 1337 },
+            { x: 610, y: 1737 },
+            { x: 560, y: 2137 },
           ].map((r, i) => (
-            <g key={`r-${i}`}>
-              <rect x={r.x} y={r.y} width="40" height="12" fill="#1a2332" stroke="#06b6d4" strokeWidth="1" opacity="0.8" rx="2" />
-              <text x={r.x + 20} y={r.y - 6} fontSize="12" fill="#06b6d4" opacity="0.5" textAnchor="middle" fontFamily="monospace">{r.label}</text>
-            </g>
+            <rect key={`r${i}`} x={r.x} y={r.y} width="30" height="8" fill="#1a1a1a" stroke="#10b981" strokeWidth="0.5" rx="1" />
           ))}
 
           {/* Capacitors */}
           {[
-            { x: 240, y: 398, label: 'C1' },
-            { x: 840, y: 648, label: 'C2' },
-            { x: 340, y: 998, label: 'C3' },
-            { x: 1140, y: 1248, label: 'C4' },
-            { x: 340, y: 1798, label: 'C5' },
-            { x: 840, y: 1998, label: 'C6' },
-            { x: 390, y: 2598, label: 'C7' },
-            { x: 740, y: 2798, label: 'C8' },
-            { x: 440, y: 3398, label: 'C9' },
+            { x: 360, y: 98 },
+            { x: 310, y: 648 },
+            { x: 410, y: 1048 },
+            { x: 360, y: 1448 },
+            { x: 460, y: 1848 },
+            { x: 410, y: 2248 },
           ].map((c, i) => (
-            <g key={`c-${i}`}>
-              <rect x={c.x} y={c.y} width="30" height="8" fill="#2a3545" stroke="#06b6d4" strokeWidth="1" opacity="0.8" rx="1" />
-              <text x={c.x + 15} y={c.y - 4} fontSize="10" fill="#06b6d4" opacity="0.5" textAnchor="middle" fontFamily="monospace">{c.label}</text>
-            </g>
+            <rect key={`c${i}`} x={c.x} y={c.y} width="20" height="6" fill="#2a2a2a" stroke="#059669" strokeWidth="0.5" rx="0.5" />
           ))}
         </g>
 
-        {/* Connection Pads - nodes for current flow animation */}
-        <g className="circuit-pads" fill="#06b6d4" stroke="#06b6d4" strokeWidth="2" opacity="0.5">
-          {/* Hero area pads */}
-          <circle className="pcb-pad" cx="300" cy="400" r="12" data-pad="hero-1" />
-          <circle className="pcb-pad" cx="700" cy="450" r="10" data-pad="hero-2" />
-          <circle className="pcb-pad" cx="1400" cy="450" r="12" data-pad="hero-3" />
-          <circle className="pcb-pad" cx="600" cy="650" r="10" data-pad="hero-4" />
-          <circle className="pcb-pad" cx="960" cy="800" r="14" data-pad="hero-main" />
+        {/* Silk screen labels */}
+        <g className="silk-screen" fill="#ffffff" opacity="0.4" fontFamily="monospace" fontSize="10">
+          <text x="970" y="420">TP1</text>
+          <text x="930" y="820">TP2</text>
+          <text x="970" y="1220">TP3</text>
+          <text x="1010" y="1620">TP4</text>
+          <text x="970" y="2020">TP5</text>
+          <text x="930" y="2420">TP6</text>
 
-          {/* Two Pillars area pads */}
-          <circle className="pcb-pad" cx="800" cy="1000" r="12" data-pad="pillars-1" />
-          <circle className="pcb-pad" cx="1600" cy="1050" r="12" data-pad="pillars-2" />
-          <circle className="pcb-pad" cx="960" cy="1250" r="16" data-pad="pillars-main" />
-          <circle className="pcb-pad" cx="1400" cy="1400" r="10" data-pad="pillars-3" />
+          <text x="100" y="80">GND</text>
+          <text x="100" y="680">GND</text>
+          <text x="100" y="1280">GND</text>
+          <text x="100" y="1880">GND</text>
+          <text x="100" y="2480">GND</text>
 
-          {/* Robotyka area pads */}
-          <circle className="pcb-pad" cx="700" cy="1800" r="12" data-pad="robotyka-1" />
-          <circle className="pcb-pad" cx="1200" cy="1850" r="12" data-pad="robotyka-2" />
-          <circle className="pcb-pad" cx="960" cy="2000" r="14" data-pad="robotyka-main" />
-
-          {/* APPS area pads */}
-          <circle className="pcb-pad" cx="750" cy="2600" r="12" data-pad="apps-1" />
-          <circle className="pcb-pad" cx="1500" cy="2650" r="12" data-pad="apps-2" />
-          <circle className="pcb-pad" cx="960" cy="2800" r="14" data-pad="apps-main" />
-
-          {/* WWW area pads */}
-          <circle className="pcb-pad" cx="800" cy="3400" r="12" data-pad="www-1" />
-          <circle className="pcb-pad" cx="1600" cy="3450" r="12" data-pad="www-2" />
-          <circle className="pcb-pad" cx="960" cy="3600" r="14" data-pad="www-main" />
-        </g>
-
-        {/* Silk Screen Layer - Labels and markings */}
-        <g className="silk-screen" fill="#ffffff" opacity="0.6" fontFamily="monospace">
-          {/* Test points labels */}
-          <text x="970" cy="820" fontSize="16" fontWeight="600">TP1</text>
-          <text x="970" cy="1270" fontSize="16" fontWeight="600">TP2</text>
-          <text x="970" cy="2020" fontSize="16" fontWeight="600">TP3</text>
-          <text x="970" cy="2820" fontSize="16" fontWeight="600">TP4</text>
-          <text x="970" cy="3620" fontSize="16" fontWeight="600">TP5</text>
-
-          {/* Board info */}
-          <text x="1700" cy="3940" fontSize="18" fontWeight="700" letterSpacing="2">MR PCB</text>
-          <text x="1800" cy="3970" fontSize="14" opacity="0.7">v2.0</text>
-          <text x="100" cy="3970" fontSize="12" opacity="0.5">© 2025</text>
-
-          {/* Mounting hole labels */}
-          <text x="150" cy="130" fontSize="12" opacity="0.5">H1</text>
-          <text x="1770" cy="130" fontSize="12" opacity="0.5">H2</text>
-          <text x="150" cy="3890" fontSize="12" opacity="0.5">H3</text>
-          <text x="1770" cy="3890" fontSize="12" opacity="0.5">H4</text>
-
-          {/* Ground zone labels */}
-          <text x="120" cy="140" fontSize="14" opacity="0.5">GND</text>
-          <text x="1140" cy="140" fontSize="14" opacity="0.5">GND</text>
-          <text x="120" cy="840" fontSize="14" opacity="0.5">GND</text>
-          <text x="1040" cy="840" fontSize="14" opacity="0.5">GND</text>
-          <text x="220" cy="1640" fontSize="14" opacity="0.5">GND</text>
-          <text x="1140" cy="1640" fontSize="14" opacity="0.5">GND</text>
-          <text x="120" cy="2440" fontSize="14" opacity="0.5">GND</text>
-          <text x="1140" cy="2440" fontSize="14" opacity="0.5">GND</text>
-          <text x="120" cy="3240" fontSize="14" opacity="0.5">GND</text>
+          <text x="1700" y="2970" fontSize="14" fontWeight="700">MR PCB v3.0</text>
+          <text x="100" y="2970" fontSize="9">© 2025</text>
         </g>
       </motion.svg>
     </div>
