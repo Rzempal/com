@@ -62,7 +62,7 @@ export function CurrentFlow() {
     <div
       ref={containerRef}
       className="fixed inset-0 pointer-events-none"
-      style={{ top: '100vh', zIndex: -1 }}
+      style={{ zIndex: -1 }}
       aria-hidden="true"
     >
       <motion.svg
@@ -72,6 +72,10 @@ export function CurrentFlow() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, delay: 0.5 }}
+        style={{
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 100%)',
+        }}
       >
         <defs>
           {/* Cyan current gradient */}
