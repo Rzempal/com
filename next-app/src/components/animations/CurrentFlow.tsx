@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * CurrentFlow - Single cyan current line following scroll
@@ -13,17 +13,16 @@ import { useEffect, useState, useRef } from 'react';
  * - Starts below Hero (at Two Pillars)
  */
 export function CurrentFlow() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
 
-  // Scroll progress tracking
+  // Scroll progress tracking - starts after Hero section
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end end'],
   });
 
   // Map scroll to path progress (0-100%)
-  const pathProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  // Only start revealing after scrolling past Hero (first 100vh)
+  const pathProgress = useTransform(scrollYProgress, [0.25, 1], [0, 100]);
 
   // Detect low-end devices for performance optimization
   useEffect(() => {
@@ -60,7 +59,6 @@ export function CurrentFlow() {
 
   return (
     <div
-      ref={containerRef}
       className="fixed inset-0 pointer-events-none"
       style={{ zIndex: -1 }}
       aria-hidden="true"
@@ -108,6 +106,7 @@ export function CurrentFlow() {
           fill="none"
           strokeLinecap="butt"
           filter="url(#currentGlow)"
+          initial={{ strokeDashoffset: pathLength }}
           style={{
             strokeDasharray: pathLength,
             strokeDashoffset: useTransform(
