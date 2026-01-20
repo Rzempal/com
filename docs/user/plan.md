@@ -91,20 +91,21 @@ Zamiast budować standardowy układ sekcji pod sekcją, stwórz strukturę "Wars
 - [x] Interactive pills (Robotyka, APPS, WWW, STUDIO)
 - [x] CSS animations (trace pulse, pad glow, anchor pulse)
 
-#### 🎯 New Implementation Plan
-- [ ] PCBBackground component (fixed, opacity 15-20%)
-- [ ] CurrentFlow animation (Framer Motion + scroll-spy)
-  - [ ] Dual paths (cyan + emerald) from Hero scroll indicator
-  - [ ] Pulsating bursts (not continuous)
-  - [ ] Pad/trace highlighting along current path
-- [ ] 4 New Project Sections (replace pills):
-  - [ ] Section 03: Robotyka (McLaren P47 content)
-  - [ ] Section 04: APPS (Webappki content)
-  - [ ] Section 05: WWW (Strony internetowe content)
-  - [ ] Section 06: STUDIO (Karton-AI content)
-- [ ] Update SectionProgress (add sections 03-06)
-- [ ] i18n refactor (pcb → projects structure)
-- [ ] Mobile optimizations (performance tuning)
+#### ✅ New Implementation Complete
+- [x] PCBBackground component (fixed, opacity 15-20%)
+- [x] CurrentFlow animation (Framer Motion + scroll-spy)
+  - [x] Dual paths (cyan + emerald) from Hero scroll indicator
+  - [x] Pulsating bursts (1.2s interval, not continuous)
+  - [x] Pad/trace highlighting along current path
+  - [x] Particle system (12 per path on high-end devices)
+- [x] 4 New Project Sections (replace pills):
+  - [x] Section 03: Robotyka (McLaren P47 content)
+  - [x] Section 04: APPS (Webappki content)
+  - [x] Section 05: WWW (Strony internetowe content)
+  - [x] Section 06: STUDIO (Karton-AI content)
+- [x] Update SectionProgress (add sections 03-06)
+- [x] i18n refactor (pcb → projects structure)
+- [x] Mobile optimizations (low-end device detection, reduced particles/blur)
 
 **Reference:** `.agent/mockup-pcb-background.md`
 
