@@ -16,7 +16,6 @@ export function Hero() {
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -85,10 +84,9 @@ export function Hero() {
         />
       </div>
 
-      {/* Content with Canvas Shrink effect */}
       <motion.div
         className="relative z-10 text-center px-6"
-        style={{ scale, opacity, y }}
+        style={{ scale, opacity }}
       >
         {/* Title with Glitch effect */}
         <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white glitch">

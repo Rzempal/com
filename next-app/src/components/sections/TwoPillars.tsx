@@ -313,14 +313,21 @@ export function TwoPillars() {
 
       <div className="container mx-auto px-6">
         {/* Section heading */}
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center text-xl sm:text-2xl md:text-3xl text-zinc-300 mb-16 font-light tracking-wide"
+          className="mb-16 max-w-5xl mx-auto"
         >
-          {t('heading')}
-        </motion.h2>
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Kompetencje <span className="text-emerald-500">{t('heading')}</span>
+          </h2>
+          <p className="text-zinc-500 font-mono text-sm">
+            // CORE_EXPERTISE_MODULES
+            <br />
+            // SWIPE_TO_NAVIGATE
+          </p>
+        </motion.div>
 
         {/* Desktop: Grid layout */}
         <motion.div
