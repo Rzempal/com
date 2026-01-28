@@ -295,7 +295,7 @@ export function TwoPillars() {
     <section
       id="pillars"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center py-24 bg-zinc-950"
+      className="relative py-24 bg-zinc-950"
     >
       {/* Background gradient */}
       <div className="absolute inset-0 -z-10">
@@ -344,6 +344,7 @@ export function TwoPillars() {
               animate={activeIndex === 0 ? frontCardStyle : backCardStyle}
               transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
               drag={activeIndex === 0 ? 'x' : false}
+              dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.15}
               onDragStart={() => setIsDragging(true)}
@@ -351,6 +352,7 @@ export function TwoPillars() {
               style={{
                 cursor: activeIndex === 0 ? 'grab' : 'default',
                 filter: activeIndex === 0 ? 'none' : 'brightness(0.7)',
+                touchAction: 'pan-y',
               }}
               whileDrag={{ cursor: 'grabbing' }}
             >
@@ -363,6 +365,7 @@ export function TwoPillars() {
               animate={activeIndex === 1 ? frontCardStyle : backCardStyle}
               transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
               drag={activeIndex === 1 ? 'x' : false}
+              dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.15}
               onDragStart={() => setIsDragging(true)}
@@ -370,6 +373,7 @@ export function TwoPillars() {
               style={{
                 cursor: activeIndex === 1 ? 'grab' : 'default',
                 filter: activeIndex === 1 ? 'none' : 'brightness(0.7)',
+                touchAction: 'pan-y',
               }}
               whileDrag={{ cursor: 'grabbing' }}
             >
