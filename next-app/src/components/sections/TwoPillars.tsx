@@ -1,151 +1,399 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useState } from 'react';
+import Image from 'next/image';
 
-// === PillarCard Component ===
-interface PillarCardProps {
-  title: string;
-  desc: string;
-  tag: string;
-  color: 'emerald' | 'cyan';
-  icon: React.ReactNode;
-  delay: number;
-  href?: string;
-  stackItems?: string[];
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+// RTK Logo SVG Component with animations
+function RTKLogo() {
+  return (
+    <svg viewBox="0 0 400 60" className="rtk-logo w-full max-w-[320px] h-auto">
+      {/* Neural network nodes */}
+      <circle cx="5" cy="15" r="2" className="rtk-node rtk-n1" />
+      <circle cx="20" cy="5" r="2" className="rtk-node rtk-n2" />
+      <circle cx="10" cy="30" r="2" className="rtk-node rtk-n3" />
+      {/* Neural links */}
+      <line x1="5" y1="15" x2="20" y2="5" className="rtk-link rtk-l1" />
+      <line x1="20" y1="5" x2="10" y2="30" className="rtk-link rtk-l2" />
+      <line x1="5" y1="15" x2="10" y2="30" className="rtk-link rtk-l3" />
+      {/* Flow path */}
+      <path d="M 10 30 L 40 30" className="rtk-path" />
+      {/* Prompt */}
+      <text x="48" y="38" className="rtk-cmd">&gt;_</text>
+      {/* Typing command */}
+      <text x="86" y="38" className="rtk-url">cd resztatokod.pl</text>
+      {/* Cursor */}
+      <g className="rtk-cursor-g">
+        <rect x="86" y="16" width="14" height="26" className="rtk-cursor" />
+      </g>
+    </svg>
+  );
 }
 
-function PillarCard({ title, desc, tag, color, icon, delay, href, stackItems = [] }: PillarCardProps) {
-  const isEmerald = color === 'emerald';
-  const glowColor = isEmerald ? 'group-hover:border-emerald-500/50' : 'group-hover:border-cyan-500/50';
-  const shadowColor = isEmerald
-    ? 'group-hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.2)]'
-    : 'group-hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.2)]';
-  const textColor = isEmerald ? 'group-hover:text-emerald-400' : 'group-hover:text-cyan-400';
-  const accentColor = isEmerald ? 'bg-emerald-500' : 'bg-cyan-500';
-  const tagTextColor = isEmerald ? 'text-emerald-500' : 'text-cyan-500';
-
-  const CardContent = (
-    <>
-      {/* Connector Point (Wizualne gniazdo na górze) */}
-      <div
-        className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] ${accentColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[0_0_10px_currentColor]`}
-      />
-
-      <div>
-        <div className="flex justify-between items-start mb-8">
-          <span className={`font-mono text-[10px] ${tagTextColor} border border-zinc-800 px-2 py-1 rounded bg-black/50 tracking-widest`}>
-            {tag}
-          </span>
-          <div className={`p-2 rounded border border-white/5 bg-white/5 ${textColor} transition-colors`}>
-            {icon}
-          </div>
-        </div>
-
-        <h3 className={`text-3xl font-bold text-white mb-4 ${textColor} transition-colors`}>{title}</h3>
-        <p className="text-zinc-400 text-sm leading-relaxed font-light">{desc}</p>
-      </div>
-
-      {/* Tech Stack Tags */}
-      {stackItems.length > 0 && (
-        <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap gap-2">
-          {stackItems.map((item, i) => (
-            <span
-              key={i}
-              className="text-[10px] font-mono px-2 py-1 rounded border border-white/10 bg-white/5 text-zinc-400"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      )}
-    </>
-  );
-
-  const cardClasses = `
-    relative group min-h-[350px] flex flex-col justify-between p-8 rounded-xl
-    bg-zinc-900/40 backdrop-blur-xl border border-white/5 
-    transition-all duration-500 ease-out
-    ${glowColor} ${shadowColor}
-    hover:-translate-y-2
-  `;
-
-  if (href) {
-    return (
-      <motion.a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay, duration: 0.6 }}
-        className={cardClasses}
-      >
-        {CardContent}
-      </motion.a>
-    );
-  }
+// Tech Tags Component
+function TechTags({ tags, color }: { tags: string[]; color: 'emerald' | 'cyan' }) {
+  const borderColor = color === 'emerald' ? 'border-emerald-500/30' : 'border-cyan-500/30';
+  const textColor = color === 'emerald' ? 'text-emerald-400/80' : 'text-cyan-400/80';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, duration: 0.6 }}
-      className={cardClasses}
+    <div className="flex flex-wrap gap-2 mt-4">
+      {tags.map((tag) => (
+        <span
+          key={tag}
+          className={`text-[10px] font-mono px-2 py-1 rounded border ${borderColor} ${textColor} bg-black/30`}
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+// Robotics Card Component - CYAN accent
+function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'pillars'>>; className?: string }) {
+  const techTags = ['KUKA', 'ABB', 'FANUC', 'TECNOMATIX', 'OEM'];
+
+  return (
+    <a
+      href="https://robotyka.michalrapala.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group relative block rounded-2xl overflow-hidden cursor-pointer
+        bg-zinc-900/90 backdrop-blur-md
+        border border-zinc-800
+        hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] ${className}`}
     >
-      {CardContent}
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent" />
+      </div>
+
+      {/* Header */}
+      <div className="p-6 pb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+          <span className="text-xs font-mono text-cyan-500 tracking-wider uppercase">
+            {t('robotics.tag')}
+          </span>
+        </div>
+      </div>
+
+      {/* Image */}
+      <div className="relative w-full aspect-[16/9] overflow-hidden">
+        <Image
+          src="/images/global/logo_robotyka.png"
+          alt="Robotyka - symulacje przemysłowe"
+          fill
+          className="object-contain p-4"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="p-6 pt-4">
+        <h3 className="font-display text-lg sm:text-xl font-semibold text-white mb-3 leading-tight">
+          {t('robotics.headline')}
+        </h3>
+
+        <p className="text-zinc-400 text-sm mb-4 leading-relaxed font-mono">
+          <span className="text-cyan-500/70">&gt;</span> {t('robotics.description')}
+        </p>
+
+        {/* Tech Tags */}
+        <TechTags tags={techTags} color="cyan" />
+
+        {/* CTA */}
+        <span className="inline-flex items-center gap-2 mt-6 text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors">
+          {t('robotics.cta')}
+          <svg
+            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            />
+            <polyline points="15 3 21 3 21 9" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="10" y1="14" x2="21" y2="3" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </div>
+
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
+        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-cyan-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-cyan-500/50 to-transparent" />
+      </div>
+    </a>
+  );
+}
+
+// Dev Card Component with RTK Logo - EMERALD accent
+function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'pillars'>>; className?: string }) {
+  const techTags = ['FLUTTER', 'NEXT.JS', 'AI'];
+
+  return (
+    <a
+      href="https://resztatokod.pl"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group relative block rounded-2xl overflow-hidden cursor-pointer
+        bg-zinc-900/90 backdrop-blur-md
+        border border-zinc-800
+        hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)] ${className}`}
+    >
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10">
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent" />
+      </div>
+
+      {/* Header */}
+      <div className="p-6 pb-4">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-mono text-emerald-500 tracking-wider uppercase">
+            {t('dev.tag')}
+          </span>
+        </div>
+      </div>
+
+      {/* Big Headline */}
+      <div className="px-6 py-8">
+        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black leading-none tracking-tighter">
+          <span className="block text-emerald-400 glitch" data-text={t('dev.headline1')}>
+            {t('dev.headline1')}
+          </span>
+          <span className="block text-white">{t('dev.headline2')}</span>
+          <span className="block text-white">{t('dev.headline3')}</span>
+          <span className="block text-white">
+            {t('dev.headline4')}
+            <span className="text-emerald-500">.</span>
+          </span>
+        </h2>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 pt-0">
+        <h3 className="font-display text-lg font-semibold text-white mb-3">
+          {t('dev.subheadline')}
+        </h3>
+
+        <p className="text-zinc-400 text-sm mb-4 leading-relaxed font-mono">
+          <span className="text-emerald-500/70">&gt;</span> {t('dev.description')}
+        </p>
+
+        {/* Tech Tags */}
+        <TechTags tags={techTags} color="emerald" />
+
+        {/* RTK Logo Animation as CTA */}
+        <div className="rtk-cta-container group-hover:opacity-100 opacity-80 transition-opacity mt-6">
+          <RTKLogo />
+        </div>
+      </div>
+
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-2xl">
+        <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-emerald-500/50 to-transparent" />
+        <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-emerald-500/50 to-transparent" />
+      </div>
+    </a>
+  );
+}
+
+// Desktop wrapper with motion
+function DesktopRoboticsCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.div variants={cardVariants} whileHover={{ scale: 1.02, y: -4 }} whileTap={{ scale: 0.98 }}>
+      <RoboticsCard t={t} />
     </motion.div>
   );
 }
 
-// === Icons ===
-const EngineeringIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-    />
-  </svg>
-);
+function DesktopDevCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.div variants={cardVariants} whileHover={{ scale: 1.02, y: -4 }} whileTap={{ scale: 0.98 }}>
+      <DevCard t={t} />
+    </motion.div>
+  );
+}
 
-const CodeIcon = () => (
-  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-);
-
-// === Main Section ===
 export function TwoPillars() {
   const t = useTranslations('pillars');
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [activeIndex, setActiveIndex] = useState(1); // Dev card first (index 1)
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Swap cards
+  const swapCards = () => {
+    setActiveIndex((prev) => (prev === 0 ? 1 : 0));
+  };
+
+  // Handle drag end - swap if dragged enough
+  const handleDragEnd = (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+    setIsDragging(false);
+    const threshold = 80;
+    const velocityThreshold = 500;
+
+    if (Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold) {
+      swapCards();
+    }
+  };
+
+  // Card stack positions
+  const frontCardStyle = {
+    zIndex: 20,
+    x: 0,
+    y: 0,
+    rotate: 0,
+    scale: 1,
+  };
+
+  const backCardStyle = {
+    zIndex: 10,
+    x: 20,
+    y: 8,
+    rotate: 2.5,
+    scale: 0.97,
+  };
 
   return (
-    <section id="pillars" className="relative z-10 py-32">
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24">
-        {/* gap-24 na desktopie robi miejsce na linie PCB w środku */}
-        <PillarCard
-          title={t('robotics.headline')}
-          desc={t('robotics.description')}
-          tag="CORE_01"
-          color="emerald"
-          delay={0.2}
-          href="https://robotyka.michalrapala.com"
-          icon={<EngineeringIcon />}
-          stackItems={['PCB', 'STM32', 'KUKA', 'ROS']}
+    <section
+      id="pillars"
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center py-24 bg-zinc-950"
+    >
+      {/* Background gradient */}
+      <div className="absolute inset-0 -z-10">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-20 blur-[150px]"
+          style={{
+            background: 'radial-gradient(ellipse at center, #27C96D 0%, transparent 60%)',
+          }}
         />
-        <PillarCard
-          title={t('dev.headline1')}
-          desc={t('dev.description')}
-          tag="CORE_02"
-          color="cyan"
-          delay={0.4}
-          href="https://resztatokod.pl"
-          icon={<CodeIcon />}
-          stackItems={['NEXT.JS', 'REACT NATIVE', 'OPENAI']}
-        />
+      </div>
+
+      <div className="container mx-auto px-6">
+        {/* Section heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center text-xl sm:text-2xl md:text-3xl text-zinc-300 mb-16 font-light tracking-wide"
+        >
+          {t('heading')}
+        </motion.h2>
+
+        {/* Desktop: Grid layout */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="hidden md:grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+        >
+          <DesktopRoboticsCard t={t} />
+          <DesktopDevCard t={t} />
+        </motion.div>
+
+        {/* Mobile: Stacked Cards with swipe */}
+        <div className="md:hidden relative">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ type: 'spring' as const, stiffness: 100, damping: 15, delay: 0.2 }}
+            className="relative"
+            style={{ minHeight: '580px' }}
+          >
+            {/* Robotics Card */}
+            <motion.div
+              className="absolute inset-x-0 top-0 origin-bottom-left"
+              animate={activeIndex === 0 ? frontCardStyle : backCardStyle}
+              transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
+              drag={activeIndex === 0 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.15}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={handleDragEnd}
+              style={{
+                cursor: activeIndex === 0 ? 'grab' : 'default',
+                filter: activeIndex === 0 ? 'none' : 'brightness(0.7)',
+              }}
+              whileDrag={{ cursor: 'grabbing' }}
+            >
+              <RoboticsCard t={t} className={isDragging ? 'pointer-events-none' : ''} />
+            </motion.div>
+
+            {/* Dev Card */}
+            <motion.div
+              className="absolute inset-x-0 top-0 origin-bottom-left"
+              animate={activeIndex === 1 ? frontCardStyle : backCardStyle}
+              transition={{ type: 'spring' as const, stiffness: 300, damping: 25 }}
+              drag={activeIndex === 1 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.15}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={handleDragEnd}
+              style={{
+                cursor: activeIndex === 1 ? 'grab' : 'default',
+                filter: activeIndex === 1 ? 'none' : 'brightness(0.7)',
+              }}
+              whileDrag={{ cursor: 'grabbing' }}
+            >
+              <DevCard t={t} className={isDragging ? 'pointer-events-none' : ''} />
+            </motion.div>
+          </motion.div>
+
+          {/* Navigation dots */}
+          <nav className="flex justify-center gap-3 mt-6" aria-label="Card navigation">
+            {[0, 1].map((index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeIndex === index
+                    ? 'w-6 bg-emerald-500'
+                    : 'w-2 bg-zinc-600 hover:bg-zinc-500'
+                }`}
+                aria-label={`Card ${index + 1}`}
+                aria-current={activeIndex === index ? 'true' : 'false'}
+              />
+            ))}
+          </nav>
+        </div>
       </div>
     </section>
   );
