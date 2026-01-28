@@ -84,11 +84,8 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
   const techTags = ['KUKA', 'ABB', 'FANUC', 'TECNOMATIX', 'OEM'];
 
   return (
-    <a
-      href="https://robotyka.michalrapala.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group relative block rounded-2xl overflow-hidden cursor-pointer
+    <div
+      className={`group relative block rounded-2xl overflow-hidden
         bg-zinc-900/90 backdrop-blur-md
         border border-zinc-800
         hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] ${className}`}
@@ -133,10 +130,15 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
         <TechTags tags={techTags} color="cyan" />
 
         {/* CTA */}
-        <span className="inline-flex items-center gap-2 mt-6 text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors">
+        <a
+          href="https://robotyka.michalrapala.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 mt-6 text-cyan-400 font-medium hover:text-cyan-300 transition-colors"
+        >
           {t('robotics.cta')}
           <svg
-            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+            className="w-4 h-4 transform hover:translate-x-1 transition-transform"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -150,7 +152,7 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
             <polyline points="15 3 21 3 21 9" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
             <line x1="10" y1="14" x2="21" y2="3" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </span>
+        </a>
       </div>
 
       {/* Corner accent */}
@@ -158,7 +160,7 @@ function RoboticsCard({ t, className = '' }: { t: ReturnType<typeof useTranslati
         <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-cyan-500/50 to-transparent" />
         <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-cyan-500/50 to-transparent" />
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -167,11 +169,8 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
   const techTags = ['FLUTTER', 'NEXT.JS', 'AI'];
 
   return (
-    <a
-      href="https://resztatokod.pl"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group relative block rounded-2xl overflow-hidden cursor-pointer
+    <div
+      className={`group relative block rounded-2xl overflow-hidden
         bg-zinc-900/90 backdrop-blur-md
         border border-zinc-800
         hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(39,201,109,0.15)] ${className}`}
@@ -220,9 +219,14 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
         <TechTags tags={techTags} color="emerald" />
 
         {/* RTK Logo Animation as CTA */}
-        <div className="rtk-cta-container group-hover:opacity-100 opacity-80 transition-opacity mt-6">
+        <a
+          href="https://resztatokod.pl"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rtk-cta-container block hover:opacity-100 opacity-80 transition-opacity mt-6"
+        >
           <RTKLogo />
-        </div>
+        </a>
       </div>
 
       {/* Corner accent */}
@@ -230,7 +234,7 @@ function DevCard({ t, className = '' }: { t: ReturnType<typeof useTranslations<'
         <div className="absolute top-0 right-0 w-px h-8 bg-gradient-to-b from-emerald-500/50 to-transparent" />
         <div className="absolute top-0 right-0 w-8 h-px bg-gradient-to-l from-emerald-500/50 to-transparent" />
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -295,7 +299,7 @@ export function TwoPillars() {
     <section
       id="pillars"
       ref={sectionRef}
-      className="relative py-24 bg-zinc-950"
+      className="relative py-24 bg-zinc-950 scroll-mt-24"
     >
       {/* Background gradient */}
       <div className="absolute inset-0 -z-10">
