@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pl" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech-Noir Project Showcase</title>
+    
+    <!-- Fonts: Inter for UI, JetBrains Mono for Code/Tech details -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        pcb: {
+                            bg: '#050505',
+                            trace: '#18181b', // zinc-900
+                            glow: '#10b981', // emerald-500
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #18181b 1px, transparent 1px), linear-gradient(to bottom, #18181b 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for PCB Animations & Utilities -->
+    <style>
+        body {
+            background-color: #050505;
+            color: #e4e4e7; /* zinc-200 */
+            overflow-x: hidden;
+        }
+
+        /* PCB Flow Animation */
+        .circuit-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: flow 4s linear infinite;
+        }
+
+        @keyframes flow {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .circuit-static {
+            stroke: #27272a; /* zinc-800 */
+            stroke-width: 1;
+        }
+
+        .circuit-active {
+            stroke: #10b981; /* emerald-500 */
+            stroke-width: 2;
+            filter: drop-shadow(0 0 3px #10b981);
+            opacity: 0.6;
+        }
+
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+
+        /* Card Utils */
+        .glass-card {
+            background: rgba(9, 9, 11, 0.85); /* zinc-950 with opacity */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(39, 39, 42, 0.5); /* zinc-800 */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease, transform 0.1s linear, filter 0.1s linear;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.4); /* emerald-500 */
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- 1. Background Layer (PCB Grid & Traces) -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-20"></div>
+        
+        <!-- Vignette -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
+
+        <!-- Animated PCB Traces (SVG) -->
+        <svg class="absolute inset-0 w-full h-full opacity-50" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="trace-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:transparent" />
+                    <stop offset="50%" style="stop-color:#10b981" /> <!-- Emerald -->
+                    <stop offset="100%" style="stop-color:transparent" />
+                </linearGradient>
+            </defs>
+            
+            <!-- Static Paths (The Board Structure) -->
+            <path d="M100 0 V150 L200 250 V800" class="circuit-static" fill="none" />
+            <path d="M80% 0 V300 L60% 500 V900" class="circuit-static" fill="none" />
+            <path d="M20% 100% V800 L40% 600 V400" class="circuit-static" fill="none" />
+
+            <!-- Animated Flows (The Data/Current) -->
+            <!-- Path 1 -->
+            <path d="M100 0 V150 L200 250 V800" class="circuit-line circuit-active" fill="none" style="animation-duration: 5s;" />
+            <!-- Path 2 -->
+            <path d="M80% 0 V300 L60% 500 V900" class="circuit-line circuit-active" fill="none" style="animation-duration: 7s; animation-delay: 1s;" />
+        </svg>
+    </div>
+
+    <!-- 2. Main Content -->
+    <main class="relative z-10 w-full max-w-md mx-auto px-4 pb-20">
+        
+        <!-- Header -->
+        <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-6 bg-black/50 backdrop-blur-md border-b border-white/5">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                <span class="font-mono text-xs tracking-widest text-emerald-500">SYSTEM.ACTIVE</span>
+            </div>
+            <div class="font-mono text-xs text-zinc-500">RZEMPAL_PORTFOLIO_V2</div>
+        </header>
+
+        <!-- Spacer for Header -->
+        <div class="h-32"></div>
+
+        <!-- Intro Text -->
+        <div class="mb-12">
+            <h1 class="text-3xl font-light mb-2">Wybrane <br/><span class="font-semibold text-white">Projekty</span></h1>
+            <p class="text-zinc-500 text-sm font-mono border-l-2 border-emerald-900 pl-3">
+                // SCROLL_TO_INSPECT_FILES <br>
+                // DATA_STREAM_OPEN
+            </p>
+        </div>
+
+        <!-- 3. Stacking Cards Container -->
+        <!-- Each card is sticky. Top value increases slightly for stacking effect -->
+        
+        <!-- CARD 01 -->
+        <div class="sticky top-24 mb-12 project-card" data-index="1">
+            <div class="glass-card rounded-xl overflow-hidden h-[450px] flex flex-col relative group">
+                <!-- Status Bar -->
+                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-emerald-500/0 via-emerald-500/50 to-emerald-500/0 opacity-50"></div>
+                
+                <!-- Image Placeholder Area -->
+                <div class="h-2/3 bg-zinc-900/50 relative overflow-hidden border-b border-white/5">
+                    <!-- Fake Image Content -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-emerald-900/10 group-hover:bg-emerald-900/20 transition-colors">
+                        <div class="text-center opacity-30">
+                            <svg class="w-16 h-16 mx-auto mb-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span class="font-mono text-xs">IMG_PREVIEW: McLAREN_P47</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h2 class="text-xl font-bold text-white tracking-tight">McLaren P47</h2>
+                            <span class="font-mono text-xs text-zinc-600 border border-zinc-800 px-1 py-0.5 rounded">01</span>
+                        </div>
+                        <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                            System sterowania robotem inspekcyjnym. Integracja IoT, analiza wizyjna i zdalne sterowanie.
+                        </p>
+                    </div>
+                    
+                    <div class="flex gap-2 mt-4 font-mono text-[10px] text-emerald-400">
+                        <span class="border border-emerald-900/50 bg-emerald-950/30 px-2 py-1 rounded">REACT</span>
+                        <span class="border border-emerald-900/50 bg-emerald-950/30 px-2 py-1 rounded">NODE.JS</span>
+                        <span class="border border-emerald-900/50 bg-emerald-950/30 px-2 py-1 rounded">IOT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 02 -->
+        <div class="sticky top-28 mb-12 project-card" data-index="2">
+            <div class="glass-card rounded-xl overflow-hidden h-[450px] flex flex-col relative group">
+                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-cyan-500/0 via-cyan-500/50 to-cyan-500/0 opacity-50"></div>
+
+                <div class="h-2/3 bg-zinc-900/50 relative overflow-hidden border-b border-white/5">
+                    <div class="absolute inset-0 flex items-center justify-center bg-cyan-900/10 group-hover:bg-cyan-900/20 transition-colors">
+                        <div class="text-center opacity-30">
+                            <svg class="w-16 h-16 mx-auto mb-2 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            <span class="font-mono text-xs">IMG_PREVIEW: KARTON_AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h2 class="text-xl font-bold text-white tracking-tight">Karton AI</h2>
+                            <span class="font-mono text-xs text-zinc-600 border border-zinc-800 px-1 py-0.5 rounded">02</span>
+                        </div>
+                        <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                            Mobilny asystent magazynowy. Optymalizacja ścieżek kompletacji z wykorzystaniem AI.
+                        </p>
+                    </div>
+                    
+                    <div class="flex gap-2 mt-4 font-mono text-[10px] text-cyan-400">
+                        <span class="border border-cyan-900/50 bg-cyan-950/30 px-2 py-1 rounded">REACT NATIVE</span>
+                        <span class="border border-cyan-900/50 bg-cyan-950/30 px-2 py-1 rounded">OPENAI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 03 -->
+        <div class="sticky top-32 mb-40 project-card" data-index="3">
+            <div class="glass-card rounded-xl overflow-hidden h-[450px] flex flex-col relative group">
+                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-purple-500/0 via-purple-500/50 to-purple-500/0 opacity-50"></div>
+
+                <div class="h-2/3 bg-zinc-900/50 relative overflow-hidden border-b border-white/5">
+                    <div class="absolute inset-0 flex items-center justify-center bg-purple-900/10 group-hover:bg-purple-900/20 transition-colors">
+                        <div class="text-center opacity-30">
+                            <svg class="w-16 h-16 mx-auto mb-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            <span class="font-mono text-xs">IMG_PREVIEW: PORTFOLIO_V1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h2 class="text-xl font-bold text-white tracking-tight">Portfolio</h2>
+                            <span class="font-mono text-xs text-zinc-600 border border-zinc-800 px-1 py-0.5 rounded">03</span>
+                        </div>
+                        <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                            Personal branding. Next.js 16, Framer Motion i surowy, szwajcarski design.
+                        </p>
+                    </div>
+                    
+                    <div class="flex gap-2 mt-4 font-mono text-[10px] text-purple-400">
+                        <span class="border border-purple-900/50 bg-purple-950/30 px-2 py-1 rounded">NEXT.JS</span>
+                        <span class="border border-purple-900/50 bg-purple-950/30 px-2 py-1 rounded">FRAMER</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- Footer decoration -->
+    <div class="fixed bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent pointer-events-none z-20"></div>
+
+    <!-- Script for Scale Animation on Scroll -->
+    <script>
+        // Simple physics simulation for the "Stacking" effect
+        // Reduces scale and brightness of cards as they get pushed up
+        
+        const cards = document.querySelectorAll('.project-card');
+        
+        function updateCards() {
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const topOffset = 100 + (index * 16); // The sticky top position roughly
+                
+                // Calculate how much the card has been "pushed" up past its sticky point
+                // Note: This logic is simplified for the mockup. In Framer Motion we use scrollYProgress.
+                
+                let scale = 1;
+                let brightness = 1;
+                
+                // If next card is overlapping this one
+                if (index < cards.length - 1) {
+                    const nextCard = cards[index + 1];
+                    const nextRect = nextCard.getBoundingClientRect();
+                    
+                    // Simple distance check: as next card rises, shrink current card
+                    const distance = nextRect.top - window.innerHeight; 
+                    
+                    if (nextRect.top < window.innerHeight && nextRect.top > 0) {
+                        // Creating a factor from 0 to 1 based on viewport position
+                        // This simulates the "pressure" of the next card
+                        const factor = Math.max(0, (window.innerHeight - nextRect.top) / window.innerHeight);
+                        
+                        scale = 1 - (factor * 0.05); // Scale down to 0.95
+                        brightness = 1 - (factor * 0.5); // Darken to 0.5
+                    } else if (nextRect.top <= 150) {
+                        // Fully stacked state
+                        scale = 0.95;
+                        brightness = 0.5;
+                    }
+                }
+
+                // Apply styles to the inner container (.glass-card)
+                const inner = card.querySelector('.glass-card');
+                if(inner) {
+                    inner.style.transform = `scale(${scale})`;
+                    inner.style.filter = `brightness(${brightness})`;
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateCards);
+        window.addEventListener('resize', updateCards);
+        updateCards(); // Initial call
+    </script>
+</body>
+</html>

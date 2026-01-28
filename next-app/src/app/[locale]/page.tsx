@@ -1,7 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Hero, TwoPillars, ProjectShowcase } from '@/components/sections';
-import { SectionProgress, PCBBackground } from '@/components/ui';
-import { CurrentFlow } from '@/components/animations';
+import { Hero, TwoPillars, StickyProjectDeck } from '@/components/sections';
+import { PCBBackground } from '@/components/ui';
 
 export default async function HomePage({
   params,
@@ -12,45 +11,16 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   return (
-    <main className="relative">
-      {/* Fixed PCB background layer */}
+    <main className="relative bg-[#030303] min-h-screen text-white selection:bg-emerald-500/30">
+      {/* Warstwa 0: Tło PCB */}
       <PCBBackground />
 
-      {/* Animated current flow */}
-      <CurrentFlow />
-
-      {/* Scroll-spy navigation */}
-      <SectionProgress />
-
-      {/* Page sections */}
-      <Hero />
-      <TwoPillars />
-
-      {/* Project showcases */}
-      <ProjectShowcase
-        id="robotyka"
-        sectionNumber="03"
-        translationKey="robotyka"
-        accentColor="cyan"
-      />
-      <ProjectShowcase
-        id="apps"
-        sectionNumber="04"
-        translationKey="apps"
-        accentColor="emerald"
-      />
-      <ProjectShowcase
-        id="www"
-        sectionNumber="05"
-        translationKey="www"
-        accentColor="cyan"
-      />
-      <ProjectShowcase
-        id="studio"
-        sectionNumber="06"
-        translationKey="studio"
-        accentColor="emerald"
-      />
+      {/* Warstwa Contentu */}
+      <div className="relative z-10">
+        <Hero />
+        <TwoPillars />
+        <StickyProjectDeck />
+      </div>
     </main>
   );
 }

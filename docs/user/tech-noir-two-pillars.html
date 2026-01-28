@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pl" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech-Noir Portfolio | Rzempal</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        pcb: {
+                            bg: '#050505',
+                            trace: '#18181b',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #18181b 1px, transparent 1px), linear-gradient(to bottom, #18181b 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e4e4e7;
+            overflow-x: hidden;
+            touch-action: pan-y; /* Allow vertical scroll, handle horizontal in JS */
+        }
+
+        /* --- PCB Animations --- */
+        .circuit-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: flow 8s linear infinite;
+        }
+
+        .circuit-data-stream {
+            stroke-dasharray: 50 300;
+            stroke-dashoffset: 1000;
+            animation: flow 3s linear infinite;
+            stroke-linecap: round;
+        }
+
+        @keyframes flow {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .circuit-static {
+            stroke: #27272a;
+            stroke-width: 1;
+            fill: none;
+        }
+
+        .glow-emerald { filter: drop-shadow(0 0 4px #10b981); opacity: 0.8; }
+        .glow-cyan { filter: drop-shadow(0 0 4px #06b6d4); opacity: 0.8; }
+
+        /* --- Glassmorphism --- */
+        .glass-card {
+            background: rgba(9, 9, 11, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(39, 39, 42, 0.6);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- CARD DECK STYLES (New) --- */
+        .deck-container {
+            position: relative;
+            height: 340px; /* Fixed height for the stack area */
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .deck-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease, z-index 0s;
+            transform-origin: center bottom;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .deck-card:active {
+            cursor: grabbing;
+        }
+
+        /* Inner Circuit Details */
+        .card-trace-path {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 0.6s ease;
+        }
+        /* Reveal trace only on active/front card */
+        .deck-card[data-pos="0"] .card-trace-path {
+            stroke-dashoffset: 0;
+        }
+
+        /* --- Scrollbar Styling --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-emerald-500/30">
+
+    <!-- 1. Background Layer (Global) -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-grid-pattern bg-[size:40px_40px] opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
+        
+        <!-- Background Traces (Cyan Theme) -->
+        <svg class="absolute inset-0 w-full h-full opacity-30" preserveAspectRatio="xMidYMid slice">
+            <path d="M85% 0 V200 L60% 400 V900 L80% 1100" class="circuit-static" />
+            <path d="M90% 0 V100 L70% 200 V500 L95% 700 V1200" class="circuit-static" />
+            <path d="M85% 0 V200 L60% 400 V900 L80% 1100" class="circuit-line stroke-cyan-900" style="animation-duration: 10s;" />
+        </svg>
+    </div>
+
+    <!-- 2. Main Content -->
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-4 pb-32">
+        
+        <!-- Header -->
+        <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-6 bg-black/70 backdrop-blur-xl border-b border-white/5 transition-all duration-300" id="main-header">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-fast"></div>
+                <span class="font-mono text-xs tracking-widest text-emerald-500">SYSTEM.ONLINE</span>
+            </div>
+            <div class="font-mono text-xs text-zinc-500">RZEMPAL_V2</div>
+        </header>
+
+        <!-- Hero -->
+        <div class="h-[35vh] flex flex-col items-center justify-center text-center pt-16 relative">
+            <p class="font-mono text-[10px] text-cyan-500 mb-2 tracking-widest">▼ BOOT_SEQUENCE_INIT</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tighter mb-4">
+                TECH<span class="text-emerald-500">_</span>NOIR
+            </h1>
+            <div class="absolute bottom-0 left-1/2 w-px h-16 bg-gradient-to-b from-transparent via-emerald-900 to-emerald-500"></div>
+        </div>
+
+        <!-- === SEKCJA 1: KOMPETENCJE (CARD DECK / STACKED) === -->
+        <section id="kompetencje" class="mb-32 relative">
+            
+            <!-- PCB Animation Layer (The Flow) -->
+            <div class="absolute inset-0 -top-20 -bottom-20 pointer-events-none -z-10 overflow-visible">
+                <svg class="w-full h-full" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="grad-emerald" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color: rgba(16, 185, 129, 0)" />
+                            <stop offset="50%" style="stop-color: rgba(16, 185, 129, 0.3)" />
+                            <stop offset="100%" style="stop-color: rgba(16, 185, 129, 0)" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Central Trunk -->
+                    <path d="M50% 0 V60" class="circuit-static" stroke-opacity="0.5" />
+                    <!-- Split to Deck (Centralized split since cards are stacked) -->
+                    <path d="M50% 60 L20% 120 V500" class="circuit-static" stroke-opacity="0.2" stroke-dasharray="4 4"/>
+                    <path d="M50% 60 L80% 120 V500" class="circuit-static" stroke-opacity="0.2" stroke-dasharray="4 4"/>
+                    
+                    <!-- Active Data Streams -->
+                    <path d="M50% 0 V60" class="circuit-data-stream stroke-emerald-500 glow-emerald" stroke-width="2" style="animation-duration: 2s;" />
+                    <!-- Visual feedback lines pointing to the stack -->
+                    <path d="M50% 60 L20% 120 V500" class="circuit-data-stream stroke-emerald-500/30" stroke-width="1" style="animation-duration: 4s;" />
+                    <path d="M50% 60 L80% 120 V500" class="circuit-data-stream stroke-emerald-500/30" stroke-width="1" style="animation-duration: 4.5s;" />
+
+                    <circle cx="50%" cy="60" r="3" class="fill-emerald-500 animate-pulse" />
+                </svg>
+            </div>
+
+            <!-- Title -->
+            <div class="flex items-center justify-center gap-4 mb-8 px-2 relative z-20">
+                <div class="h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent w-16"></div>
+                <div class="bg-black/80 px-4 py-1 border border-emerald-900/50 rounded-full backdrop-blur">
+                    <h2 class="text-sm font-mono text-emerald-400 tracking-widest">MODULES_STACK</h2>
+                </div>
+                <div class="h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent w-16"></div>
+            </div>
+
+            <!-- DECK AREA -->
+            <div class="relative w-full max-w-sm mx-auto">
+                <!-- Hint -->
+                <div class="absolute -top-6 right-0 text-[9px] font-mono text-emerald-500/60 animate-bounce">
+                    >>> TAP_OR_SWIPE
+                </div>
+
+                <!-- The Stack Container -->
+                <div class="deck-container" id="cardDeck">
+                    
+                    <!-- CARD 1: ROBOTYKA -->
+                    <div class="deck-card group" data-id="1">
+                        <div class="glass-card rounded-2xl p-6 h-full flex flex-col justify-between relative overflow-hidden">
+                            <!-- Twist Decor -->
+                            <div class="absolute -right-4 -top-4 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+                             <svg class="absolute top-0 right-0 w-32 h-32 text-emerald-500 opacity-20" viewBox="0 0 100 100">
+                                <path d="M100 0 V40 H60 V100" fill="none" stroke="currentColor" stroke-width="2" class="card-trace-path"/>
+                                <circle cx="60" cy="100" r="3" fill="currentColor" />
+                            </svg>
+
+                            <div>
+                                <div class="font-mono text-[10px] text-zinc-500 mb-4 flex justify-between items-center">
+                                    <span class="bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-emerald-500">CORE_01</span>
+                                    <svg class="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                                </div>
+                                <h3 class="text-3xl font-bold text-white mb-2 leading-tight mt-2">Inżynieria &<br/><span class="text-emerald-500">Robotyka</span></h3>
+                            </div>
+                            
+                            <div class="mt-auto">
+                                <div class="w-full h-px bg-gradient-to-r from-emerald-900 to-transparent mb-3"></div>
+                                <p class="text-sm text-zinc-300 leading-relaxed font-light">
+                                    Projektowanie PCB, systemy wbudowane, automatyka przemysłowa.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: WEB / AI -->
+                    <div class="deck-card group" data-id="2">
+                        <div class="glass-card rounded-2xl p-6 h-full flex flex-col justify-between relative overflow-hidden">
+                             <!-- Twist Decor -->
+                             <div class="absolute -left-4 -top-4 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                             <svg class="absolute top-0 left-0 w-32 h-32 text-cyan-500 opacity-20 transform scale-x-[-1]" viewBox="0 0 100 100">
+                                <path d="M100 0 V40 H60 V100" fill="none" stroke="currentColor" stroke-width="2" class="card-trace-path"/>
+                                <circle cx="60" cy="100" r="3" fill="currentColor" />
+                            </svg>
+
+                            <div>
+                                <div class="font-mono text-[10px] text-zinc-500 mb-4 flex justify-between items-center">
+                                    <span class="bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-cyan-500">CORE_02</span>
+                                    <svg class="w-6 h-6 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                                </div>
+                                <h3 class="text-3xl font-bold text-white mb-2 leading-tight mt-2">Web Dev &<br/><span class="text-cyan-500">AI Solutions</span></h3>
+                            </div>
+                            
+                            <div class="mt-auto">
+                                <div class="w-full h-px bg-gradient-to-r from-cyan-900 to-transparent mb-3"></div>
+                                <p class="text-sm text-zinc-300 leading-relaxed font-light">
+                                    Next.js, React Native, Integracje OpenAI, nowoczesny frontend.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: PLACEHOLDER / FUTURE -->
+                    <div class="deck-card group" data-id="3">
+                        <div class="glass-card rounded-2xl p-6 h-full flex flex-col justify-center items-center relative overflow-hidden border-dashed border-zinc-700 bg-black/80">
+                            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+                            
+                            <span class="font-mono text-xs text-zinc-500 mb-4 bg-zinc-900 px-2 py-1 rounded">SLOT_LOCKED</span>
+                            <div class="w-12 h-12 rounded-full border border-zinc-800 flex items-center justify-center group-hover:border-zinc-600 transition-colors">
+                                <span class="text-zinc-600 font-light text-2xl group-hover:text-zinc-400">+</span>
+                            </div>
+                            <p class="text-[10px] text-zinc-600 mt-4 font-mono">WAITING_FOR_INPUT</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- === SEKCJA 2: PROJEKTY (Vertical Sticky) === -->
+        <section id="projekty" class="relative pt-10">
+             <div class="absolute top-0 right-10 w-px h-20 bg-gradient-to-b from-transparent via-cyan-900 to-cyan-500"></div>
+
+            <div class="flex flex-col items-end mb-12 px-2">
+                <h2 class="text-2xl font-light text-white text-right">Wybrane <span class="font-semibold text-cyan-500">Projekty</span></h2>
+                <div class="font-mono text-[10px] text-zinc-600 mt-1 text-right">
+                    // INITIALIZING_STACK_VIEW<br>
+                    // LOAD_PATH: CYAN_0x42
+                </div>
+            </div>
+
+            <!-- Sticky Cards Wrapper -->
+            <div class="relative">
+                 <svg class="absolute top-0 right-0 w-full h-full pointer-events-none -z-10 overflow-visible" preserveAspectRatio="none">
+                    <path d="M80% -50 V100 L60% 300 V600 L90% 900" class="circuit-static" stroke-opacity="0.2" />
+                    <path d="M80% -50 V100 L60% 300 V600 L90% 900" class="circuit-data-stream stroke-cyan-500 glow-cyan" stroke-width="1.5" style="animation-duration: 5s;" />
+                 </svg>
+
+                <!-- PROJ 1 -->
+                <div class="sticky top-24 mb-24 project-card origin-top">
+                    <div class="glass-card rounded-xl overflow-hidden h-[450px] flex flex-col relative group">
+                        <div class="absolute top-0 w-full h-1 bg-emerald-500/50"></div>
+                        <div class="h-[60%] bg-zinc-900/50 relative overflow-hidden border-b border-white/5">
+                            <div class="absolute inset-0 flex items-center justify-center bg-emerald-900/5 group-hover:bg-emerald-900/10 transition-colors">
+                                <div class="text-center opacity-40">
+                                    <svg class="w-12 h-12 mx-auto mb-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <span class="font-mono text-[10px] text-emerald-500">P47_ROBOT</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-black/40">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h2 class="text-xl font-bold text-white">McLaren P47</h2>
+                                    <span class="font-mono text-[10px] text-emerald-500 border border-emerald-900/50 px-1 rounded">01</span>
+                                </div>
+                                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                                    System sterowania robotem inspekcyjnym. Integracja IoT i wideo w czasie rzeczywistym.
+                                </p>
+                            </div>
+                            <div class="flex gap-2 font-mono text-[10px] text-emerald-400">
+                                <span class="bg-emerald-950/30 px-2 py-1 rounded border border-emerald-900/30">NODE.JS</span>
+                                <span class="bg-emerald-950/30 px-2 py-1 rounded border border-emerald-900/30">IOT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJ 2 -->
+                <div class="sticky top-28 mb-24 project-card origin-top">
+                    <div class="glass-card rounded-xl overflow-hidden h-[450px] flex flex-col relative group">
+                        <div class="absolute top-0 w-full h-1 bg-cyan-500/50"></div>
+                        <div class="h-[60%] bg-zinc-900/50 relative overflow-hidden border-b border-white/5">
+                            <div class="absolute inset-0 flex items-center justify-center bg-cyan-900/5 group-hover:bg-cyan-900/10 transition-colors">
+                                <div class="text-center opacity-40">
+                                    <svg class="w-12 h-12 mx-auto mb-2 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                    <span class="font-mono text-[10px] text-cyan-500">KARTON_AI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-black/40">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h2 class="text-xl font-bold text-white">Karton AI</h2>
+                                    <span class="font-mono text-[10px] text-cyan-500 border border-cyan-900/50 px-1 rounded">02</span>
+                                </div>
+                                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                                    Optymalizacja ścieżek magazynowych z asystentem AI i generowaniem tras.
+                                </p>
+                            </div>
+                            <div class="flex gap-2 font-mono text-[10px] text-cyan-400">
+                                <span class="bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/30">REACT NATIVE</span>
+                                <span class="bg-cyan-950/30 px-2 py-1 rounded border border-cyan-900/30">GPT-4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJ 3 -->
+                <div class="sticky top-32 mb-24 project-card origin-top">
+                    <div class="glass-card rounded-xl overflow-hidden h-[450px] flex flex-col relative group">
+                        <div class="absolute top-0 w-full h-1 bg-purple-500/50"></div>
+                        <div class="h-[60%] bg-zinc-900/50 relative overflow-hidden border-b border-white/5">
+                            <div class="absolute inset-0 flex items-center justify-center bg-purple-900/5 group-hover:bg-purple-900/10 transition-colors">
+                                <div class="text-center opacity-40">
+                                    <svg class="w-12 h-12 mx-auto mb-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    <span class="font-mono text-[10px] text-purple-500">V1_LEGACY</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-black/40">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h2 class="text-xl font-bold text-white">Portfolio V1</h2>
+                                    <span class="font-mono text-[10px] text-purple-500 border border-purple-900/50 px-1 rounded">03</span>
+                                </div>
+                                <p class="text-sm text-zinc-400 font-light leading-relaxed">
+                                    Szwajcarski design, minimalizm i animacje Framer Motion. Wersja archiwalna.
+                                </p>
+                            </div>
+                            <div class="flex gap-2 font-mono text-[10px] text-purple-400">
+                                <span class="bg-purple-950/30 px-2 py-1 rounded border border-purple-900/30">NEXT.JS</span>
+                                <span class="bg-purple-950/30 px-2 py-1 rounded border border-purple-900/30">DESIGN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+    
+    <div class="fixed bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent pointer-events-none z-20"></div>
+
+    <script>
+        // === LOGIC 1: STACKED CARD DECK (Mobile Swipe) ===
+        const deckContainer = document.getElementById('cardDeck');
+        const deckCards = Array.from(document.querySelectorAll('.deck-card'));
+        
+        // Configuration for the "Thrown on table" look
+        const positions = [
+            { z: 30, scale: 1,    y: 0,  rot: -2, opacity: 1 },  // FRONT (Active) - slight left tilt
+            { z: 20, scale: 0.95, y: 15, rot: 3,  opacity: 0.6 }, // 2nd - slight right tilt
+            { z: 10, scale: 0.9,  y: 30, rot: -1, opacity: 0.3 }, // 3rd - almost straight
+        ];
+
+        function updateDeck() {
+            deckCards.forEach((card, index) => {
+                const pos = positions[index];
+                
+                if (pos) {
+                    card.style.zIndex = pos.z;
+                    card.style.opacity = pos.opacity;
+                    card.style.transform = `
+                        translateY(${pos.y}px) 
+                        scale(${pos.scale}) 
+                        rotate(${pos.rot}deg)
+                    `;
+                    card.setAttribute('data-pos', index); // Used for CSS specific logic
+                } else {
+                    // Fallback for extra cards if added later
+                    card.style.opacity = 0;
+                    card.style.zIndex = 0;
+                }
+            });
+        }
+
+        function rotateCards() {
+            // Take the first element and move it to the end of the array
+            const topCard = deckCards.shift();
+            deckCards.push(topCard);
+            
+            // Visual "Throw" effect before update
+            // We temporarily animate the outgoing card before snapping the new order
+            topCard.style.transform = `translateX(-120%) rotate(-20deg)`;
+            topCard.style.opacity = '0';
+
+            setTimeout(() => {
+                // Reset styles essentially happens here when updateDeck is called
+                // The transition in CSS handles the smooth movement for the others coming forward
+                updateDeck();
+            }, 200); // Small delay to let the throw start
+        }
+
+        // Initialize
+        updateDeck();
+
+        // Touch / Swipe Logic
+        let startX = 0;
+        let isSwiping = false;
+
+        deckContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isSwiping = true;
+        });
+
+        deckContainer.addEventListener('touchmove', (e) => {
+            if(!isSwiping) return;
+        });
+
+        deckContainer.addEventListener('touchend', (e) => {
+            if(!isSwiping) return;
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+
+            // Threshold for swipe (left or right tap)
+            if (Math.abs(diff) > 50) {
+                rotateCards(); 
+            }
+            isSwiping = false;
+        });
+
+        // Also allow click to cycle for desktop testing
+        deckContainer.addEventListener('click', rotateCards);
+
+
+        // === LOGIC 2: VERTICAL PROJECTS STACK ===
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        function updateProjectStacking() {
+            projectCards.forEach((card, index) => {
+                if (index < projectCards.length - 1) {
+                    const nextCard = projectCards[index + 1];
+                    const nextRect = nextCard.getBoundingClientRect();
+                    const viewHeight = window.innerHeight;
+                    
+                    if (nextRect.top < viewHeight && nextRect.top > 0) {
+                        let progress = (viewHeight - nextRect.top) / (viewHeight - 100);
+                        progress = Math.max(0, Math.min(1, progress));
+
+                        const scale = 1 - (progress * 0.08); 
+                        const brightness = 1 - (progress * 0.6); 
+
+                        const inner = card.querySelector('.glass-card');
+                        if(inner) {
+                            inner.style.transform = `scale(${scale})`;
+                            inner.style.filter = `brightness(${brightness})`;
+                        }
+                    } else if (nextRect.top <= 0) {
+                        const inner = card.querySelector('.glass-card');
+                        if(inner) inner.style.transform = `scale(0.92)`;
+                    } else {
+                         const inner = card.querySelector('.glass-card');
+                        if(inner) {
+                            inner.style.transform = `scale(1)`;
+                            inner.style.filter = `brightness(1)`;
+                        }
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateProjectStacking);
+        window.addEventListener('resize', updateProjectStacking);
+        updateProjectStacking(); 
+    </script>
+</body>
+</html>
+
+
