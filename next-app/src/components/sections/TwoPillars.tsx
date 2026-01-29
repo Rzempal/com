@@ -263,6 +263,7 @@ export function TwoPillars() {
   // Swipe state for mobile
   const [activeIndex, setActiveIndex] = useState(0); // 0 = Robotics, 1 = Dev
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
+  const [hasViewedBothCards, setHasViewedBothCards] = useState(false);
 
   // Handle swipe end
   const handleDragEnd = useCallback(
@@ -273,22 +274,31 @@ export function TwoPillars() {
       const swipedX = Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold;
       const swipedY = Math.abs(info.offset.y) > threshold || Math.abs(info.velocity.y) > velocityThreshold;
 
-      if (swipedX || swipedY) {
+      // Swipe X (left/right) - zawsze zamienia karty
+      // Swipe Y (up/down) - zamienia karty tylko gdy nie obejrzano obu, potem pozwala scroll
+      const shouldSwapCard = swipedX || (swipedY && !hasViewedBothCards);
+
+      if (shouldSwapCard) {
         // Set direction for fly-out animation
         if (Math.abs(info.offset.x) > Math.abs(info.offset.y)) {
           setSwipeDirection(info.offset.x > 0 ? 'right' : 'left');
         } else {
-          setSwipeDirection(info.offset.y > 0 ? 'right' : 'left'); // y też triggeruje
+          setSwipeDirection(info.offset.y > 0 ? 'right' : 'left');
         }
 
         // After animation, swap cards
         setTimeout(() => {
-          setActiveIndex((prev) => (prev === 0 ? 1 : 0));
+          setActiveIndex((prev) => {
+            const newIndex = prev === 0 ? 1 : 0;
+            // Po zamianie kart, obie zostały obejrzane
+            setHasViewedBothCards(true);
+            return newIndex;
+          });
           setSwipeDirection(null);
         }, 300);
       }
     },
-    []
+    [hasViewedBothCards]
   );
 
   // Card styles based on position
@@ -362,8 +372,8 @@ export function TwoPillars() {
             className="absolute inset-x-0 top-0 origin-bottom-left"
             animate={getCardStyle(0)}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            drag={activeIndex === 0}
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            drag={activeIndex === 0 ? (hasViewedBothCards ? 'x' : true) : false}
+            dragConstraints={hasViewedBothCards ? { left: 0, right: 0 } : { left: 0, right: 0, top: 0, bottom: 0 }}
             dragElastic={0.15}
             onDragEnd={handleDragEnd}
             style={{
@@ -380,8 +390,8 @@ export function TwoPillars() {
             className="absolute inset-x-0 top-0 origin-bottom-left"
             animate={getCardStyle(1)}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            drag={activeIndex === 1}
-            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            drag={activeIndex === 1 ? (hasViewedBothCards ? 'x' : true) : false}
+            dragConstraints={hasViewedBothCards ? { left: 0, right: 0 } : { left: 0, right: 0, top: 0, bottom: 0 }}
             dragElastic={0.15}
             onDragEnd={handleDragEnd}
             style={{
