@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
 
 const containerVariants = {
@@ -260,21 +260,51 @@ export function TwoPillars() {
   const containerRef = useRef<HTMLElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
 
-  // Scroll-based card switching
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
+  // Swipe state for mobile
+  const [activeIndex, setActiveIndex] = useState(0); // 0 = Robotics, 1 = Dev
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
 
-  // Active card based on scroll (0-0.5 = card 0, 0.5-1 = card 1)
-  const activeCard = useTransform(scrollYProgress, [0, 0.5, 0.5, 1], [0, 0, 1, 1]);
+  // Handle swipe end
+  const handleDragEnd = useCallback(
+    (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+      const threshold = 80;
+      const velocityThreshold = 500;
+
+      if (Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold) {
+        // Set direction for fly-out animation
+        setSwipeDirection(info.offset.x > 0 ? 'right' : 'left');
+
+        // After animation, swap cards
+        setTimeout(() => {
+          setActiveIndex((prev) => (prev === 0 ? 1 : 0));
+          setSwipeDirection(null);
+        }, 300);
+      }
+    },
+    []
+  );
+
+  // Card styles based on position
+  const getCardStyle = (cardIndex: number) => {
+    const isActive = activeIndex === cardIndex;
+    const isFlying = swipeDirection !== null && isActive;
+
+    return {
+      zIndex: isActive ? 20 : 10,
+      x: isFlying ? (swipeDirection === 'left' ? -500 : 500) : isActive ? 0 : 20,
+      y: isActive ? 0 : 12,
+      rotate: isActive ? 0 : 3,
+      scale: isActive ? 1 : 0.95,
+      opacity: isFlying ? 0 : 1,
+      filter: isActive ? 'brightness(1) grayscale(0)' : 'brightness(0.5) grayscale(0.8)',
+    };
+  };
 
   return (
     <section
       id="pillars"
       ref={containerRef}
-      className="relative bg-zinc-950"
-      style={{ height: '200vh' }} // 2x viewport for scroll space
+      className="relative py-24 bg-zinc-950 scroll-mt-24"
     >
       {/* Background gradient */}
       <div className="absolute inset-0 -z-10">
@@ -286,92 +316,92 @@ export function TwoPillars() {
         />
       </div>
 
-      {/* Sticky container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center py-24">
-        <div className="container mx-auto px-6">
-          {/* Section heading */}
+      <div className="container mx-auto px-6">
+        {/* Section heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-16 max-w-5xl mx-auto"
+        >
+          <h2 className="text-4xl font-bold text-white mb-4">
+            Kompetencje <span className="text-emerald-500">{t('heading')}</span>
+          </h2>
+          <p className="text-zinc-500 font-mono text-sm">
+            // CORE_EXPERTISE_MODULES
+            <br />
+            // SWIPE_TO_NAVIGATE
+          </p>
+        </motion.div>
+
+        {/* Desktop: Grid layout */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="hidden md:grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+        >
+          <DesktopRoboticsCard t={t} />
+          <DesktopDevCard t={t} />
+        </motion.div>
+
+        {/* Mobile: Stacked Cards with swipe */}
+        <div className="md:hidden relative" style={{ minHeight: '580px' }}>
+          {/* Robotics Card */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-16 max-w-5xl mx-auto"
+            className="absolute inset-x-0 top-0 origin-bottom-left"
+            animate={getCardStyle(0)}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            drag={activeIndex === 0 ? 'x' : false}
+            dragDirectionLock
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragEnd={handleDragEnd}
+            style={{
+              cursor: activeIndex === 0 ? 'grab' : 'default',
+              touchAction: 'pan-y',
+            }}
+            whileDrag={{ cursor: 'grabbing', scale: 1.02 }}
           >
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Kompetencje <span className="text-emerald-500">{t('heading')}</span>
-            </h2>
-            <p className="text-zinc-500 font-mono text-sm">
-              // CORE_EXPERTISE_MODULES
-              <br />
-              // SCROLL_TO_NAVIGATE
-            </p>
+            <RoboticsCard t={t} />
           </motion.div>
 
-          {/* Desktop: Grid layout */}
+          {/* Dev Card */}
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            className="hidden md:grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
+            className="absolute inset-x-0 top-0 origin-bottom-left"
+            animate={getCardStyle(1)}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            drag={activeIndex === 1 ? 'x' : false}
+            dragDirectionLock
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragEnd={handleDragEnd}
+            style={{
+              cursor: activeIndex === 1 ? 'grab' : 'default',
+              touchAction: 'pan-y',
+            }}
+            whileDrag={{ cursor: 'grabbing', scale: 1.02 }}
           >
-            <DesktopRoboticsCard t={t} />
-            <DesktopDevCard t={t} />
+            <DevCard t={t} />
           </motion.div>
-
-          {/* Mobile: Stacked Cards with scroll-based switching */}
-          <div className="md:hidden relative" style={{ minHeight: '580px' }}>
-            {/* Robotics Card */}
-            <motion.div
-              className="absolute inset-x-0 top-0"
-              style={{
-                zIndex: useTransform(activeCard, (v) => (v < 0.5 ? 20 : 10)),
-                scale: useTransform(activeCard, [0, 0.5], [1, 0.95]),
-                y: useTransform(activeCard, [0, 0.5], [0, 20]),
-                filter: useTransform(activeCard, (v) =>
-                  v < 0.5 ? 'brightness(1) grayscale(0)' : 'brightness(0.5) grayscale(0.8)'
-                ),
-              }}
-            >
-              <RoboticsCard t={t} />
-            </motion.div>
-
-            {/* Dev Card */}
-            <motion.div
-              className="absolute inset-x-0 top-0"
-              style={{
-                zIndex: useTransform(activeCard, (v) => (v >= 0.5 ? 20 : 10)),
-                scale: useTransform(activeCard, [0.5, 1], [0.95, 1]),
-                y: useTransform(activeCard, [0.5, 1], [20, 0]),
-                filter: useTransform(activeCard, (v) =>
-                  v >= 0.5 ? 'brightness(1) grayscale(0)' : 'brightness(0.5) grayscale(0.8)'
-                ),
-              }}
-            >
-              <DevCard t={t} />
-            </motion.div>
-          </div>
-
-          {/* Scroll indicator dots */}
-          <div className="md:hidden flex justify-center gap-3 mt-6">
-            <motion.div
-              className="h-2 rounded-full transition-all duration-300"
-              style={{
-                width: useTransform(activeCard, (v) => (v < 0.5 ? 24 : 8)),
-                backgroundColor: useTransform(activeCard, (v) =>
-                  v < 0.5 ? '#10b981' : '#52525b'
-                ),
-              }}
-            />
-            <motion.div
-              className="h-2 rounded-full transition-all duration-300"
-              style={{
-                width: useTransform(activeCard, (v) => (v >= 0.5 ? 24 : 8)),
-                backgroundColor: useTransform(activeCard, (v) =>
-                  v >= 0.5 ? '#10b981' : '#52525b'
-                ),
-              }}
-            />
-          </div>
         </div>
+
+        {/* Navigation dots */}
+        <nav className="md:hidden flex justify-center gap-3 mt-6" aria-label="Card navigation">
+          {[0, 1].map((index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === index
+                  ? 'w-6 bg-emerald-500'
+                  : 'w-2 bg-zinc-600 hover:bg-zinc-500'
+              }`}
+              aria-label={`Card ${index + 1}`}
+              aria-current={activeIndex === index ? 'true' : 'false'}
+            />
+          ))}
+        </nav>
       </div>
     </section>
   );
