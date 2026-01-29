@@ -304,7 +304,8 @@ export function TwoPillars() {
     <section
       id="pillars"
       ref={containerRef}
-      className="relative py-24 bg-zinc-950 scroll-mt-24"
+      className="relative bg-zinc-950"
+      style={{ height: '200vh' }} // 2x viewport for scroll space
     >
       {/* Background gradient */}
       <div className="absolute inset-0 -z-10">
@@ -316,8 +317,10 @@ export function TwoPillars() {
         />
       </div>
 
-      <div className="container mx-auto px-6">
-        {/* Section heading */}
+      {/* Sticky container */}
+      <div className="sticky top-0 h-screen flex flex-col justify-center py-24">
+        <div className="container mx-auto px-6">
+          {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -402,6 +405,7 @@ export function TwoPillars() {
             />
           ))}
         </nav>
+        </div>
       </div>
     </section>
   );
