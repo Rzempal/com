@@ -266,13 +266,20 @@ export function TwoPillars() {
 
   // Handle swipe end
   const handleDragEnd = useCallback(
-    (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+    (_: unknown, info: { offset: { x: number; y: number }; velocity: { x: number; y: number } }) => {
       const threshold = 80;
       const velocityThreshold = 500;
 
-      if (Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold) {
+      const swipedX = Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold;
+      const swipedY = Math.abs(info.offset.y) > threshold || Math.abs(info.velocity.y) > velocityThreshold;
+
+      if (swipedX || swipedY) {
         // Set direction for fly-out animation
-        setSwipeDirection(info.offset.x > 0 ? 'right' : 'left');
+        if (Math.abs(info.offset.x) > Math.abs(info.offset.y)) {
+          setSwipeDirection(info.offset.x > 0 ? 'right' : 'left');
+        } else {
+          setSwipeDirection(info.offset.y > 0 ? 'right' : 'left'); // y też triggeruje
+        }
 
         // After animation, swap cards
         setTimeout(() => {
@@ -318,7 +325,7 @@ export function TwoPillars() {
       </div>
 
       {/* Sticky container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center py-24">
+      <div className="sticky top-24 min-h-[80vh] flex flex-col justify-start py-8">
         <div className="container mx-auto px-6">
           {/* Section heading */}
         <motion.div
@@ -355,14 +362,13 @@ export function TwoPillars() {
             className="absolute inset-x-0 top-0 origin-bottom-left"
             animate={getCardStyle(0)}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            drag={activeIndex === 0 ? 'x' : false}
-            dragDirectionLock
-            dragConstraints={{ left: 0, right: 0 }}
+            drag={activeIndex === 0}
+            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
             dragElastic={0.15}
             onDragEnd={handleDragEnd}
             style={{
               cursor: activeIndex === 0 ? 'grab' : 'default',
-              touchAction: 'pan-y',
+              touchAction: 'auto',
             }}
             whileDrag={{ cursor: 'grabbing', scale: 1.02 }}
           >
@@ -374,14 +380,13 @@ export function TwoPillars() {
             className="absolute inset-x-0 top-0 origin-bottom-left"
             animate={getCardStyle(1)}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            drag={activeIndex === 1 ? 'x' : false}
-            dragDirectionLock
-            dragConstraints={{ left: 0, right: 0 }}
+            drag={activeIndex === 1}
+            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
             dragElastic={0.15}
             onDragEnd={handleDragEnd}
             style={{
               cursor: activeIndex === 1 ? 'grab' : 'default',
-              touchAction: 'pan-y',
+              touchAction: 'auto',
             }}
             whileDrag={{ cursor: 'grabbing', scale: 1.02 }}
           >
