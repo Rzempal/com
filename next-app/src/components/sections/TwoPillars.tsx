@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 
 const containerVariants = {
@@ -258,12 +258,30 @@ function DesktopDevCard({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
 export function TwoPillars() {
   const t = useTranslations('pillars');
   const containerRef = useRef<HTMLElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
 
   // Swipe state for mobile
   const [activeIndex, setActiveIndex] = useState(0); // 0 = Robotics, 1 = Dev
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const [hasViewedBothCards, setHasViewedBothCards] = useState(false);
+  const [isStickyActive, setIsStickyActive] = useState(false);
+
+  // Detect when sticky is active (element is at top position)
+  useEffect(() => {
+    const checkSticky = () => {
+      if (stickyRef.current) {
+        const rect = stickyRef.current.getBoundingClientRect();
+        // Sticky is active when element is at top-8 (32px) position
+        setIsStickyActive(rect.top <= 40 && rect.top >= 0);
+      }
+    };
+
+    window.addEventListener('scroll', checkSticky, { passive: true });
+    checkSticky(); // Initial check
+
+    return () => window.removeEventListener('scroll', checkSticky);
+  }, []);
 
   // Handle swipe end
   const handleDragEnd = useCallback(
@@ -275,8 +293,8 @@ export function TwoPillars() {
       const swipedY = Math.abs(info.offset.y) > threshold || Math.abs(info.velocity.y) > velocityThreshold;
 
       // Swipe X (left/right) - zawsze zamienia karty
-      // Swipe Y (up/down) - zamienia karty tylko gdy nie obejrzano obu, potem pozwala scroll
-      const shouldSwapCard = swipedX || (swipedY && !hasViewedBothCards);
+      // Swipe Y (up/down) - zamienia karty TYLKO gdy sticky aktywne i nie obejrzano obu
+      const shouldSwapCard = swipedX || (swipedY && isStickyActive && !hasViewedBothCards);
 
       if (shouldSwapCard) {
         // Set direction for fly-out animation
@@ -298,7 +316,7 @@ export function TwoPillars() {
         }, 300);
       }
     },
-    [hasViewedBothCards]
+    [hasViewedBothCards, isStickyActive]
   );
 
   // Card styles based on position
@@ -335,7 +353,7 @@ export function TwoPillars() {
       </div>
 
       {/* Sticky container */}
-      <div className="sticky top-8 flex flex-col justify-start">
+      <div ref={stickyRef} className="sticky top-8 flex flex-col justify-start py-16">
         <div className="container mx-auto px-6">
           {/* Section heading */}
         <motion.div
