@@ -53,13 +53,13 @@ export function Hero() {
 
         {/* Emerald glow - top right */}
         <div
-          className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 rounded-full opacity-40 blur-[120px]"
+          className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 rounded-full opacity-40 blur-[80px]"
           style={{ background: 'radial-gradient(circle, #27C96D 0%, transparent 70%)' }}
         />
 
         {/* Emerald glow - bottom left */}
         <div
-          className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full opacity-30 blur-[100px]"
+          className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full opacity-30 blur-[60px]"
           style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
         />
 
@@ -86,7 +86,7 @@ export function Hero() {
 
       <motion.div
         className="relative z-10 text-center px-6"
-        style={{ scale, opacity }}
+        style={{ scale, opacity, willChange: 'transform, opacity' }}
       >
         {/* Title with Glitch effect */}
         <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white glitch">
