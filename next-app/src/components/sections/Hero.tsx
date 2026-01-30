@@ -40,14 +40,20 @@ export function Hero() {
     return () => clearInterval(timer);
   }, [subtitle]);
 
+  // Background opacity - linked to scroll for fade effect
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-svh flex flex-col justify-start pt-[25svh] overflow-hidden"
     >
-      {/* Gradient Mesh Background */}
-      <div className="absolute inset-0 -z-10">
+      {/* Gradient Mesh Background - fades on scroll */}
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        style={{ opacity: bgOpacity, willChange: 'opacity' }}
+      >
         {/* Base gradient */}
         <div className="absolute inset-0 bg-black" />
 
@@ -82,7 +88,7 @@ export function Hero() {
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
           }}
         />
-      </div>
+      </motion.div>
 
       <motion.div
         className="relative z-10 text-center px-6"
