@@ -187,7 +187,7 @@ function CTAButton({ url, label, color }: { url: string; label: string; color: s
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono text-xs font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
+      className="inline-flex items-center gap-1.5 px-2 py-1 rounded font-mono text-[10px] uppercase tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 whitespace-nowrap"
       style={{
         backgroundColor: `${color}20`,
         borderColor: `${color}50`,
@@ -195,16 +195,15 @@ function CTAButton({ url, label, color }: { url: string; label: string; color: s
         border: '1px solid',
       }}
     >
-      <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: color }} />
       {label}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
+        width="10"
+        height="10"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
