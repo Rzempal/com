@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -265,50 +265,41 @@ export function TwoPillars() {
   const [activeIndex, setActiveIndex] = useState(0); // 0 = Robotics, 1 = Dev
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const [hasViewedBothCards, setHasViewedBothCards] = useState(false);
-  const [isStickyActive, setIsStickyActive] = useState(false);
 
-  // Detect when sticky is active (element is at top position)
+  // Scroll-triggered: auto-switch to second card when section enters viewport
+  const stickyInView = useInView(stickyRef, { once: true, margin: '-20% 0px -20% 0px' });
+
   useEffect(() => {
-    const checkSticky = () => {
-      if (stickyRef.current) {
-        const rect = stickyRef.current.getBoundingClientRect();
-        // Sticky is active when element is at top-8 (32px) position
-        setIsStickyActive(rect.top <= 40 && rect.top >= 0);
-      }
-    };
+    if (stickyInView && !hasViewedBothCards && activeIndex === 0) {
+      // Delay before auto-switching card
+      const timer = setTimeout(() => {
+        setSwipeDirection('left');
+        setTimeout(() => {
+          setActiveIndex(1);
+          setHasViewedBothCards(true);
+          setSwipeDirection(null);
+        }, 300);
+      }, 800); // 800ms delay after section visible
 
-    window.addEventListener('scroll', checkSticky, { passive: true });
-    checkSticky(); // Initial check
+      return () => clearTimeout(timer);
+    }
+  }, [stickyInView, hasViewedBothCards, activeIndex]);
 
-    return () => window.removeEventListener('scroll', checkSticky);
-  }, []);
-
-  // Handle swipe end
+  // Handle swipe end (only X axis - horizontal swipe)
   const handleDragEnd = useCallback(
-    (_: unknown, info: { offset: { x: number; y: number }; velocity: { x: number; y: number } }) => {
+    (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
       const threshold = 80;
       const velocityThreshold = 500;
 
       const swipedX = Math.abs(info.offset.x) > threshold || Math.abs(info.velocity.x) > velocityThreshold;
-      const swipedY = Math.abs(info.offset.y) > threshold || Math.abs(info.velocity.y) > velocityThreshold;
 
-      // Swipe X (left/right) - zawsze zamienia karty
-      // Swipe Y (up/down) - zamienia karty TYLKO gdy sticky aktywne i nie obejrzano obu
-      const shouldSwapCard = swipedX || (swipedY && isStickyActive && !hasViewedBothCards);
-
-      if (shouldSwapCard) {
-        // Set direction for fly-out animation
-        if (Math.abs(info.offset.x) > Math.abs(info.offset.y)) {
-          setSwipeDirection(info.offset.x > 0 ? 'right' : 'left');
-        } else {
-          setSwipeDirection(info.offset.y > 0 ? 'right' : 'left');
-        }
+      if (swipedX) {
+        setSwipeDirection(info.offset.x > 0 ? 'right' : 'left');
 
         // After animation, swap cards
         setTimeout(() => {
           setActiveIndex((prev) => {
             const newIndex = prev === 0 ? 1 : 0;
-            // Po zamianie kart, obie zostały obejrzane
             setHasViewedBothCards(true);
             return newIndex;
           });
@@ -316,7 +307,7 @@ export function TwoPillars() {
         }, 300);
       }
     },
-    [hasViewedBothCards, isStickyActive]
+    []
   );
 
   // Card styles based on position
@@ -390,13 +381,13 @@ export function TwoPillars() {
             className="absolute inset-x-0 top-0 origin-bottom-left"
             animate={getCardStyle(0)}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            drag={activeIndex === 0 ? (hasViewedBothCards ? 'x' : true) : false}
-            dragConstraints={hasViewedBothCards ? { left: 0, right: 0 } : { left: 0, right: 0, top: 0, bottom: 0 }}
+            drag={activeIndex === 0 ? 'x' : false}
+            dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.15}
             onDragEnd={handleDragEnd}
             style={{
               cursor: activeIndex === 0 ? 'grab' : 'default',
-              touchAction: 'auto',
+              touchAction: 'pan-y', // Allow vertical scroll
             }}
             whileDrag={{ cursor: 'grabbing', scale: 1.02 }}
           >
@@ -408,13 +399,13 @@ export function TwoPillars() {
             className="absolute inset-x-0 top-0 origin-bottom-left"
             animate={getCardStyle(1)}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            drag={activeIndex === 1 ? (hasViewedBothCards ? 'x' : true) : false}
-            dragConstraints={hasViewedBothCards ? { left: 0, right: 0 } : { left: 0, right: 0, top: 0, bottom: 0 }}
+            drag={activeIndex === 1 ? 'x' : false}
+            dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.15}
             onDragEnd={handleDragEnd}
             style={{
               cursor: activeIndex === 1 ? 'grab' : 'default',
-              touchAction: 'auto',
+              touchAction: 'pan-y', // Allow vertical scroll
             }}
             whileDrag={{ cursor: 'grabbing', scale: 1.02 }}
           >
