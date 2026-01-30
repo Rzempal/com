@@ -74,8 +74,15 @@ const projects: Project[] = [
   },
 ];
 
-// === Image Slider Component ===
-function ImageSlider({ images, alt, color }: { images: string[]; alt: string; color: string }) {
+// === Image Slider Component with Parallax Zoom ===
+interface ImageSliderProps {
+  images: string[];
+  alt: string;
+  color: string;
+  imageScale?: MotionValue<number>;
+}
+
+function ImageSlider({ images, alt, color, imageScale }: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -91,7 +98,7 @@ function ImageSlider({ images, alt, color }: { images: string[]; alt: string; co
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -100,13 +107,16 @@ function ImageSlider({ images, alt, color }: { images: string[]; alt: string; co
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className="absolute inset-0"
+          style={{ scale: imageScale }}
         >
           <Image
             src={images[currentIndex]}
             alt={alt}
             fill
-            className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+            className="object-cover"
           />
+          {/* Vignette overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -226,17 +236,39 @@ interface CardProps {
 
 function Card({ project, index, progress, range, targetScale }: CardProps) {
   const t = useTranslations(`projects.${project.translationKey}`);
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Card scroll tracking for parallax and entry animation
+  const { scrollYProgress: cardProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', 'start start']
+  });
+  
+  // Card entry animation - slides up from bottom
+  const y = useTransform(cardProgress, [0, 0.5], ['30vh', '0vh']);
+  
+  // Parallax zoom effect on image (1.15 -> 1)
+  const imageScale = useTransform(cardProgress, [0, 1], [1.15, 1]);
+  
+  // Card scaling and opacity based on section progress (when next card pushes it)
   const scale = useTransform(progress, range, [1, targetScale]);
-  const filter = useTransform(progress, range, ['brightness(1)', 'brightness(0.5)']);
+  const opacity = useTransform(progress, range, [1, 0.5]);
+  const brightness = useTransform(progress, range, [1, 0.4]);
 
   return (
     <div
+      ref={cardRef}
       className="h-screen flex items-center justify-center sticky"
-      style={{ top: `${96 + index * 16}px` }}
+      style={{ top: `calc(10vh + ${index * 30}px)` }}
     >
       <motion.div
-        style={{ scale, filter }}
-        className="relative w-full max-w-2xl h-[500px] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl origin-top"
+        style={{ 
+          y,
+          scale, 
+          opacity,
+          filter: useTransform(brightness, (v) => `brightness(${v})`)
+        }}
+        className="relative w-full max-w-2xl md:max-w-4xl h-[500px] md:h-[550px] rounded-2xl overflow-hidden bg-zinc-900/90 backdrop-blur-sm border border-white/10 shadow-2xl origin-top"
       >
         {/* Top accent bar */}
         <div className={`absolute top-0 w-full h-1 ${project.accentClass} opacity-50`} />
@@ -249,7 +281,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
               <LockedOverlay color={project.color} />
             </>
           ) : (
-            <ImageSlider images={project.images} alt={t('title')} color={project.color} />
+            <ImageSlider images={project.images} alt={t('headline')} color={project.color} imageScale={imageScale} />
           )}
 
           {/* Category overlay */}
@@ -307,7 +339,6 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
 
 // === Main Section ===
 export function StickyProjectDeck() {
-  const t = useTranslations('pcb');
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -317,8 +348,8 @@ export function StickyProjectDeck() {
   return (
     <section ref={containerRef} className="relative z-10 bg-transparent mt-32">
       {/* Section header */}
-      <div className="mb-24 px-6 max-w-5xl mx-auto">
-        <h2 className="text-4xl font-bold text-white mb-4">
+      <div className="mb-16 md:mb-24 px-6 max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Wybrane <span className="text-cyan-500">Projekty</span>
         </h2>
         <p className="text-zinc-500 font-mono text-sm">
@@ -328,20 +359,137 @@ export function StickyProjectDeck() {
         </p>
       </div>
 
-      {/* Stacking cards */}
-      {projects.map((project, i) => {
-        const targetScale = 1 - (projects.length - i) * 0.04;
-        return (
-          <Card
-            key={project.id}
-            index={i}
-            project={project}
-            progress={scrollYProgress}
-            range={[i * 0.18, 1]}
-            targetScale={targetScale}
-          />
-        );
-      })}
+      {/* Desktop: Horizontal overlapping cards */}
+      <div className="hidden md:block">
+        <div className="relative h-[80vh] flex items-center justify-center px-6">
+          <div className="relative flex items-end justify-center" style={{ perspective: '1500px' }}>
+            {projects.map((project, i) => {
+              // Fan-out effect: cards spread from center
+              const totalCards = projects.length;
+              const centerIndex = (totalCards - 1) / 2;
+              const offset = i - centerIndex;
+              const rotation = offset * 6; // degrees rotation
+              const translateX = offset * 180; // horizontal spread
+              const translateZ = -Math.abs(offset) * 30; // depth
+              const zIndex = totalCards - Math.abs(offset);
+              
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 100, rotateZ: rotation * 2 }}
+                  whileInView={{ opacity: 1, y: 0, rotateZ: rotation }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  whileHover={{ 
+                    y: -20, 
+                    scale: 1.05, 
+                    rotateZ: 0,
+                    zIndex: 100,
+                    transition: { duration: 0.3 }
+                  }}
+                  className="absolute cursor-pointer"
+                  style={{
+                    transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateZ(${rotation}deg)`,
+                    zIndex,
+                  }}
+                >
+                  <DesktopCard project={project} index={i} />
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile: Vertical sticky stack */}
+      <div className="md:hidden">
+        {projects.map((project, i) => {
+          const targetScale = 1 - (projects.length - i) * 0.04;
+          return (
+            <Card
+              key={project.id}
+              index={i}
+              project={project}
+              progress={scrollYProgress}
+              range={[i * 0.18, 1]}
+              targetScale={targetScale}
+            />
+          );
+        })}
+      </div>
     </section>
+  );
+}
+
+// === Desktop Card (smaller, for horizontal layout) ===
+function DesktopCard({ project, index }: { project: Project; index: number }) {
+  const t = useTranslations(`projects.${project.translationKey}`);
+  
+  return (
+    <div 
+      className="w-[280px] h-[380px] rounded-xl overflow-hidden bg-zinc-900/95 backdrop-blur-sm border border-white/10 shadow-2xl"
+      style={{ 
+        boxShadow: `0 25px 50px -12px ${project.color}20, 0 0 0 1px ${project.color}10`
+      }}
+    >
+      {/* Top accent bar */}
+      <div className={`w-full h-1 ${project.accentClass} opacity-60`} />
+
+      {/* Image area */}
+      <div className="h-[50%] relative border-b border-white/5">
+        {project.isLocked ? (
+          <>
+            <div className="absolute inset-0 bg-zinc-800" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center border-2" style={{ borderColor: project.color, backgroundColor: `${project.color}20` }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={project.color} strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+            </div>
+          </>
+        ) : (
+          <Image src={project.images[0]} alt={t('headline')} fill className="object-cover" />
+        )}
+        
+        {/* Category badge */}
+        <div className="absolute top-3 right-3 bg-black/60 backdrop-blur px-2 py-0.5 rounded border border-white/10 font-mono text-[10px] text-white">
+          {project.category}
+        </div>
+        
+        {/* Index */}
+        <div className="absolute bottom-3 right-3 font-mono text-[10px] px-1 py-0.5 rounded border" style={{ borderColor: `${project.color}60`, color: project.color }}>
+          {String(index + 1).padStart(2, '0')}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-4 h-[50%] flex flex-col justify-between">
+        <div>
+          <h3 className="text-sm font-semibold mb-1" style={{ color: project.color }}>{t('headline')}</h3>
+          <p className="text-xs text-zinc-400 line-clamp-2">{t('description')}</p>
+        </div>
+        
+        <div className="flex flex-wrap gap-1">
+          {project.tags.slice(0, 3).map((tag, i) => (
+            <span key={i} className="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase" style={{ backgroundColor: `${project.color}15`, color: project.color, border: `1px solid ${project.color}30` }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+        
+        {project.ctaUrl && (
+          <a href={project.ctaUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono uppercase" style={{ color: project.color }}>
+            {t('cta')}
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
   );
 }
