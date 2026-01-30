@@ -339,43 +339,31 @@ export function StickyProjectDeck() {
         </p>
       </div>
 
-      {/* Desktop: Horizontal overlapping cards */}
+      {/* Desktop: Horizontal row with staggered scroll animation */}
       <div className="hidden md:block">
-        <div className="relative min-h-[70vh] flex items-center justify-center px-6 overflow-hidden">
-          <div className="relative flex items-center justify-center">
-            {projects.map((project, i) => {
-              // Fan-out effect: cards spread from center
-              const totalCards = projects.length;
-              const centerIndex = (totalCards - 1) / 2;
-              const offset = i - centerIndex;
-              const rotation = offset * 5; // degrees rotation
-              const xOffset = offset * 200; // horizontal spread in pixels
-              const zIndex = totalCards - Math.abs(Math.round(offset));
-              
-              return (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 80, rotate: rotation * 1.5 }}
-                  whileInView={{ opacity: 1, y: 0, rotate: rotation, x: xOffset }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.5, delay: i * 0.08, ease: 'easeOut' }}
-                  whileHover={{ 
-                    y: -30, 
-                    scale: 1.08, 
-                    rotate: 0,
-                    zIndex: 50,
-                    transition: { duration: 0.25 }
-                  }}
-                  className="cursor-pointer"
-                  style={{ 
-                    zIndex,
-                    position: i === Math.floor(centerIndex) ? 'relative' : 'absolute',
-                  }}
-                >
-                  <DesktopCard project={project} index={i} />
-                </motion.div>
-              );
-            })}
+        <div className="relative py-12 px-6 overflow-x-auto">
+          <div className="flex items-stretch justify-center gap-4 lg:gap-6 max-w-7xl mx-auto">
+            {projects.map((project, i) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: i * 0.12, 
+                  ease: [0.25, 0.1, 0.25, 1] 
+                }}
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.02,
+                  transition: { duration: 0.2 }
+                }}
+                className="cursor-pointer flex-shrink-0"
+              >
+                <DesktopCard project={project} index={i} />
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
