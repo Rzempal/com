@@ -65,3 +65,26 @@ Zastosowano Framer Motion z hookami `useScroll` i `useTransform`:
 - Warstwa PCB jako `z-0` z `pointer-events-none` nie blokuje interakcji z contentem
 
 ---
+
+## 2026-01-30: Pierwszy Orphan Hunt (Next.js)
+
+### Problem
+
+Nieużywane komponenty React (`PCBShowcase`, `ProjectShowcase`, `SectionProgress`, `CurrentFlow`)
+zalegały w projekcie - eksportowane w plikach barrel, ale nigdzie nieimportowane.
+
+### Rozwiązanie
+
+Systematyczny audyt z użyciem `grep_search` na wzorce importów:
+
+1. Zidentyfikowano orphany przez brak importów w `page.tsx` i innych plikach
+2. Zweryfikowano brak znaczników `// KEEP:`
+3. Usunięto pliki i zaktualizowano pliki barrel (`index.ts`)
+4. Potwierdzono sukces przez `npm run build`
+
+### Wnioski
+
+- Regularne audyty Orphan Hunt pomagają utrzymać higienę kodu
+- Raport w `docs/audits/` dokumentuje usunięte elementy dla przyszłej referencji
+
+---
