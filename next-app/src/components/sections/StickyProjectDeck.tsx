@@ -339,32 +339,53 @@ export function StickyProjectDeck() {
         </p>
       </div>
 
-      {/* Desktop: Horizontal row with staggered scroll animation */}
+      {/* Desktop: Sticky section with scroll-reveal cards + horizontal wheel scroll */}
       <div className="hidden md:block">
-        <div className="relative py-12 px-6 overflow-x-auto">
-          <div className="flex items-stretch justify-center gap-4 lg:gap-6 max-w-7xl mx-auto">
-            {projects.map((project, i) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: i * 0.12, 
-                  ease: [0.25, 0.1, 0.25, 1] 
-                }}
-                whileHover={{ 
-                  y: -12, 
-                  scale: 1.02,
-                  transition: { duration: 0.2 }
-                }}
-                className="cursor-pointer flex-shrink-0"
-              >
-                <DesktopCard project={project} index={i} />
-              </motion.div>
-            ))}
+        <div className="sticky top-0 min-h-screen flex flex-col justify-center py-16">
+          {/* Scrollable cards container */}
+          <div 
+            className="relative overflow-x-auto scrollbar-hide px-6"
+            onWheel={(e) => {
+              // Convert vertical scroll to horizontal
+              if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}
+          >
+            <div className="flex items-stretch gap-5 pb-4" style={{ width: 'max-content', paddingLeft: 'calc(50vw - 140px)', paddingRight: 'calc(50vw - 140px)' }}>
+              {projects.map((project, i) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 100 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: i * 0.15,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                  whileHover={{ 
+                    y: -16, 
+                    scale: 1.03,
+                    transition: { duration: 0.25 }
+                  }}
+                  className="cursor-pointer flex-shrink-0"
+                >
+                  <DesktopCard project={project} index={i} />
+                </motion.div>
+              ))}
+            </div>
           </div>
+          
+          {/* Scroll hint */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="text-center mt-8 text-zinc-600 text-xs font-mono"
+          >
+            {'// SCROLL_HORIZONTALLY_TO_EXPLORE'}
+          </motion.div>
         </div>
       </div>
 

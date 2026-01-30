@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
-import { Hero, TwoPillars, StickyProjectDeck } from '@/components/sections';
+import { Hero, TwoPillars, StickyProjectDeck, Contact } from '@/components/sections';
 import { PCBBackground } from '@/components/ui';
 
 export default async function HomePage({
@@ -20,6 +20,7 @@ export default async function HomePage({
         <Hero />
         <TwoPillars />
         <StickyProjectDeck />
+        <Contact />
       </div>
     </main>
   );
