@@ -236,39 +236,19 @@ interface CardProps {
 
 function Card({ project, index, progress, range, targetScale }: CardProps) {
   const t = useTranslations(`projects.${project.translationKey}`);
-  const cardRef = useRef<HTMLDivElement>(null);
   
-  // Card scroll tracking for parallax and entry animation
-  const { scrollYProgress: cardProgress } = useScroll({
-    target: cardRef,
-    offset: ['start end', 'start start']
-  });
-  
-  // Card entry animation - slides up from bottom
-  const y = useTransform(cardProgress, [0, 0.5], ['30vh', '0vh']);
-  
-  // Parallax zoom effect on image (1.15 -> 1)
-  const imageScale = useTransform(cardProgress, [0, 1], [1.15, 1]);
-  
-  // Card scaling and opacity based on section progress (when next card pushes it)
+  // Card scaling based on section progress (when next card pushes it)
   const scale = useTransform(progress, range, [1, targetScale]);
-  const opacity = useTransform(progress, range, [1, 0.5]);
-  const brightness = useTransform(progress, range, [1, 0.4]);
+  const filter = useTransform(progress, range, ['brightness(1)', 'brightness(0.5)']);
 
   return (
     <div
-      ref={cardRef}
       className="h-screen flex items-center justify-center sticky"
-      style={{ top: `calc(10vh + ${index * 30}px)` }}
+      style={{ top: `calc(10vh + ${index * 25}px)` }}
     >
       <motion.div
-        style={{ 
-          y,
-          scale, 
-          opacity,
-          filter: useTransform(brightness, (v) => `brightness(${v})`)
-        }}
-        className="relative w-full max-w-2xl md:max-w-4xl h-[500px] md:h-[550px] rounded-2xl overflow-hidden bg-zinc-900/90 backdrop-blur-sm border border-white/10 shadow-2xl origin-top"
+        style={{ scale, filter }}
+        className="relative w-full max-w-2xl h-[500px] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl origin-top"
       >
         {/* Top accent bar */}
         <div className={`absolute top-0 w-full h-1 ${project.accentClass} opacity-50`} />
@@ -281,7 +261,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
               <LockedOverlay color={project.color} />
             </>
           ) : (
-            <ImageSlider images={project.images} alt={t('headline')} color={project.color} imageScale={imageScale} />
+            <ImageSlider images={project.images} alt={t('headline')} color={project.color} />
           )}
 
           {/* Category overlay */}
@@ -361,36 +341,35 @@ export function StickyProjectDeck() {
 
       {/* Desktop: Horizontal overlapping cards */}
       <div className="hidden md:block">
-        <div className="relative h-[80vh] flex items-center justify-center px-6">
-          <div className="relative flex items-end justify-center" style={{ perspective: '1500px' }}>
+        <div className="relative min-h-[70vh] flex items-center justify-center px-6 overflow-hidden">
+          <div className="relative flex items-center justify-center">
             {projects.map((project, i) => {
               // Fan-out effect: cards spread from center
               const totalCards = projects.length;
               const centerIndex = (totalCards - 1) / 2;
               const offset = i - centerIndex;
-              const rotation = offset * 6; // degrees rotation
-              const translateX = offset * 180; // horizontal spread
-              const translateZ = -Math.abs(offset) * 30; // depth
-              const zIndex = totalCards - Math.abs(offset);
+              const rotation = offset * 5; // degrees rotation
+              const xOffset = offset * 200; // horizontal spread in pixels
+              const zIndex = totalCards - Math.abs(Math.round(offset));
               
               return (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 100, rotateZ: rotation * 2 }}
-                  whileInView={{ opacity: 1, y: 0, rotateZ: rotation }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  initial={{ opacity: 0, y: 80, rotate: rotation * 1.5 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: rotation, x: xOffset }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: 'easeOut' }}
                   whileHover={{ 
-                    y: -20, 
-                    scale: 1.05, 
-                    rotateZ: 0,
-                    zIndex: 100,
-                    transition: { duration: 0.3 }
+                    y: -30, 
+                    scale: 1.08, 
+                    rotate: 0,
+                    zIndex: 50,
+                    transition: { duration: 0.25 }
                   }}
-                  className="absolute cursor-pointer"
-                  style={{
-                    transform: `translateX(${translateX}px) translateZ(${translateZ}px) rotateZ(${rotation}deg)`,
+                  className="cursor-pointer"
+                  style={{ 
                     zIndex,
+                    position: i === Math.floor(centerIndex) ? 'relative' : 'absolute',
                   }}
                 >
                   <DesktopCard project={project} index={i} />
