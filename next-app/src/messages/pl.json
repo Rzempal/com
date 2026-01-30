@@ -41,38 +41,32 @@
     "robotyka": {
       "title": "Robotyka",
       "headline": "McLaren | Projekt P47",
-      "description": "Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe. Tworzony we współpracy z Forseven, ten hybrydowy potwór V8 o mocy 800 KM rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028. Czyste DNA sportowej jazdy, teraz w najbardziej uniwersalnej formie.",
-      "image": "/assets/images/robotyka/P47-1.jpg",
-      "imageAlt": "McLaren Projekt P47 - Luksusowy SUV",
-      "cta": "Dowiedz się więcej",
-      "ctaUrl": "https://robotyka.michalrapala.com/projekty.html"
+      "description": "Przyszłość osiągów: SUV, który redefiniuje luksus. Poznaj Projekt P47 – pierwszy w historii McLarena, pięcioosobowy SUV typu coupe. Tworzony we współpracy z Forseven, ten hybrydowy potwór V8 o mocy 800 KM rzuci wyzwanie Ferrari Purosangue i Aston Martinowi DBX. Premiera rynkowa planowana jest na rok 2028.",
+      "cta": "Dowiedz się więcej"
     },
     "apps": {
-      "title": "Aplikacje webowe",
-      "headline": "Automatyzacja dla biznesu",
+      "title": "Web Apps",
+      "headline": "Narzędzia - aplikacje webowe",
       "description": "Automatyzuję to, czego nie warto robić ręcznie. Inżynierskie webappki zaprojektowane do określonych zadań biznesowych. #vibecoding",
-      "image": "/assets/images/global/logo_app.png",
-      "imageAlt": "Aplikacje webowe - automatyzacja biznesowa",
-      "cta": "Zobacz projekty",
-      "ctaUrl": "https://michalrapala.app"
+      "cta": "Zobacz projekty"
     },
     "www": {
-      "title": "Strony internetowe",
-      "headline": "Twoja cyfrowa wizytówka",
-      "description": "Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.",
-      "image": "/assets/images/global/logo_web_ai.png",
-      "imageAlt": "Strony internetowe - projektowanie i development",
-      "cta": "Zobacz realizacje",
-      "ctaUrl": "https://twoja-strona.online"
+      "title": "Web Dev",
+      "headline": "Strony internetowe - projektowanie i development",
+      "description": "Twoja cyfrowa wizytówka. Projektuję nowoczesne i responsywne strony internetowe, które są wizytówką Twojej firmy. Skupiam się na estetyce, szybkości działania i intuicyjnej nawigacji.",
+      "cta": "Zobacz realizacje"
     },
-    "studio": {
-      "title": "STUDIO",
+    "mobile": {
+      "title": "Mobile App",
       "headline": "Twoja domowa apteczka z AI",
       "description": "Nie kop w pudle. Sprawdź w telefonie. Skanuj leki aparatem, śledź daty ważności i miej wszystko pod kontrolą.",
-      "image": "/assets/images/app/Karton-AI.jpg",
-      "imageAlt": "Karton-AI - Domowa apteczka z AI",
-      "cta": "Sprawdź aplikację",
-      "ctaUrl": "https://pudelkonaleki.michalrapala.app/"
+      "cta": "Sprawdź aplikację"
+    },
+    "locked": {
+      "title": "Your Project",
+      "headline": "Locked Content",
+      "description": "Miejsce na Twój przyszły projekt. Skontaktuj się, aby omówić możliwości współpracy.",
+      "cta": "Kontakt"
     }
   }
 }
