@@ -270,38 +270,35 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
         {/* Content area */}
         <div className="p-6 bg-zinc-900/80 backdrop-blur-xl h-[45%] flex flex-col justify-between">
           <div>
-            <h3 className="text-xl font-bold text-white mb-1">{t('title')}</h3>
-            <h4 className="text-lg font-semibold mb-2" style={{ color: project.color }}>
-              {t('headline')}
-            </h4>
+            {/* Headline + CTA row */}
+            <div className="flex items-start justify-between gap-4 mb-2">
+              <h3 className="text-lg font-semibold" style={{ color: project.color }}>
+                {t('headline')}
+              </h3>
+              {project.ctaUrl && <CTAButton url={project.ctaUrl} label={t('cta')} color={project.color} />}
+            </div>
             <p className="text-sm text-zinc-400 font-light leading-relaxed line-clamp-3">
               {t('description')}
             </p>
           </div>
 
-          {/* Bottom row: Tags + CTA */}
-          <div className="flex items-center justify-between gap-4">
-            {/* Tech tags */}
-            <div
-              className="flex flex-wrap gap-1.5 font-mono text-[10px]"
-              style={{ color: project.color }}
-            >
-              {project.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="px-2 py-0.5 rounded border"
-                  style={{
-                    backgroundColor: `${project.color}10`,
-                    borderColor: `${project.color}30`,
-                  }}
-                >
-                  #{tag.toLowerCase()}
-                </span>
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            {project.ctaUrl && <CTAButton url={project.ctaUrl} label={t('cta')} color={project.color} />}
+          {/* Tech tags */}
+          <div
+            className="flex flex-wrap gap-2 font-mono text-[10px]"
+            style={{ color: project.color }}
+          >
+            {project.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="px-2 py-1 rounded border uppercase tracking-wider"
+                style={{
+                  backgroundColor: `${project.color}10`,
+                  borderColor: `${project.color}30`,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </motion.div>
