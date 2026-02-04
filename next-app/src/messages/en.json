@@ -15,14 +15,14 @@
   "pillars": {
     "heading": "Core",
     "robotics": {
-      "tag": "ENG://SIMULATION",
+      "tag": "SIMULATION",
       "title": "Robotics",
       "headline": "For over a decade I've worked as a robotics engineer in the automotive industry.",
       "description": "Advanced industrial process simulation services and programming for industrial robots.",
       "cta": "Learn more"
     },
     "dev": {
-      "tag": "DEV://PROGRAMMING",
+      "tag": "PROGRAMMING",
       "title": "resztatokod.pl",
       "headline1": "CODE",
       "headline2": "IS",
