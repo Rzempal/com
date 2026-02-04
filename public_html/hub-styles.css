@@ -1053,13 +1053,6 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border: 1px solid rgba(0, 255, 255, 0.15);
-    background: rgba(0, 20, 30, 0.3);
-    transition: border-color 0.3s ease;
-}
-
-.cell:hover {
-    border-color: rgba(0, 255, 255, 0.3);
 }
 
 /* Content cells */

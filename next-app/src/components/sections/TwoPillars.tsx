@@ -86,7 +86,7 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-eng-content flex flex-col p-4 md:p-6 border border-cyan-500/20 bg-zinc-900/50 backdrop-blur-sm rounded-lg"
+      className="cell-eng-content flex flex-col p-4 md:p-6 rounded-lg"
     >
       {/* Header */}
       <div className="flex items-center gap-2 pb-3 mb-3 border-b border-cyan-500/20">
@@ -138,7 +138,7 @@ function EngMediaCell() {
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-eng-media flex items-center justify-center p-4 md:p-6 border border-cyan-500/20 bg-zinc-900/50 backdrop-blur-sm rounded-lg"
+      className="cell-eng-media flex items-center justify-center p-4 md:p-6 rounded-lg"
     >
       <div className="relative w-full max-w-[280px] aspect-[4/3] rounded-2xl overflow-hidden border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
         <Image
@@ -158,7 +158,7 @@ function DevMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-dev-media flex items-center justify-center p-4 md:p-8 border border-emerald-500/20 bg-zinc-900/50 backdrop-blur-sm rounded-lg"
+      className="cell-dev-media flex items-center justify-center p-4 md:p-8 rounded-lg"
     >
       <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black leading-none tracking-tighter text-center">
         <span className="block text-emerald-400 glitch" data-text={t('dev.headline1')}>
@@ -182,7 +182,7 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-dev-content flex flex-col p-4 md:p-6 border border-emerald-500/20 bg-zinc-900/50 backdrop-blur-sm rounded-lg"
+      className="cell-dev-content flex flex-col p-4 md:p-6 rounded-lg"
     >
       {/* Header */}
       <div className="flex items-center gap-2 pb-3 mb-3 border-b border-emerald-500/20">
