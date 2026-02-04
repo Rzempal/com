@@ -1,4 +1,4 @@
-<!-- index.html v0.115 – Pillar headlines + larger hero + PCB projekty link -->
+<!-- index.html v0.116 – Unified Two Pillars card with 2x2 grid layout -->
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -102,28 +102,35 @@
 
         <!-- ========== TWO PILLARS SECTION (Page 2) ========== -->
         <section class="two-pillars-section" id="twoPillarsSection">
-            <div class="two-pillars" id="twoPillars">
+            <article class="unified-card" id="twoPillars">
 
-                <!-- Left Pillar: ENG:// SYMULACJA -->
-                <article class="pillar pillar-robotyka pillar-eng">
-                    <header class="pillar-header">
-                        <span class="pillar-dot"></span>
-                        <span class="pillar-prefix pillar-prefix-eng">ENG://</span>
-                        <span class="pillar-title" data-i18n="pill_robotyka_hero">SYMULACJA</span>
+                <!-- Row 1, Col 1: ENG Content -->
+                <div class="cell cell-eng-content">
+                    <header class="cell-header">
+                        <span class="cell-dot"></span>
+                        <span class="cell-title cell-title-eng" data-i18n="pill_robotyka_hero">ENG://SYMULACJA</span>
                     </header>
-                    <div class="pillar-media pillar-media-contain">
-                        <img src="assets/images/global/logo_robotyka.png" alt="Robotyka - symulacje przemysłowe"
-                            onerror="this.src='https://placehold.co/400x250/1e293b/48d2e7?text=Robotyka'" />
-                    </div>
-                    <h3 class="pillar-headline-h3" data-i18n="robotyka_headline">Od ponad dekady pracuję jako inżynier
+                    <h3 class="cell-headline" data-i18n="robotyka_headline">Od ponad dekady pracuję jako inżynier
                         robotyki w przemyśle motoryzacyjnym.</h3>
-                    <p class="pillar-desc" data-i18n="robotyka_desc">
+                    <p class="cell-desc" data-i18n="robotyka_desc">
                         > Zaawansowane usługi symulacji procesów produkcyjnych oraz programowanie offline robotów
                         przemysłowych (KUKA, Fanuc, ABB). Optymalizuję przepływy pracy i zwiększam efektywność
                         produkcji.
                     </p>
-                    <a href="https://robotyka.michalrapala.com" class="pillar-link" target="_blank" rel="noopener">
-                        <span>Dowiedz się więcej</span>
+                    <div class="cell-tags">
+                        <span class="cell-tag">KUKA</span>
+                        <span class="cell-tag">Fanuc</span>
+                        <span class="cell-tag">ABB</span>
+                    </div>
+                </div>
+
+                <!-- Row 1, Col 2: ENG Media -->
+                <div class="cell cell-eng-media">
+                    <img src="assets/images/global/logo_robotyka.png" alt="Robotyka - symulacje przemysłowe"
+                        class="cell-image"
+                        onerror="this.src='https://placehold.co/400x300/1e293b/48d2e7?text=Robotyka'" />
+                    <a href="https://robotyka.michalrapala.com" class="cell-cta cell-cta-cyan" target="_blank" rel="noopener">
+                        <span data-i18n="robotyka_cta">Dowiedz się więcej</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -131,72 +138,69 @@
                             <line x1="10" y1="14" x2="21" y2="3" />
                         </svg>
                     </a>
-                </article>
+                </div>
 
-                <!-- Right Pillar: DEV:// PROGRAMOWANIE -->
-                <article class="pillar pillar-studio pillar-dev">
-                    <header class="pillar-header">
-                        <span class="pillar-dot pillar-dot-yellow"></span>
-                        <span class="pillar-prefix pillar-prefix-dev">DEV://</span>
-                        <span class="pillar-title pillar-title-dev" data-i18n="dev_title">PROGRAMOWANIE</span>
+                <!-- Row 2, Col 1: DEV Media (KOD JEST OSTATNIM KROKIEM) -->
+                <div class="cell cell-dev-media">
+                    <h2 class="cell-headline-big">
+                        <span class="line-1" data-i18n-html="headline_line1"><span class="word-cyan glitch"
+                                data-text="KOD">KOD</span> JEST</span>
+                        <span class="line-2" data-i18n="headline_line2">OSTATNIM</span>
+                        <span class="line-3" data-i18n-html="headline_line3">KROKIEM<span
+                                class="dot-magenta">.</span></span>
+                    </h2>
+                    <!-- RTK Logo Animation as Link -->
+                    <a href="https://resztatokod.pl" class="rtk-logo-link" target="_blank" rel="noopener"
+                        aria-label="Przejdź do resztatokod.pl">
+                        <div class="rtk-logo-wrapper">
+                            <svg viewBox="0 0 370 60" class="rtk-logo-long">
+                                <!-- Neural network nodes -->
+                                <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
+                                <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
+                                <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
+                                <!-- Neural links -->
+                                <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
+                                <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
+                                <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
+                                <!-- Flow path -->
+                                <path d="M 10 30 L 40 30" class="rtk-long-path" />
+                                <!-- Prompt -->
+                                <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
+                                <!-- Typing command -->
+                                <text x="86" y="38" class="rtk-long-url">cd resztatokod.pl</text>
+                                <!-- External link icon (Lucide) -->
+                                <g class="rtk-external-icon" transform="translate(350, 18)">
+                                    <path d="M15 11v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" fill="none" />
+                                    <polyline points="12 2 18 2 18 8" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                    <line x1="8" y1="12" x2="18" y2="2" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Row 2, Col 2: DEV Content -->
+                <div class="cell cell-dev-content">
+                    <header class="cell-header">
+                        <span class="cell-dot cell-dot-magenta"></span>
+                        <span class="cell-title cell-title-dev" data-i18n="dev_title">DEV://PROGRAMOWANIE</span>
                     </header>
-                    <div class="pillar-headline">
-                        <h2 class="pillar-headline-text">
-                            <span class="line-1" data-i18n-html="headline_line1"><span class="word-cyan glitch"
-                                    data-text="KOD">KOD</span> JEST</span>
-                            <span class="line-2" data-i18n="headline_line2">OSTATNIM</span>
-                            <span class="line-3" data-i18n-html="headline_line3">KROKIEM<span
-                                    class="dot-magenta">.</span></span>
-                        </h2>
-                    </div>
-                    <h3 class="pillar-headline-h3" data-i18n="studio_headline">Współzałożyciel ResztaToKod.pl</h3>
-                    <p class="pillar-desc" data-i18n="studio_desc">
+                    <h3 class="cell-headline" data-i18n="studio_headline">Współzałożyciel ResztaToKod.pl</h3>
+                    <p class="cell-desc" data-i18n="studio_desc">
                         > Technologia przestała być barierą. Stała się dźwignią dla tych, którzy mają plan.
                     </p>
-                    <!-- RTK Logo Animation as Link -->
-                    <div class="rtk-cta-container">
-                        <a href="https://resztatokod.pl" class="rtk-logo-link" target="_blank" rel="noopener"
-                            aria-label="Przejdź do resztatokod.pl">
-                            <div class="rtk-logo-wrapper">
-                                <svg viewBox="0 0 370 60" class="rtk-logo-long">
-                                    <!-- Neural network nodes -->
-                                    <circle cx="5" cy="15" r="2" class="rtk-long-node rtk-n1" />
-                                    <circle cx="20" cy="5" r="2" class="rtk-long-node rtk-n2" />
-                                    <circle cx="10" cy="30" r="2" class="rtk-long-node rtk-n3" />
-                                    <!-- Neural links -->
-                                    <line x1="5" y1="15" x2="20" y2="5" class="rtk-long-link rtk-l1" />
-                                    <line x1="20" y1="5" x2="10" y2="30" class="rtk-long-link rtk-l2" />
-                                    <line x1="5" y1="15" x2="10" y2="30" class="rtk-long-link rtk-l3" />
-                                    <!-- Flow path -->
-                                    <path d="M 10 30 L 40 30" class="rtk-long-path" />
-                                    <!-- Prompt -->
-                                    <text x="48" y="38" class="rtk-long-cmd">&gt;_</text>
-                                    <!-- Typing command -->
-                                    <text x="86" y="38" class="rtk-long-url">cd resztatokod.pl</text>
-                                    <!-- Cursor removed after animation completes -->
-                                    <!-- External link icon (Lucide) -->
-                                    <g class="rtk-external-icon" transform="translate(350, 18)">
-                                        <path d="M15 11v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" fill="none" />
-                                        <polyline points="12 2 18 2 18 8" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" fill="none" />
-                                        <line x1="8" y1="12" x2="18" y2="2" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </g>
-                                </svg>
-                            </div>
-                        </a>
+                    <div class="cell-tags">
+                        <span class="cell-tag">Next.js</span>
+                        <span class="cell-tag">React</span>
+                        <span class="cell-tag">AI</span>
                     </div>
-                </article>
+                </div>
 
-                <!-- Navigation Dots (mobile only) -->
-                <nav class="pillars-nav" aria-label="Carousel navigation">
-                    <button class="pillars-nav-dot active" data-index="0" aria-label="Slide 1"></button>
-                    <button class="pillars-nav-dot" data-index="1" aria-label="Slide 2"></button>
-                </nav>
-
-            </div>
+            </article>
 
             <!-- Scroll Indicator (at end of two-pillars, points to PCB) -->
             <div class="hero-scroll-indicator" id="scrollIndicator" role="button" aria-label="Scroll down">
