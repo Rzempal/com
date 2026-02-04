@@ -91,9 +91,8 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       {/* Header */}
       <div className="flex items-center gap-2 pb-3 mb-3 border-b border-cyan-500/20">
         <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-        <span className="text-xs font-mono text-cyan-500 tracking-wider">ENG://</span>
         <span className="text-xs font-mono text-cyan-400 font-bold tracking-wider uppercase">
-          {t('robotics.tag')}
+          ENG://{t('robotics.tag')}
         </span>
       </div>
 
@@ -109,21 +108,34 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
 
       {/* Tags */}
       <TechTags tags={techTags} color="cyan" />
+    </motion.div>
+  );
+}
 
-      {/* CTA */}
+// ENG Media Cell (Image + CTA)
+function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  return (
+    <motion.div
+      variants={cellVariants}
+      className="cell-eng-media flex flex-col rounded-2xl overflow-hidden"
+    >
+      <div className="relative flex-grow min-h-[200px]">
+        <Image
+          src="/images/global/logo_robotyka.png"
+          alt="Robotyka - symulacje przemysłowe"
+          fill
+          className="object-cover hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
       <a
         href="https://robotyka.michalrapala.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 mt-4 text-cyan-400 text-sm font-mono hover:text-cyan-300 transition-colors"
+        className="inline-flex items-center justify-center gap-2 p-3 text-cyan-400 text-sm font-mono hover:text-cyan-300 transition-colors"
       >
         {t('robotics.cta')}
-        <svg
-          className="w-4 h-4 transform hover:translate-x-1 transition-transform"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
           <polyline points="15 3 21 3 21 9" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
           <line x1="10" y1="14" x2="21" y2="3" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
@@ -133,30 +145,12 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
   );
 }
 
-// ENG Media Cell (Image)
-function EngMediaCell() {
-  return (
-    <motion.div
-      variants={cellVariants}
-      className="cell-eng-media relative overflow-hidden rounded-2xl min-h-[200px]"
-    >
-      <Image
-        src="/images/global/logo_robotyka.png"
-        alt="Robotyka - symulacje przemysłowe"
-        fill
-        className="object-cover hover:scale-105 transition-transform duration-300"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
-    </motion.div>
-  );
-}
-
-// DEV Media Cell (Big Headline)
+// DEV Media Cell (Big Headline + RTK CTA)
 function DevMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-dev-media flex items-center justify-center p-4 md:p-8 rounded-lg"
+      className="cell-dev-media flex flex-col items-center justify-center p-4 md:p-8 rounded-lg"
     >
       <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black leading-none tracking-tighter text-center">
         <span className="block text-emerald-400 glitch" data-text={t('dev.headline1')}>
@@ -169,6 +163,15 @@ function DevMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
           <span className="text-emerald-500">.</span>
         </span>
       </h2>
+      {/* RTK Logo CTA */}
+      <a
+        href="https://resztatokod.pl"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="rtk-cta-container block hover:opacity-100 opacity-80 transition-opacity mt-6"
+      >
+        <RTKLogo />
+      </a>
     </motion.div>
   );
 }
@@ -185,9 +188,8 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       {/* Header */}
       <div className="flex items-center gap-2 pb-3 mb-3 border-b border-emerald-500/20">
         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-        <span className="text-xs font-mono text-emerald-500 tracking-wider">DEV://</span>
         <span className="text-xs font-mono text-emerald-400 font-bold tracking-wider uppercase">
-          {t('dev.tag')}
+          DEV://{t('dev.tag')}
         </span>
       </div>
 
@@ -203,16 +205,6 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
 
       {/* Tags */}
       <TechTags tags={techTags} color="emerald" />
-
-      {/* RTK Logo CTA */}
-      <a
-        href="https://resztatokod.pl"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="rtk-cta-container block hover:opacity-100 opacity-80 transition-opacity mt-4"
-      >
-        <RTKLogo />
-      </a>
     </motion.div>
   );
 }
@@ -280,7 +272,7 @@ export function TwoPillars() {
               <EngContentCell t={t} />
             </div>
             <div style={{ gridArea: 'eng-media' }}>
-              <EngMediaCell />
+              <EngMediaCell t={t} />
             </div>
             <div style={{ gridArea: 'dev-media' }}>
               <DevMediaCell t={t} />
@@ -293,7 +285,7 @@ export function TwoPillars() {
           {/* Mobile: Single Column */}
           <div className="md:hidden flex flex-col gap-3">
             <EngContentCell t={t} />
-            <EngMediaCell />
+            <EngMediaCell t={t} />
             <DevContentCell t={t} />
             <DevMediaCell t={t} />
           </div>

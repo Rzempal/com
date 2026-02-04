@@ -1116,6 +1116,16 @@ body {
     letter-spacing: 0.1em;
 }
 
+.cell-title-eng {
+    color: var(--accent);
+    text-shadow: 0 0 8px var(--accent);
+}
+
+.cell-title-dev {
+    color: var(--magenta);
+    text-shadow: 0 0 8px var(--magenta);
+}
+
 /* ========== CELL CONTENT ========== */
 .cell-headline {
     font-family: var(--font-mono);
