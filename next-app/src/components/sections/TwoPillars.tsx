@@ -138,7 +138,7 @@ function EngMediaCell() {
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-eng-media relative overflow-hidden rounded-2xl"
+      className="cell-eng-media relative overflow-hidden rounded-2xl min-h-[200px]"
     >
       <Image
         src="/images/global/logo_robotyka.png"
