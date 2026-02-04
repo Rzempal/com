@@ -1197,7 +1197,7 @@ body {
     max-width: 100%;
     max-height: 200px;
     object-fit: contain;
-    border-radius: 0.5rem;
+    border-radius: 16px;
     border: 1px solid rgba(0, 255, 255, 0.3);
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;

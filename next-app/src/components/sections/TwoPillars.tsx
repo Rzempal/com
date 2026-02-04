@@ -140,7 +140,7 @@ function EngMediaCell() {
       variants={cellVariants}
       className="cell-eng-media flex items-center justify-center p-4 md:p-6 border border-cyan-500/20 bg-zinc-900/50 backdrop-blur-sm rounded-lg"
     >
-      <div className="relative w-full max-w-[280px] aspect-[4/3] rounded-lg overflow-hidden border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+      <div className="relative w-full max-w-[280px] aspect-[4/3] rounded-2xl overflow-hidden border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
         <Image
           src="/images/global/logo_robotyka.png"
           alt="Robotyka - symulacje przemysłowe"
