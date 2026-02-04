@@ -138,17 +138,15 @@ function EngMediaCell() {
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-eng-media flex items-center justify-center p-4 md:p-6 rounded-lg"
+      className="cell-eng-media relative overflow-hidden rounded-2xl"
     >
-      <div className="relative w-full max-w-[280px] aspect-[4/3] rounded-2xl overflow-hidden border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-        <Image
-          src="/images/global/logo_robotyka.png"
-          alt="Robotyka - symulacje przemysłowe"
-          fill
-          className="object-contain p-4 hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 768px) 100vw, 300px"
-        />
-      </div>
+      <Image
+        src="/images/global/logo_robotyka.png"
+        alt="Robotyka - symulacje przemysłowe"
+        fill
+        className="object-cover hover:scale-105 transition-transform duration-300"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
     </motion.div>
   );
 }
