@@ -117,7 +117,7 @@ function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-eng-media flex flex-col rounded-2xl overflow-hidden"
+      className="cell-eng-media flex flex-col rounded-2xl overflow-hidden pt-4"
     >
       <div className="relative flex-grow min-h-[200px]">
         <Image
