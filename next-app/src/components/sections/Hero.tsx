@@ -127,7 +127,7 @@ export function Hero() {
         </motion.div>
 
         {/* Scroll Indicator - Line + Dot */}
-        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div className="relative flex flex-col items-center">
             {/* Vertical line */}
             <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
@@ -151,6 +151,16 @@ export function Hero() {
                 ease: 'easeInOut',
               }}
             />
+          </div>
+        </div>
+
+        {/* Marquee Ticker */}
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3 border-t border-zinc-800/50">
+          <div className="animate-marquee whitespace-nowrap">
+            <span className="inline-block text-xs sm:text-sm font-mono text-zinc-500 uppercase tracking-widest">
+              Robotyka&nbsp;&nbsp;//&nbsp;&nbsp;Symulacja&nbsp;&nbsp;//&nbsp;&nbsp;Engineering&nbsp;&nbsp;//&nbsp;&nbsp;Programowanie&nbsp;&nbsp;//&nbsp;&nbsp;Aplikacje&nbsp;&nbsp;//&nbsp;&nbsp;Strony internetowe&nbsp;&nbsp;//&nbsp;&nbsp;
+              Robotyka&nbsp;&nbsp;//&nbsp;&nbsp;Symulacja&nbsp;&nbsp;//&nbsp;&nbsp;Engineering&nbsp;&nbsp;//&nbsp;&nbsp;Programowanie&nbsp;&nbsp;//&nbsp;&nbsp;Aplikacje&nbsp;&nbsp;//&nbsp;&nbsp;Strony internetowe&nbsp;&nbsp;//&nbsp;&nbsp;
+            </span>
           </div>
         </div>
       </motion.div>
