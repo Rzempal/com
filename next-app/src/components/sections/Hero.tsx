@@ -18,15 +18,15 @@ export function Hero() {
 
   // Hero → Card transformation (scroll-linked)
   // Width: 100% → 85% (matches max-w-5xl proportionally)
-  const cardWidth = useTransform(scrollYProgress, [0, 0.4], ['100%', '85%']);
+  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', '85%']);
   // Border radius: 0 → 32px (rounded-2xl)
-  const borderRadius = useTransform(scrollYProgress, [0, 0.4], [0, 32]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.15], [0, 32]);
   // Card border opacity: 0 → 1
-  const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   // Horizontal margin for centering
-  const cardMargin = useTransform(scrollYProgress, [0, 0.4], ['0%', '7.5%']);
+  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '7.5%']);
   // Vertical margin for floating card effect
-  const cardMarginVertical = useTransform(scrollYProgress, [0, 0.4], ['0%', '2.5%']);
+  const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '2.5%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
