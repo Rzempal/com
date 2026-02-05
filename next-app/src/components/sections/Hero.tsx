@@ -15,7 +15,6 @@ export function Hero() {
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // Hero → Card transformation (scroll-linked)
   // Width: 100% → 85% (matches max-w-5xl proportionally)
@@ -50,9 +49,6 @@ export function Hero() {
     return () => clearInterval(timer);
   }, [subtitle]);
 
-  // Background opacity - linked to scroll for fade effect
-  const bgOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
   return (
     <section
       id="hero"
@@ -76,11 +72,8 @@ export function Hero() {
           style={{ opacity: cardBorderOpacity }}
         />
 
-        {/* Gradient Mesh Background - fades on scroll */}
-        <motion.div
-          className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden"
-          style={{ opacity: bgOpacity, willChange: 'opacity' }}
-        >
+        {/* Gradient Mesh Background */}
+        <div className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden">
           {/* Base gradient */}
           <div className="absolute inset-0 bg-black" />
 
@@ -115,11 +108,11 @@ export function Hero() {
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             }}
           />
-        </motion.div>
+        </div>
 
         <motion.div
           className="relative z-10 text-center px-6"
-          style={{ scale, opacity, willChange: 'transform, opacity' }}
+          style={{ scale, willChange: 'transform' }}
         >
           {/* Title with Glitch effect */}
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white glitch">
@@ -134,10 +127,7 @@ export function Hero() {
         </motion.div>
 
         {/* Scroll Indicator - Line + Dot */}
-        <motion.div
-          className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-4"
-          style={{ opacity }}
-        >
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-4">
           <span className="text-xs sm:text-sm text-zinc-500 tracking-wide text-center px-4">
             {t('scrollCta')}
           </span>
@@ -165,7 +155,7 @@ export function Hero() {
               }}
             />
           </div>
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
