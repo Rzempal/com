@@ -17,6 +17,16 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // Hero → Card transformation (scroll-linked)
+  // Width: 100% → 85% (matches max-w-5xl proportionally)
+  const cardWidth = useTransform(scrollYProgress, [0, 0.4], ['100%', '85%']);
+  // Border radius: 0 → 32px (rounded-2xl)
+  const borderRadius = useTransform(scrollYProgress, [0, 0.4], [0, 32]);
+  // Card border opacity: 0 → 1
+  const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  // Horizontal margin for centering
+  const cardMargin = useTransform(scrollYProgress, [0, 0.4], ['0%', '7.5%']);
+
   // Typewriter effect
   const subtitle = t('subtitle');
   const [displayText, setDisplayText] = useState('');
@@ -47,97 +57,115 @@ export function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative h-svh flex flex-col justify-start pt-[25svh] overflow-hidden"
+      className="relative h-svh flex flex-col justify-center items-center overflow-hidden"
     >
-      {/* Gradient Mesh Background - fades on scroll */}
-      <motion.div 
-        className="absolute inset-0 -z-10"
-        style={{ opacity: bgOpacity, willChange: 'opacity' }}
-      >
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-black" />
-
-        {/* Emerald glow - top right */}
-        <div
-          className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 rounded-full opacity-40 blur-[80px]"
-          style={{ background: 'radial-gradient(circle, #27C96D 0%, transparent 70%)' }}
-        />
-
-        {/* Emerald glow - bottom left */}
-        <div
-          className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full opacity-30 blur-[60px]"
-          style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
-        />
-
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)
-            `,
-            backgroundSize: '48px 48px',
-          }}
-        />
-
-        {/* Noise texture overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.15]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          }}
-        />
-      </motion.div>
-
+      {/* Animated Card Wrapper - transforms from full-width to card */}
       <motion.div
-        className="relative z-10 text-center px-6"
-        style={{ scale, opacity, willChange: 'transform, opacity' }}
+        className="relative w-full h-full flex flex-col justify-start pt-[25svh] overflow-hidden"
+        style={{
+          width: cardWidth,
+          marginLeft: cardMargin,
+          marginRight: cardMargin,
+          borderRadius,
+          willChange: 'width, margin, border-radius',
+        }}
       >
-        {/* Title with Glitch effect */}
-        <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white glitch">
-          {t('title')}
-        </h1>
+        {/* Card border - appears on scroll */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none rounded-[inherit] border border-zinc-700/50"
+          style={{ opacity: cardBorderOpacity }}
+        />
 
-        {/* Subtitle with Typewriter effect */}
-        <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide h-8">
-          <span>{displayText}</span>
-          <span className={`${isTypingComplete ? 'typewriter-cursor' : ''}`} />
-        </p>
-      </motion.div>
+        {/* Gradient Mesh Background - fades on scroll */}
+        <motion.div
+          className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden"
+          style={{ opacity: bgOpacity, willChange: 'opacity' }}
+        >
+          {/* Base gradient */}
+          <div className="absolute inset-0 bg-black" />
 
-      {/* Scroll Indicator - Line + Dot */}
-      <motion.div
-        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-4"
-        style={{ opacity }}
-      >
-        <span className="text-xs sm:text-sm text-zinc-500 tracking-wide text-center px-4">
-          {t('scrollCta')}
-        </span>
-        <div className="relative flex flex-col items-center">
-          {/* Vertical line */}
-          <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
-          {/* Animated dot */}
-          <motion.div
-            className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500"
-            animate={{ y: [0, 40, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
+          {/* Emerald glow - top right */}
+          <div
+            className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 rounded-full opacity-40 blur-[80px]"
+            style={{ background: 'radial-gradient(circle, #27C96D 0%, transparent 70%)' }}
+          />
+
+          {/* Emerald glow - bottom left */}
+          <div
+            className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full opacity-30 blur-[60px]"
+            style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
+          />
+
+          {/* Subtle grid overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)
+              `,
+              backgroundSize: '48px 48px',
             }}
           />
-          {/* Glow trail */}
-          <motion.div
-            className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500 blur-sm opacity-50"
-            animate={{ y: [0, 40, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
+
+          {/* Noise texture overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.15]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             }}
           />
-        </div>
+        </motion.div>
+
+        <motion.div
+          className="relative z-10 text-center px-6"
+          style={{ scale, opacity, willChange: 'transform, opacity' }}
+        >
+          {/* Title with Glitch effect */}
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white glitch">
+            {t('title')}
+          </h1>
+
+          {/* Subtitle with Typewriter effect */}
+          <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide h-8">
+            <span>{displayText}</span>
+            <span className={`${isTypingComplete ? 'typewriter-cursor' : ''}`} />
+          </p>
+        </motion.div>
+
+        {/* Scroll Indicator - Line + Dot */}
+        <motion.div
+          className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-4"
+          style={{ opacity }}
+        >
+          <span className="text-xs sm:text-sm text-zinc-500 tracking-wide text-center px-4">
+            {t('scrollCta')}
+          </span>
+          <div className="relative flex flex-col items-center">
+            {/* Vertical line */}
+            <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
+            {/* Animated dot */}
+            <motion.div
+              className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500"
+              animate={{ y: [0, 40, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            {/* Glow trail */}
+            <motion.div
+              className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500 blur-sm opacity-50"
+              animate={{ y: [0, 40, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
