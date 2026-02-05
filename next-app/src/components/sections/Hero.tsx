@@ -18,13 +18,15 @@ export function Hero() {
 
   // Hero → Card transformation (scroll-linked)
   // Width: 100% → 85% (matches max-w-5xl proportionally)
-  const cardWidth = useTransform(scrollYProgress, [0, 0.4], ['100%', '85%']);
+  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', '85%']);
   // Border radius: 0 → 32px (rounded-2xl)
-  const borderRadius = useTransform(scrollYProgress, [0, 0.4], [0, 32]);
+  const borderRadius = useTransform(scrollYProgress, [0, 0.15], [0, 32]);
   // Card border opacity: 0 → 1
-  const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   // Horizontal margin for centering
-  const cardMargin = useTransform(scrollYProgress, [0, 0.4], ['0%', '7.5%']);
+  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '7.5%']);
+  // Vertical margin for floating card effect
+  const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '2.5%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -62,6 +64,8 @@ export function Hero() {
           width: cardWidth,
           marginLeft: cardMargin,
           marginRight: cardMargin,
+          marginTop: cardMarginVertical,
+          marginBottom: cardMarginVertical,
           borderRadius,
           willChange: 'width, margin, border-radius',
         }}
@@ -127,7 +131,7 @@ export function Hero() {
         </motion.div>
 
         {/* Scroll Indicator - Line + Dot */}
-        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div className="relative flex flex-col items-center">
             {/* Vertical line */}
             <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
@@ -151,6 +155,16 @@ export function Hero() {
                 ease: 'easeInOut',
               }}
             />
+          </div>
+        </div>
+
+        {/* Marquee Ticker */}
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3 border-t border-zinc-800/50">
+          <div className="animate-marquee whitespace-nowrap">
+            <span className="inline-block text-xs sm:text-sm font-mono text-zinc-500 uppercase tracking-widest">
+              Robotyka&nbsp;&nbsp;//&nbsp;&nbsp;Symulacja&nbsp;&nbsp;//&nbsp;&nbsp;Engineering&nbsp;&nbsp;//&nbsp;&nbsp;Programowanie&nbsp;&nbsp;//&nbsp;&nbsp;Aplikacje&nbsp;&nbsp;//&nbsp;&nbsp;Strony internetowe&nbsp;&nbsp;//&nbsp;&nbsp;
+              Robotyka&nbsp;&nbsp;//&nbsp;&nbsp;Symulacja&nbsp;&nbsp;//&nbsp;&nbsp;Engineering&nbsp;&nbsp;//&nbsp;&nbsp;Programowanie&nbsp;&nbsp;//&nbsp;&nbsp;Aplikacje&nbsp;&nbsp;//&nbsp;&nbsp;Strony internetowe&nbsp;&nbsp;//&nbsp;&nbsp;
+            </span>
           </div>
         </div>
       </motion.div>
