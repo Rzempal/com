@@ -127,10 +127,7 @@ export function Hero() {
         </motion.div>
 
         {/* Scroll Indicator - Line + Dot */}
-        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-4">
-          <span className="text-xs sm:text-sm text-zinc-500 tracking-wide text-center px-4">
-            {t('scrollCta')}
-          </span>
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div className="relative flex flex-col items-center">
             {/* Vertical line */}
             <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
