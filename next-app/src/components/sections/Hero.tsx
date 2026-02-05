@@ -25,6 +25,8 @@ export function Hero() {
   const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
   // Horizontal margin for centering
   const cardMargin = useTransform(scrollYProgress, [0, 0.4], ['0%', '7.5%']);
+  // Vertical margin for floating card effect
+  const cardMarginVertical = useTransform(scrollYProgress, [0, 0.4], ['0%', '2.5%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -62,6 +64,8 @@ export function Hero() {
           width: cardWidth,
           marginLeft: cardMargin,
           marginRight: cardMargin,
+          marginTop: cardMarginVertical,
+          marginBottom: cardMarginVertical,
           borderRadius,
           willChange: 'width, margin, border-radius',
         }}
