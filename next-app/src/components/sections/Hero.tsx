@@ -130,7 +130,7 @@ export function Hero() {
           </h1>
 
           {/* Subtitle with Typewriter effect */}
-          <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide h-8 px-8 sm:px-16 md:px-24">
+          <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide max-w-xs mx-auto">
             <span>{displayText}</span>
             <span className={`${isTypingComplete ? 'typewriter-cursor' : ''}`} />
           </p>
