@@ -145,24 +145,28 @@ function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
   );
 }
 
-// DEV Media Cell (Big Headline + RTK CTA)
-function DevMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+// DEV Media Cell (Video + RTK CTA)
+function DevMediaCell() {
   return (
     <motion.div
       variants={cellVariants}
       className="cell-dev-media flex flex-col items-center justify-center p-4 md:p-8 rounded-lg"
     >
-      <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black leading-none tracking-tighter text-center">
-        <span className="block text-emerald-400 glitch" data-text={t('dev.headline1')}>
-          {t('dev.headline1')}
-        </span>
-        <span className="block text-white">{t('dev.headline2')}</span>
-        <span className="block text-white">{t('dev.headline3')}</span>
-        <span className="block text-white">
-          {t('dev.headline4')}
-          <span className="text-emerald-500">.</span>
-        </span>
-      </h2>
+      <div className="w-full overflow-hidden rounded-lg">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-auto rounded-lg"
+        >
+          <source
+            src="https://michalrapala.com/assets/movies/resztatokod.webm"
+            type="video/webm"
+          />
+        </video>
+      </div>
       {/* RTK Logo CTA */}
       <a
         href="https://resztatokod.pl"
@@ -275,7 +279,7 @@ export function TwoPillars() {
               <EngMediaCell t={t} />
             </div>
             <div style={{ gridArea: 'dev-media' }}>
-              <DevMediaCell t={t} />
+              <DevMediaCell />
             </div>
             <div style={{ gridArea: 'dev-content' }}>
               <DevContentCell t={t} />
@@ -287,7 +291,7 @@ export function TwoPillars() {
             <EngContentCell t={t} />
             <EngMediaCell t={t} />
             <DevContentCell t={t} />
-            <DevMediaCell t={t} />
+            <DevMediaCell />
           </div>
         </motion.article>
       </div>
