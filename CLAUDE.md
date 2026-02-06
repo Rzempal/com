@@ -72,7 +72,7 @@ Przed kodem przedstaw:
 
 ---
 
-## Format Odpowiedzi
+## Format Odpowiedzi - zawsze w języku polskim
 
 ```markdown
 ## ANALIZA
