@@ -138,29 +138,38 @@ export function Hero() {
 
         {/* Scroll Indicator - SCROLL text + animated circuit-trace line */}
         <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-          {/* SCROLL text - fades out */}
+          {/* SCROLL text - fades out while line holds */}
           <motion.span
             className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-500/70"
             style={{ textShadow: '0 0 6px rgba(16, 185, 129, 0.4)' }}
-            animate={{ opacity: [1, 1, 0, 0] }}
+            animate={{ opacity: [1, 1, 0, 0, 0, 0] }}
             transition={{
-              duration: 3,
+              duration: 4,
               repeat: Infinity,
-              times: [0, 0.3, 0.6, 1],
+              times: [0, 0.15, 0.3, 0.55, 0.6, 1],
               ease: 'easeInOut',
             }}
           >
             scroll
           </motion.span>
-          {/* Animated line - grows down then collapses */}
+          {/* Animated line - grows down from top, collapses from top leaving dot at bottom */}
           <motion.div
-            className="w-px h-10 sm:h-14 bg-emerald-500 origin-top"
+            className="w-px h-10 sm:h-14 bg-emerald-500"
             style={{ boxShadow: '0 0 6px #10b981' }}
-            animate={{ scaleY: [0, 1, 1, 0] }}
+            animate={{
+              clipPath: [
+                'inset(0 0 100% 0)',
+                'inset(0 0 0% 0)',
+                'inset(0 0 0% 0)',
+                'inset(92% 0 0 0)',
+                'inset(100% 0 0 0)',
+                'inset(100% 0 0 0)',
+              ],
+            }}
             transition={{
-              duration: 3,
+              duration: 4,
               repeat: Infinity,
-              times: [0, 0.3, 0.6, 1],
+              times: [0, 0.15, 0.3, 0.55, 0.6, 1],
               ease: 'easeInOut',
             }}
           />
