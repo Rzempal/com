@@ -31,8 +31,6 @@ export function Hero() {
   const cardPaddingTop = useTransform(scrollYProgress, [0, 0.15], ['25svh', '10svh']);
   // Card height shrinks → bottom edge moves up → card visually smaller
   const cardHeight = useTransform(scrollYProgress, [0, 0.15], ['100%', '60%']);
-  // Scroll indicator (% = relative to card, not viewport)
-  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['7%', '35%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -138,11 +136,8 @@ export function Hero() {
           </p>
         </motion.div>
 
-        {/* Scroll Indicator - Line + Dot */}
-        <motion.div
-          className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
-          style={{ bottom: scrollIndicatorBottom }}
-        >
+        {/* Scroll Indicator - Line + Dot (fixed above marquee) */}
+        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div className="relative flex flex-col items-center">
             {/* Vertical line */}
             <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
@@ -167,7 +162,7 @@ export function Hero() {
               }}
             />
           </div>
-        </motion.div>
+        </div>
 
         {/* Marquee Ticker */}
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3 border-t border-zinc-800/50">
