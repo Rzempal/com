@@ -32,7 +32,7 @@ export function Hero() {
   // Card height shrinks → bottom edge moves up → card visually smaller
   const cardHeight = useTransform(scrollYProgress, [0, 0.15], ['100%', '60%']);
   // Scroll indicator (% = relative to card, not viewport)
-  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['7%', '50%']);
+  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['7%', '35%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
