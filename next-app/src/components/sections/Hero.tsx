@@ -26,7 +26,11 @@ export function Hero() {
   // Horizontal margin for centering
   const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '7.5%']);
   // Vertical margin for floating card effect
-  const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '2.5%']);
+  const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '5%']);
+  // Top padding compresses → content shifts up → gap shrinks
+  const cardPaddingTop = useTransform(scrollYProgress, [0, 0.15], ['25svh', '10svh']);
+  // Card height shrinks → bottom edge moves up → card visually smaller
+  const cardHeight = useTransform(scrollYProgress, [0, 0.15], ['100%', '60%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -59,15 +63,17 @@ export function Hero() {
     >
       {/* Animated Card Wrapper - transforms from full-width to card */}
       <motion.div
-        className="relative w-full h-full flex flex-col justify-start pt-[25svh] overflow-hidden"
+        className="relative w-full flex flex-col justify-start overflow-hidden"
         style={{
           width: cardWidth,
+          height: cardHeight,
+          paddingTop: cardPaddingTop,
           marginLeft: cardMargin,
           marginRight: cardMargin,
           marginTop: cardMarginVertical,
           marginBottom: cardMarginVertical,
           borderRadius,
-          willChange: 'width, margin, border-radius',
+          willChange: 'width, height, margin, border-radius, padding-top',
         }}
       >
         {/* Card border - appears on scroll */}
@@ -130,7 +136,7 @@ export function Hero() {
           </p>
         </motion.div>
 
-        {/* Scroll Indicator - Line + Dot */}
+        {/* Scroll Indicator - Line + Dot (fixed above marquee) */}
         <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
           <div className="relative flex flex-col items-center">
             {/* Vertical line */}
@@ -159,7 +165,7 @@ export function Hero() {
         </div>
 
         {/* Marquee Ticker */}
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3 border-t border-zinc-800/50">
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3">
           <div className="animate-marquee whitespace-nowrap">
             <span className="inline-block text-xs sm:text-sm font-mono text-zinc-500 uppercase tracking-widest">
               Robotyka&nbsp;&nbsp;//&nbsp;&nbsp;Symulacja&nbsp;&nbsp;//&nbsp;&nbsp;Engineering&nbsp;&nbsp;//&nbsp;&nbsp;Programowanie&nbsp;&nbsp;//&nbsp;&nbsp;Aplikacje&nbsp;&nbsp;//&nbsp;&nbsp;Strony internetowe&nbsp;&nbsp;//&nbsp;&nbsp;
