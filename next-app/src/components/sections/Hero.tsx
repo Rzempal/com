@@ -130,38 +130,48 @@ export function Hero() {
           </h1>
 
           {/* Subtitle with Typewriter effect */}
-          <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide h-8 px-8 sm:px-16 md:px-24">
+          <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide max-w-xs mx-auto">
             <span>{displayText}</span>
             <span className={`${isTypingComplete ? 'typewriter-cursor' : ''}`} />
           </p>
         </motion.div>
 
-        {/* Scroll Indicator - Line + Dot (fixed above marquee) */}
-        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
-          <div className="relative flex flex-col items-center">
-            {/* Vertical line */}
-            <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
-            {/* Animated dot */}
-            <motion.div
-              className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500"
-              animate={{ y: [0, 40, 0] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            {/* Glow trail */}
-            <motion.div
-              className="absolute top-0 w-2 h-2 rounded-full bg-emerald-500 blur-sm opacity-50"
-              animate={{ y: [0, 40, 0] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-          </div>
+        {/* Scroll Indicator - SCROLL text + animated circuit-trace line */}
+        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+          {/* SCROLL text - fades out while line holds */}
+          <motion.span
+            className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-500/70"
+            style={{ textShadow: '0 0 6px rgba(16, 185, 129, 0.4)' }}
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            scroll
+          </motion.span>
+          {/* Animated line - grows down from top, collapses from top leaving dot at bottom */}
+          <motion.div
+            className="w-px h-10 sm:h-14 bg-emerald-500"
+            style={{ boxShadow: '0 0 6px #10b981' }}
+            animate={{
+              clipPath: [
+                'inset(0 0 100% 0)',
+                'inset(0 0 0% 0)',
+                'inset(0 0 0% 0)',
+                'inset(92% 0 0 0)',
+                'inset(100% 0 0 0)',
+                'inset(100% 0 0 0)',
+              ],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              times: [0, 0.15, 0.3, 0.55, 0.6, 1],
+              ease: 'easeInOut',
+            }}
+          />
         </div>
 
         {/* Marquee Ticker */}
