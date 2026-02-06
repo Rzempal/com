@@ -27,6 +27,8 @@ export function Hero() {
   const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '7.5%']);
   // Vertical margin for floating card effect
   const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '2.5%']);
+  // Scroll indicator moves up → reduces gap to description → card feels smaller
+  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['3rem', '6rem']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -131,7 +133,10 @@ export function Hero() {
         </motion.div>
 
         {/* Scroll Indicator - Line + Dot */}
-        <div className="absolute bottom-12 sm:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+          style={{ bottom: scrollIndicatorBottom }}
+        >
           <div className="relative flex flex-col items-center">
             {/* Vertical line */}
             <div className="w-px h-8 sm:h-12 bg-gradient-to-b from-zinc-700 to-transparent" />
@@ -156,7 +161,7 @@ export function Hero() {
               }}
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Marquee Ticker */}
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3 border-t border-zinc-800/50">
