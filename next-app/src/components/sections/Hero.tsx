@@ -28,9 +28,9 @@ export function Hero() {
   // Vertical margin for floating card effect
   const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '5%']);
   // Top padding compresses → content shifts up → gap shrinks
-  const cardPaddingTop = useTransform(scrollYProgress, [0, 0.15], ['25svh', '15svh']);
-  // Scroll indicator moves up → reduces gap to description → card feels smaller
-  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['3rem', '8rem']);
+  const cardPaddingTop = useTransform(scrollYProgress, [0, 0.15], ['25svh', '10svh']);
+  // Scroll indicator moves up (vh units for proportional scaling)
+  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['5vh', '60vh']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
