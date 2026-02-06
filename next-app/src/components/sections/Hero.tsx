@@ -142,11 +142,10 @@ export function Hero() {
           <motion.span
             className="text-xs font-mono tracking-[0.3em] uppercase text-emerald-500/70"
             style={{ textShadow: '0 0 6px rgba(16, 185, 129, 0.4)' }}
-            animate={{ opacity: [1, 1, 0, 0, 0, 0] }}
+            animate={{ opacity: [0.4, 0.7, 0.4] }}
             transition={{
-              duration: 4,
+              duration: 3,
               repeat: Infinity,
-              times: [0, 0.15, 0.3, 0.55, 0.6, 1],
               ease: 'easeInOut',
             }}
           >
