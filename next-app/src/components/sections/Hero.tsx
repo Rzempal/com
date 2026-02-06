@@ -165,7 +165,7 @@ export function Hero() {
         </div>
 
         {/* Marquee Ticker */}
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3 border-t border-zinc-800/50">
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3">
           <div className="animate-marquee whitespace-nowrap">
             <span className="inline-block text-xs sm:text-sm font-mono text-zinc-500 uppercase tracking-widest">
               Robotyka&nbsp;&nbsp;//&nbsp;&nbsp;Symulacja&nbsp;&nbsp;//&nbsp;&nbsp;Engineering&nbsp;&nbsp;//&nbsp;&nbsp;Programowanie&nbsp;&nbsp;//&nbsp;&nbsp;Aplikacje&nbsp;&nbsp;//&nbsp;&nbsp;Strony internetowe&nbsp;&nbsp;//&nbsp;&nbsp;
