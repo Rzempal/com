@@ -29,8 +29,10 @@ export function Hero() {
   const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '5%']);
   // Top padding compresses → content shifts up → gap shrinks
   const cardPaddingTop = useTransform(scrollYProgress, [0, 0.15], ['25svh', '10svh']);
-  // Scroll indicator moves up (vh units for proportional scaling)
-  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['5vh', '60vh']);
+  // Card height shrinks → bottom edge moves up → card visually smaller
+  const cardHeight = useTransform(scrollYProgress, [0, 0.15], ['100%', '60%']);
+  // Scroll indicator (% = relative to card, not viewport)
+  const scrollIndicatorBottom = useTransform(scrollYProgress, [0, 0.15], ['7%', '50%']);
 
   // Typewriter effect
   const subtitle = t('subtitle');
@@ -63,16 +65,17 @@ export function Hero() {
     >
       {/* Animated Card Wrapper - transforms from full-width to card */}
       <motion.div
-        className="relative w-full h-full flex flex-col justify-start overflow-hidden"
+        className="relative w-full flex flex-col justify-start overflow-hidden"
         style={{
           width: cardWidth,
+          height: cardHeight,
           paddingTop: cardPaddingTop,
           marginLeft: cardMargin,
           marginRight: cardMargin,
           marginTop: cardMarginVertical,
           marginBottom: cardMarginVertical,
           borderRadius,
-          willChange: 'width, margin, border-radius, padding-top',
+          willChange: 'width, height, margin, border-radius, padding-top',
         }}
       >
         {/* Card border - appears on scroll */}
