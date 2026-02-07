@@ -10,10 +10,12 @@
   "hero": {
     "title": "Michał Rapała",
     "subtitle": "Witaj, mój przyjacielu. Zostań na chwilę i sprawdź co mogę dla Ciebie zrobić...",
-    "scrollCta": "Robotyka, aplikacje, strony internetowe"
+    "scrollCta": "Robotyka, aplikacje, strony internetowe",
+    "marquee": "Robotyka  //  Symulacja  //  Engineering  //  Programowanie  //  Aplikacje  //  Strony internetowe  //  "
   },
   "pillars": {
-    "heading": "kluczowe",
+    "heading": "Kompetencje",
+    "headingAccent": "kluczowe",
     "robotics": {
       "tag": "SYMULACJA",
       "title": "Robotyka",
@@ -36,6 +38,10 @@
   "pcb": {
     "heading": "Technologie",
     "hint": "[ wybierz projekt ]"
+  },
+  "projectsSection": {
+    "heading": "Wybrane",
+    "headingAccent": "Projekty"
   },
   "projects": {
     "robotyka": {

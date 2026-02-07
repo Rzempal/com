@@ -320,6 +320,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
 // === Main Section ===
 export function StickyProjectDeck() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sectionT = useTranslations('projectsSection');
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -330,7 +331,7 @@ export function StickyProjectDeck() {
       {/* Section header */}
       <div className="mb-16 md:mb-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Wybrane <span className="text-cyan-500">Projekty</span>
+          {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
         </h2>
         <p className="text-zinc-500 font-mono text-sm">
           {'// SELECTED_WORKS_ARCHIVE'}
