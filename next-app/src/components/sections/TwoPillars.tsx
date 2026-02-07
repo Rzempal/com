@@ -148,6 +148,9 @@ function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
 
 // DEV Media Cell (Video + RTK CTA)
 function DevMediaCell() {
+  const rtkRef = useRef<HTMLAnchorElement>(null);
+  const rtkInView = useInView(rtkRef, { once: true, margin: '-50px' });
+
   return (
     <motion.div
       variants={cellVariants}
@@ -170,10 +173,11 @@ function DevMediaCell() {
       </div>
       {/* RTK Logo CTA */}
       <a
+        ref={rtkRef}
         href="https://resztatokod.pl"
         target="_blank"
         rel="noopener noreferrer"
-        className="rtk-cta-container block hover:opacity-100 opacity-80 transition-opacity mt-6"
+        className={`rtk-cta-container block hover:opacity-100 opacity-80 transition-opacity mt-6 ${rtkInView ? 'rtk-animate' : ''}`}
       >
         <RTKLogo />
       </a>
@@ -244,7 +248,7 @@ export function TwoPillars() {
           className="mb-12 max-w-5xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Kompetencje <span className="text-emerald-500">{t('heading')}</span>
+            {t('heading')} <span className="text-emerald-500">{t('headingAccent')}</span>
           </h2>
           <p className="text-zinc-500 font-mono text-sm">
             // CORE_EXPERTISE_MODULES

@@ -28,7 +28,7 @@ export function FAQ() {
   };
 
   return (
-    <section className="relative z-10 py-24 px-6 bg-transparent">
+    <section id="faq" className="relative z-10 py-24 px-6 bg-transparent">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.div

@@ -10,10 +10,12 @@
   "hero": {
     "title": "Michał Rapała",
     "subtitle": "Hello, my friend. Stay awhile and check what I can do for you...",
-    "scrollCta": "Robotics, applications, websites"
+    "scrollCta": "Robotics, applications, websites",
+    "marquee": "Robotics  //  Simulation  //  Engineering  //  Programming  //  Applications  //  Websites  //  "
   },
   "pillars": {
     "heading": "Core",
+    "headingAccent": "Competencies",
     "robotics": {
       "tag": "SIMULATION",
       "title": "Robotics",
@@ -36,6 +38,10 @@
   "pcb": {
     "heading": "Technologies",
     "hint": "[ select a project ]"
+  },
+  "projectsSection": {
+    "heading": "Selected",
+    "headingAccent": "Projects"
   },
   "projects": {
     "robotyka": {
@@ -68,6 +74,10 @@
       "description": "Space for your future project. Get in touch to discuss collaboration possibilities.",
       "cta": "Contact"
     }
+  },
+  "contact": {
+    "heading": "Contact",
+    "subheading": "// OPEN_FOR_COLLABORATION"
   },
   "faq": {
     "heading": "FAQ",
@@ -102,5 +112,22 @@
         "answer": "**AI** is both a passion and a work tool. I use **artificial intelligence** in engineering projects (**production process optimization**) and in application development — e.g., **Karton-na-leki**, a mobile app for managing a home medicine cabinet with **image recognition**."
       }
     }
+  },
+  "footer": {
+    "siteHeading": "Site:",
+    "optionsHeading": "Settings:",
+    "nav": {
+      "home": "Home",
+      "pillars": "Core competencies",
+      "projects": "Selected projects",
+      "contact": "Contact",
+      "faq": "FAQ"
+    },
+    "theme": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "tagline": "// No boring websites allowed."
   }
 }

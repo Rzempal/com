@@ -10,10 +10,12 @@
   "hero": {
     "title": "Michał Rapała",
     "subtitle": "Witaj, mój przyjacielu. Zostań na chwilę i sprawdź co mogę dla Ciebie zrobić...",
-    "scrollCta": "Robotyka, aplikacje, strony internetowe"
+    "scrollCta": "Robotyka, aplikacje, strony internetowe",
+    "marquee": "Robotyka  //  Symulacja  //  Engineering  //  Programowanie  //  Aplikacje  //  Strony internetowe  //  "
   },
   "pillars": {
-    "heading": "kluczowe",
+    "heading": "Kluczowe",
+    "headingAccent": "kompetencje",
     "robotics": {
       "tag": "SYMULACJA",
       "title": "Robotyka",
@@ -36,6 +38,10 @@
   "pcb": {
     "heading": "Technologie",
     "hint": "[ wybierz projekt ]"
+  },
+  "projectsSection": {
+    "heading": "Wybrane",
+    "headingAccent": "projekty"
   },
   "projects": {
     "robotyka": {
@@ -68,6 +74,10 @@
       "description": "Miejsce na Twój przyszły projekt. Skontaktuj się, aby omówić możliwości współpracy.",
       "cta": "Kontakt"
     }
+  },
+  "contact": {
+    "heading": "Kontakt",
+    "subheading": "// OPEN_FOR_COLLABORATION"
   },
   "faq": {
     "heading": "FAQ",
@@ -102,5 +112,22 @@
         "answer": "**AI** to zarówno pasja, jak i narzędzie pracy. Wykorzystuję **sztuczną inteligencję** w projektach inżynieryjnych (**optymalizacja procesów produkcyjnych**) oraz w tworzeniu aplikacji — np. **Karton-na-leki**, mobilna aplikacja do zarządzania domową apteczką z **rozpoznawaniem obrazu**."
       }
     }
+  },
+  "footer": {
+    "siteHeading": "Strona:",
+    "optionsHeading": "Opcje:",
+    "nav": {
+      "home": "Home",
+      "pillars": "Kluczowe kompetencje",
+      "projects": "Wybrane projekty",
+      "contact": "Kontakt",
+      "faq": "FAQ"
+    },
+    "theme": {
+      "system": "Systemowy",
+      "light": "Jasny",
+      "dark": "Ciemny"
+    },
+    "tagline": "// No boring websites allowed."
   }
 }

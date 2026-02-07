@@ -2,7 +2,15 @@
 
 /* Design System - Tech-Noir Palette */
 :root {
-	/* Colors */
+	/* Typography */
+	--font-sans: "Inter", system-ui, sans-serif;
+	--font-mono: "JetBrains Mono", "Fira Code", monospace;
+	--font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+}
+
+/* Dark theme (default) */
+:root,
+html.dark {
 	--color-background: #000000;
 	--color-foreground: #fafafa;
 	--color-emerald-neon: #27c96d;
@@ -10,11 +18,23 @@
 	--color-text-muted: #a1a1aa;
 	--color-border: #27272a;
 	--color-surface: #18181b;
+	--color-surface-hover: #27272a;
+	--color-card-bg: rgba(24, 24, 27, 0.5);
+	--color-accent: #06b6d4;
+}
 
-	/* Typography */
-	--font-sans: "Inter", system-ui, sans-serif;
-	--font-mono: "JetBrains Mono", "Fira Code", monospace;
-	--font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+/* Light theme */
+html.light {
+	--color-background: #f8fafc;
+	--color-foreground: #0f172a;
+	--color-emerald-neon: #059669;
+	--color-emerald-glow: #10b981;
+	--color-text-muted: #64748b;
+	--color-border: #e2e8f0;
+	--color-surface: #ffffff;
+	--color-surface-hover: #f1f5f9;
+	--color-card-bg: rgba(255, 255, 255, 0.8);
+	--color-accent: #0891b2;
 }
 
 @theme inline {
@@ -183,6 +203,7 @@ html.lenis body {
 
 /* ============================================
    RTK Logo Animation System
+   Animations only trigger under .rtk-animate
    ============================================ */
 
 .rtk-logo {
@@ -192,54 +213,25 @@ html.lenis body {
 	overflow: visible;
 }
 
-/* Neural network nodes */
+/* Static state: hidden until .rtk-animate */
 .rtk-node {
 	fill: #fff;
 	stroke: none;
 	opacity: 0;
-	animation: rtk-fade-in 0.5s ease-out forwards;
 }
-
-.rtk-n1 {
-	animation-delay: 0.1s;
-}
-.rtk-n2 {
-	animation-delay: 0.2s;
-}
-.rtk-n3 {
-	animation-delay: 0.3s;
-}
-
-/* Neural network links */
 .rtk-link {
 	stroke: #ffffff;
 	stroke-dasharray: 50;
 	stroke-dashoffset: 50;
 	stroke-width: 1.5;
 	opacity: 0.6;
-	animation: rtk-draw 0.8s ease-out forwards;
 }
-
-.rtk-l1 {
-	animation-delay: 0.4s;
-}
-.rtk-l2 {
-	animation-delay: 0.5s;
-}
-.rtk-l3 {
-	animation-delay: 0.6s;
-}
-
-/* Flow path */
 .rtk-path {
 	stroke: #ffffff;
 	stroke-width: 3;
 	stroke-dasharray: 100;
 	stroke-dashoffset: 100;
-	animation: rtk-draw 1s ease-out forwards 1s;
 }
-
-/* Command prompt >_ */
 .rtk-cmd {
 	fill: #fff;
 	stroke: none;
@@ -247,10 +239,7 @@ html.lenis body {
 	font-weight: 700;
 	font-size: 28px;
 	opacity: 0;
-	animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
 }
-
-/* Typing URL - clip-path reveal */
 .rtk-url {
 	fill: #fff;
 	stroke: none;
@@ -258,26 +247,53 @@ html.lenis body {
 	font-weight: 700;
 	font-size: 28px;
 	clip-path: inset(0 100% 0 0);
-	animation: rtk-type 1.7s steps(17) forwards 2.3s;
 }
-
-/* Cursor block */
 .rtk-cursor {
 	fill: #fff;
 	stroke: none;
 	opacity: 0;
-	animation: rtk-blink 1s step-end infinite 2s;
 }
-
-/* Cursor movement */
-.rtk-cursor-g {
-	animation: rtk-move-cursor 1.7s steps(17) forwards 2.3s;
-}
-
-/* External link icon */
 .rtk-external {
 	stroke: #ffffff;
 	opacity: 0;
+}
+
+/* Animated state: triggered when in viewport */
+.rtk-animate .rtk-node {
+	animation: rtk-fade-in 0.5s ease-out forwards;
+}
+.rtk-animate .rtk-n1 { animation-delay: 0.1s; }
+.rtk-animate .rtk-n2 { animation-delay: 0.2s; }
+.rtk-animate .rtk-n3 { animation-delay: 0.3s; }
+
+.rtk-animate .rtk-link {
+	animation: rtk-draw 0.8s ease-out forwards;
+}
+.rtk-animate .rtk-l1 { animation-delay: 0.4s; }
+.rtk-animate .rtk-l2 { animation-delay: 0.5s; }
+.rtk-animate .rtk-l3 { animation-delay: 0.6s; }
+
+.rtk-animate .rtk-path {
+	animation: rtk-draw 1s ease-out forwards 1s;
+}
+
+.rtk-animate .rtk-cmd {
+	animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
+}
+
+.rtk-animate .rtk-url {
+	animation: rtk-type 1.7s steps(17) forwards 2.3s;
+}
+
+.rtk-animate .rtk-cursor {
+	animation: rtk-blink 1s step-end infinite 2s;
+}
+
+.rtk-animate .rtk-cursor-g {
+	animation: rtk-move-cursor 1.7s steps(17) forwards 2.3s;
+}
+
+.rtk-animate .rtk-external {
 	animation: rtk-fade-in 0.5s ease-out forwards 4s;
 }
 
@@ -313,6 +329,98 @@ html.lenis body {
 	}
 	50% {
 		opacity: 0;
+	}
+}
+
+/* ============================================
+   Footer Tagline Animation System
+   (based on RTK Logo, adjusted for 26 chars)
+   Animations only trigger under .footer-animate
+   ============================================ */
+
+.footer-logo {
+	fill: none;
+	stroke: #ffffff;
+	stroke-linecap: round;
+	overflow: visible;
+}
+
+/* Static state: hidden until .footer-animate */
+.footer-logo .rtk-node {
+	opacity: 0;
+	animation: none;
+}
+.footer-logo .rtk-link {
+	stroke-dashoffset: 50;
+	animation: none;
+}
+.footer-logo .rtk-path {
+	stroke-dashoffset: 100;
+	animation: none;
+}
+.footer-cmd {
+	fill: #fff;
+	stroke: none;
+	font-family: "JetBrains Mono", monospace;
+	font-weight: 700;
+	font-size: 28px;
+	opacity: 0;
+}
+.footer-typed {
+	fill: #fff;
+	stroke: none;
+	font-family: "JetBrains Mono", monospace;
+	font-weight: 700;
+	font-size: 28px;
+	clip-path: inset(0 100% 0 0);
+}
+.footer-cursor {
+	fill: #fff;
+	stroke: none;
+	opacity: 0;
+}
+.footer-cursor-g {
+	/* no animation until triggered */
+}
+
+/* Animated state: triggered when in viewport */
+.footer-animate .rtk-node {
+	animation: rtk-fade-in 0.5s ease-out forwards;
+}
+.footer-animate .rtk-n1 { animation-delay: 0.1s; }
+.footer-animate .rtk-n2 { animation-delay: 0.2s; }
+.footer-animate .rtk-n3 { animation-delay: 0.3s; }
+
+.footer-animate .rtk-link {
+	animation: rtk-draw 0.8s ease-out forwards;
+}
+.footer-animate .rtk-l1 { animation-delay: 0.4s; }
+.footer-animate .rtk-l2 { animation-delay: 0.5s; }
+.footer-animate .rtk-l3 { animation-delay: 0.6s; }
+
+.footer-animate .rtk-path {
+	animation: rtk-draw 1s ease-out forwards 1s;
+}
+
+.footer-animate .footer-cmd {
+	animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
+}
+
+.footer-animate .footer-typed {
+	animation: rtk-type 2.6s steps(26) forwards 2.3s;
+}
+
+.footer-animate .footer-cursor {
+	animation: rtk-blink 1s step-end infinite 2s;
+}
+
+.footer-animate .footer-cursor-g {
+	animation: footer-move-cursor 2.6s steps(26) forwards 2.3s;
+}
+
+@keyframes footer-move-cursor {
+	to {
+		transform: translateX(458px);
 	}
 }
 

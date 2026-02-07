@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { LenisProvider } from '@/components/providers';
+import { LenisProvider, ThemeProvider } from '@/components/providers';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -42,7 +42,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="scroll-smooth">
+    <html lang={locale} className="scroll-smooth dark" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -53,7 +53,9 @@ export default async function LocaleLayout({
       </head>
       <body className="antialiased bg-black text-zinc-100">
         <NextIntlClientProvider messages={messages}>
-          <LenisProvider>{children}</LenisProvider>
+          <ThemeProvider>
+            <LenisProvider>{children}</LenisProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
