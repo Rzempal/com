@@ -247,7 +247,7 @@ export function TwoPillars() {
           transition={{ duration: 0.6 }}
           className="mb-12 max-w-5xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-mono text-foreground leading-tight">
+          <h2 className="text-2xl md:text-3xl font-bold font-mono text-foreground leading-tight">
             <span className="text-text-tertiary">{'// '}</span>KLUCZOWE_KOMPETENCJE<br />
             <span className="text-text-tertiary">{'// '}</span>CORE_EXPERTISE
           </h2>
