@@ -1,19 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const contacts = [
-  {
-    label: 'Email',
-    value: 'kontakt@michalrapala.com',
-    href: 'mailto:kontakt@michalrapala.com',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-      </svg>
-    ),
-  },
+const EMAIL = 'kontakt@michalrapala.com';
+
+const socials = [
   {
     label: 'GitHub',
     value: 'Rzempal',
@@ -40,6 +32,14 @@ const contacts = [
 ];
 
 export function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="relative z-10 py-32 px-6 bg-transparent">
       <div className="max-w-2xl mx-auto text-center">
@@ -58,35 +58,83 @@ export function Contact() {
           </p>
         </motion.div>
 
-        {/* Contact links */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
-          {contacts.map((contact, i) => (
-            <motion.a
-              key={contact.label}
-              href={contact.href}
-              target={contact.href.startsWith('mailto') ? undefined : '_blank'}
+        {/* Email row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center justify-center gap-3 mb-6"
+        >
+          <a
+            href={`mailto:${EMAIL}`}
+            className="group flex items-center gap-3 px-5 py-3 rounded-lg border border-white/10 bg-zinc-900/50 hover:border-cyan-500/50 hover:bg-zinc-900/80 transition-colors"
+          >
+            <span className="text-zinc-500 group-hover:text-cyan-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+            </span>
+            <div className="text-left">
+              <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-wider">
+                Email
+              </div>
+              <div className="text-sm text-white group-hover:text-cyan-400 transition-colors">
+                {EMAIL}
+              </div>
+            </div>
+          </a>
+
+          {/* Copy to clipboard */}
+          <button
+            onClick={copyEmail}
+            className="p-3 rounded-lg border border-white/10 bg-zinc-900/50 hover:border-cyan-500/50 hover:bg-zinc-900/80 text-zinc-500 hover:text-cyan-500 transition-colors"
+            aria-label="Skopiuj email do schowka"
+          >
+            {copied ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+            )}
+          </button>
+        </motion.div>
+
+        {/* GitHub + LinkedIn row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="flex items-center justify-center gap-6"
+        >
+          {socials.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              whileHover={{ y: -4 }}
               className="group flex items-center gap-3 px-5 py-3 rounded-lg border border-white/10 bg-zinc-900/50 hover:border-cyan-500/50 hover:bg-zinc-900/80 transition-colors"
             >
               <span className="text-zinc-500 group-hover:text-cyan-500 transition-colors">
-                {contact.icon}
+                {social.icon}
               </span>
               <div className="text-left">
                 <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-wider">
-                  {contact.label}
+                  {social.label}
                 </div>
                 <div className="text-sm text-white group-hover:text-cyan-400 transition-colors">
-                  {contact.value}
+                  {social.value}
                 </div>
               </div>
-            </motion.a>
+            </a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
