@@ -25,7 +25,7 @@ export function PCBBackground() {
 
       {/* Warstwa 3: SVG Circuit Traces */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-50"
+        className="absolute inset-0 w-full h-full"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
@@ -57,12 +57,12 @@ export function PCBBackground() {
         <motion.path
           d="M 50 0 V 40 L 15 75 V 100"
           className="stroke-emerald-500"
-          strokeWidth="0.15"
+          strokeWidth="0.2"
           fill="none"
           pathLength={1}
           strokeDasharray="0.35 0.65"
-          opacity={0.6}
-          style={{ filter: 'drop-shadow(0 0 3px #10b981)' }}
+          opacity={0.85}
+          style={{ filter: 'drop-shadow(0 0 6px #10b981)' }}
           animate={{ strokeDashoffset: [1, -1] }}
           transition={{
             duration: 5,
@@ -75,12 +75,12 @@ export function PCBBackground() {
         <motion.path
           d="M 80 0 V 28 L 60 46 V 90"
           className="stroke-cyan-400"
-          strokeWidth="0.15"
+          strokeWidth="0.2"
           fill="none"
           pathLength={1}
           strokeDasharray="0.35 0.65"
-          opacity={0.6}
-          style={{ filter: 'drop-shadow(0 0 3px #06b6d4)' }}
+          opacity={0.85}
+          style={{ filter: 'drop-shadow(0 0 6px #06b6d4)' }}
           animate={{ strokeDashoffset: [1, -1] }}
           transition={{
             duration: 7,
