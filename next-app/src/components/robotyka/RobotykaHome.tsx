@@ -65,7 +65,7 @@ function HeroSection() {
           >
             <div className="relative rounded-lg overflow-hidden border border-glass-border">
               <Image
-                src="https://michalrapala.com/assets/images/robotyka/profilowe.jpg"
+                src="/images/robotyka/profilowe.jpg"
                 alt="Michal Rapala"
                 width={600}
                 height={400}
@@ -189,7 +189,7 @@ function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Image
-              src="https://michalrapala.com/assets/images/robotyka/laptop.jpg"
+              src="/images/robotyka/laptop.jpg"
               alt="Robotyka - Symulacja"
               width={300}
               height={200}
@@ -225,7 +225,7 @@ function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Image
-              src="https://michalrapala.com/assets/images/robotyka/programowanie_online2.jpg"
+              src="/images/robotyka/programowanie_online2.jpg"
               alt="Programowanie robotow"
               width={300}
               height={200}

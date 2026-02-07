@@ -58,7 +58,7 @@ function HeroSection() {
           >
             <div className="relative rounded-lg overflow-hidden border border-glass-border">
               <Image
-                src="https://michalrapala.com/assets/images/robotyka/programowanie_online.jpg"
+                src="/images/robotyka/programowanie_online.jpg"
                 alt="Programowanie robotow"
                 width={600}
                 height={400}

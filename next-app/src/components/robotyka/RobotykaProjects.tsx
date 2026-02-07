@@ -59,7 +59,7 @@ function HeroSection() {
           >
             <div className="relative rounded-lg overflow-hidden border border-glass-border">
               <Image
-                src="https://michalrapala.com/assets/images/robotyka/projekty.jpg"
+                src="/images/robotyka/projekty.jpg"
                 alt="Projekty robotyki"
                 width={600}
                 height={400}
