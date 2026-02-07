@@ -89,7 +89,7 @@ export function SiteMap() {
             {NAV_LINKS.map(({ key, href }) => (
               <a
                 key={key}
-                href={href}
+                href={`/${locale}${href}`}
                 className="group flex items-center gap-2 text-sm font-mono text-text-tertiary hover:text-cyan-400 transition-colors"
               >
                 <span className="text-text-faint group-hover:text-cyan-600 transition-colors">
