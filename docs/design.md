@@ -1,4 +1,4 @@
-# Design System — Tech-Noir
+# Design System — Tech-Noir / Deep Vaporwave
 
 > **Powiązane:** [Conventions](standards/conventions.md) | [Architektura](architecture.md)
 
@@ -6,8 +6,12 @@
 
 ## Filozofia Projektowa
 
-Styl **Tech-Noir**: retro-futurism / cyberpunk. Ciemne tła, neonowe akcenty (emerald, cyan),
-efekty glow, monospace typography, estetyka PCB / circuit board.
+Dwa tryby, jedna paleta:
+
+- **Dark Mode (Tech-Noir):** retro-futurism / cyberpunk. Ciemne tła, neonowe akcenty (emerald, cyan), efekty glow, monospace typography, estetyka PCB / circuit board.
+- **Alternate Mode (Deep Vaporwave):** styl "Vaporwave". Głęboki fiolet (#1e1046) jako tło, lavender tekst, magenta/fuksja neony (#d946ef), cyan akcent (#22d3ee), fioletowy glassmorphism z glow effects.
+
+Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS custom properties.
 
 - **KISS:** Jeśli element nie pełni funkcji, usuń go.
 - **Consistency:** Spójność buduje zaufanie i zmniejsza obciążenie poznawcze.
@@ -17,7 +21,7 @@ efekty glow, monospace typography, estetyka PCB / circuit board.
 
 ## Design Tokens
 
-### Kolory (globals.css)
+### Kolory — Dark Mode (globals.css)
 
 | Token | Wartość | Zastosowanie |
 |-------|---------|-------------|
@@ -25,35 +29,78 @@ efekty glow, monospace typography, estetyka PCB / circuit board.
 | `--color-foreground` | `#fafafa` | Tekst główny |
 | `--color-emerald-neon` | `#27c96d` | Akcent neonowy (CTA, headingi) |
 | `--color-emerald-glow` | `#10b981` | Glow effect, traces |
-| `--color-text-muted` | `#a1a1aa` | Tekst drugorzędny (zinc-400) |
-| `--color-border` | `#27272a` | Krawędzie (zinc-800) |
-| `--color-surface` | `#18181b` | Tło kart (zinc-900) |
+| `--color-text-secondary` | `#a1a1aa` | Tekst drugorzędny |
+| `--color-text-tertiary` | `#71717a` | Tekst trzeciorzędny |
+| `--color-text-faint` | `#52525b` | Tekst stonowany (labels) |
+| `--color-border` | `#27272a` | Krawędzie |
+| `--color-border-subtle` | `rgba(255,255,255,0.1)` | Subtelne krawędzie |
+| `--color-surface` | `#18181b` | Tło kart |
+| `--color-surface-hover` | `#27272a` | Tło hover |
+| `--color-glass-bg` | `rgba(24,24,27,0.8)` | Glassmorphism tło |
+| `--color-glass-border` | `rgba(39,39,42,0.5)` | Glassmorphism border |
+| `--color-accent` | `#06b6d4` | Cyan accent |
+| `--color-trace` | `#27272a` | Statyczne PCB traces |
+| `--color-vignette` | `#050505` | PCB winietka |
+| `--color-svg-fill` | `#ffffff` | SVG fill (RTK Logo, Footer) |
 
-### Paleta Tailwind (najczęściej używane)
+### Kolory — Alternate Mode (Deep Vaporwave)
 
-| Klasa | Kontekst |
-|-------|----------|
-| `bg-[#030303]` | Tło sekcji main |
-| `bg-zinc-900/80` | Tło kart (glassmorphism) |
-| `text-emerald-500` | Akcenty emerald (headingi, CTA) |
-| `text-emerald-400` | Etykiety (DEV://) |
-| `text-cyan-400` | Etykiety (ENG://) |
-| `stroke-emerald-500` | SVG traces (PCB) |
-| `stroke-cyan-400` | SVG traces (PCB) |
-| `border-zinc-700/50` | Krawędzie kart |
+| Token | Wartość | Zastosowanie |
+|-------|---------|-------------|
+| `--color-background` | `#1e1046` | Tło strony (głęboki fiolet) |
+| `--color-foreground` | `#ede9fe` | Tekst główny (Violet 100 / lavender) |
+| `--color-emerald-neon` | `#d946ef` | Fuchsia-500 (główny neon) |
+| `--color-emerald-glow` | `#a855f7` | Purple-500 (glow) |
+| `--color-text-muted` | `#c4b5fd` | Tekst wyciszony (Violet 300) |
+| `--color-text-secondary` | `#c4b5fd` | Tekst drugorzędny (Violet 300) |
+| `--color-text-tertiary` | `#8b5cf6` | Tekst trzeciorzędny (Violet 500) |
+| `--color-text-faint` | `#6d28d9` | Tekst stonowany (Violet 700) |
+| `--color-border` | `#4c1d95` | Krawędzie (Violet 900) |
+| `--color-border-subtle` | `rgba(217,70,239,0.2)` | Subtelne krawędzie (fuchsia) |
+| `--color-border-faint` | `rgba(217,70,239,0.08)` | Najsubtelniejsze krawędzie |
+| `--color-surface` | `#2a1860` | Tło kart (ciemny fiolet) |
+| `--color-surface-hover` | `#3b1f8e` | Tło hover (jaśniejszy fiolet) |
+| `--color-surface-alt` | `#251456` | Alternatywne tło |
+| `--color-card-bg` | `rgba(42,24,96,0.8)` | Tło kart z przezroczystością |
+| `--color-accent` | `#22d3ee` | Cyan-400 (drugorzędny neon) |
+| `--color-glass-bg` | `rgba(30,16,70,0.85)` | Glassmorphism tło |
+| `--color-glass-bg-light` | `rgba(30,16,70,0.6)` | Glassmorphism lekkie |
+| `--color-glass-border` | `rgba(139,92,246,0.3)` | Glassmorphism border (violet) |
+| `--color-overlay` | `rgba(10,5,20,0.6)` | Overlay ciemny |
+| `--color-overlay-light` | `rgba(10,5,20,0.3)` | Overlay jasny |
+| `--color-trace` | `#4c1d95` | Statyczne PCB traces (Violet 900) |
+| `--color-vignette` | `#1e1046` | PCB winietka (głęboki fiolet) |
+| `--color-grid-line` | `rgba(217,70,239,0.05)` | Linie siatki PCB |
+| `--color-svg-fill` | `#ede9fe` | SVG fill (Violet 100) |
+
+### Klasy semantyczne (Tailwind @theme)
+
+| Klasa Tailwind | Token CSS | Opis |
+|---------------|-----------|------|
+| `bg-background` | `--color-background` | Tło strony |
+| `text-foreground` | `--color-foreground` | Tekst główny |
+| `bg-surface` | `--color-surface` | Tło kart |
+| `bg-glass-bg` | `--color-glass-bg` | Glassmorphism |
+| `border-glass-border` | `--color-glass-border` | Border glassmorphism |
+| `border-border-subtle` | `--color-border-subtle` | Subtelne krawędzie |
+| `text-text-secondary` | `--color-text-secondary` | Tekst drugorzędny |
+| `text-text-tertiary` | `--color-text-tertiary` | Tekst trzeciorzędny |
+| `stroke-trace` | `--color-trace` | PCB static traces |
 
 ### Glow Effects
 
 ```css
+/* Dark mode */
 .glow-emerald {
   box-shadow: 0 0 20px rgba(39, 201, 109, 0.15);
 }
-.glow-emerald:hover {
-  box-shadow: 0 0 30px rgba(39, 201, 109, 0.25);
+/* Deep Vaporwave — neonowy glow fuksja */
+html.light .glow-emerald {
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);
 }
 ```
 
-SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 6px #06b6d4)` (cyan)
+SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 6px #d946ef)` (fuchsia/vaporwave)
 
 ---
 
@@ -71,7 +118,7 @@ SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 
 |---------|---------------|
 | Hero title | `text-4xl sm:text-5xl md:text-6xl font-bold font-display` |
 | Section heading | `text-3xl md:text-4xl font-bold` |
-| Body text | `text-sm font-mono text-zinc-400` |
+| Body text | `text-sm font-mono text-text-secondary` |
 | Tags/Labels | `text-xs font-mono font-bold tracking-wider uppercase` |
 | Tech tags | `text-[10px] font-mono` |
 
@@ -104,8 +151,8 @@ Sekcje używają zróżnicowanych kontenerów dopasowanych do treści:
 ### Glassmorphism Card (unified-card)
 
 ```
-bg-zinc-900/80 backdrop-blur-md
-border border-zinc-700/50
+bg-glass-bg backdrop-blur-md
+border border-glass-border
 shadow-[0_0_30px_rgba(0,0,0,0.5)]
 rounded-[32px]
 p-3 md:p-4

@@ -8,7 +8,7 @@ export function Footer() {
   const isInView = useInView(footerRef, { once: true, margin: '-50px' });
 
   return (
-    <footer className="relative z-10 border-t border-white/5 bg-transparent">
+    <footer className="relative z-10 border-t border-border-faint bg-transparent">
       <div
         ref={footerRef}
         className={`max-w-5xl mx-auto px-6 py-12 flex justify-center ${isInView ? 'footer-animate' : ''}`}

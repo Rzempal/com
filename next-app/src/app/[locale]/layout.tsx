@@ -51,7 +51,7 @@ export default async function LocaleLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased bg-black text-zinc-100">
+      <body className="antialiased bg-background text-foreground">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <LenisProvider>{children}</LenisProvider>

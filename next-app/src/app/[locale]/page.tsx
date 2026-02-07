@@ -11,7 +11,7 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   return (
-    <main className="relative bg-[#030303] min-h-screen text-white selection:bg-emerald-500/30">
+    <main className="relative bg-background min-h-screen text-foreground selection:bg-emerald-500/30">
       {/* Warstwa 0: Tło PCB */}
       <PCBBackground />
 
