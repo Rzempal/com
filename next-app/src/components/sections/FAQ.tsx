@@ -38,10 +38,10 @@ export function FAQ() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
             {t('heading')}
           </h2>
-          <p className="text-zinc-500 font-mono text-sm">
+          <p className="text-text-tertiary font-mono text-sm">
             {t('subheading')}
           </p>
         </motion.div>
@@ -63,12 +63,12 @@ export function FAQ() {
                   onClick={() => toggle(i)}
                   className={`w-full text-left px-6 py-4 rounded-lg border transition-colors ${
                     isOpen
-                      ? 'border-cyan-500/50 bg-zinc-900/80'
-                      : 'border-white/10 bg-zinc-900/50 hover:border-cyan-500/30 hover:bg-zinc-900/70'
+                      ? 'border-cyan-500/50 bg-glass-bg'
+                      : 'border-border-subtle bg-glass-bg-light hover:border-cyan-500/30 hover:bg-glass-bg'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <span className="text-sm md:text-base text-white font-medium">
+                    <span className="text-sm md:text-base text-foreground font-medium">
                       {t(`items.${key}.question`)}
                     </span>
                     <motion.span
@@ -92,14 +92,14 @@ export function FAQ() {
                     >
                       {/* Gradient border wrapper */}
                       <div className="mt-1 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-800 p-[1px]">
-                        <div className="rounded-xl bg-zinc-900/95 px-6 py-5">
+                        <div className="rounded-xl bg-glass-bg px-6 py-5">
                           <div className="flex gap-4">
                             {/* !! marker */}
                             <span className="shrink-0 text-lg font-bold bg-gradient-to-b from-cyan-400 to-cyan-600 bg-clip-text text-transparent select-none">
                               !!
                             </span>
                             {/* Answer text */}
-                            <p className="text-sm md:text-base text-zinc-300 leading-relaxed">
+                            <p className="text-sm md:text-base text-text-muted leading-relaxed">
                               {parseAnswer(t(`items.${key}.answer`))}
                             </p>
                           </div>

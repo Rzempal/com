@@ -52,10 +52,10 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
             {t('heading')}
           </h2>
-          <p className="text-zinc-500 font-mono text-sm mb-12">
+          <p className="text-text-tertiary font-mono text-sm mb-12">
             {t('subheading')}
           </p>
         </motion.div>
@@ -68,35 +68,35 @@ export function Contact() {
           transition={{ duration: 0.4 }}
           className="flex items-stretch justify-center mb-6"
         >
-          <div className="flex items-stretch rounded-lg border border-white/10 bg-zinc-900/50 overflow-hidden">
+          <div className="flex items-stretch rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden">
             {/* Mailto zone */}
             <a
               href={`mailto:${EMAIL}`}
-              className="group flex items-center gap-3 px-5 py-3 hover:bg-zinc-900/80 transition-colors"
+              className="group flex items-center gap-3 px-5 py-3 hover:bg-glass-bg transition-colors"
             >
-              <span className="text-zinc-500 group-hover:text-cyan-500 transition-colors">
+              <span className="text-text-tertiary group-hover:text-cyan-500 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
               </span>
               <div className="text-left">
-                <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-wider">
+                <div className="text-[10px] font-mono text-text-faint uppercase tracking-wider">
                   Email
                 </div>
-                <div className="text-sm text-white group-hover:text-cyan-400 transition-colors">
+                <div className="text-sm text-foreground group-hover:text-cyan-400 transition-colors">
                   {EMAIL}
                 </div>
               </div>
             </a>
 
             {/* Separator */}
-            <div className="w-px bg-white/10" />
+            <div className="w-px bg-border-subtle" />
 
             {/* Copy zone */}
             <button
               onClick={copyEmail}
-              className="group flex items-center justify-center px-4 hover:bg-zinc-900/80 text-zinc-500 hover:text-cyan-500 transition-colors"
+              className="group flex items-center justify-center px-4 hover:bg-glass-bg text-text-tertiary hover:text-cyan-500 transition-colors"
               aria-label="Skopiuj email do schowka"
             >
               {copied ? (
@@ -127,16 +127,16 @@ export function Contact() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-5 py-3 rounded-lg border border-white/10 bg-zinc-900/50 hover:border-cyan-500/50 hover:bg-zinc-900/80 transition-colors"
+              className="group flex items-center gap-3 px-5 py-3 rounded-lg border border-border-subtle bg-glass-bg-light hover:border-cyan-500/50 hover:bg-glass-bg transition-colors"
             >
-              <span className="text-zinc-500 group-hover:text-cyan-500 transition-colors">
+              <span className="text-text-tertiary group-hover:text-cyan-500 transition-colors">
                 {social.icon}
               </span>
               <div className="text-left">
-                <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-wider">
+                <div className="text-[10px] font-mono text-text-faint uppercase tracking-wider">
                   {social.label}
                 </div>
-                <div className="text-sm text-white group-hover:text-cyan-400 transition-colors">
+                <div className="text-sm text-foreground group-hover:text-cyan-400 transition-colors">
                   {social.value}
                 </div>
               </div>

@@ -70,7 +70,7 @@ function TechTags({ tags, color }: { tags: string[]; color: 'emerald' | 'cyan' }
       {tags.map((tag) => (
         <span
           key={tag}
-          className={`text-[10px] font-mono px-2 py-1 rounded border ${borderColor} ${textColor} bg-black/30`}
+          className={`text-[10px] font-mono px-2 py-1 rounded border ${borderColor} ${textColor} bg-overlay-light`}
         >
           {tag}
         </span>
@@ -97,12 +97,12 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       </div>
 
       {/* Headline */}
-      <h3 className="font-mono text-sm text-zinc-400 mb-3 leading-relaxed">
+      <h3 className="font-mono text-sm text-text-secondary mb-3 leading-relaxed">
         {t('robotics.headline')}
       </h3>
 
       {/* Description */}
-      <p className="text-zinc-500 text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-cyan-500/30 flex-grow">
+      <p className="text-text-tertiary text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-cyan-500/30 flex-grow">
         <span className="text-cyan-500/70">&gt;</span> {t('robotics.description')}
       </p>
 
@@ -203,12 +203,12 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       </div>
 
       {/* Headline */}
-      <h3 className="font-mono text-sm text-zinc-400 mb-3 leading-relaxed">
+      <h3 className="font-mono text-sm text-text-secondary mb-3 leading-relaxed">
         {t('dev.subheadline')}
       </h3>
 
       {/* Description */}
-      <p className="text-zinc-500 text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-emerald-500/30 flex-grow">
+      <p className="text-text-tertiary text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-emerald-500/30 flex-grow">
         <span className="text-emerald-500/70">&gt;</span> {t('dev.description')}
       </p>
 
@@ -247,10 +247,10 @@ export function TwoPillars() {
           transition={{ duration: 0.6 }}
           className="mb-12 max-w-5xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             {t('heading')} <span className="text-emerald-500">{t('headingAccent')}</span>
           </h2>
-          <p className="text-zinc-500 font-mono text-sm">
+          <p className="text-text-tertiary font-mono text-sm">
             // CORE_EXPERTISE_MODULES
           </p>
         </motion.div>
@@ -261,8 +261,8 @@ export function TwoPillars() {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           className="unified-card w-full mx-auto p-3 md:p-4 rounded-[32px]
-            bg-zinc-900/80 backdrop-blur-md
-            border border-zinc-700/50
+            bg-glass-bg backdrop-blur-md
+            border border-glass-border
             shadow-[0_0_30px_rgba(0,0,0,0.5)]"
         >
           {/* Desktop: 2x2 Grid */}

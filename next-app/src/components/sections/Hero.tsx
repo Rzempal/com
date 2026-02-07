@@ -78,14 +78,14 @@ export function Hero() {
       >
         {/* Card border - appears on scroll */}
         <motion.div
-          className="absolute inset-0 pointer-events-none rounded-[inherit] border border-zinc-700/50"
+          className="absolute inset-0 pointer-events-none rounded-[inherit] border border-glass-border"
           style={{ opacity: cardBorderOpacity }}
         />
 
         {/* Gradient Mesh Background */}
         <div className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-black" />
+          <div className="absolute inset-0 bg-background" />
 
           {/* Emerald glow - top right */}
           <div
@@ -125,12 +125,12 @@ export function Hero() {
           style={{ scale, willChange: 'transform' }}
         >
           {/* Title with Glitch effect */}
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white glitch">
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground glitch">
             {t('title')}
           </h1>
 
           {/* Subtitle with Typewriter effect */}
-          <p className="mt-6 text-lg sm:text-xl text-zinc-400 font-mono tracking-wide max-w-xs mx-auto">
+          <p className="mt-6 text-lg sm:text-xl text-text-secondary font-mono tracking-wide max-w-xs mx-auto">
             <span>{displayText}</span>
             <span className={`${isTypingComplete ? 'typewriter-cursor' : ''}`} />
           </p>
@@ -177,7 +177,7 @@ export function Hero() {
         {/* Marquee Ticker */}
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3">
           <div className="animate-marquee whitespace-nowrap">
-            <span className="inline-block text-xs sm:text-sm font-mono text-zinc-500 uppercase tracking-widest">
+            <span className="inline-block text-xs sm:text-sm font-mono text-text-tertiary uppercase tracking-widest">
               {t('marquee')}{t('marquee')}
             </span>
           </div>

@@ -45,7 +45,7 @@ export function SiteMap() {
       >
         {/* Column 1: Sitemap */}
         <div>
-          <h3 className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-6">
+          <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
             {t('siteHeading')}
           </h3>
           <nav aria-label="Mapa strony" className="flex flex-col gap-2">
@@ -53,9 +53,9 @@ export function SiteMap() {
               <a
                 key={key}
                 href={href}
-                className="group flex items-center gap-2 text-sm font-mono text-zinc-500 hover:text-cyan-400 transition-colors"
+                className="group flex items-center gap-2 text-sm font-mono text-text-tertiary hover:text-cyan-400 transition-colors"
               >
-                <span className="text-zinc-700 group-hover:text-cyan-600 transition-colors">
+                <span className="text-text-faint group-hover:text-cyan-600 transition-colors">
                   {'>_cd'}
                 </span>
                 {t(`nav.${key}`)}
@@ -66,29 +66,29 @@ export function SiteMap() {
 
         {/* Column 2: Options */}
         <div>
-          <h3 className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-6">
+          <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
             {t('optionsHeading')}
           </h3>
           <div className="flex flex-col gap-4">
             {/* Language toggle */}
-            <div className="flex items-center rounded-lg border border-white/10 bg-zinc-900/50 overflow-hidden w-fit">
+            <div className="flex items-center rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden w-fit">
               <button
                 onClick={() => switchLocale('pl')}
                 className={`px-3 py-2 text-xs font-mono transition-colors ${
                   locale === 'pl'
-                    ? 'text-cyan-400 bg-zinc-800/80'
-                    : 'text-zinc-500 hover:text-zinc-300'
+                    ? 'text-cyan-400 bg-surface-hover'
+                    : 'text-text-tertiary hover:text-text-muted'
                 }`}
               >
                 PL
               </button>
-              <div className="w-px h-5 bg-white/10" />
+              <div className="w-px h-5 bg-border-subtle" />
               <button
                 onClick={() => switchLocale('en')}
                 className={`px-3 py-2 text-xs font-mono transition-colors ${
                   locale === 'en'
-                    ? 'text-cyan-400 bg-zinc-800/80'
-                    : 'text-zinc-500 hover:text-zinc-300'
+                    ? 'text-cyan-400 bg-surface-hover'
+                    : 'text-text-tertiary hover:text-text-muted'
                 }`}
               >
                 EN
@@ -96,15 +96,15 @@ export function SiteMap() {
             </div>
 
             {/* Theme toggle */}
-            <div className="flex items-center rounded-lg border border-white/10 bg-zinc-900/50 overflow-hidden w-fit">
+            <div className="flex items-center rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden w-fit">
               {THEME_OPTIONS.map(({ value, icon: Icon }) => (
                 <button
                   key={value}
                   onClick={() => setTheme(value)}
                   className={`p-2 transition-colors ${
                     theme === value
-                      ? 'text-cyan-400 bg-zinc-800/80'
-                      : 'text-zinc-500 hover:text-zinc-300'
+                      ? 'text-cyan-400 bg-surface-hover'
+                      : 'text-text-tertiary hover:text-text-muted'
                   }`}
                   aria-label={t(`theme.${value}`)}
                   title={t(`theme.${value}`)}

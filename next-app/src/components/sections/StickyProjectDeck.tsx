@@ -116,7 +116,7 @@ function ImageSlider({ images, alt, color, imageScale }: ImageSliderProps) {
             className="object-cover"
           />
           {/* Vignette overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-overlay via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -154,7 +154,7 @@ function LockedOverlay({ color }: { color: string }) {
       />
 
       {/* Glassmorphism container */}
-      <div className="relative bg-zinc-900/60 backdrop-blur-md rounded-xl p-8 border border-white/10 flex flex-col items-center gap-4">
+      <div className="relative bg-glass-bg backdrop-blur-md rounded-xl p-8 border border-border-subtle flex flex-col items-center gap-4">
         {/* Lock icon */}
         <div
           className="w-16 h-16 rounded-full flex items-center justify-center border-2"
@@ -182,10 +182,10 @@ function LockedOverlay({ color }: { color: string }) {
       </div>
 
       {/* Corner brackets */}
-      <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-white/20" />
-      <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-white/20" />
-      <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-white/20" />
-      <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-white/20" />
+      <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-border-subtle" />
+      <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-border-subtle" />
+      <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-border-subtle" />
+      <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-border-subtle" />
     </div>
   );
 }
@@ -248,16 +248,16 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
     >
       <motion.div
         style={{ scale, filter }}
-        className="relative w-full max-w-2xl h-[500px] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl origin-top"
+        className="relative w-full max-w-2xl h-[500px] rounded-2xl overflow-hidden bg-surface border border-border-subtle shadow-2xl origin-top"
       >
         {/* Top accent bar */}
         <div className={`absolute top-0 w-full h-1 ${project.accentClass} opacity-50`} />
 
         {/* Image area */}
-        <div className="h-[55%] relative border-b border-white/5">
+        <div className="h-[55%] relative border-b border-border-faint">
           {project.isLocked ? (
             <>
-              <div className="absolute inset-0 bg-zinc-800" />
+              <div className="absolute inset-0 bg-surface-hover" />
               <LockedOverlay color={project.color} />
             </>
           ) : (
@@ -265,7 +265,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
           )}
 
           {/* Category overlay */}
-          <div className="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded border border-white/10 font-mono text-xs text-white z-10">
+          <div className="absolute top-4 right-4 bg-overlay backdrop-blur px-3 py-1 rounded border border-border-subtle font-mono text-xs text-foreground z-10">
             {project.category}
           </div>
 
@@ -279,7 +279,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
         </div>
 
         {/* Content area */}
-        <div className="p-6 bg-zinc-900/80 backdrop-blur-xl h-[45%] flex flex-col justify-between">
+        <div className="p-6 bg-glass-bg backdrop-blur-xl h-[45%] flex flex-col justify-between">
           <div>
             {/* Headline + CTA row */}
             <div className="flex items-start justify-between gap-4 mb-2">
@@ -288,7 +288,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
               </h3>
               {project.ctaUrl && <CTAButton url={project.ctaUrl} label={t('cta')} color={project.color} />}
             </div>
-            <p className="text-sm text-zinc-400 font-light leading-relaxed line-clamp-3">
+            <p className="text-sm text-text-secondary font-light leading-relaxed line-clamp-3">
               {t('description')}
             </p>
           </div>
@@ -330,10 +330,10 @@ export function StickyProjectDeck() {
     <section id="projects" ref={containerRef} className="relative z-10 bg-transparent mt-32">
       {/* Section header */}
       <div className="mb-16 md:mb-24 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
           {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
         </h2>
-        <p className="text-zinc-500 font-mono text-sm">
+        <p className="text-text-tertiary font-mono text-sm">
           {'// SELECTED_WORKS_ARCHIVE'}
           <br />
           {'// SCROLL_TO_INSPECT_FILES'}
@@ -383,7 +383,7 @@ export function StickyProjectDeck() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="text-center mt-8 text-zinc-600 text-xs font-mono"
+            className="text-center mt-8 text-text-faint text-xs font-mono"
           >
             {'// SCROLL_HORIZONTALLY_TO_EXPLORE'}
           </motion.div>
@@ -416,7 +416,7 @@ function DesktopCard({ project, index }: { project: Project; index: number }) {
   
   return (
     <div 
-      className="w-[280px] h-[380px] rounded-xl overflow-hidden bg-zinc-900/95 backdrop-blur-sm border border-white/10 shadow-2xl"
+      className="w-[280px] h-[380px] rounded-xl overflow-hidden bg-glass-bg backdrop-blur-sm border border-border-subtle shadow-2xl"
       style={{ 
         boxShadow: `0 25px 50px -12px ${project.color}20, 0 0 0 1px ${project.color}10`
       }}
@@ -425,10 +425,10 @@ function DesktopCard({ project, index }: { project: Project; index: number }) {
       <div className={`w-full h-1 ${project.accentClass} opacity-60`} />
 
       {/* Image area */}
-      <div className="h-[50%] relative border-b border-white/5">
+      <div className="h-[50%] relative border-b border-border-faint">
         {project.isLocked ? (
           <>
-            <div className="absolute inset-0 bg-zinc-800" />
+            <div className="absolute inset-0 bg-surface-hover" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-12 h-12 rounded-full flex items-center justify-center border-2" style={{ borderColor: project.color, backgroundColor: `${project.color}20` }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={project.color} strokeWidth="2">
@@ -443,7 +443,7 @@ function DesktopCard({ project, index }: { project: Project; index: number }) {
         )}
         
         {/* Category badge */}
-        <div className="absolute top-3 right-3 bg-black/60 backdrop-blur px-2 py-0.5 rounded border border-white/10 font-mono text-[10px] text-white">
+        <div className="absolute top-3 right-3 bg-overlay backdrop-blur px-2 py-0.5 rounded border border-border-subtle font-mono text-[10px] text-foreground">
           {project.category}
         </div>
         
@@ -457,7 +457,7 @@ function DesktopCard({ project, index }: { project: Project; index: number }) {
       <div className="p-4 h-[50%] flex flex-col justify-between">
         <div>
           <h3 className="text-sm font-semibold mb-1" style={{ color: project.color }}>{t('headline')}</h3>
-          <p className="text-xs text-zinc-400 line-clamp-2">{t('description')}</p>
+          <p className="text-xs text-text-secondary line-clamp-2">{t('description')}</p>
         </div>
         
         <div className="flex flex-wrap gap-1">
