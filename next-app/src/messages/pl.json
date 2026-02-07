@@ -14,8 +14,8 @@
     "marquee": "Robotyka  //  Symulacja  //  Engineering  //  Programowanie  //  Aplikacje  //  Strony internetowe  //  "
   },
   "pillars": {
-    "heading": "Kompetencje",
-    "headingAccent": "kluczowe",
+    "heading": "Kluczowe",
+    "headingAccent": "kompetencje",
     "robotics": {
       "tag": "SYMULACJA",
       "title": "Robotyka",
@@ -41,7 +41,7 @@
   },
   "projectsSection": {
     "heading": "Wybrane",
-    "headingAccent": "Projekty"
+    "headingAccent": "projekty"
   },
   "projects": {
     "robotyka": {
@@ -114,7 +114,7 @@
     "optionsHeading": "Opcje:",
     "nav": {
       "home": "Home",
-      "pillars": "Kompetencje kluczowe",
+      "pillars": "Kluczowe kompetencje",
       "projects": "Wybrane projekty",
       "contact": "Kontakt",
       "faq": "FAQ"
