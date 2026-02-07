@@ -163,6 +163,10 @@ function DevMediaCell() {
           className="w-full h-auto rounded-lg"
         >
           <source
+            src="/movies/resztatokod.mp4"
+            type="video/mp4"
+          />
+          <source
             src="/movies/resztatokod.webm"
             type="video/webm"
           />
