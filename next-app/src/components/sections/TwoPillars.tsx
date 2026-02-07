@@ -255,13 +255,10 @@ export function TwoPillars() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="unified-card max-w-5xl mx-auto p-3 md:p-4 rounded-2xl
+          className="unified-card w-[85%] mx-auto p-3 md:p-4 rounded-[32px]
             bg-zinc-900/80 backdrop-blur-md
             border border-zinc-700/50
             shadow-[0_0_30px_rgba(0,0,0,0.5)]"
-          style={{
-            clipPath: 'polygon(0 16px, 16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%)',
-          }}
         >
           {/* Desktop: 2x2 Grid */}
           <div className="hidden md:grid grid-cols-2 grid-rows-2 gap-3 md:gap-4"
