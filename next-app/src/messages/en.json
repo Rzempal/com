@@ -114,7 +114,13 @@
     }
   },
   "footer": {
-    "siteHeading": "Site:",
+    "siteHeading": "Main page:",
+    "robotykaHeading": "Robotics:",
+    "robotykaNav": {
+      "about": "About",
+      "experience": "Experience",
+      "projects": "Projects"
+    },
     "optionsHeading": "Settings:",
     "contactHeading": "Contact:",
     "nav": {

@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Monitor, Waves, Moon } from 'lucide-react';
 import { useTheme } from '@/components/providers';
+import Link from 'next/link';
 
 const EMAIL = 'kontakt@michalrapala.com';
 
@@ -77,7 +78,7 @@ export function SiteMap() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16"
+        className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-10"
       >
         {/* Column 1: Sitemap */}
         <div>
@@ -100,7 +101,32 @@ export function SiteMap() {
           </nav>
         </div>
 
-        {/* Column 2: Options */}
+        {/* Column 2: Robotyka */}
+        <div>
+          <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
+            {t('robotykaHeading')}
+          </h3>
+          <nav aria-label="Mapa robotyki" className="flex flex-col gap-2">
+            {([
+              { key: 'about', href: '/robotyka' },
+              { key: 'experience', href: '/robotyka/doswiadczenie' },
+              { key: 'projects', href: '/robotyka/projekty' },
+            ] as const).map(({ key, href }) => (
+              <Link
+                key={key}
+                href={`/${locale}${href}`}
+                className="group flex items-center gap-2 text-sm font-mono text-text-tertiary hover:text-cyan-400 transition-colors"
+              >
+                <span className="text-text-faint group-hover:text-cyan-600 transition-colors">
+                  {'>_cd'}
+                </span>
+                {t(`robotykaNav.${key}`)}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* Column 3: Options */}
         <div>
           <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
             {t('optionsHeading')}

@@ -114,7 +114,13 @@
     }
   },
   "footer": {
-    "siteHeading": "Strona:",
+    "siteHeading": "Strona g\u0142\u00f3wna:",
+    "robotykaHeading": "Robotyka:",
+    "robotykaNav": {
+      "about": "O mnie",
+      "experience": "Do\u015bwiadczenie",
+      "projects": "Projekty"
+    },
     "optionsHeading": "Opcje:",
     "contactHeading": "Kontakt:",
     "nav": {

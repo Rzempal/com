@@ -28,7 +28,7 @@ export function RobotykaNav() {
             href={`/${locale}/robotyka`}
             className="font-mono text-sm font-bold text-foreground hover:text-emerald-neon transition-colors"
           >
-            <span className="text-emerald-neon">ENG://</span>ROBOTYKA
+            <span className="text-emerald-neon">ENG://</span>
           </Link>
 
           <div className="flex items-center gap-1">
