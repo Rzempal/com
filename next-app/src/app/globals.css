@@ -339,6 +339,7 @@ html.lenis body {
 /* ============================================
    Footer Tagline Animation System
    (based on RTK Logo, adjusted for 26 chars)
+   Animations only trigger under .footer-animate
    ============================================ */
 
 .footer-logo {
@@ -348,6 +349,19 @@ html.lenis body {
 	overflow: visible;
 }
 
+/* Static state: hidden until .footer-animate */
+.footer-logo .rtk-node {
+	opacity: 0;
+	animation: none;
+}
+.footer-logo .rtk-link {
+	stroke-dashoffset: 50;
+	animation: none;
+}
+.footer-logo .rtk-path {
+	stroke-dashoffset: 100;
+	animation: none;
+}
 .footer-cmd {
 	fill: #fff;
 	stroke: none;
@@ -355,9 +369,7 @@ html.lenis body {
 	font-weight: 700;
 	font-size: 28px;
 	opacity: 0;
-	animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
 }
-
 .footer-typed {
 	fill: #fff;
 	stroke: none;
@@ -365,17 +377,48 @@ html.lenis body {
 	font-weight: 700;
 	font-size: 28px;
 	clip-path: inset(0 100% 0 0);
-	animation: rtk-type 2.6s steps(26) forwards 2.3s;
 }
-
 .footer-cursor {
 	fill: #fff;
 	stroke: none;
 	opacity: 0;
+}
+.footer-cursor-g {
+	/* no animation until triggered */
+}
+
+/* Animated state: triggered when in viewport */
+.footer-animate .rtk-node {
+	animation: rtk-fade-in 0.5s ease-out forwards;
+}
+.footer-animate .rtk-n1 { animation-delay: 0.1s; }
+.footer-animate .rtk-n2 { animation-delay: 0.2s; }
+.footer-animate .rtk-n3 { animation-delay: 0.3s; }
+
+.footer-animate .rtk-link {
+	animation: rtk-draw 0.8s ease-out forwards;
+}
+.footer-animate .rtk-l1 { animation-delay: 0.4s; }
+.footer-animate .rtk-l2 { animation-delay: 0.5s; }
+.footer-animate .rtk-l3 { animation-delay: 0.6s; }
+
+.footer-animate .rtk-path {
+	animation: rtk-draw 1s ease-out forwards 1s;
+}
+
+.footer-animate .footer-cmd {
+	animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
+}
+
+.footer-animate .footer-typed {
+	animation: rtk-type 2.6s steps(26) forwards 2.3s;
+}
+
+.footer-animate .footer-cursor {
 	animation: rtk-blink 1s step-end infinite 2s;
 }
 
-.footer-cursor-g {
+.footer-animate .footer-cursor-g {
 	animation: footer-move-cursor 2.6s steps(26) forwards 2.3s;
 }
 
