@@ -9,7 +9,8 @@ import { motion } from 'framer-motion';
  *   (50%, 0) → vertical ↓ → (50%, 40%) → diagonal ↙ → (15%, 75%) → vertical ↓ → (15%, 100%)
  *
  * viewBox="0 0 100 100" + preserveAspectRatio="none" = coordinates are viewport percentages.
- * vectorEffect="non-scaling-stroke" = stroke width in screen pixels, not viewBox units.
+ * Static traces use vectorEffect="non-scaling-stroke" for consistent 1px lines.
+ * Animated traces must NOT use vectorEffect — it breaks stroke-dasharray used by pathLength animation.
  * Pads rendered as HTML divs to avoid ellipse distortion from non-uniform scaling.
  */
 export function PCBBackground() {
@@ -52,13 +53,12 @@ export function PCBBackground() {
         />
 
         {/* --- ANIMATED FLOWS (Animowane przepływy prądu) --- */}
-        {/* Emerald trace - środek → lewo */}
+        {/* Emerald trace - środek → lewo (bez vectorEffect — psuje dasharray!) */}
         <motion.path
           d="M 50 0 V 40 L 15 75 V 100"
           className="stroke-emerald-500"
-          strokeWidth="2"
+          strokeWidth="0.15"
           fill="none"
-          vectorEffect="non-scaling-stroke"
           style={{ filter: 'drop-shadow(0 0 3px #10b981)' }}
           initial={{ pathLength: 0, opacity: 0.6 }}
           animate={{
@@ -72,13 +72,12 @@ export function PCBBackground() {
           }}
         />
 
-        {/* Cyan trace - prawa strona */}
+        {/* Cyan trace - prawa strona (bez vectorEffect — psuje dasharray!) */}
         <motion.path
           d="M 80 0 V 28 L 60 46 V 90"
           className="stroke-cyan-400"
-          strokeWidth="2"
+          strokeWidth="0.15"
           fill="none"
-          vectorEffect="non-scaling-stroke"
           style={{ filter: 'drop-shadow(0 0 3px #06b6d4)' }}
           initial={{ pathLength: 0, opacity: 0.6 }}
           animate={{
