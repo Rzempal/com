@@ -85,7 +85,7 @@ export function Hero() {
         {/* Gradient Mesh Background */}
         <div className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-background" />
+          <div className="absolute inset-0 bg-background hero-base-bg" />
 
           {/* Emerald glow - top right */}
           <div
