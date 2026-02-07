@@ -87,17 +87,6 @@ export function Contact() {
             </motion.a>
           ))}
         </div>
-
-        {/* Footer note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 text-zinc-600 text-xs font-mono"
-        >
-          © 2026 Michał Rapała
-        </motion.p>
       </div>
     </section>
   );
