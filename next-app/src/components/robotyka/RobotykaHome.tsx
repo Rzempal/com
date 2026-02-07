@@ -46,15 +46,6 @@ function HeroSection() {
             >
               {t('hero.description')}
             </motion.p>
-            <motion.div variants={fadeInUp}>
-              <Link
-                href={`/${locale}/robotyka/doswiadczenie`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-neon/10 text-emerald-neon border border-emerald-neon/30 rounded font-mono text-sm hover:bg-emerald-neon/20 transition-colors"
-              >
-                {t('hero.cta')}
-                <span>&rarr;</span>
-              </Link>
-            </motion.div>
           </motion.div>
 
           <motion.div
@@ -238,6 +229,32 @@ function AboutSection() {
   );
 }
 
+function ExperienceCta() {
+  const t = useTranslations('robotyka');
+  const locale = useLocale();
+
+  return (
+    <section className="py-8">
+      <div className="container mx-auto px-4 md:px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <Link
+            href={`/${locale}/robotyka/doswiadczenie`}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-neon/10 text-emerald-neon border border-emerald-neon/30 rounded font-mono text-sm hover:bg-emerald-neon/20 transition-colors"
+          >
+            {t('hero.cta')}
+            <span>&rarr;</span>
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 function CtaSection() {
   const t = useTranslations('robotyka.cta');
   const locale = useLocale();
@@ -280,6 +297,7 @@ export function RobotykaHome() {
       <MarqueeSection />
       <StatsSection />
       <AboutSection />
+      <ExperienceCta />
       <CtaSection />
     </main>
   );

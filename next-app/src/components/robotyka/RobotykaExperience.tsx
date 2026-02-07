@@ -193,10 +193,8 @@ function SkillsSection() {
 function CertsSection() {
   const t = useTranslations('robotyka.experience');
   const certs = [
-    { key: 'certKuka' as const, icon: 'check' },
-    { key: 'certVass' as const, icon: 'check' },
-    { key: 'certOnlineKuka' as const, icon: 'star' },
-    { key: 'certOnlineAbb' as const, icon: 'star' },
+    { key: 'certKuka' as const, icon: 'check', expired: false },
+    { key: 'certVass' as const, icon: 'check', expired: true },
   ];
 
   return (
@@ -233,6 +231,11 @@ function CertsSection() {
                 {cert.icon === 'check' ? '\u2713' : '\u2605'}
               </span>
               <span className="text-text-muted font-mono text-sm">{t(cert.key)}</span>
+              {cert.expired && (
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-amber-500/40 text-amber-400 bg-amber-500/10 uppercase tracking-wider">
+                  {t('certExpired')}
+                </span>
+              )}
             </motion.div>
           ))}
         </motion.div>
