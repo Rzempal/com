@@ -160,6 +160,90 @@ Podczas przeglądu kodu -- trzy poziomy oceny:
 - „Te 10 linii można skrócić do 3"\
 - „Struktura danych jest błędna, powinna być..."
 
+## Nieużywany kod (Dead Code / Orphans)
+
+> „Każda linia kodu, która nie pracuje, jest linią, która kłamie. Kłamie, że
+> jest potrzebna." — w duchu Linusa
+
+### Zasada zero tolerancji
+
+Nieużywany kod to nie „może się przyda". To szum, który:
+- **Dezorientuje** — następna osoba myśli, że to ważne
+- **Blokuje refaktoryzację** — boisz się usunąć, bo „może coś tego używa"
+- **Psuje budowanie modelu mentalnego** — więcej kodu do przeczytania, zero wartości
+
+### Co klasyfikujemy jako dead code
+
+| Typ | Przykład | Jak znaleźć |
+|-----|----------|-------------|
+| **Orphan component** | Eksportowany w barrel, nigdzie nieimportowany | `grep -r "import.*ComponentName"` — 0 wyników |
+| **Unused export** | `export function helperX()` — nikt nie importuje | Szukaj importów w całym projekcie |
+| **Zakomentowany kod** | `// const oldHandler = ...` | Wizualny przegląd / lint rule |
+| **Unreachable branch** | `if (false) { ... }` lub nigdy niespełniony warunek | Analiza logiczna |
+| **Unused dependency** | Pakiet w `package.json`, nigdzie nieimportowany | `npx depcheck` lub ręczny grep |
+| **Unused CSS** | Klasy/zmienne CSS bez referencji w komponentach | Grep po nazwie klasy |
+| **Stale feature flag** | Flaga zawsze `true`/`false` — martwy branch | Przegląd konfiguracji |
+
+### Proces Orphan Hunt
+
+> Patrz: [Raport z audytu](../audits/orphan-hunt-20260130.md)
+
+**1. Identyfikacja**
+```bash
+# Dla każdego eksportu w barrel (index.ts) sprawdź importy
+grep -r "import.*{.*ComponentName" src/ --include="*.tsx" --include="*.ts"
+```
+
+**2. Weryfikacja**
+- Sprawdź czy komponent nie jest ładowany dynamicznie (`dynamic()`, `lazy()`)
+- Sprawdź czy nie jest używany w testach
+- Sprawdź znacznik `// KEEP:` z uzasadnieniem
+
+**3. Decyzja**
+
+| Sytuacja | Akcja |
+|----------|-------|
+| Zero importów, zero KEEP | **Usuń** |
+| Zero importów, ale KEEP z datą i powodem | **Zachowaj** — zrewiduj przy następnym audycie |
+| Importowany tylko w testach | **Usuń** komponent i test |
+| Używany w 1 miejscu, eksportowany z barrel | **Zachowaj**, ale rozważ czy barrel jest potrzebny |
+
+**4. Czyszczenie**
+- Usuń plik komponentu
+- Zaktualizuj barrel (`index.ts`) — usuń eksport
+- `npm run build` — weryfikacja że nic nie pękło
+- Udokumentuj w `docs/audits/orphan-hunt-[data].md`
+
+### Znacznik KEEP
+
+Jeśli świadomie zostawiasz nieużywany kod (np. komponent planowany w roadmapie):
+
+```typescript
+// KEEP: Używany w fazie 2 roadmapy (#issue-nr) — zrewidować po 2026-03-01
+export function FutureComponent() { ... }
+```
+
+**Wymagania KEEP:**
+- Data wygaśnięcia
+- Powód (link do issue/roadmapy)
+- Bez znacznika KEEP → orphan → usunąć
+
+### Częstotliwość audytów
+
+- **Przy każdym code review** — recenzent sprawdza czy PR nie zostawia orphanów
+- **Co 2 tygodnie** — pełny Orphan Hunt (wszystkie barrel files + dependency check)
+- **Przed release** — finalna weryfikacja
+
+### Reguły w code review
+
+Podczas recenzji kodu, sprawdź:
+
+- [ ] Czy PR nie zostawia nieużywanych importów?
+- [ ] Czy usunięty/zastąpiony komponent został też usunięty z barrel?
+- [ ] Czy nowy komponent jest faktycznie importowany gdzieś?
+- [ ] Czy zakomentowany kod ma uzasadnienie (KEEP) czy jest śmieciem?
+- [ ] Czy unused dependency nie weszła z copy-paste?
+
 ## Wykorzystanie narzędzi
 
 ### Narzędzia dokumentacyjne
