@@ -166,10 +166,10 @@ html.light .hero-base-bg {
 	background: linear-gradient(180deg, #077d97, #045264, #001317);
 }
 
-/* Locked card – greyed out in light mode */
+/* Locked card – solid dark gray in light mode (no transparent bleed) */
 html.light .locked-card {
-	filter: grayscale(0.8) brightness(0.75);
-	opacity: 0.7;
+	filter: grayscale(1) brightness(0.4);
+	opacity: 0.85;
 }
 
 /* Marquee ticker animation */
