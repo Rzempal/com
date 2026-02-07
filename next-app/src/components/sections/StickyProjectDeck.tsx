@@ -450,7 +450,7 @@ export function StickyProjectDeck() {
       {/* ===== Mobile: Vertical sticky stack (UNTOUCHED) ===== */}
       <div className="md:hidden">
         {/* Section header (mobile) */}
-        <div className="mb-16 px-6">
+        <div className="mb-8 px-6">
           <h2 className="text-2xl font-bold font-mono text-foreground leading-tight">
             <span className="text-text-tertiary">{'// '}</span>WYBRANE_PROJEKTY<br />
             <span className="text-text-tertiary">{'// '}</span>SELECTED_WORKS
