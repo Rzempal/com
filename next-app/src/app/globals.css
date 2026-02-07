@@ -38,33 +38,33 @@ html.dark {
 	--color-svg-fill: #ffffff;
 }
 
-/* Light theme — Solarpunk Lab */
+/* Light theme — Light Vaporwave */
 html.light {
-	--color-background: #f0f9ff;
-	--color-foreground: #0f172a;
-	--color-emerald-neon: #059669;
-	--color-emerald-glow: #10b981;
-	--color-text-muted: #334155;
-	--color-text-secondary: #334155;
-	--color-text-tertiary: #94a3b8;
-	--color-text-faint: #64748b;
-	--color-border: #e2e8f0;
-	--color-border-subtle: rgba(203, 213, 225, 0.8);
-	--color-border-faint: rgba(203, 213, 225, 0.4);
+	--color-background: #faf5ff;
+	--color-foreground: #1e1b4b;
+	--color-emerald-neon: #c026d3;
+	--color-emerald-glow: #a855f7;
+	--color-text-muted: #4c1d95;
+	--color-text-secondary: #4c1d95;
+	--color-text-tertiary: #7c3aed;
+	--color-text-faint: #a78bfa;
+	--color-border: #ddd6fe;
+	--color-border-subtle: rgba(192, 38, 211, 0.15);
+	--color-border-faint: rgba(192, 38, 211, 0.08);
 	--color-surface: #ffffff;
-	--color-surface-hover: #f1f5f9;
-	--color-surface-alt: #e0f2fe;
-	--color-card-bg: rgba(255, 255, 255, 0.8);
-	--color-accent: #0891b2;
-	--color-glass-bg: rgba(255, 255, 255, 0.85);
-	--color-glass-bg-light: rgba(255, 255, 255, 0.6);
-	--color-glass-border: rgba(226, 232, 240, 0.8);
-	--color-overlay: rgba(0, 0, 0, 0.4);
-	--color-overlay-light: rgba(0, 0, 0, 0.15);
-	--color-trace: #cbd5e1;
-	--color-vignette: #f0f9ff;
-	--color-grid-line: rgba(8, 145, 178, 0.05);
-	--color-svg-fill: #0f172a;
+	--color-surface-hover: #f3e8ff;
+	--color-surface-alt: #ede9fe;
+	--color-card-bg: rgba(250, 245, 255, 0.8);
+	--color-accent: #c026d3;
+	--color-glass-bg: rgba(250, 245, 255, 0.85);
+	--color-glass-bg-light: rgba(250, 245, 255, 0.6);
+	--color-glass-border: rgba(221, 214, 254, 0.8);
+	--color-overlay: rgba(30, 27, 75, 0.4);
+	--color-overlay-light: rgba(30, 27, 75, 0.1);
+	--color-trace: #ddd6fe;
+	--color-vignette: #faf5ff;
+	--color-grid-line: rgba(192, 38, 211, 0.05);
+	--color-svg-fill: #1e1b4b;
 }
 
 @theme inline {
@@ -156,11 +156,11 @@ html.lenis body {
 }
 
 html.light .glow-emerald {
-	box-shadow: 0 4px 6px -1px rgba(8, 145, 178, 0.1), 0 2px 4px -1px rgba(8, 145, 178, 0.06);
+	box-shadow: 0 4px 6px -1px rgba(192, 38, 211, 0.1), 0 2px 4px -1px rgba(192, 38, 211, 0.06);
 }
 
 html.light .glow-emerald:hover {
-	box-shadow: 0 0 15px rgba(8, 145, 178, 0.3);
+	box-shadow: 0 0 15px rgba(192, 38, 211, 0.3);
 }
 
 /* Animation utilities */

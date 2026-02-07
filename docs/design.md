@@ -1,4 +1,4 @@
-# Design System — Tech-Noir / Solarpunk Lab
+# Design System — Tech-Noir / Light Vaporwave
 
 > **Powiązane:** [Conventions](standards/conventions.md) | [Architektura](architecture.md)
 
@@ -9,7 +9,7 @@
 Dwa tryby, jedna paleta:
 
 - **Dark Mode (Tech-Noir):** retro-futurism / cyberpunk. Ciemne tła, neonowe akcenty (emerald, cyan), efekty glow, monospace typography, estetyka PCB / circuit board.
-- **Light Mode (Solarpunk Lab):** styl "Laboratorium Przyszłości". Jasne, techniczne tło z domieszką cyjanu, wyraziste akcenty (Deep Cyan, Emerald, Fuchsia), subtelne cienie zamiast glow.
+- **Light Mode (Light Vaporwave):** styl "Vaporwave". Lawendowe tło, indygo tekst, fuksja/magenta akcenty, fioletowe glassmorphism, subtelne cienie zamiast glow.
 
 Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS custom properties.
 
@@ -43,27 +43,35 @@ Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS
 | `--color-vignette` | `#050505` | PCB winietka |
 | `--color-svg-fill` | `#ffffff` | SVG fill (RTK Logo, Footer) |
 
-### Kolory — Light Mode (Solarpunk Lab)
+### Kolory — Light Mode (Light Vaporwave)
 
 | Token | Wartość | Zastosowanie |
 |-------|---------|-------------|
-| `--color-background` | `#F0F9FF` | Tło strony (Azure Mist) |
-| `--color-foreground` | `#0F172A` | Tekst główny (Slate 900) |
-| `--color-emerald-neon` | `#059669` | Emerald-600 |
-| `--color-text-secondary` | `#334155` | Tekst drugorzędny (Slate 700) |
-| `--color-text-tertiary` | `#94A3B8` | Tekst trzeciorzędny (Slate 400) |
-| `--color-text-faint` | `#64748b` | Tekst stonowany (Slate 500) |
-| `--color-border` | `#E2E8F0` | Krawędzie |
-| `--color-border-subtle` | `rgba(203,213,225,0.8)` | Subtelne krawędzie |
-| `--color-surface` | `#FFFFFF` | Tło kart |
-| `--color-surface-hover` | `#F1F5F9` | Tło hover |
-| `--color-surface-alt` | `#E0F2FE` | Alternatywne tło |
-| `--color-glass-bg` | `rgba(255,255,255,0.85)` | Glassmorphism tło |
-| `--color-glass-border` | `rgba(226,232,240,0.8)` | Glassmorphism border |
-| `--color-accent` | `#0891B2` | Deep Cyan (Cyan-600) |
-| `--color-trace` | `#CBD5E1` | Statyczne PCB traces (Slate 300) |
-| `--color-vignette` | `#F0F9FF` | PCB winietka (jasna) |
-| `--color-svg-fill` | `#0F172A` | SVG fill (Slate 900) |
+| `--color-background` | `#faf5ff` | Tło strony (Lavender) |
+| `--color-foreground` | `#1e1b4b` | Tekst główny (Indigo 950) |
+| `--color-emerald-neon` | `#c026d3` | Fuchsia-600 (główny akcent) |
+| `--color-emerald-glow` | `#a855f7` | Purple-500 (glow) |
+| `--color-text-muted` | `#4c1d95` | Tekst wyciszony (Violet 900) |
+| `--color-text-secondary` | `#4c1d95` | Tekst drugorzędny (Violet 900) |
+| `--color-text-tertiary` | `#7c3aed` | Tekst trzeciorzędny (Violet 600) |
+| `--color-text-faint` | `#a78bfa` | Tekst stonowany (Violet 400) |
+| `--color-border` | `#ddd6fe` | Krawędzie (Violet 200) |
+| `--color-border-subtle` | `rgba(192,38,211,0.15)` | Subtelne krawędzie (fuchsia) |
+| `--color-border-faint` | `rgba(192,38,211,0.08)` | Najsubtelniejsze krawędzie |
+| `--color-surface` | `#ffffff` | Tło kart |
+| `--color-surface-hover` | `#f3e8ff` | Tło hover (Purple 100) |
+| `--color-surface-alt` | `#ede9fe` | Alternatywne tło (Violet 100) |
+| `--color-card-bg` | `rgba(250,245,255,0.8)` | Tło kart z przezroczystością |
+| `--color-accent` | `#c026d3` | Fuchsia-600 (akcent) |
+| `--color-glass-bg` | `rgba(250,245,255,0.85)` | Glassmorphism tło |
+| `--color-glass-bg-light` | `rgba(250,245,255,0.6)` | Glassmorphism lekkie |
+| `--color-glass-border` | `rgba(221,214,254,0.8)` | Glassmorphism border (violet) |
+| `--color-overlay` | `rgba(30,27,75,0.4)` | Overlay ciemny |
+| `--color-overlay-light` | `rgba(30,27,75,0.1)` | Overlay jasny |
+| `--color-trace` | `#ddd6fe` | Statyczne PCB traces (Violet 200) |
+| `--color-vignette` | `#faf5ff` | PCB winietka (lavender) |
+| `--color-grid-line` | `rgba(192,38,211,0.05)` | Linie siatki PCB |
+| `--color-svg-fill` | `#1e1b4b` | SVG fill (Indigo 950) |
 
 ### Klasy semantyczne (Tailwind @theme)
 
@@ -86,13 +94,13 @@ Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS
 .glow-emerald {
   box-shadow: 0 0 20px rgba(39, 201, 109, 0.15);
 }
-/* Light mode — subtelny cień z domieszką cyjanu */
+/* Light mode — subtelny cień z domieszką fuksji */
 html.light .glow-emerald {
-  box-shadow: 0 4px 6px -1px rgba(8, 145, 178, 0.1), 0 2px 4px -1px rgba(8, 145, 178, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(192, 38, 211, 0.1), 0 2px 4px -1px rgba(192, 38, 211, 0.06);
 }
 ```
 
-SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 6px #06b6d4)` (cyan)
+SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 6px #a855f7)` (purple/vaporwave)
 
 ---
 
