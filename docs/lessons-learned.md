@@ -88,3 +88,32 @@ Systematyczny audyt z użyciem `grep_search` na wzorce importów:
 - Raport w `docs/audits/` dokumentuje usunięte elementy dla przyszłej referencji
 
 ---
+
+## 2026-02-07: Dynamiczna ścieżka emerald (useContainerEdge)
+
+### Problem
+
+Ścieżka emerald w `PCBBackground.tsx` miała stały X=15% (viewBox percentage). Na ekranach
+o różnej szerokości (1280px vs 1920px) trace wchodził pod kontent lub był za daleko od niego —
+nie biegł obok lewej krawędzi kontentu jak zamierzono.
+
+### Rozwiązanie
+
+Zamiast stałej wartości procentowej, hook `useContainerEdge(offsetPx)`:
+
+1. Oblicza lewą krawędź Tailwind `container` z breakpointów (640/768/1024/1280/1536)
+2. Dodaje padding sekcji (`px-4` / `px-6`)
+3. Odejmuje offset (12px) — trace biegnie tuż obok kontentu
+4. Zwraca wartość jako % viewportu (kompatybilny z SVG viewBox 0-100)
+5. Nasłuchuje `resize` — reaguje na zmianę rozmiaru okna
+
+### Wnioski
+
+- **Nie zgaduj wartości procentowych** — zawsze zweryfikuj z faktyczną strukturą kontenerów
+  w kodzie. Zaproponowanie x=4% (z głowy) okazało się błędne po analizie breakpointów
+- **Obliczenie z breakpointów > pomiar DOM** — czyste, bez zależności między komponentami,
+  działa natychmiast (brak opóźnienia ResizeObserver)
+- `preserveAspectRatio="none"` + dynamiczny path `d` to dobre połączenie: SVG skaluje się
+  na cały viewport, a konkretne współrzędne X reagują na layout
+
+---
