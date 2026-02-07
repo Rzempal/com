@@ -44,10 +44,10 @@ html.light {
 	--color-foreground: #ffffff;
 	--color-emerald-neon: #d946ef;
 	--color-emerald-glow: #a855f7;
-	--color-text-muted: #e9d5ff;
-	--color-text-secondary: #e9d5ff;
-	--color-text-tertiary: #c4b5fd;
-	--color-text-faint: #8b5cf6;
+	--color-text-muted: #e0f2fe;
+	--color-text-secondary: #bae6fd;
+	--color-text-tertiary: #67e8f9;
+	--color-text-faint: #0891b2;
 	--color-border: #7c3aed;
 	--color-border-subtle: rgba(217, 70, 239, 0.3);
 	--color-border-faint: rgba(217, 70, 239, 0.12);
