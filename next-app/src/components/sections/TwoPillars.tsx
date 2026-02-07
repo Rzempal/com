@@ -1,9 +1,10 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -114,6 +115,8 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
 
 // ENG Media Cell (Image + CTA)
 function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> }) {
+  const locale = useLocale();
+
   return (
     <motion.div
       variants={cellVariants}
@@ -129,19 +132,13 @@ function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
-      <a
-        href="https://robotyka.michalrapala.com"
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href={`/${locale}/robotyka`}
         className="inline-flex items-center justify-center gap-2 p-3 text-cyan-400 text-sm font-mono hover:text-cyan-300 transition-colors"
       >
         {t('robotics.cta')}
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-          <polyline points="15 3 21 3 21 9" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-          <line x1="10" y1="14" x2="21" y2="3" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </a>
+        <span>&rarr;</span>
+      </Link>
     </motion.div>
   );
 }
