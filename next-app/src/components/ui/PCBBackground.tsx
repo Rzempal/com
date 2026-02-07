@@ -38,14 +38,15 @@ export function PCBBackground() {
           vectorEffect="non-scaling-stroke"
         />
         <path
-          d="M 80 0 V 28 L 60 46 V 90"
+          d="M 80 0 V 28 L 60 46 V 100"
           className="stroke-zinc-800"
           strokeWidth="1"
           fill="none"
           vectorEffect="non-scaling-stroke"
         />
+        {/* Ślepa trasa - lewy górny narożnik */}
         <path
-          d="M 20 100 V 74 L 40 56 V 37"
+          d="M 8 0 V 18 L 25 33"
           className="stroke-zinc-800"
           strokeWidth="1"
           fill="none"
@@ -73,7 +74,7 @@ export function PCBBackground() {
 
         {/* Cyan trace - puls przepływający całą ścieżką */}
         <motion.path
-          d="M 80 0 V 28 L 60 46 V 90"
+          d="M 80 0 V 28 L 60 46 V 100"
           className="stroke-cyan-400"
           strokeWidth="0.2"
           fill="none"
