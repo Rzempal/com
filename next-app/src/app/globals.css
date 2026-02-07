@@ -171,6 +171,12 @@ html.light .hero-base-bg {
 	background: linear-gradient(180deg, #077d97, #045264, #001317);
 }
 
+/* Locked card – greyed out in light mode */
+html.light .locked-card {
+	filter: grayscale(0.8) brightness(0.75);
+	opacity: 0.7;
+}
+
 /* Animation utilities */
 @keyframes bounce-subtle {
 	0%,
