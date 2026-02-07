@@ -17,14 +17,14 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
 
   // Hero → Card transformation (scroll-linked)
-  // Width: 100% → 85% (matches max-w-5xl proportionally)
-  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', '85%']);
+  // Width: 100% on mobile, 100% → 85% on desktop
+  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', '100%']);
   // Border radius: 0 → 32px (rounded-2xl)
   const borderRadius = useTransform(scrollYProgress, [0, 0.15], [0, 32]);
   // Card border opacity: 0 → 1
   const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-  // Horizontal margin for centering
-  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '7.5%']);
+  // Horizontal margin for centering (0 on mobile)
+  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '0%']);
   // Vertical margin for floating card effect
   const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '5%']);
   // Top padding compresses → content shifts up → gap shrinks
