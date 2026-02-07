@@ -90,9 +90,9 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       className="cell-eng-content flex flex-col p-4 md:p-6 rounded-lg"
     >
       {/* Header */}
-      <div className="pb-3 mb-3 border-b border-cyan-500/20">
+      <div className="pb-3 mb-3 border-b border-emerald-500/20">
         <h3 className="text-lg md:text-xl font-mono font-bold leading-tight">
-          <span className="text-cyan-400">ENG://</span><span className="text-foreground">{t('robotics.tag')}</span>
+          <span className="text-emerald-400">ENG://</span><span className="text-foreground">{t('robotics.tag')}</span>
         </h3>
       </div>
 
@@ -102,12 +102,12 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       </h3>
 
       {/* Description */}
-      <p className="text-text-tertiary text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-cyan-500/30 flex-grow">
-        <span className="text-cyan-500/70">&gt;</span> {t('robotics.description')}
+      <p className="text-text-tertiary text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-emerald-500/30 flex-grow">
+        <span className="text-emerald-500/70">&gt;</span> {t('robotics.description')}
       </p>
 
       {/* Tags */}
-      <TechTags tags={techTags} color="cyan" />
+      <TechTags tags={techTags} color="emerald" />
     </motion.div>
   );
 }
@@ -133,7 +133,7 @@ function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
       </div>
       <Link
         href={`/${locale}/robotyka`}
-        className="inline-flex items-center justify-center gap-2 p-3 text-cyan-400 text-sm font-mono hover:text-cyan-300 transition-colors"
+        className="inline-flex items-center justify-center gap-2 p-3 text-emerald-400 text-sm font-mono hover:text-emerald-300 transition-colors"
       >
         {t('robotics.cta')}
         <span>&rarr;</span>
@@ -195,9 +195,9 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       className="cell-dev-content flex flex-col p-4 md:p-6 rounded-lg"
     >
       {/* Header */}
-      <div className="pb-3 mb-3 border-b border-emerald-500/20">
+      <div className="pb-3 mb-3 border-b border-cyan-500/20">
         <h3 className="text-lg md:text-xl font-mono font-bold leading-tight">
-          <span className="text-emerald-400">DEV://</span><span className="text-foreground">{t('dev.tag')}</span>
+          <span className="text-cyan-400">DEV://</span><span className="text-foreground">{t('dev.tag')}</span>
         </h3>
       </div>
 
@@ -207,12 +207,12 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       </h3>
 
       {/* Description */}
-      <p className="text-text-tertiary text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-emerald-500/30 flex-grow">
-        <span className="text-emerald-500/70">&gt;</span> {t('dev.description')}
+      <p className="text-text-tertiary text-sm mb-3 leading-relaxed font-mono pl-3 border-l-2 border-cyan-500/30 flex-grow">
+        <span className="text-cyan-500/70">&gt;</span> {t('dev.description')}
       </p>
 
       {/* Tags */}
-      <TechTags tags={techTags} color="emerald" />
+      <TechTags tags={techTags} color="cyan" />
     </motion.div>
   );
 }
