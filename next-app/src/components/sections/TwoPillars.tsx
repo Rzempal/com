@@ -163,7 +163,11 @@ function DevMediaCell() {
           className="w-full h-auto rounded-lg"
         >
           <source
-            src="https://michalrapala.com/assets/movies/resztatokod.webm"
+            src="/movies/resztatokod.mp4"
+            type="video/mp4"
+          />
+          <source
+            src="/movies/resztatokod.webm"
             type="video/webm"
           />
         </video>
