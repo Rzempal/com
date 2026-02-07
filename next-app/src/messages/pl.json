@@ -110,6 +110,8 @@
     }
   },
   "footer": {
+    "siteHeading": "Strona:",
+    "optionsHeading": "Opcje:",
     "nav": {
       "home": "Home",
       "pillars": "Kompetencje kluczowe",

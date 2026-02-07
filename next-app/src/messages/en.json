@@ -110,6 +110,8 @@
     }
   },
   "footer": {
+    "siteHeading": "Site:",
+    "optionsHeading": "Settings:",
     "nav": {
       "home": "Home",
       "pillars": "Core competencies",
