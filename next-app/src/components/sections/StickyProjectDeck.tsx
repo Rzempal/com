@@ -326,7 +326,7 @@ export function StickyProjectDeck() {
   });
 
   return (
-    <section ref={containerRef} className="relative z-10 bg-transparent mt-32">
+    <section id="projects" ref={containerRef} className="relative z-10 bg-transparent mt-32">
       {/* Section header */}
       <div className="mb-16 md:mb-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

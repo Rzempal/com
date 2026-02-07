@@ -2,7 +2,15 @@
 
 /* Design System - Tech-Noir Palette */
 :root {
-	/* Colors */
+	/* Typography */
+	--font-sans: "Inter", system-ui, sans-serif;
+	--font-mono: "JetBrains Mono", "Fira Code", monospace;
+	--font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+}
+
+/* Dark theme (default) */
+:root,
+html.dark {
 	--color-background: #000000;
 	--color-foreground: #fafafa;
 	--color-emerald-neon: #27c96d;
@@ -10,11 +18,23 @@
 	--color-text-muted: #a1a1aa;
 	--color-border: #27272a;
 	--color-surface: #18181b;
+	--color-surface-hover: #27272a;
+	--color-card-bg: rgba(24, 24, 27, 0.5);
+	--color-accent: #06b6d4;
+}
 
-	/* Typography */
-	--font-sans: "Inter", system-ui, sans-serif;
-	--font-mono: "JetBrains Mono", "Fira Code", monospace;
-	--font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+/* Light theme */
+html.light {
+	--color-background: #f8fafc;
+	--color-foreground: #0f172a;
+	--color-emerald-neon: #059669;
+	--color-emerald-glow: #10b981;
+	--color-text-muted: #64748b;
+	--color-border: #e2e8f0;
+	--color-surface: #ffffff;
+	--color-surface-hover: #f1f5f9;
+	--color-card-bg: rgba(255, 255, 255, 0.8);
+	--color-accent: #0891b2;
 }
 
 @theme inline {

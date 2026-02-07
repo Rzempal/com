@@ -41,7 +41,7 @@ export function Contact() {
   };
 
   return (
-    <section className="relative z-10 py-32 px-6 bg-transparent">
+    <section id="contact" className="relative z-10 py-32 px-6 bg-transparent">
       <div className="max-w-2xl mx-auto text-center">
         {/* Header */}
         <motion.div

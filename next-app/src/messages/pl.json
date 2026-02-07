@@ -102,5 +102,20 @@
         "answer": "**AI** to zarówno pasja, jak i narzędzie pracy. Wykorzystuję **sztuczną inteligencję** w projektach inżynieryjnych (**optymalizacja procesów produkcyjnych**) oraz w tworzeniu aplikacji — np. **Karton-na-leki**, mobilna aplikacja do zarządzania domową apteczką z **rozpoznawaniem obrazu**."
       }
     }
+  },
+  "footer": {
+    "nav": {
+      "home": "Home",
+      "pillars": "Kompetencje kluczowe",
+      "projects": "Wybrane projekty",
+      "contact": "Kontakt",
+      "faq": "FAQ"
+    },
+    "theme": {
+      "system": "Systemowy",
+      "light": "Jasny",
+      "dark": "Ciemny"
+    },
+    "tagline": "// No boring websites allowed."
   }
 }

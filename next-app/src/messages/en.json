@@ -102,5 +102,20 @@
         "answer": "**AI** is both a passion and a work tool. I use **artificial intelligence** in engineering projects (**production process optimization**) and in application development — e.g., **Karton-na-leki**, a mobile app for managing a home medicine cabinet with **image recognition**."
       }
     }
+  },
+  "footer": {
+    "nav": {
+      "home": "Home",
+      "pillars": "Core competencies",
+      "projects": "Selected projects",
+      "contact": "Contact",
+      "faq": "FAQ"
+    },
+    "theme": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "tagline": "// No boring websites allowed."
   }
 }
