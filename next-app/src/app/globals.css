@@ -168,7 +168,7 @@ html.light .glow-emerald:hover {
 
 /* Hero opaque background for vaporwave mode */
 html.light .hero-base-bg {
-	background: linear-gradient(180deg, #581c87, #6d28d9, #7c3aed);
+	background: linear-gradient(180deg, #077d97, #045264, #001317);
 }
 
 /* Animation utilities */
