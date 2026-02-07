@@ -13,7 +13,7 @@ export default async function RobotykaLayout({
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="robotyka-theme min-h-screen bg-background text-foreground">
       <RobotykaNav />
       {children}
       <SiteMap />
