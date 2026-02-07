@@ -1,4 +1,4 @@
-# Design System — Tech-Noir / Light Vaporwave
+# Design System — Tech-Noir / Deep Vaporwave
 
 > **Powiązane:** [Conventions](standards/conventions.md) | [Architektura](architecture.md)
 
@@ -9,7 +9,7 @@
 Dwa tryby, jedna paleta:
 
 - **Dark Mode (Tech-Noir):** retro-futurism / cyberpunk. Ciemne tła, neonowe akcenty (emerald, cyan), efekty glow, monospace typography, estetyka PCB / circuit board.
-- **Light Mode (Light Vaporwave):** styl "Vaporwave". Lawendowe tło, indygo tekst, fuksja/magenta akcenty, fioletowe glassmorphism, subtelne cienie zamiast glow.
+- **Alternate Mode (Deep Vaporwave):** styl "Vaporwave". Głęboki fiolet (#1e1046) jako tło, lavender tekst, magenta/fuksja neony (#d946ef), cyan akcent (#22d3ee), fioletowy glassmorphism z glow effects.
 
 Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS custom properties.
 
@@ -43,35 +43,35 @@ Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS
 | `--color-vignette` | `#050505` | PCB winietka |
 | `--color-svg-fill` | `#ffffff` | SVG fill (RTK Logo, Footer) |
 
-### Kolory — Light Mode (Light Vaporwave)
+### Kolory — Alternate Mode (Deep Vaporwave)
 
 | Token | Wartość | Zastosowanie |
 |-------|---------|-------------|
-| `--color-background` | `#faf5ff` | Tło strony (Lavender) |
-| `--color-foreground` | `#1e1b4b` | Tekst główny (Indigo 950) |
-| `--color-emerald-neon` | `#c026d3` | Fuchsia-600 (główny akcent) |
+| `--color-background` | `#1e1046` | Tło strony (głęboki fiolet) |
+| `--color-foreground` | `#ede9fe` | Tekst główny (Violet 100 / lavender) |
+| `--color-emerald-neon` | `#d946ef` | Fuchsia-500 (główny neon) |
 | `--color-emerald-glow` | `#a855f7` | Purple-500 (glow) |
-| `--color-text-muted` | `#4c1d95` | Tekst wyciszony (Violet 900) |
-| `--color-text-secondary` | `#4c1d95` | Tekst drugorzędny (Violet 900) |
-| `--color-text-tertiary` | `#7c3aed` | Tekst trzeciorzędny (Violet 600) |
-| `--color-text-faint` | `#a78bfa` | Tekst stonowany (Violet 400) |
-| `--color-border` | `#ddd6fe` | Krawędzie (Violet 200) |
-| `--color-border-subtle` | `rgba(192,38,211,0.15)` | Subtelne krawędzie (fuchsia) |
-| `--color-border-faint` | `rgba(192,38,211,0.08)` | Najsubtelniejsze krawędzie |
-| `--color-surface` | `#ffffff` | Tło kart |
-| `--color-surface-hover` | `#f3e8ff` | Tło hover (Purple 100) |
-| `--color-surface-alt` | `#ede9fe` | Alternatywne tło (Violet 100) |
-| `--color-card-bg` | `rgba(250,245,255,0.8)` | Tło kart z przezroczystością |
-| `--color-accent` | `#c026d3` | Fuchsia-600 (akcent) |
-| `--color-glass-bg` | `rgba(250,245,255,0.85)` | Glassmorphism tło |
-| `--color-glass-bg-light` | `rgba(250,245,255,0.6)` | Glassmorphism lekkie |
-| `--color-glass-border` | `rgba(221,214,254,0.8)` | Glassmorphism border (violet) |
-| `--color-overlay` | `rgba(30,27,75,0.4)` | Overlay ciemny |
-| `--color-overlay-light` | `rgba(30,27,75,0.1)` | Overlay jasny |
-| `--color-trace` | `#ddd6fe` | Statyczne PCB traces (Violet 200) |
-| `--color-vignette` | `#faf5ff` | PCB winietka (lavender) |
-| `--color-grid-line` | `rgba(192,38,211,0.05)` | Linie siatki PCB |
-| `--color-svg-fill` | `#1e1b4b` | SVG fill (Indigo 950) |
+| `--color-text-muted` | `#c4b5fd` | Tekst wyciszony (Violet 300) |
+| `--color-text-secondary` | `#c4b5fd` | Tekst drugorzędny (Violet 300) |
+| `--color-text-tertiary` | `#8b5cf6` | Tekst trzeciorzędny (Violet 500) |
+| `--color-text-faint` | `#6d28d9` | Tekst stonowany (Violet 700) |
+| `--color-border` | `#4c1d95` | Krawędzie (Violet 900) |
+| `--color-border-subtle` | `rgba(217,70,239,0.2)` | Subtelne krawędzie (fuchsia) |
+| `--color-border-faint` | `rgba(217,70,239,0.08)` | Najsubtelniejsze krawędzie |
+| `--color-surface` | `#2a1860` | Tło kart (ciemny fiolet) |
+| `--color-surface-hover` | `#3b1f8e` | Tło hover (jaśniejszy fiolet) |
+| `--color-surface-alt` | `#251456` | Alternatywne tło |
+| `--color-card-bg` | `rgba(42,24,96,0.8)` | Tło kart z przezroczystością |
+| `--color-accent` | `#22d3ee` | Cyan-400 (drugorzędny neon) |
+| `--color-glass-bg` | `rgba(30,16,70,0.85)` | Glassmorphism tło |
+| `--color-glass-bg-light` | `rgba(30,16,70,0.6)` | Glassmorphism lekkie |
+| `--color-glass-border` | `rgba(139,92,246,0.3)` | Glassmorphism border (violet) |
+| `--color-overlay` | `rgba(10,5,20,0.6)` | Overlay ciemny |
+| `--color-overlay-light` | `rgba(10,5,20,0.3)` | Overlay jasny |
+| `--color-trace` | `#4c1d95` | Statyczne PCB traces (Violet 900) |
+| `--color-vignette` | `#1e1046` | PCB winietka (głęboki fiolet) |
+| `--color-grid-line` | `rgba(217,70,239,0.05)` | Linie siatki PCB |
+| `--color-svg-fill` | `#ede9fe` | SVG fill (Violet 100) |
 
 ### Klasy semantyczne (Tailwind @theme)
 
@@ -94,13 +94,13 @@ Oba tryby łączy ta sama paleta kolorów o różnym nasyceniu — sterowana CSS
 .glow-emerald {
   box-shadow: 0 0 20px rgba(39, 201, 109, 0.15);
 }
-/* Light mode — subtelny cień z domieszką fuksji */
+/* Deep Vaporwave — neonowy glow fuksja */
 html.light .glow-emerald {
-  box-shadow: 0 4px 6px -1px rgba(192, 38, 211, 0.1), 0 2px 4px -1px rgba(192, 38, 211, 0.06);
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);
 }
 ```
 
-SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 6px #a855f7)` (purple/vaporwave)
+SVG traces: `filter: drop-shadow(0 0 6px #10b981)` (emerald) / `drop-shadow(0 0 6px #d946ef)` (fuchsia/vaporwave)
 
 ---
 

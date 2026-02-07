@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Design System - Tech-Noir / Solarpunk Lab Palette */
+/* Design System - Tech-Noir / Deep Vaporwave Palette */
 :root {
 	/* Typography */
 	--font-sans: "Inter", system-ui, sans-serif;
@@ -38,33 +38,33 @@ html.dark {
 	--color-svg-fill: #ffffff;
 }
 
-/* Light theme — Light Vaporwave */
+/* Alternate theme — Deep Vaporwave */
 html.light {
-	--color-background: #faf5ff;
-	--color-foreground: #1e1b4b;
-	--color-emerald-neon: #c026d3;
+	--color-background: #1e1046;
+	--color-foreground: #ede9fe;
+	--color-emerald-neon: #d946ef;
 	--color-emerald-glow: #a855f7;
-	--color-text-muted: #4c1d95;
-	--color-text-secondary: #4c1d95;
-	--color-text-tertiary: #7c3aed;
-	--color-text-faint: #a78bfa;
-	--color-border: #ddd6fe;
-	--color-border-subtle: rgba(192, 38, 211, 0.15);
-	--color-border-faint: rgba(192, 38, 211, 0.08);
-	--color-surface: #ffffff;
-	--color-surface-hover: #f3e8ff;
-	--color-surface-alt: #ede9fe;
-	--color-card-bg: rgba(250, 245, 255, 0.8);
-	--color-accent: #c026d3;
-	--color-glass-bg: rgba(250, 245, 255, 0.85);
-	--color-glass-bg-light: rgba(250, 245, 255, 0.6);
-	--color-glass-border: rgba(221, 214, 254, 0.8);
-	--color-overlay: rgba(30, 27, 75, 0.4);
-	--color-overlay-light: rgba(30, 27, 75, 0.1);
-	--color-trace: #ddd6fe;
-	--color-vignette: #faf5ff;
-	--color-grid-line: rgba(192, 38, 211, 0.05);
-	--color-svg-fill: #1e1b4b;
+	--color-text-muted: #c4b5fd;
+	--color-text-secondary: #c4b5fd;
+	--color-text-tertiary: #8b5cf6;
+	--color-text-faint: #6d28d9;
+	--color-border: #4c1d95;
+	--color-border-subtle: rgba(217, 70, 239, 0.2);
+	--color-border-faint: rgba(217, 70, 239, 0.08);
+	--color-surface: #2a1860;
+	--color-surface-hover: #3b1f8e;
+	--color-surface-alt: #251456;
+	--color-card-bg: rgba(42, 24, 96, 0.8);
+	--color-accent: #22d3ee;
+	--color-glass-bg: rgba(30, 16, 70, 0.85);
+	--color-glass-bg-light: rgba(30, 16, 70, 0.6);
+	--color-glass-border: rgba(139, 92, 246, 0.3);
+	--color-overlay: rgba(10, 5, 20, 0.6);
+	--color-overlay-light: rgba(10, 5, 20, 0.3);
+	--color-trace: #4c1d95;
+	--color-vignette: #1e1046;
+	--color-grid-line: rgba(217, 70, 239, 0.05);
+	--color-svg-fill: #ede9fe;
 }
 
 @theme inline {
@@ -156,11 +156,11 @@ html.lenis body {
 }
 
 html.light .glow-emerald {
-	box-shadow: 0 4px 6px -1px rgba(192, 38, 211, 0.1), 0 2px 4px -1px rgba(192, 38, 211, 0.06);
+	box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);
 }
 
 html.light .glow-emerald:hover {
-	box-shadow: 0 0 15px rgba(192, 38, 211, 0.3);
+	box-shadow: 0 0 30px rgba(217, 70, 239, 0.35);
 }
 
 /* Animation utilities */
