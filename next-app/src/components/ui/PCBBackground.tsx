@@ -5,11 +5,13 @@ import { motion } from 'framer-motion';
 /**
  * PCBBackground - Tech-Noir style PCB background
  *
- * Features:
- * - Noise texture overlay
- * - Vignette and grid pattern
- * - Thin animated circuit traces (CSS keyframes)
- * - Animated pads at junction points
+ * Circuit trace layout (emerald):
+ *   (50%, 0) → vertical ↓ → (50%, 40%) → diagonal ↙ → (15%, 75%) → vertical ↓ → (15%, 100%)
+ *
+ * viewBox="0 0 100 100" + preserveAspectRatio="none" = coordinates are viewport percentages.
+ * Static traces use vectorEffect="non-scaling-stroke" for consistent 1px lines.
+ * Animated traces use strokeDashoffset for flowing pulse effect (no vectorEffect — breaks dasharray).
+ * Pads rendered as HTML divs to avoid ellipse distortion from non-uniform scaling.
  */
 export function PCBBackground() {
   return (
@@ -21,88 +23,109 @@ export function PCBBackground() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_90%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-10" />
 
-      {/* Warstwa 3: SVG Circuit - zachowuje proporcje jak w oryginale */}
-      <svg 
-        className="absolute inset-0 w-full h-full opacity-50" 
-        preserveAspectRatio="xMidYMid slice"
+      {/* Warstwa 3: SVG Circuit Traces */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
       >
-        <defs>
-          <linearGradient id="trace-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="transparent" />
-            <stop offset="50%" stopColor="#10b981" />
-            <stop offset="100%" stopColor="transparent" />
-          </linearGradient>
-        </defs>
-
-        {/* --- STATIC TRACES (Tło ścieżek) - cienkie linie 1px --- */}
-        <path 
-          d="M100 0 V150 L200 250 V800" 
-          className="stroke-zinc-800" 
-          strokeWidth="1" 
-          fill="none" 
+        {/* --- STATIC TRACES (Tło ścieżek) - 1px --- */}
+        <path
+          d="M 50 0 V 40 L 15 75 V 100"
+          className="stroke-zinc-800"
+          strokeWidth="1"
+          fill="none"
+          vectorEffect="non-scaling-stroke"
         />
-        <path 
-          d="M80% 0 V300 L60% 500 V900" 
-          className="stroke-zinc-800" 
-          strokeWidth="1" 
-          fill="none" 
+        <path
+          d="M 80 0 V 28 L 60 46 V 100"
+          className="stroke-zinc-800"
+          strokeWidth="1"
+          fill="none"
+          vectorEffect="non-scaling-stroke"
         />
-        <path 
-          d="M20% 100% V800 L40% 600 V400" 
-          className="stroke-zinc-800" 
-          strokeWidth="1" 
-          fill="none" 
+        {/* Ślepa trasa - lewy górny narożnik */}
+        <path
+          d="M 8 0 V 18 L 25 33"
+          className="stroke-zinc-800"
+          strokeWidth="1"
+          fill="none"
+          vectorEffect="non-scaling-stroke"
         />
 
         {/* --- ANIMATED FLOWS (Animowane przepływy prądu) --- */}
-        {/* Emerald trace - lewa strona */}
+        {/* Emerald trace - puls przepływający całą ścieżką */}
         <motion.path
-          d="M100 0 V150 L200 250 V800"
+          d="M 50 0 V 40 L 15 75 V 100"
           className="stroke-emerald-500"
-          strokeWidth="2"
+          strokeWidth="0.2"
           fill="none"
-          style={{ filter: "drop-shadow(0 0 3px #10b981)" }}
-          initial={{ pathLength: 0, opacity: 0.6 }}
-          animate={{ 
-            pathLength: [0, 1],
-            opacity: [0.6, 0.6]
-          }}
+          pathLength={1}
+          strokeDasharray="0.35 0.65"
+          opacity={0.85}
+          style={{ filter: 'drop-shadow(0 0 6px #10b981)' }}
+          animate={{ strokeDashoffset: [1, -1] }}
           transition={{
             duration: 5,
             repeat: Infinity,
-            ease: "linear",
+            ease: 'linear',
           }}
         />
 
-        {/* Cyan trace - prawa strona */}
+        {/* Cyan trace - puls przepływający całą ścieżką */}
         <motion.path
-          d="M80% 0 V300 L60% 500 V900"
+          d="M 80 0 V 28 L 60 46 V 100"
           className="stroke-cyan-400"
-          strokeWidth="2"
+          strokeWidth="0.2"
           fill="none"
-          style={{ filter: "drop-shadow(0 0 3px #06b6d4)" }}
-          initial={{ pathLength: 0, opacity: 0.6 }}
-          animate={{ 
-            pathLength: [0, 1],
-            opacity: [0.6, 0.6]
-          }}
+          pathLength={1}
+          strokeDasharray="0.35 0.65"
+          opacity={0.85}
+          style={{ filter: 'drop-shadow(0 0 6px #06b6d4)' }}
+          animate={{ strokeDashoffset: [1, -1] }}
           transition={{
             duration: 7,
             repeat: Infinity,
-            ease: "linear",
+            ease: 'linear',
             delay: 1,
           }}
         />
-
-        {/* --- PADS (Kropki lutownicze w węzłach) --- */}
-        <circle cx="100" cy="0" r="3" className="fill-zinc-900 stroke-zinc-700" strokeWidth="1" />
-        <circle cx="200" cy="250" r="3" className="fill-zinc-900 stroke-emerald-500/50" strokeWidth="1">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="5s" repeatCount="indefinite" />
-        </circle>
-        <circle cx="60%" cy="500" r="3" className="fill-zinc-900 stroke-cyan-500/50" strokeWidth="1">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="7s" repeatCount="indefinite" begin="1s" />
-        </circle>
       </svg>
+
+      {/* --- PADS (Kropki lutownicze w punktach zmiany kierunku) --- */}
+      {/* HTML divs zamiast SVG <circle> — brak deformacji przy preserveAspectRatio="none" */}
+
+      {/* Emerald pad 1: punkt zmiany vertical → diagonal (50%, 40%) */}
+      <motion.div
+        className="absolute w-1.5 h-1.5 rounded-full bg-zinc-900 border border-emerald-500/50"
+        style={{ left: '50%', top: '40%', transform: 'translate(-50%, -50%)' }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Emerald pad 2: punkt zmiany diagonal → vertical (15%, 75%) */}
+      <motion.div
+        className="absolute w-1.5 h-1.5 rounded-full bg-zinc-900 border border-emerald-500/50"
+        style={{ left: '15%', top: '75%', transform: 'translate(-50%, -50%)' }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Cyan pad 1: punkt zmiany vertical → diagonal (80%, 28%) */}
+      <motion.div
+        className="absolute w-1.5 h-1.5 rounded-full bg-zinc-900 border border-cyan-500/50"
+        style={{ left: '80%', top: '28%', transform: 'translate(-50%, -50%)' }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
+
+      {/* Cyan pad 2: punkt zmiany diagonal → vertical (60%, 46%) */}
+      <motion.div
+        className="absolute w-1.5 h-1.5 rounded-full bg-zinc-900 border border-cyan-500/50"
+        style={{ left: '60%', top: '46%', transform: 'translate(-50%, -50%)' }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
     </div>
   );
 }
