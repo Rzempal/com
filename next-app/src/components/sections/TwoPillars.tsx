@@ -117,14 +117,15 @@ function EngMediaCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>> 
   return (
     <motion.div
       variants={cellVariants}
-      className="cell-eng-media flex flex-col rounded-2xl overflow-hidden pt-4"
+      className="cell-eng-media flex flex-col items-center justify-center p-4 md:p-8 rounded-lg"
     >
-      <div className="relative flex-grow min-h-[200px]">
+      <div className="relative w-full overflow-hidden rounded-lg">
         <Image
           src="/images/global/logo_robotyka.png"
           alt="Robotyka - symulacje przemysłowe"
-          fill
-          className="object-cover hover:scale-105 transition-transform duration-300"
+          width={800}
+          height={450}
+          className="w-full h-auto rounded-lg object-cover hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>
