@@ -31,7 +31,7 @@ export function SiteMap() {
 
   const switchLocale = (nextLocale: string) => {
     const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
-    router.push(`/${nextLocale}${pathWithoutLocale}`);
+    router.replace(`/${nextLocale}${pathWithoutLocale}`, { scroll: false });
   };
 
   return (
