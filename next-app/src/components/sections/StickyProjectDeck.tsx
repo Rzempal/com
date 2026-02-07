@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, MotionValue, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -317,81 +317,151 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
   );
 }
 
+// === Desktop Scroll-Reveal Card ===
+function DesktopRevealCard({ 
+  project, 
+  index, 
+  progress,
+  onSelect,
+}: { 
+  project: Project; 
+  index: number; 
+  progress: MotionValue<number>;
+  onSelect: (id: string) => void;
+}) {
+  // Each card has its own reveal window within the scroll progress
+  const cardStart = 0.1 + index * 0.12;
+  const cardEnd = cardStart + 0.12;
+  
+  const y = useTransform(progress, [cardStart, cardEnd], [300, 0]);
+  const opacity = useTransform(progress, [cardStart, cardStart + 0.04], [0, 1]);
+  const scale = useTransform(progress, [cardStart, cardEnd], [0.85, 1]);
+
+  return (
+    <motion.div
+      layoutId={`card-${project.id}`}
+      style={{ y, opacity, scale }}
+      onClick={() => onSelect(project.id)}
+      className="cursor-pointer"
+    >
+      <DesktopCard project={project} index={index} />
+    </motion.div>
+  );
+}
+
 // === Main Section ===
 export function StickyProjectDeck() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionT = useTranslations('projectsSection');
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  return (
-    <section id="projects" ref={containerRef} className="relative z-10 bg-transparent mt-32">
-      {/* Section header */}
-      <div className="mb-16 md:mb-24 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-          {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
-        </h2>
-        <p className="text-text-tertiary font-mono text-sm">
-          {'// SELECTED_WORKS_ARCHIVE'}
-          <br />
-          {'// SCROLL_TO_INSPECT_FILES'}
-        </p>
-      </div>
+  const selectedProject = selectedId ? projects.find(p => p.id === selectedId) ?? null : null;
+  const selectedIndex = selectedId ? projects.findIndex(p => p.id === selectedId) : -1;
 
-      {/* Desktop: Sticky section with scroll-reveal cards + horizontal wheel scroll */}
-      <div className="hidden md:block">
-        <div className="sticky top-0 min-h-screen flex flex-col justify-center py-16">
-          {/* Scrollable cards container */}
-          <div 
-            className="relative overflow-x-auto scrollbar-hide px-6"
-            onWheel={(e) => {
-              // Convert vertical scroll to horizontal
-              if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                e.currentTarget.scrollLeft += e.deltaY;
-              }
-            }}
-          >
-            <div className="flex items-stretch gap-5 pb-4" style={{ width: 'max-content', paddingLeft: 'calc(50vw - 140px)', paddingRight: 'calc(50vw - 140px)' }}>
+  // Close on Escape
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') setSelectedId(null);
+  }, []);
+
+  useEffect(() => {
+    if (selectedId) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [selectedId, handleKeyDown]);
+
+  return (
+    <section id="projects" ref={containerRef} className="relative z-10 bg-transparent py-16 md:py-24">
+      {/* ===== Desktop: Scroll-triggered sticky deck ===== */}
+      <div className="hidden md:block" style={{ height: `${100 + projects.length * 60}vh` }}>
+        <div className="sticky top-0 min-h-screen flex flex-col justify-center">
+          {/* Section header */}
+          <div className="container mx-auto px-4 md:px-6 mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
+            </h2>
+            <p className="text-text-tertiary font-mono text-sm">
+              {'// SELECTED_WORKS_ARCHIVE'}
+              <br />
+              {'// SCROLL_TO_INSPECT_FILES'}
+            </p>
+          </div>
+
+          {/* Cards grid */}
+          <div className="container mx-auto px-4 md:px-6">
+            <div 
+              className="grid gap-5 justify-items-center"
+              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}
+            >
               {projects.map((project, i) => (
-                <motion.div
+                <DesktopRevealCard
                   key={project.id}
-                  initial={{ opacity: 0, y: 100 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: i * 0.15,
-                    ease: [0.22, 1, 0.36, 1]
-                  }}
-                  whileHover={{ 
-                    y: -16, 
-                    scale: 1.03,
-                    transition: { duration: 0.25 }
-                  }}
-                  className="cursor-pointer flex-shrink-0"
-                >
-                  <DesktopCard project={project} index={i} />
-                </motion.div>
+                  project={project}
+                  index={i}
+                  progress={scrollYProgress}
+                  onSelect={setSelectedId}
+                />
               ))}
             </div>
           </div>
-          
-          {/* Scroll hint */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="text-center mt-8 text-text-faint text-xs font-mono"
-          >
-            {'// SCROLL_HORIZONTALLY_TO_EXPLORE'}
-          </motion.div>
         </div>
       </div>
 
-      {/* Mobile: Vertical sticky stack */}
+      {/* ===== Desktop: Expanded card overlay ===== */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setSelectedId(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm cursor-pointer"
+          >
+            <motion.div
+              layoutId={`card-${selectedId}`}
+              onClick={(e) => e.stopPropagation()}
+              className="relative cursor-default"
+              style={{ width: '480px', height: '640px' }}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedId(null)}
+                className="absolute -top-4 -right-4 z-10 w-8 h-8 rounded-full bg-surface border border-border-subtle flex items-center justify-center text-text-secondary hover:text-foreground hover:border-foreground transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+              <DesktopCard project={selectedProject} index={selectedIndex} expanded />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ===== Mobile: Vertical sticky stack (UNTOUCHED) ===== */}
       <div className="md:hidden">
+        {/* Section header (mobile) */}
+        <div className="mb-16 px-6">
+          <h2 className="text-3xl font-bold text-foreground mb-4">
+            {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
+          </h2>
+          <p className="text-text-tertiary font-mono text-sm">
+            {'// SELECTED_WORKS_ARCHIVE'}
+            <br />
+            {'// SCROLL_TO_INSPECT_FILES'}
+          </p>
+        </div>
         {projects.map((project, i) => {
           const targetScale = 1 - (projects.length - i) * 0.04;
           return (
@@ -411,13 +481,18 @@ export function StickyProjectDeck() {
 }
 
 // === Desktop Card (smaller, for horizontal layout) ===
-function DesktopCard({ project, index }: { project: Project; index: number }) {
+function DesktopCard({ project, index, expanded }: { project: Project; index: number; expanded?: boolean }) {
   const t = useTranslations(`projects.${project.translationKey}`);
+  
+  const width = expanded ? 480 : 280;
+  const height = expanded ? 640 : 380;
   
   return (
     <div 
-      className="w-[280px] h-[380px] rounded-xl overflow-hidden bg-glass-bg backdrop-blur-sm border border-border-subtle shadow-2xl"
+      className={`rounded-xl overflow-hidden bg-glass-bg backdrop-blur-sm border border-border-subtle shadow-2xl`}
       style={{ 
+        width: `${width}px`,
+        height: `${height}px`,
         boxShadow: `0 25px 50px -12px ${project.color}20, 0 0 0 1px ${project.color}10`
       }}
     >
@@ -456,8 +531,8 @@ function DesktopCard({ project, index }: { project: Project; index: number }) {
       {/* Content */}
       <div className="p-4 h-[50%] flex flex-col justify-between">
         <div>
-          <h3 className="text-sm font-semibold mb-1" style={{ color: project.color }}>{t('headline')}</h3>
-          <p className="text-xs text-text-secondary line-clamp-2">{t('description')}</p>
+          <h3 className={`${expanded ? 'text-lg' : 'text-sm'} font-semibold mb-1`} style={{ color: project.color }}>{t('headline')}</h3>
+          <p className={`${expanded ? 'text-sm' : 'text-xs'} text-text-secondary ${expanded ? '' : 'line-clamp-2'}`}>{t('description')}</p>
         </div>
         
         <div className="flex flex-wrap gap-1">
