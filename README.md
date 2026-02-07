@@ -1,129 +1,111 @@
 # michalrapala.com
 
-Strona glowna oraz system subdomen prezentujacy oferte uslug z obszaru automatyzacji, symulacji procesow przemyslowych i rozwoju aplikacji webowych.
+Strona główna oraz system subdomen prezentujący ofertę usług z obszaru automatyzacji,
+symulacji procesów przemysłowych i rozwoju aplikacji webowych.
 
-**Styl:** Retro-futurism / Cyberpunk
+**Styl:** Tech-Noir (retro-futurism / cyberpunk)
 
 ---
 
 ## Struktura domen
 
-- [michalrapala.com](https://michalrapala.com) - strona glowna (ten projekt)
-  - [robotyka.michalrapala.com](https://robotyka.michalrapala.com) - symulacje robotyczne
-  - [resztatokod.pl](https://resztatokod.pl) - studio developerskie
-- [twoja-strona.online](https://twoja-strona.online) - strony WWW
-- [michalrapala.app](https://michalrapala.app) - aplikacje webowe
-
----
-
-## Struktura plikow (public_html)
-
-### Pliki UZYWANE (produkcja)
-
-```
-public_html/
-├── index.html              # Glowna strona (v0.115) - full-screen snap-scroll
-├── common-styles.css       # Wspolne style CSS (zmienne, typografia)
-├── hub-styles.css          # Style hub/hero section (v0.050) - snap-scroll + kolorystyka
-├── main-animations.css     # Animacje CSS (glitch, reveal, traces)
-├── fonts.css               # Definicje fontow
-├── main-script.js          # Glowny skrypt JS (animacje, i18n, carousel)
-└── assets/
-    └── images/
-        └── global/
-            └── logo_robotyka.png   # Logo sekcji Robotyka
-```
-
-### Pliki NIEUZYWANE (do usuniecia lub archiwum)
-
-```
-public_html/
-├── footer-template.html    # Stary szablon footer (nieimportowany)
-├── mockup-cyberpunk.html   # Mockup dev (do archiwum)
-├── PROJECT_STATUS.md       # Stara dokumentacja techniczna
-└── assets/
-    └── images/
-        └── global/
-            └── kod_jest_ostatni.jpg  # Nieuzywany obraz
-```
-
-```
-
----
-
-## Dokumentacja
-
-### Standardy (Globalne/Read-Only)
-| Dokument | Opis |
-| --- | --- |
-| 🛡️ **[Conventions](docs/standards/conventions.md)** | Standardy kodu, nazewnictwo, struktura plików |
-| 👁️ **[Code Review](docs/standards/code-review.md)** | Zasady weryfikacji kodu (Backend/Logic) |
-| 🎨 **[Design Review](docs/standards/design-review.md)** | Zasady weryfikacji UI/UX (Frontend) |
-| 🧪 **[Testing](docs/standards/testing.md)** | Strategia testów i TDD |
-| 🤝 **[Contributing](docs/standards/contributing.md)** | Przewodnik po dokumentacji i zasadach współpracy |
-
-### Projekt (Live)
-| Dokument | Opis |
-| --- | --- |
-| 🏛️ **[Architecture](docs/architecture.md)** | Przegląd systemu i warstwy |
-| 📊 **[Database](docs/database.md)** | Model danych i schematy |
-| 💅 **[Design](docs/design.md)** | Design System implementation |
-| 🔐 **[Security](docs/security.md)** | Zasady bezpieczeństwa |
+- [michalrapala.com](https://michalrapala.com) — strona główna (ten projekt)
+  - [robotyka.michalrapala.com](https://robotyka.michalrapala.com) — symulacje robotyczne
+  - [resztatokod.pl](https://resztatokod.pl) — studio developerskie
+- [twoja-strona.online](https://twoja-strona.online) — strony WWW
+- [michalrapala.app](https://michalrapala.app) — aplikacje webowe
 
 ---
 
 ## Technologie
 
-- **CSS:** Tailwind CSS (CDN), custom CSS variables
-- **JS:** Vanilla JS + GSAP 3.12 (animacje)
-- **Fonty:** Poppins (preload woff2), Font Awesome 6 (CDN)
-- **i18n:** PL/EN via data-i18n attributes
+| Pakiet | Wersja | Zastosowanie |
+|--------|--------|-------------|
+| Next.js | 16.1.2 | Framework (App Router, SSR/SSG) |
+| React | 19.2.3 | Biblioteka UI |
+| TypeScript | 5.9.3 | Typowanie statyczne |
+| Tailwind CSS | 4 | Style utility-first |
+| Framer Motion | 12.27.0 | Animacje scroll-linked, SVG pulse |
+| GSAP | 3.14.2 | Zaawansowane animacje (RTK logo) |
+| Lenis | 1.3.17 | Smooth scroll |
+| next-intl | 4.7.0 | Internacjonalizacja PL/EN |
 
 ---
 
-## Glowne komponenty
+## Struktura projektu
 
-### Hero Section
-- Tytul z efektem glitch
-- Subtitle z animacja typewriter
-- Fade-in z efektem "z glebi" (scale 0.9 -> 1)
+```
+next-app/src/
+├── app/[locale]/
+│   ├── layout.tsx              # Root layout: fonty, providers, meta
+│   └── page.tsx                # Kompozycja sekcji strony
+├── components/
+│   ├── sections/
+│   │   ├── Hero.tsx            # Fullscreen hero: glitch title, typewriter
+│   │   ├── TwoPillars.tsx      # Grid 2x2: Robotyka + ResztaToKod
+│   │   ├── StickyProjectDeck.tsx  # Karuzela projektów (sticky scroll)
+│   │   └── Contact.tsx         # Sekcja kontaktowa
+│   ├── ui/
+│   │   └── PCBBackground.tsx   # Animowane tło PCB (emerald/cyan traces)
+│   └── providers/
+│       └── LenisProvider.tsx   # Smooth scroll wrapper
+├── i18n/                       # Konfiguracja next-intl (PL/EN)
+├── messages/                   # Pliki tłumaczeń (pl.json, en.json)
+└── lib/utils.ts                # Utility: cn() (clsx + tailwind-merge)
+```
 
-### Two Pillars (wewnatrz hero)
-- **Robotyka** - symulacje przemyslowe (KUKA, Fanuc, ABB)
-- **resztatokod.pl** - studio developerskie (3-state CTA sequence)
-- Desktop: grid 2 kolumny
-- Mobile: stacked card carousel z swipe
+### Kompozycja strony
 
-### PCB Showcase
-- Interaktywne tlo SVG (circuit board)
-- Pill buttons z animacja GSAP
-- Flash effect na trace paths
-
-### Navbar
-- Status badge: "OTWARTY NA NOWE PROJEKTY"
-- Social links (LinkedIn, GitHub, Email)
-- Language toggle (PL/EN)
+1. **PCBBackground** — fixed z-0, animowane circuit traces (emerald + cyan)
+2. **Hero** — fullscreen, tytuł z efektem glitch, subtitle typewriter, scroll indicator
+3. **TwoPillars** — `container mx-auto`, 2x2 grid (ENG://Symulacja + DEV://Programowanie)
+4. **StickyProjectDeck** — `max-w-7xl mx-auto`, 5 kart projektów ze sticky scroll
+5. **Contact** — `max-w-2xl mx-auto`, dane kontaktowe
 
 ---
 
-## Tlumaczenia (i18n)
+## Dokumentacja
 
-Obiekt `translations` w `main-script.js`:
+### Standardy (globalne, cross-project)
 
-| Klucz | PL | EN |
-|-------|----|----|
-| hub_status | OTWARTY NA NOWE PROJEKTY | OPEN FOR NEW PROJECTS |
-| scroll_cta | Zobacz, czym sie teraz zajmuje. | See what I'm working on now. |
-| pillars_heading | Symulacje robotyczne. Aplikacje. Strony internetowe. | Robotic simulations. Applications. Websites. |
-| hero_subtitle | Jack into the digital world... | Jack into the digital world... |
+| Dokument | Opis |
+| --- | --- |
+| **[Conventions](docs/standards/conventions.md)** | Standardy kodu, nazewnictwo, struktura plików |
+| **[Code Review](docs/standards/code-review.md)** | Zasady weryfikacji kodu (styl Linusa) |
+| **[Design Review](docs/standards/design-review.md)** | Zasady weryfikacji UI/UX |
+| **[Testing](docs/standards/testing.md)** | Strategia testów i TDD |
+| **[Contributing](docs/standards/contributing.md)** | Przewodnik po współpracy |
+
+### Projekt (live)
+
+| Dokument | Opis |
+| --- | --- |
+| **[Architecture](docs/architecture.md)** | Przegląd systemu, stack, warstwy |
+| **[Design](docs/design.md)** | Design System Tech-Noir, tokeny wizualne |
+| **[Deployment](docs/deployment.md)** | Wdrożenie przez Vercel |
+| **[Lessons Learned](docs/lessons-learned.md)** | Dziennik doświadczeń |
+| **[Road Map](docs/roadmap.md)** | Plan rozwoju projektu |
+| **[PCB Oznaczenia](docs/PCB-Oznaczenia.md)** | Dokumentacja oznaczeń silk screen na PCB |
 
 ---
 
 ## Deployment
 
-- **Hosting:** hostido.pl
-- **CI/CD:** Vercel (preview deployments)
-- **Branch:** `claude/simplify-user-flow-B3JeE`
+- **Hosting:** Vercel (preview deployments z każdego brancha)
+- **Domena:** hostido.pl
+- **CI/CD:** Vercel (automatyczny build + deploy)
+
+---
+
+## Uruchomienie lokalne
+
+```bash
+cd next-app
+npm install
+npm run dev
+```
+
+Aplikacja dostępna pod `http://localhost:3000/pl`
 
 ---
 
@@ -135,7 +117,4 @@ Obiekt `translations` w `main-script.js`:
 
 ---
 
-## Status
-
-- Otwarty na nowe projekty
-- Ostatnia aktualizacja: styczen 2026
+> Ostatnia aktualizacja: luty 2026
