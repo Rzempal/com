@@ -337,6 +337,55 @@ html.lenis body {
 }
 
 /* ============================================
+   Footer Tagline Animation System
+   (based on RTK Logo, adjusted for 26 chars)
+   ============================================ */
+
+.footer-logo {
+	fill: none;
+	stroke: #ffffff;
+	stroke-linecap: round;
+	overflow: visible;
+}
+
+.footer-cmd {
+	fill: #fff;
+	stroke: none;
+	font-family: "JetBrains Mono", monospace;
+	font-weight: 700;
+	font-size: 28px;
+	opacity: 0;
+	animation: rtk-fade-in 0.5s ease-out forwards 1.8s;
+}
+
+.footer-typed {
+	fill: #fff;
+	stroke: none;
+	font-family: "JetBrains Mono", monospace;
+	font-weight: 700;
+	font-size: 28px;
+	clip-path: inset(0 100% 0 0);
+	animation: rtk-type 2.6s steps(26) forwards 2.3s;
+}
+
+.footer-cursor {
+	fill: #fff;
+	stroke: none;
+	opacity: 0;
+	animation: rtk-blink 1s step-end infinite 2s;
+}
+
+.footer-cursor-g {
+	animation: footer-move-cursor 2.6s steps(26) forwards 2.3s;
+}
+
+@keyframes footer-move-cursor {
+	to {
+		transform: translateX(458px);
+	}
+}
+
+/* ============================================
    PCB Circuit Board Animations
    ============================================ */
 
