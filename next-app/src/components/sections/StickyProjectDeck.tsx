@@ -330,14 +330,10 @@ export function StickyProjectDeck() {
     <section id="projects" ref={containerRef} className="relative z-10 bg-transparent mt-32">
       {/* Section header */}
       <div className="mb-16 md:mb-24 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-          {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
+        <h2 className="text-4xl md:text-5xl font-bold font-mono text-foreground leading-tight">
+          <span className="text-text-tertiary">{'// '}</span>WYBRANE_PROJEKTY<br />
+          <span className="text-text-tertiary">{'// '}</span>SELECTED_WORKS
         </h2>
-        <p className="text-text-tertiary font-mono text-sm">
-          {'// SELECTED_WORKS_ARCHIVE'}
-          <br />
-          {'// SCROLL_TO_INSPECT_FILES'}
-        </p>
       </div>
 
       {/* Desktop: Sticky section with scroll-reveal cards + horizontal wheel scroll */}

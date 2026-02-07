@@ -247,12 +247,10 @@ export function TwoPillars() {
           transition={{ duration: 0.6 }}
           className="mb-12 max-w-5xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {t('heading')} <span className="text-emerald-500">{t('headingAccent')}</span>
+          <h2 className="text-4xl md:text-5xl font-bold font-mono text-foreground leading-tight">
+            <span className="text-text-tertiary">{'// '}</span>KLUCZOWE_KOMPETENCJE<br />
+            <span className="text-text-tertiary">{'// '}</span>CORE_EXPERTISE
           </h2>
-          <p className="text-text-tertiary font-mono text-sm">
-            // CORE_EXPERTISE_MODULES
-          </p>
         </motion.div>
 
         {/* Unified Card - 2x2 Grid */}
