@@ -116,6 +116,7 @@
   "footer": {
     "siteHeading": "Strona:",
     "optionsHeading": "Opcje:",
+    "contactHeading": "Kontakt:",
     "nav": {
       "home": "Home",
       "pillars": "Kluczowe kompetencje",
@@ -125,7 +126,7 @@
     },
     "theme": {
       "system": "Systemowy",
-      "light": "Jasny",
+      "light": "Vaporwave",
       "dark": "Ciemny"
     },
     "tagline": "// No boring websites allowed."

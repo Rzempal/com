@@ -21,7 +21,7 @@ export function useTheme() {
 const STORAGE_KEY = 'theme-preference';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   // Load saved preference
   useEffect(() => {
