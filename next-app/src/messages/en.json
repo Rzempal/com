@@ -68,5 +68,39 @@
       "description": "Space for your future project. Get in touch to discuss collaboration possibilities.",
       "cta": "Contact"
     }
+  },
+  "faq": {
+    "heading": "FAQ",
+    "subheading": "// FREQUENTLY_ASKED_QUESTIONS",
+    "items": {
+      "q1": {
+        "question": "Robotics and automation engineer in Silesia — who is Michał Rapała?",
+        "answer": "A graduate of the Silesian University of Technology with over a decade of experience in engineering, robotics, and industrial automation. I live and work in Silesia, specializing in production process simulations, industrial robot programming, and building modern web applications."
+      },
+      "q2": {
+        "question": "What is your experience in engineering, robotics, and IT?",
+        "answer": "I have over 10 years of professional experience. I specialize in industrial engineering, robotics and automation, as well as the automotive industry. In parallel, I develop websites, mobile applications, and implement solutions based on Artificial Intelligence (AI)."
+      },
+      "q3": {
+        "question": "What was your most demanding project in the automotive industry?",
+        "answer": "My key achievement is automating the body-in-white (BIW) production process for the Mercedes G-Class at the factory in Graz. It was an engineering challenge because this legendary model had been hand-built for the last 40 years. Implementing robotics and automation into this process was a milestone for the production line."
+      },
+      "q4": {
+        "question": "Web applications and websites for businesses — Silesia and all of Poland",
+        "answer": "Building web applications and websites for businesses with special focus on the Silesian market. From company landing pages to advanced business tools — every project built with a modern stack (Next.js, React) with emphasis on performance and scalability."
+      },
+      "q5": {
+        "question": "Do you optimize websites for SEO?",
+        "answer": "Yes, and this section is a perfect example. It's technically tailored for Google bots, even though I personally don't enjoy talking about myself — I prefer to let my completed projects speak for me."
+      },
+      "q6": {
+        "question": "What programming technologies do you use in your projects?",
+        "answer": "My tech stack focuses on modern, high-performance solutions. For websites and applications, I primarily use React and Next.js. For mobile apps, I work with Flutter. I'm also actively interested in implementing AI in code and process automation."
+      },
+      "q7": {
+        "question": "How do you use artificial intelligence (AI) in your projects?",
+        "answer": "AI is both a passion and a work tool. I use artificial intelligence in engineering projects (production process optimization) and in application development — e.g., Karton-na-leki, a mobile app for managing a home medicine cabinet with image recognition."
+      }
+    }
   }
 }

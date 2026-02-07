@@ -68,5 +68,39 @@
       "description": "Miejsce na Twój przyszły projekt. Skontaktuj się, aby omówić możliwości współpracy.",
       "cta": "Kontakt"
     }
+  },
+  "faq": {
+    "heading": "FAQ",
+    "subheading": "// FREQUENTLY_ASKED_QUESTIONS",
+    "items": {
+      "q1": {
+        "question": "Inżynier robotyki i automatyki Śląsk — kim jest Michał Rapała?",
+        "answer": "Absolwent Politechniki Śląskiej z ponad dekadą doświadczenia w inżynierii, robotyce i automatyce przemysłowej. Mieszkam i pracuję na Śląsku, specjalizując się w symulacjach procesów produkcyjnych, programowaniu robotów przemysłowych oraz tworzeniu nowoczesnych aplikacji webowych."
+      },
+      "q2": {
+        "question": "Jakie masz doświadczenie w inżynierii, robotyce i IT?",
+        "answer": "Posiadam ponad 10-letnie doświadczenie zawodowe. Specjalizuję się w inżynierii przemysłowej, robotyce i automatyce, a także w branży automotive. Równolegle zajmuję się tworzeniem stron internetowych, aplikacji mobilnych oraz wdrażaniem rozwiązań opartych o Sztuczną Inteligencję (AI)."
+      },
+      "q3": {
+        "question": "Jaki był Twój najbardziej wymagający projekt w branży automotive?",
+        "answer": "Moim kluczowym osiągnięciem jest zautomatyzowanie procesu produkcji karoserii (BIW) dla Mercedesa Klasy G w fabryce w Grazu. Było to wyzwanie inżynieryjne, ponieważ ten legendarny model był produkowany ręcznie przez ostatnie 40 lat. Wdrożenie robotyki i automatyki w ten proces było krokiem milowym dla linii produkcyjnej."
+      },
+      "q4": {
+        "question": "Aplikacje webowe i strony internetowe dla firm — Śląsk i cała Polska",
+        "answer": "Tworzenie aplikacji webowych i stron internetowych dla firm ze szczególnym uwzględnieniem rynku śląskiego. Od wizytówek firmowych po zaawansowane narzędzia biznesowe — każdy projekt w nowoczesnym stacku (Next.js, React) z naciskiem na wydajność i skalowalność."
+      },
+      "q5": {
+        "question": "Czy optymalizujesz tworzone strony pod kątem SEO?",
+        "answer": "Tak, a ta sekcja jest tego doskonałym przykładem. Jest technicznie skrojona pod roboty Google, mimo że osobiście nie przepadam za opowiadaniem o sobie – wolę, gdy bronią mnie zrealizowane projekty."
+      },
+      "q6": {
+        "question": "W jakich technologiach programistycznych tworzysz projekty?",
+        "answer": "Mój stack technologiczny koncentruje się na nowoczesnych, wydajnych rozwiązaniach. Przy tworzeniu stron i aplikacji wykorzystuję głównie React i Next.js. W przypadku aplikacji mobilnych pracuję w technologii Flutter. Interesuję się również aktywnym wdrażaniem AI w kodzie i automatyzacji procesów."
+      },
+      "q7": {
+        "question": "Jak wykorzystujesz sztuczną inteligencję (AI) w projektach?",
+        "answer": "AI to zarówno pasja, jak i narzędzie pracy. Wykorzystuję sztuczną inteligencję w projektach inżynieryjnych (optymalizacja procesów produkcyjnych) oraz w tworzeniu aplikacji — np. Karton-na-leki, mobilna aplikacja do zarządzania domową apteczką z rozpoznawaniem obrazu."
+      }
+    }
   }
 }
