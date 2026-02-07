@@ -89,11 +89,11 @@ function EngContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       className="cell-eng-content flex flex-col p-4 md:p-6 rounded-lg"
     >
       {/* Header */}
-      <div className="flex items-center gap-2 pb-3 mb-3 border-b border-cyan-500/20">
-        <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-        <span className="text-xs font-mono text-cyan-400 font-bold tracking-wider uppercase">
-          ENG://{t('robotics.tag')}
-        </span>
+      <div className="pb-3 mb-3 border-b border-cyan-500/20">
+        <h3 className="text-2xl md:text-3xl font-mono font-bold leading-tight flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse shrink-0" />
+          <span><span className="text-cyan-400">ENG://</span><span className="text-foreground">{t('robotics.tag')}</span></span>
+        </h3>
       </div>
 
       {/* Headline */}
@@ -195,11 +195,11 @@ function DevContentCell({ t }: { t: ReturnType<typeof useTranslations<'pillars'>
       className="cell-dev-content flex flex-col p-4 md:p-6 rounded-lg"
     >
       {/* Header */}
-      <div className="flex items-center gap-2 pb-3 mb-3 border-b border-emerald-500/20">
-        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-        <span className="text-xs font-mono text-emerald-400 font-bold tracking-wider uppercase">
-          DEV://{t('dev.tag')}
-        </span>
+      <div className="pb-3 mb-3 border-b border-emerald-500/20">
+        <h3 className="text-2xl md:text-3xl font-mono font-bold leading-tight flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <span><span className="text-emerald-400">DEV://</span><span className="text-foreground">{t('dev.tag')}</span></span>
+        </h3>
       </div>
 
       {/* Headline */}

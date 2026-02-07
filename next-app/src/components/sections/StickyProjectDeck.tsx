@@ -249,7 +249,7 @@ function Card({ project, index, progress, range, targetScale }: CardProps) {
     >
       <motion.div
         style={{ scale, filter }}
-        className="relative w-full max-w-2xl h-[500px] rounded-2xl overflow-hidden bg-surface border border-border-subtle shadow-2xl origin-top"
+        className={`relative w-full max-w-2xl h-[500px] rounded-2xl overflow-hidden bg-surface border border-border-subtle shadow-2xl origin-top${project.isLocked ? ' locked-card' : ''}`}
       >
         {/* Top accent bar */}
         <div className={`absolute top-0 w-full h-1 ${project.accentClass} opacity-50`} />
@@ -483,7 +483,7 @@ function DesktopCard({ project, index, expanded }: { project: Project; index: nu
   
   return (
     <div 
-      className={`rounded-xl overflow-hidden bg-glass-bg backdrop-blur-sm border border-border-subtle shadow-2xl`}
+      className={`rounded-xl overflow-hidden bg-glass-bg backdrop-blur-sm border border-border-subtle shadow-2xl${project.isLocked ? ' locked-card' : ''}`}
       style={{ 
         width: expanded ? '100%' : `${width}px`,
         height: `${height}px`,

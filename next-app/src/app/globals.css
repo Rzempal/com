@@ -44,10 +44,10 @@ html.light {
 	--color-foreground: #ffffff;
 	--color-emerald-neon: #d946ef;
 	--color-emerald-glow: #a855f7;
-	--color-text-muted: #e9d5ff;
-	--color-text-secondary: #e9d5ff;
-	--color-text-tertiary: #c4b5fd;
-	--color-text-faint: #8b5cf6;
+	--color-text-muted: #e0f2fe;
+	--color-text-secondary: #bae6fd;
+	--color-text-tertiary: #67e8f9;
+	--color-text-faint: #0891b2;
 	--color-border: #7c3aed;
 	--color-border-subtle: rgba(217, 70, 239, 0.3);
 	--color-border-faint: rgba(217, 70, 239, 0.12);
@@ -169,6 +169,12 @@ html.light .glow-emerald:hover {
 /* Hero opaque background for vaporwave mode */
 html.light .hero-base-bg {
 	background: linear-gradient(180deg, #077d97, #045264, #001317);
+}
+
+/* Locked card – greyed out in light mode */
+html.light .locked-card {
+	filter: grayscale(0.8) brightness(0.75);
+	opacity: 0.7;
 }
 
 /* Animation utilities */
