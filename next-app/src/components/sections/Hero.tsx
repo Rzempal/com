@@ -14,27 +14,17 @@ export function Hero() {
     offset: ['start start', 'end start'],
   });
 
-  // Desktop breakpoint (md: 768px)
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 768px)');
-    setIsDesktop(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
 
   // Hero → Card transformation (scroll-linked)
   // Width: 100% on mobile, 100% → 85% on desktop
-  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', isDesktop ? '85%' : '100%']);
+  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', '100%']);
   // Border radius: 0 → 32px (rounded-2xl)
   const borderRadius = useTransform(scrollYProgress, [0, 0.15], [0, 32]);
   // Card border opacity: 0 → 1
   const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   // Horizontal margin for centering (0 on mobile)
-  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', isDesktop ? '7.5%' : '0%']);
+  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '0%']);
   // Vertical margin for floating card effect
   const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '5%']);
   // Top padding compresses → content shifts up → gap shrinks

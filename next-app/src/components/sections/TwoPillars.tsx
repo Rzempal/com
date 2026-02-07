@@ -255,7 +255,7 @@ export function TwoPillars() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="unified-card w-full md:w-[85%] mx-auto p-3 md:p-4 rounded-[32px]
+          className="unified-card w-full mx-auto p-3 md:p-4 rounded-[32px]
             bg-zinc-900/80 backdrop-blur-md
             border border-zinc-700/50
             shadow-[0_0_30px_rgba(0,0,0,0.5)]"
