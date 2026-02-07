@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 const EMAIL = 'kontakt@michalrapala.com';
 
@@ -32,6 +33,7 @@ const socials = [
 ];
 
 export function Contact() {
+  const t = useTranslations('contact');
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
@@ -51,10 +53,10 @@ export function Contact() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-            Kontakt
+            {t('heading')}
           </h2>
           <p className="text-zinc-500 font-mono text-sm mb-12">
-            {'// OPEN_FOR_COLLABORATION'}
+            {t('subheading')}
           </p>
         </motion.div>
 

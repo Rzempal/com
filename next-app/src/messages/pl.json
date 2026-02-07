@@ -75,6 +75,10 @@
       "cta": "Kontakt"
     }
   },
+  "contact": {
+    "heading": "Kontakt",
+    "subheading": "// OPEN_FOR_COLLABORATION"
+  },
   "faq": {
     "heading": "FAQ",
     "subheading": "// FREQUENTLY_ASKED_QUESTIONS",
