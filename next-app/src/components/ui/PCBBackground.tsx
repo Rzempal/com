@@ -1,19 +1,57 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 /**
  * PCBBackground - Tech-Noir style PCB background
  *
  * Circuit trace layout (emerald):
- *   (50%, 0) → vertical ↓ → (50%, 40%) → diagonal ↙ → (15%, 75%) → vertical ↓ → (15%, 100%)
+ *   (50%, 0) → vertical ↓ → (50%, 40%) → diagonal ↙ → (edgeX, 75%) → vertical ↓ → (edgeX, 100%)
+ *   edgeX = dynamicznie obliczana lewa krawędź Tailwind `container` minus offset (12px).
  *
  * viewBox="0 0 100 100" + preserveAspectRatio="none" = coordinates are viewport percentages.
  * Static traces use vectorEffect="non-scaling-stroke" for consistent 1px lines.
  * Animated traces use strokeDashoffset for flowing pulse effect (no vectorEffect — breaks dasharray).
  * Pads rendered as HTML divs to avoid ellipse distortion from non-uniform scaling.
  */
+
+/** Tailwind default container max-widths (px) mapped to breakpoints */
+const CONTAINER_BREAKPOINTS: [number, number][] = [
+  [1536, 1536], // 2xl
+  [1280, 1280], // xl
+  [1024, 1024], // lg
+  [768, 768],   // md
+  [640, 640],   // sm
+];
+
+/**
+ * Calculates the X position (as viewBox %) of the left edge of a Tailwind
+ * `container mx-auto px-4 md:px-6` element, shifted left by `offsetPx`.
+ */
+function useContainerEdge(offsetPx: number = 12): number {
+  const [edgeX, setEdgeX] = useState(10); // SSR fallback (~1920px)
+
+  useEffect(() => {
+    function calculate() {
+      const vw = window.innerWidth;
+      const maxW = CONTAINER_BREAKPOINTS.find(([bp]) => vw >= bp)?.[1] ?? vw;
+      const padding = vw >= 768 ? 24 : 16; // md:px-6 : px-4
+      const containerLeftPx = (vw - maxW) / 2 + padding;
+      setEdgeX(Math.max(0, ((containerLeftPx - offsetPx) / vw) * 100));
+    }
+
+    calculate();
+    window.addEventListener('resize', calculate);
+    return () => window.removeEventListener('resize', calculate);
+  }, [offsetPx]);
+
+  return edgeX;
+}
+
 export function PCBBackground() {
+  const edgeX = useContainerEdge(12);
+  const emeraldPath = `M 50 0 V 40 L ${edgeX} 75 V 100`;
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
       {/* Warstwa 1: Tekstura Szumu (Noise) */}
@@ -31,7 +69,7 @@ export function PCBBackground() {
       >
         {/* --- STATIC TRACES (Tło ścieżek) - 1px --- */}
         <path
-          d="M 50 0 V 40 L 15 75 V 100"
+          d={emeraldPath}
           className="stroke-zinc-800"
           strokeWidth="1"
           fill="none"
@@ -56,7 +94,7 @@ export function PCBBackground() {
         {/* --- ANIMATED FLOWS (Animowane przepływy prądu) --- */}
         {/* Emerald trace - puls przepływający całą ścieżką */}
         <motion.path
-          d="M 50 0 V 40 L 15 75 V 100"
+          d={emeraldPath}
           className="stroke-emerald-500"
           strokeWidth="0.2"
           fill="none"
@@ -103,10 +141,10 @@ export function PCBBackground() {
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Emerald pad 2: punkt zmiany diagonal → vertical (15%, 75%) */}
+      {/* Emerald pad 2: punkt zmiany diagonal → vertical (edgeX%, 75%) */}
       <motion.div
         className="absolute w-1.5 h-1.5 rounded-full bg-zinc-900 border border-emerald-500/50"
-        style={{ left: '15%', top: '75%', transform: 'translate(-50%, -50%)' }}
+        style={{ left: `${edgeX}%`, top: '75%', transform: 'translate(-50%, -50%)' }}
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       />
