@@ -245,7 +245,7 @@ export function TwoPillars() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-12 max-w-5xl mx-auto"
+          className="mb-12"
         >
           <h2 className="text-2xl md:text-3xl font-bold font-mono text-foreground leading-tight">
             <span className="text-text-tertiary">{'// '}</span>KLUCZOWE_KOMPETENCJE<br />

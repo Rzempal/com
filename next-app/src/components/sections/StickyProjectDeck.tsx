@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, MotionValue, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { useContainerWidth } from '@/components/ui/useContainerLayout';
 
 // === Project Data ===
 interface Project {
@@ -354,6 +355,7 @@ export function StickyProjectDeck() {
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionT = useTranslations('projectsSection');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const containerWidth = useContainerWidth();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -427,7 +429,7 @@ export function StickyProjectDeck() {
               layoutId={`card-${selectedId}`}
               onClick={(e) => e.stopPropagation()}
               className="relative cursor-default"
-              style={{ width: '480px', height: '640px' }}
+              style={{ width: `${containerWidth}px` }}
             >
               {/* Close button */}
               <button
@@ -483,7 +485,7 @@ function DesktopCard({ project, index, expanded }: { project: Project; index: nu
     <div 
       className={`rounded-xl overflow-hidden bg-glass-bg backdrop-blur-sm border border-border-subtle shadow-2xl`}
       style={{ 
-        width: `${width}px`,
+        width: expanded ? '100%' : `${width}px`,
         height: `${height}px`,
         boxShadow: `0 25px 50px -12px ${project.color}20, 0 0 0 1px ${project.color}10`
       }}

@@ -3,10 +3,12 @@
 import { useTranslations } from 'next-intl';
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useContainerWidth } from '@/components/ui/useContainerLayout';
 
 export function Hero() {
   const t = useTranslations('hero');
   const sectionRef = useRef<HTMLElement>(null);
+  const containerWidth = useContainerWidth();
 
   // Canvas Shrink effect - scroll-linked
   const { scrollYProgress } = useScroll({
@@ -17,14 +19,12 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
 
   // Hero → Card transformation (scroll-linked)
-  // Width: 100% on mobile, 100% → 85% on desktop
-  const cardWidth = useTransform(scrollYProgress, [0, 0.15], ['100%', '100%']);
+  // MaxWidth: unconstrained → container width (matching TwoPillars)
+  const cardMaxWidth = useTransform(scrollYProgress, [0, 0.15], [9999, containerWidth]);
   // Border radius: 0 → 32px (rounded-2xl)
   const borderRadius = useTransform(scrollYProgress, [0, 0.15], [0, 32]);
   // Card border opacity: 0 → 1
   const cardBorderOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-  // Horizontal margin for centering (0 on mobile)
-  const cardMargin = useTransform(scrollYProgress, [0, 0.15], ['0%', '0%']);
   // Vertical margin for floating card effect
   const cardMarginVertical = useTransform(scrollYProgress, [0, 0.15], ['0%', '5%']);
   // Top padding compresses → content shifts up → gap shrinks
@@ -63,17 +63,15 @@ export function Hero() {
     >
       {/* Animated Card Wrapper - transforms from full-width to card */}
       <motion.div
-        className="relative w-full flex flex-col justify-start overflow-hidden"
+        className="relative w-full mx-auto flex flex-col justify-start overflow-hidden"
         style={{
-          width: cardWidth,
+          maxWidth: cardMaxWidth,
           height: cardHeight,
           paddingTop: cardPaddingTop,
-          marginLeft: cardMargin,
-          marginRight: cardMargin,
           marginTop: cardMarginVertical,
           marginBottom: cardMarginVertical,
           borderRadius,
-          willChange: 'width, height, margin, border-radius, padding-top',
+          willChange: 'max-width, height, margin, border-radius, padding-top',
         }}
       >
         {/* Card border - appears on scroll */}
@@ -176,9 +174,12 @@ export function Hero() {
 
         {/* Marquee Ticker */}
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-3">
-          <div className="animate-marquee whitespace-nowrap">
-            <span className="inline-block text-xs sm:text-sm font-mono text-text-tertiary uppercase tracking-widest">
-              {t('marquee')}{t('marquee')}
+          <div className="animate-marquee flex w-max">
+            <span className="shrink-0 text-xs sm:text-sm font-mono text-text-tertiary uppercase tracking-widest">
+              {t('marquee')}
+            </span>
+            <span className="shrink-0 text-xs sm:text-sm font-mono text-text-tertiary uppercase tracking-widest">
+              {t('marquee')}
             </span>
           </div>
         </div>
