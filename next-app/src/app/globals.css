@@ -44,10 +44,10 @@ html.light {
 	--color-foreground: #ffffff;
 	--color-emerald-neon: #d946ef;
 	--color-emerald-glow: #a855f7;
-	--color-text-muted: #d4d4d8;
-	--color-text-secondary: #d4d4d8;
+	--color-text-muted: #e9d5ff;
+	--color-text-secondary: #e9d5ff;
 	--color-text-tertiary: #c4b5fd;
-	--color-text-faint: #a1a1aa;
+	--color-text-faint: #8b5cf6;
 	--color-border: #7c3aed;
 	--color-border-subtle: rgba(217, 70, 239, 0.3);
 	--color-border-faint: rgba(217, 70, 239, 0.12);
@@ -66,7 +66,7 @@ html.light {
 	--color-grid-line: rgba(217, 70, 239, 0.06);
 	--color-svg-fill: #ffffff;
 
-	background: linear-gradient(180deg, #9e6bb7, #935b8b, #c77bbc, #b248b4) fixed;
+	background: linear-gradient(180deg, #9e6bb7, #bb83b9, #c77bbc, #b248b4) fixed;
 	min-height: 100vh;
 }
 
