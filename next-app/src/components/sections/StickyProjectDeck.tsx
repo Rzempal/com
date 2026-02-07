@@ -385,14 +385,10 @@ export function StickyProjectDeck() {
         <div className="sticky top-0 min-h-screen flex flex-col justify-center">
           {/* Section header */}
           <div className="container mx-auto px-4 md:px-6 mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
+            <h2 className="text-2xl md:text-3xl font-bold font-mono text-foreground leading-tight">
+              <span className="text-text-tertiary">{'// '}</span>WYBRANE_PROJEKTY<br />
+              <span className="text-text-tertiary">{'// '}</span>SELECTED_WORKS
             </h2>
-            <p className="text-text-tertiary font-mono text-sm">
-              {'// SELECTED_WORKS_ARCHIVE'}
-              <br />
-              {'// SCROLL_TO_INSPECT_FILES'}
-            </p>
           </div>
 
           {/* Cards grid */}
@@ -453,14 +449,10 @@ export function StickyProjectDeck() {
       <div className="md:hidden">
         {/* Section header (mobile) */}
         <div className="mb-16 px-6">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
-            {sectionT('heading')} <span className="text-cyan-500">{sectionT('headingAccent')}</span>
+          <h2 className="text-2xl font-bold font-mono text-foreground leading-tight">
+            <span className="text-text-tertiary">{'// '}</span>WYBRANE_PROJEKTY<br />
+            <span className="text-text-tertiary">{'// '}</span>SELECTED_WORKS
           </h2>
-          <p className="text-text-tertiary font-mono text-sm">
-            {'// SELECTED_WORKS_ARCHIVE'}
-            <br />
-            {'// SCROLL_TO_INSPECT_FILES'}
-          </p>
         </div>
         {projects.map((project, i) => {
           const targetScale = 1 - (projects.length - i) * 0.04;

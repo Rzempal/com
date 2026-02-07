@@ -85,18 +85,18 @@ export function Hero() {
         {/* Gradient Mesh Background */}
         <div className="absolute inset-0 -z-10 rounded-[inherit] overflow-hidden">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-background" />
+          <div className="absolute inset-0 bg-background hero-base-bg" />
 
-          {/* Emerald glow - top right */}
+          {/* Accent glow - top right */}
           <div
             className="absolute -top-1/4 -right-1/4 w-2/3 h-2/3 rounded-full opacity-40 blur-[80px]"
-            style={{ background: 'radial-gradient(circle, #27C96D 0%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, var(--color-emerald-neon) 0%, transparent 70%)' }}
           />
 
-          {/* Emerald glow - bottom left */}
+          {/* Accent glow - bottom left */}
           <div
             className="absolute -bottom-1/4 -left-1/4 w-2/3 h-2/3 rounded-full opacity-30 blur-[60px]"
-            style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, var(--color-emerald-glow) 0%, transparent 70%)' }}
           />
 
           {/* Subtle grid overlay */}
@@ -104,8 +104,8 @@ export function Hero() {
             className="absolute inset-0 opacity-[0.06]"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)
+                linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px)
               `,
               backgroundSize: '48px 48px',
             }}
