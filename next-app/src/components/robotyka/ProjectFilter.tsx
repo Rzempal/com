@@ -82,6 +82,9 @@ export function ProjectFilter() {
                 >
                   <span className="text-xs font-mono uppercase tracking-widest text-emerald-neon">
                     {t(group.label)}
+                    {hasActiveTag && (
+                      <span className="text-foreground"> — {activeFilter.replace(/_/g, ' ')}</span>
+                    )}
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
