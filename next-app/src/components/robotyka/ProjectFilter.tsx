@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectData, FILTER_GROUPS } from '@/data/robotyka-projects';
@@ -14,9 +14,11 @@ const filterGroupKeys = [
   { key: 'technology', data: FILTER_GROUPS.technology, label: 'filterGroupTechnology' },
 ] as const;
 
+type ActiveFilters = Record<string, string>;
+
 export function ProjectFilter() {
   const t = useTranslations('robotyka.projects');
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilters, setActiveFilters] = useState<ActiveFilters>({});
   const [openGroup, setOpenGroup] = useState<number | null>(null);
 
   const availableTags = useMemo(() => {
@@ -25,14 +27,31 @@ export function ProjectFilter() {
     return allTags;
   }, []);
 
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === 'all') return projectData;
-    return projectData.filter((p) => p.tags.includes(activeFilter));
-  }, [activeFilter]);
+  const activeTagValues = useMemo(() => Object.values(activeFilters), [activeFilters]);
+  const hasAnyFilter = activeTagValues.length > 0;
 
-  const handleFilter = (tag: string) => {
-    setActiveFilter(tag);
-  };
+  const filteredProjects = useMemo(() => {
+    if (!hasAnyFilter) return projectData;
+    return projectData.filter((p) =>
+      activeTagValues.every((tag) => p.tags.includes(tag)),
+    );
+  }, [activeTagValues, hasAnyFilter]);
+
+  const handleFilter = useCallback((groupKey: string, tag: string) => {
+    setActiveFilters((prev) => {
+      const next = { ...prev };
+      if (next[groupKey] === tag) {
+        delete next[groupKey];
+      } else {
+        next[groupKey] = tag;
+      }
+      return next;
+    });
+  }, []);
+
+  const resetFilters = useCallback(() => {
+    setActiveFilters({});
+  }, []);
 
   const toggleGroup = (index: number) => {
     setOpenGroup(openGroup === index ? null : index);
@@ -45,9 +64,9 @@ export function ProjectFilter() {
         {/* All button — always visible */}
         <div className="flex flex-wrap gap-2 mb-2">
           <button
-            onClick={() => handleFilter('all')}
+            onClick={resetFilters}
             className={`px-3 py-1.5 text-xs font-mono uppercase tracking-wider rounded border transition-colors ${
-              activeFilter === 'all'
+              !hasAnyFilter
                 ? 'bg-emerald-neon/20 text-emerald-neon border-emerald-neon/50'
                 : 'text-text-muted border-glass-border hover:text-foreground hover:border-text-muted'
             }`}
@@ -66,7 +85,7 @@ export function ProjectFilter() {
             if (tags.length === 0) return null;
 
             const isOpen = openGroup === i;
-            const hasActiveTag = (tags as string[]).includes(activeFilter);
+            const activeTagInGroup = activeFilters[group.key];
 
             return (
               <div key={group.key}>
@@ -75,15 +94,15 @@ export function ProjectFilter() {
                   className={`w-full text-left px-4 py-3 rounded-lg border transition-colors flex items-center justify-between gap-4 ${
                     isOpen
                       ? 'border-emerald-neon/50 bg-glass-bg'
-                      : hasActiveTag
+                      : activeTagInGroup
                         ? 'border-emerald-neon/30 bg-glass-bg-light'
                         : 'border-border-subtle bg-glass-bg-light hover:border-emerald-neon/30 hover:bg-glass-bg'
                   }`}
                 >
                   <span className="text-xs font-mono uppercase tracking-widest text-emerald-neon">
                     {t(group.label)}
-                    {hasActiveTag && (
-                      <span className="text-foreground"> — {activeFilter.replace(/_/g, ' ')}</span>
+                    {activeTagInGroup && (
+                      <span className="text-foreground"> — {activeTagInGroup.replace(/_/g, ' ')}</span>
                     )}
                   </span>
                   <motion.span
@@ -109,9 +128,9 @@ export function ProjectFilter() {
                           {tags.map((tag) => (
                             <button
                               key={tag}
-                              onClick={() => handleFilter(tag)}
+                              onClick={() => handleFilter(group.key, tag)}
                               className={`px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider rounded border transition-all ${
-                                activeFilter === tag
+                                activeTagInGroup === tag
                                   ? 'bg-emerald-neon/20 text-emerald-neon border-emerald-neon/50'
                                   : 'text-text-muted border-glass-border hover:text-foreground hover:border-text-muted hover:-translate-y-0.5'
                               }`}
