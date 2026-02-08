@@ -88,7 +88,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosJlrX391',
     standardSoftwareKey: 'projStdSwJlrX391',
     robotsTechnologyKey: 'projRobTechJlrX391',
-    tags: ['JLR', 'Robcad', 'Fanuc_Robots', 'Spot_Welding_Steel', 'Spot_Welding_ALU', 'Adhesive', 'Stud_Welding', 'Riveting', 'Simulation_Leader', 'Simulation_Engineer'],
+    tags: ['JLR', 'Robcad', 'Fanuc_Robots', 'Adhesive', 'Riveting', 'Simulation_Leader', 'Simulation_Engineer'],
   },
   {
     id: 'jlrX540Magna',
