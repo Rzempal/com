@@ -15,7 +15,6 @@ const NAV_LINKS = [
   { key: 'pillars', href: '#pillars' },
   { key: 'projects', href: '#projects' },
   { key: 'faq', href: '#faq' },
-  { key: 'contact', href: '#contact' },
 ] as const;
 
 type Theme = 'system' | 'light' | 'dark';

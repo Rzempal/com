@@ -1,9 +1,8 @@
 'use client';
 
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ProjectFilter } from './ProjectFilter';
 
 const fadeInUp = {
@@ -21,7 +20,6 @@ const staggerContainer = {
 
 function HeroSection() {
   const t = useTranslations('robotyka.projects');
-  const locale = useLocale();
 
   return (
     <section className="relative py-16 md:py-24 overflow-hidden">
@@ -42,12 +40,12 @@ function HeroSection() {
               {t('heroDescription')}
             </motion.p>
             <motion.div variants={fadeInUp}>
-              <Link
-                href={`/${locale}#contact`}
+              <a
+                href="#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-neon/10 text-emerald-neon border border-emerald-neon/30 rounded font-mono text-sm hover:bg-emerald-neon/20 transition-colors"
               >
                 {t('heroCta')}
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
 
@@ -112,7 +110,6 @@ function ProjectsSection() {
 
 function CtaSection() {
   const t = useTranslations('robotyka.projects');
-  const locale = useLocale();
 
   return (
     <section className="py-16">
@@ -133,12 +130,12 @@ function CtaSection() {
               {t('ctaDescription')}
             </p>
           </div>
-          <Link
-            href={`/${locale}#contact`}
+          <a
+            href="#contact"
             className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-neon/10 text-emerald-neon border border-emerald-neon/30 rounded font-mono text-sm hover:bg-emerald-neon/20 transition-colors shrink-0"
           >
             {t('ctaButton')}
-          </Link>
+          </a>
         </motion.div>
       </div>
     </section>

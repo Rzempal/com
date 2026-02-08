@@ -257,7 +257,6 @@ function ExperienceCta() {
 
 function CtaSection() {
   const t = useTranslations('robotyka.cta');
-  const locale = useLocale();
 
   return (
     <section className="py-16 md:py-24">
@@ -278,12 +277,12 @@ function CtaSection() {
               {t('description')}
             </p>
           </div>
-          <Link
-            href={`/${locale}#contact`}
+          <a
+            href="#contact"
             className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-neon/10 text-emerald-neon border border-emerald-neon/30 rounded font-mono text-sm hover:bg-emerald-neon/20 transition-colors shrink-0"
           >
             {t('button')}
-          </Link>
+          </a>
         </motion.div>
       </div>
     </section>
