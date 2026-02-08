@@ -3,7 +3,8 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, MotionValue, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import { useContainerWidth } from '@/components/ui/useContainerLayout';
 
 // === Project Data ===
@@ -32,7 +33,7 @@ const projects: Project[] = [
     color: '#10b981',
     accentClass: 'bg-emerald-500',
     tags: ['TECNOMATIX', 'KUKA', 'SYMULACJA'],
-    ctaUrl: 'https://robotyka.michalrapala.com/projekty.html',
+    ctaUrl: '/robotyka/projekty',
   },
   {
     id: 'apps',
@@ -193,36 +194,47 @@ function LockedOverlay({ color }: { color: string }) {
 
 // === CTA Button Component ===
 function CTAButton({ url, label, color }: { url: string; label: string; color: string }) {
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 px-2 py-1 rounded font-mono text-[10px] uppercase tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 whitespace-nowrap"
-      style={{
-        backgroundColor: `${color}20`,
-        borderColor: `${color}50`,
-        color: color,
-        border: '1px solid',
-      }}
+  const locale = useLocale();
+  const isExternal = url.startsWith('http');
+  const className = "inline-flex items-center gap-1.5 px-2 py-1 rounded font-mono text-[10px] uppercase tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 whitespace-nowrap";
+  const style = {
+    backgroundColor: `${color}20`,
+    borderColor: `${color}50`,
+    color: color,
+    border: '1px solid',
+  };
+  const icon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  );
+
+  if (isExternal) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" className={className} style={style}>
+        {label}
+        {icon}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={`/${locale}${url}`} className={className} style={style}>
       {label}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="10"
-        height="10"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-        <polyline points="15 3 21 3 21 9" />
-        <line x1="10" y1="14" x2="21" y2="3" />
-      </svg>
-    </a>
+      {icon}
+    </Link>
   );
 }
 
@@ -477,6 +489,7 @@ export function StickyProjectDeck() {
 // === Desktop Card (smaller, for horizontal layout) ===
 function DesktopCard({ project, index, expanded }: { project: Project; index: number; expanded?: boolean }) {
   const t = useTranslations(`projects.${project.translationKey}`);
+  const locale = useLocale();
   
   const width = expanded ? 480 : 280;
   const height = expanded ? 640 : 380;
@@ -538,14 +551,25 @@ function DesktopCard({ project, index, expanded }: { project: Project; index: nu
         </div>
         
         {project.ctaUrl && (
-          <a href={project.ctaUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono uppercase" style={{ color: project.color }}>
-            {t('cta')}
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </svg>
-          </a>
+          project.ctaUrl.startsWith('http') ? (
+            <a href={project.ctaUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono uppercase" style={{ color: project.color }}>
+              {t('cta')}
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          ) : (
+            <Link href={`/${locale}${project.ctaUrl}`} className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono uppercase" style={{ color: project.color }}>
+              {t('cta')}
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </Link>
+          )
         )}
       </div>
     </div>

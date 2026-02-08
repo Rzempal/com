@@ -16,7 +16,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosMagnaForseven',
     standardSoftwareKey: 'projStdSwMagnaForseven',
     robotsTechnologyKey: 'projRobTechMagnaForseven',
-    tags: ['Magna', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding', 'Alu', 'Steel', 'Stud_Welding', 'Adhesive', 'FDS', 'Riveting', 'Screwing', 'Simulation_Leader'],
+    tags: ['Magna', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding_Steel', 'Spot_Welding_ALU', 'Stud_Welding', 'Adhesive', 'FDS', 'Riveting', 'Screwing', 'Simulation_Leader'],
   },
   {
     id: 'bmwJ0xOxford',
@@ -25,7 +25,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosBmwJ0xOxford',
     standardSoftwareKey: 'projStdSwBmwJ0xOxford',
     robotsTechnologyKey: 'projRobTechBmwJ0xOxford',
-    tags: ['BMW_v7', 'Process_Simulate', 'ABB_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Simulation_Leader'],
+    tags: ['BMW_V7', 'Process_Simulate', 'ABB_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Leader'],
   },
   {
     id: 'bmwNcarDebrecen',
@@ -34,7 +34,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosBmwNcarDebrecen',
     standardSoftwareKey: 'projStdSwBmwNcarDebrecen',
     robotsTechnologyKey: 'projRobTechBmwNcarDebrecen',
-    tags: ['BMW_v8', 'Process_Simulate', 'Fanuc_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Simulation_Leader', 'Simulation_Engineer'],
+    tags: ['BMW_v8', 'Process_Simulate', 'Fanuc_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Leader', 'Simulation_Engineer'],
   },
   {
     id: 'gKlasseMagna',
@@ -43,7 +43,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosGKlasseMagna',
     standardSoftwareKey: 'projStdSwGKlasseMagna',
     robotsTechnologyKey: 'projRobTechGKlasseMagna',
-    tags: ['Magna', 'KUKA_Work_Visual', 'KUKA_Robots', 'Spot_Welding', 'Stud_Welding', 'Adhesive', 'Steel', 'Online_Robot_Programming', 'Line_Leader'],
+    tags: ['Magna', 'KUKA_Work_Visual', 'KUKA_Robots', 'Spot_Welding_Steel', 'Stud_Welding', 'Adhesive', 'Online_Robot_Programming', 'Online_Leader'],
   },
   {
     id: 'vwWob',
@@ -52,7 +52,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosVwWob',
     standardSoftwareKey: 'projStdSwVwWob',
     robotsTechnologyKey: 'projRobTechVwWob',
-    tags: ['VW', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding', 'Stud_Welding', 'Steel', 'Adhesive', 'Simulation_Leader', 'Simulation_Engineer', 'Online_Support'],
+    tags: ['VW', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding_Steel', 'Stud_Welding', 'Adhesive', 'Simulation_Leader', 'Simulation_Engineer', 'Online_Support'],
   },
   {
     id: 'glassExtrusion',
@@ -70,7 +70,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosOpelRusselsheim',
     standardSoftwareKey: 'projStdSwOpelRusselsheim',
     robotsTechnologyKey: 'projRobTechOpelRusselsheim',
-    tags: ['OPEL_Legacy', 'Process_Simulate', 'Fanuc_Robots', 'Spot_Welding', 'Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Leader', 'Simulation_Engineer'],
+    tags: ['OPEL_Legacy', 'Process_Simulate', 'Fanuc_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Leader', 'Simulation_Engineer'],
   },
   {
     id: 'ineosGrenadier',
@@ -79,7 +79,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosIneosGrenadier',
     standardSoftwareKey: 'projStdSwIneosGrenadier',
     robotsTechnologyKey: 'projRobTechIneosGrenadier',
-    tags: ['Ineos', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Simulation_Leader', 'Simulation_Engineer'],
+    tags: ['Ineos', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Leader', 'Simulation_Engineer'],
   },
   {
     id: 'jlrX391',
@@ -88,7 +88,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosJlrX391',
     standardSoftwareKey: 'projStdSwJlrX391',
     robotsTechnologyKey: 'projRobTechJlrX391',
-    tags: ['JLR', 'Robcad', 'Fanuc_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Riveting', 'Alu', 'Simulation_Leader', 'Simulation_Engineer'],
+    tags: ['JLR', 'Robcad', 'Fanuc_Robots', 'Adhesive', 'Riveting', 'Simulation_Leader', 'Simulation_Engineer'],
   },
   {
     id: 'jlrX540Magna',
@@ -97,7 +97,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosJlrX540Magna',
     standardSoftwareKey: 'projStdSwJlrX540Magna',
     robotsTechnologyKey: 'projRobTechJlrX540Magna',
-    tags: ['Magna', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Simulation_Leader', 'Simulation_Engineer'],
+    tags: ['Magna', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Leader', 'Simulation_Engineer'],
   },
   {
     id: 'vwCrafter',
@@ -106,7 +106,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosVwCrafter',
     standardSoftwareKey: 'projStdSwVwCrafter',
     robotsTechnologyKey: 'projRobTechVwCrafter',
-    tags: ['VW', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Offline_Robot_Programming'],
+    tags: ['VW', 'Process_Simulate', 'KUKA_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Offline_Robot_Programming'],
   },
   {
     id: 'audi49x',
@@ -115,7 +115,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosAudi49x',
     standardSoftwareKey: 'projStdSwAudi49x',
     robotsTechnologyKey: 'projRobTechAudi49x',
-    tags: ['VW', 'Robcad', 'Fanuc_Robots', 'Spot_Welding', 'Steel', 'Adhesive', 'Stud_Welding', 'Offline_Robot_Programming'],
+    tags: ['VW', 'Robcad', 'Fanuc_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Offline_Robot_Programming'],
   },
   {
     id: 'volvoV54x',
@@ -124,7 +124,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosVolvoV54x',
     standardSoftwareKey: 'projStdSwVolvoV54x',
     robotsTechnologyKey: 'projRobTechVolvoV54x',
-    tags: ['Volvo', 'Process_Simulate', 'ABB_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Offline_Robot_Programming'],
+    tags: ['Volvo', 'Process_Simulate', 'ABB_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Offline_Robot_Programming'],
   },
   {
     id: 'bmwOld',
@@ -133,7 +133,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosBmwOld',
     standardSoftwareKey: 'projStdSwBmwOld',
     robotsTechnologyKey: 'projRobTechBmwOld',
-    tags: ['BMW_Standard', 'Process_Simulate', 'ABB_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Simulation_Engineer'],
+    tags: ['BMW_V7', 'Process_Simulate', 'ABB_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Engineer'],
   },
   {
     id: 'daimlerBr213',
@@ -142,7 +142,7 @@ export const projectData: RobotykaProject[] = [
     positionKey: 'projPosDaimlerBr213',
     standardSoftwareKey: 'projStdSwDaimlerBr213',
     robotsTechnologyKey: 'projRobTechDaimlerBr213',
-    tags: ['Daimler', 'Delmia_V5', 'KUKA_Robots', 'Spot_Welding', 'Adhesive', 'Stud_Welding', 'Steel', 'Simulation_Engineer'],
+    tags: ['Daimler', 'Delmia_V5', 'KUKA_Robots', 'Spot_Welding_Steel', 'Adhesive', 'Stud_Welding', 'Simulation_Engineer'],
   },
 ];
 
@@ -151,38 +151,40 @@ export const FILTER_GROUPS = {
     'Simulation_Leader',
     'Simulation_Engineer',
     'Online_Robot_Programming',
-    'Line_Leader',
+    'Online_Leader',
     'Offline_Robot_Programming',
     'Online_Support',
   ],
-  standardSoftware: [
+  standard: [
     'Magna',
-    'Process_Simulate',
-    'BMW_v7',
+    'BMW_V7',
     'BMW_v8',
-    'KUKA_Work_Visual',
     'VW',
     'OPEL_Legacy',
     'JLR',
-    'Robcad',
     'Volvo',
-    'Delmia_V5',
     'Daimler',
     'Ineos',
-    'BMW_Standard',
+    'Glass_Industry',
   ],
-  robotsTechnology: [
+  software: [
+    'Process_Simulate',
+    'KUKA_Work_Visual',
+    'Robcad',
+    'Delmia_V5',
+  ],
+  robots: [
     'KUKA_Robots',
     'ABB_Robots',
     'Fanuc_Robots',
-    'Spot_Welding',
+  ],
+  technology: [
+    'Spot_Welding_Steel',
+    'Spot_Welding_ALU',
     'Stud_Welding',
     'Adhesive',
     'FDS',
     'Riveting',
     'Screwing',
-    'Alu',
-    'Steel',
-    'Glass_Industry',
   ],
 } as const;
