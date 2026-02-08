@@ -66,7 +66,7 @@ export function ProjectFilter() {
             if (tags.length === 0) return null;
 
             const isOpen = openGroup === i;
-            const hasActiveTag = tags.includes(activeFilter);
+            const hasActiveTag = (tags as string[]).includes(activeFilter);
 
             return (
               <div key={group.key}>
