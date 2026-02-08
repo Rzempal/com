@@ -125,58 +125,6 @@ export function SiteMap() {
           </nav>
         </div>
 
-        {/* Column 3: Options */}
-        <div>
-          <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
-            {t('optionsHeading')}
-          </h3>
-          <div className="flex flex-col gap-4">
-            {/* Language toggle */}
-            <div className="flex items-center rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden w-fit">
-              <button
-                onClick={() => switchLocale('pl')}
-                className={`px-3 py-2 text-xs font-mono transition-colors ${
-                  locale === 'pl'
-                    ? 'text-cyan-400 bg-surface-hover'
-                    : 'text-text-tertiary hover:text-text-muted'
-                }`}
-              >
-                PL
-              </button>
-              <div className="w-px h-5 bg-border-subtle" />
-              <button
-                onClick={() => switchLocale('en')}
-                className={`px-3 py-2 text-xs font-mono transition-colors ${
-                  locale === 'en'
-                    ? 'text-cyan-400 bg-surface-hover'
-                    : 'text-text-tertiary hover:text-text-muted'
-                }`}
-              >
-                EN
-              </button>
-            </div>
-
-            {/* Theme toggle */}
-            <div className="flex items-center rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden w-fit">
-              {THEME_OPTIONS.map(({ value, icon: Icon }) => (
-                <button
-                  key={value}
-                  onClick={() => setTheme(value)}
-                  className={`p-2 transition-colors ${
-                    theme === value
-                      ? 'text-cyan-400 bg-surface-hover'
-                      : 'text-text-tertiary hover:text-text-muted'
-                  }`}
-                  aria-label={t(`theme.${value}`)}
-                  title={t(`theme.${value}`)}
-                >
-                  <Icon size={16} strokeWidth={1.5} />
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Column 3: Contact */}
         <div>
           <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
@@ -235,6 +183,58 @@ export function SiteMap() {
                 </span>
               </a>
             ))}
+          </div>
+        </div>
+
+        {/* Column 4: Options */}
+        <div>
+          <h3 className="text-xs font-mono text-text-tertiary uppercase tracking-widest mb-6">
+            {t('optionsHeading')}
+          </h3>
+          <div className="flex flex-col gap-4">
+            {/* Language toggle */}
+            <div className="flex items-center rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden w-fit">
+              <button
+                onClick={() => switchLocale('pl')}
+                className={`px-3 py-2 text-xs font-mono transition-colors ${
+                  locale === 'pl'
+                    ? 'text-cyan-400 bg-surface-hover'
+                    : 'text-text-tertiary hover:text-text-muted'
+                }`}
+              >
+                PL
+              </button>
+              <div className="w-px h-5 bg-border-subtle" />
+              <button
+                onClick={() => switchLocale('en')}
+                className={`px-3 py-2 text-xs font-mono transition-colors ${
+                  locale === 'en'
+                    ? 'text-cyan-400 bg-surface-hover'
+                    : 'text-text-tertiary hover:text-text-muted'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
+            {/* Theme toggle */}
+            <div className="flex items-center rounded-lg border border-border-subtle bg-glass-bg-light overflow-hidden w-fit">
+              {THEME_OPTIONS.map(({ value, icon: Icon }) => (
+                <button
+                  key={value}
+                  onClick={() => setTheme(value)}
+                  className={`p-2 transition-colors ${
+                    theme === value
+                      ? 'text-cyan-400 bg-surface-hover'
+                      : 'text-text-tertiary hover:text-text-muted'
+                  }`}
+                  aria-label={t(`theme.${value}`)}
+                  title={t(`theme.${value}`)}
+                >
+                  <Icon size={16} strokeWidth={1.5} />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </motion.div>
